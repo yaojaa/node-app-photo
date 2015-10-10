@@ -2,7 +2,7 @@ var config = require('./config');
 
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -36,6 +36,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('cookie-parser')(config.session_secret));
+
+//这里有个警告！
 app.use(session({ secret: config.session_secret, cookie: { maxAge: 60000 }}))
 
 //处理session的中间件
