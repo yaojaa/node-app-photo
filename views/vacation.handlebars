@@ -1,0 +1,12 @@
+<h1>vacations list from mongodb</h1>
+
+{{#each vacations}}
+	<div class="vacation">
+		<h3>{{name}}</h3>
+		<p>{{description}}</p>
+		{{#if inSeason}}
+			<span class="price">{{price}}</span>
+			<a href="/cart/add?sku={{sku}}" > buy now</a>
+		{{else}}
+		<span class="outofSeason">对不起，不提供</span>
+	</div>

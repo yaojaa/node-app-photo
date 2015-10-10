@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+    <title>Meadowlark Travel</title>
+	{{#if showTests}}
+		<link rel="stylesheet" href="/vendor/mocha.css">
+	{{/if}}
+		<script src="/vendor/js/jquery-2.1.4.min.js" > </script>
+
+</head>
+<body>
+<header>
+
+<h1>管理中心</h1>
+	
+{{#if user}}
+
+<h2>欢迎管理员回来！！{{user}}</h2> <a href="/logout">退出</a>
+
+{{else}}
+
+	<h2>管理员登录</h2>
+	<form method="post" action="/login">
+	<p><input type="text" name="email" placeholder="邮箱" /></p>
+	<p><input type="password" name="password" placeholder="密码"  /></p>
+	<p><button>登录</button>
+	</p>
+    </form>
+{{/if}}
+<hr>
+		
+
+</header>
+
+<nav><a href="/">管理首页</a> <a href="/photo">图片管理</a> <a href="/video">视频管理</a></nav>
+
+    {{{body}}}
+
+	{{#if showTests}}
+		<div id="mocha"></div>
+		<script src="/vendor/mocha.js"></script>
+		<script src="/vendor/chai.js"></script>
+		<script>
+			mocha.ui('tdd');
+			var assert = chai.assert;
+		</script>
+		<script src="/qa/tests-global.js"></script>
+		{{#if pageTestScript}}
+			<script src="{{pageTestScript}}"></script>
+		{{/if}}
+		<script>mocha.run();</script>
+	{{/if}}
+</body>
+</html>

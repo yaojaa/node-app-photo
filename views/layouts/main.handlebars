@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <title>Meadowlark Travel</title>
+	{{#if showTests}}
+		<link rel="stylesheet" href="/vendor/mocha.css">
+	{{/if}}
+		<script src="/vendor/js/jquery-2.1.4.min.js" > </script>
+
+</head>
+<body>
+	<header><h1>LOGO</h1>
+	
+
+
+
+{{#if user}}
+
+
+<h2>欢迎回来！！{{user}}</h2> <a href="/logout">退出</a>
+
+{{else}}
+
+<div class="user">
+			<a href="/signup">注册</a><a href="/login">登录</a>
+		</div>
+
+
+{{/if}}
+<hr>
+	<nav><a href="/">首页</a> <a href="/photo">图片</a> <a href="/video">视频</a></nav>
+		
+
+	</header>
+    {{{body}}}
+
+	{{#if showTests}}
+		<div id="mocha"></div>
+		<script src="/vendor/mocha.js"></script>
+		<script src="/vendor/chai.js"></script>
+		<script>
+			mocha.ui('tdd');
+			var assert = chai.assert;
+		</script>
+		<script src="/qa/tests-global.js"></script>
+		{{#if pageTestScript}}
+			<script src="{{pageTestScript}}"></script>
+		{{/if}}
+		<script>mocha.run();</script>
+	{{/if}}
+</body>
+</html>
