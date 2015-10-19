@@ -12,18 +12,14 @@ var uuid    = require('node-uuid');
  * @param {Function} callback 回调函数
  */
 exports.getUserByMail = function (email, callback) {
-  //  if (email.length === 0) {
-  //   return callback(null, []);
-  // }
-
-  console.log('进入getUserByMail'+email)
   User.findOne({'email': email}, callback);
 };
 
-exports.newAndSave = function (password, email, active, callback) {
+exports.newAndSave = function (password, email, username,active, callback) {
   var user         = new User();
-  user.pass        = password;
+  user.password    = password;
   user.email       = email;
+  user.user_name    = username;
   user.avatar      = '';
   user.active      = active || false;
   user.accessToken = uuid.v4();

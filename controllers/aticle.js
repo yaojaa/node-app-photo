@@ -12,7 +12,7 @@ exports.showAticleList = function(req, res) {
   Aticle.findOnePage(page,function(err,lists,count){
 
      if (err) {
-        return next(err);
+        return (err);
               }
 
   res.render('aticle',{

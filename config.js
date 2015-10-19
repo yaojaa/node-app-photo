@@ -35,18 +35,18 @@ var config = {
   cnzz_tracker_id: '',
 
   // mongodb 配置
-  db: 'mongodb://127.0.0.1/text',
+  db: 'mongodb://127.0.0.1/cms',
 
 
 
-  session_secret: 'node_club_secret', // 务必修改
+  session_secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // 务必修改
   auth_cookie_name: 'node_club',
 
   // 程序运行的端口
   port: 3000,
 
   // 话题列表显示的话题数量
-  list_topic_count: 20,
+  list_topic_count: 5,
 
   // RSS配置
   rss: {

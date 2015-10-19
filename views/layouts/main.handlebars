@@ -1,7 +1,23 @@
 <!doctype html>
 <html>
 <head>
-    <title>Meadowlark Travel</title>
+    <title>NodeJSCMS</title>
+
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+
+
+
+
 	{{#if showTests}}
 		<link rel="stylesheet" href="/vendor/mocha.css">
 	{{/if}}
@@ -9,7 +25,18 @@
 
 </head>
 <body>
-	<header><h1>LOGO</h1>
+{{#if success}}
+  <div class="alert alert-success" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{success}}</div>
+{{/if}}
+
+{{#if error}}
+  <div  class="alert alert-danger" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}} </div>
+{{/if}}
+
+
+<header>
+
+	<h1>NodeJSCMS</h1>
 	
 
 
@@ -17,7 +44,8 @@
 {{#if user}}
 
 
-<h2>欢迎回来！！{{user}}</h2> <a href="/logout">退出</a>
+<h2>欢迎回来！！{{user.username}}</h2> <a href="/logout">退出</a> <a href="/create-aticle">发文字</a> <a href="/create-photo">发图片</a>
+
 
 {{else}}
 
@@ -28,7 +56,7 @@
 
 {{/if}}
 <hr>
-	<nav><a href="/">首页</a> <a href="/photo">图片</a> <a href="/video">视频</a></nav>
+	<nav><a href="/">首页</a> <a href="/aticle">文章</a> <a href="/photo">图片</a> <a href="/video">视频</a></nav>
 		
 
 	</header>

@@ -21,6 +21,10 @@
 在线即时通讯。聊天。
 
 ##API
+GET /api/aticles
+获取文章列表
+
+
 GET /api/photos
 获取图片列表
 

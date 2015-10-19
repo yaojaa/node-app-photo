@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var app = express();
+var cors = require('cors');
 
 var handlebars=require('express3-handlebars')
                 .create({defaultLayout:'main'});
@@ -96,7 +97,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //路由
 var router=require('./routers.js');
+var apiRouterV1 = require('./api_router_v1');
+
+app.use('/api/v1', cors(), apiRouterV1);
 app.use('/', router);
+
 // app.use(function(req, res, next) {
 
 //   res.locals.showTests=app.get('env')!=='production' && req.query.test==='1'
