@@ -4,19 +4,12 @@ var express = require('express');
 var path = require('path');
 // var favicon = require('serve-favicon');
 var logger = require('morgan');
+
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var bodyParser = require('body-parser');
-
-//自定义模块
-var f=require('./public/lib/fortune.js')
-
-// var routes = require('./routes/index');
-// var users = require('./routes/users');
-// var about = require('./routes/about');
-
-
 var app = express();
+var cors = require('cors');
 
 var handlebars=require('express3-handlebars')
                 .create({defaultLayout:'main'});
@@ -24,6 +17,52 @@ var handlebars=require('express3-handlebars')
 // view engine setup
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
+
+// //开启cookie
+app.use(cookieParser(config.session_secret));
+app.use(session(
+  { secret: config.session_secret, 
+    name:'defautsession',
+
+    cookie: { maxAge: 60000 },
+     resave: false,
+    saveUninitialized: true,
+  }
+    ))
+
+
+/**
+* cookie 中间件
+* 先判断是否有cookie，有的话直接登录
+*/
+app.use(function (req, res, next) {
+    if (req.session.user) {
+        return next();//若有session，直接跳过此中间件
+    } else {
+        var cookie = req.signedCookies[config.auth_cookie_name];//读cookie，通过配置文件中标识符读cookie
+            if (!cookie) {
+                return next();//若没有此站点的cookie，直接跳过此中间件
+            }
+
+  //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
+        var auth = cookie.split('$$$$');
+        var username = auth[0], passwd = auth[1];//解密后拿到username与password
+            var data = {
+                username:username,
+                password:passwd,
+            }
+
+          req.session.user = data;//存在此用户，开启session，存储user
+          return next();//进行下一步
+        
+       }
+
+        })
+
+
+
+//消息提示组件
+// app.use(flash());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -35,16 +74,19 @@ app.set('view engine', 'handlebars');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(require('cookie-parser')(config.session_secret));
 
-//这里有个警告！
-app.use(session({ secret: config.session_secret, cookie: { maxAge: 60000 }}))
+
+
+
 
 //处理session的中间件
 app.use(function(req, res, next) {
-  req.user=res.locals.user=req.session.uid
+  req.user=res.locals.user=req.session.user;
   next();
 });
+
+
+
 
 //static中间件
 app.use(express.static(path.join(__dirname, 'public')));
@@ -55,7 +97,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //路由
 var router=require('./routers.js');
+var apiRouterV1 = require('./api_router_v1');
+
+app.use('/api/v1', cors(), apiRouterV1);
 app.use('/', router);
+
 // app.use(function(req, res, next) {
 
 //   res.locals.showTests=app.get('env')!=='production' && req.query.test==='1'

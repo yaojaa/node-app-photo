@@ -1,5 +1,7 @@
 var express = require('express');
 var sign = require('./controllers/sign');
+var aticle = require('./controllers/aticle');
+
 
 var app = express();
 
@@ -7,7 +9,7 @@ var router = express.Router();
 
 
 router.get('/', function (req, res) {
- res.render('home',{user:res.locals.user})
+ res.render('home',{user:req.session.user})
 })
 
 // var router = express.route;
@@ -38,4 +40,13 @@ router.get('/video', function (req, res) {
 })
 
 
+router.get('/aticle', aticle.showAticleList) //文章列表
+
+
+router.get('/a/:_id', aticle.showDetail) //文章正文
+
+
+router.get('/create-aticle', aticle.showCreate)
+
+router.post('/create-aticle', aticle.create)
 module.exports = router;

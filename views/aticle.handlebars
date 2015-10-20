@@ -1,0 +1,31 @@
+
+<h1>文章</h1>
+
+
+<div class="list-group">
+  
+  {{#each aticles}}
+  <a href="/a/{{_id}}" class="list-group-item ">
+    <h4 class="list-group-item-heading">{{title}} <small>{{update_at}}</small></h4>
+    <p class="list-group-item-text">{{content}}</p>
+  </a>
+  {{/each}}
+
+   
+</div>
+
+
+<span class="prepage"><a title="上一页" href="?{{prev}}">上一页</a></span>
+<span class="prepage"><a title="上一页" href="?{{next}}">下一页</a></span>
+共计{{count}}条
+
+
+<script>
+	$.getJSON('/api/v1/aticles',{limit:5,page:1},function(data){
+
+		console.log(data)
+
+	})
+</script>
+
+
