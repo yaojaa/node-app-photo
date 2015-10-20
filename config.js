@@ -35,7 +35,7 @@ var config = {
   cnzz_tracker_id: '',
 
   // mongodb 配置
-  db: 'mongodb://127.0.0.1/text',
+  db: 'mongodb://1.93.14.48/cms',
 
 
 
