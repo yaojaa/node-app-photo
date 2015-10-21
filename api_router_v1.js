@@ -1,4 +1,6 @@
-var express           = require('express');
+var app           = require('express');
+var bodyParser = require('body-parser');
+
 var aticleController   = require('./api/v1/aticle');
 
 // var topicController   = require('./api/v1/topic');
@@ -10,12 +12,34 @@ var aticleController   = require('./api/v1/aticle');
 // var limit             = require('./middlewares/limit');
 var config            = require('./config');
 
-var router            = express.Router();
+var router            = app.Router();
 
-
-// 主题
 
 router.get('/aticles', aticleController.index);
+
+//上传图片
+
+router.post('/upload', function (req,res) {
+
+	console.log(req.body);
+
+	console.log('upload...........................')
+
+	res.send({'req':'req'})
+
+
+	// body...
+});
+
+
+router.get('/upload', function (req,res) {
+
+	res.send({'req':12313})
+
+
+	// body...
+});
+
 
 
 

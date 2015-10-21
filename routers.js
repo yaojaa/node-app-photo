@@ -2,6 +2,8 @@ var express = require('express');
 var sysRouter = require('./sys_routers');
 var sign = require('./controllers/sign');
 var aticle = require('./controllers/aticle');
+var photo = require('./controllers/photo');
+
 
 
 var app = express();
@@ -54,4 +56,7 @@ router.get('/a/:_id', aticle.showDetail) //文章正文
 router.get('/create-aticle', aticle.showCreate)
 
 router.post('/create-aticle', aticle.create)
+
+router.get('/create-photo', photo.showCreate)
+
 module.exports = router;
