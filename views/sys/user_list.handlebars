@@ -1,0 +1,34 @@
+<div class="table-responsive">
+  <table id="datatable" class="table table-striped">
+  </table>
+</div>
+
+{{#section 'script'}}
+
+<script>
+
+  $(function(){
+    search();
+
+  });
+
+  function search() {
+    var data = {};
+    new DataTable({
+      id: '#datatable',
+      paging: true,
+      pageSize: 10,
+      ajax: {
+        url: '/sys/user/list',
+        data: data
+      },
+      columns: [{
+        "data": "login_name",
+        "title": "姓名"
+      }]
+    });
+  }
+
+</script>
+
+{{/section}}

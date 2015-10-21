@@ -1,4 +1,5 @@
 var express = require('express');
+var sysRouter = require('./sys_routers');
 var sign = require('./controllers/sign');
 var aticle = require('./controllers/aticle');
 
@@ -11,6 +12,10 @@ var router = express.Router();
 router.get('/', function (req, res) {
  res.render('home',{user:req.session.user})
 })
+
+//后台接口
+router.use('/sys', sysRouter);
+
 
 // var router = express.route;
 

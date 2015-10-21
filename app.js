@@ -11,8 +11,17 @@ var session = require('express-session');
 var app = express();
 var cors = require('cors');
 
-var handlebars=require('express3-handlebars')
-                .create({defaultLayout:'main'});
+var handlebars = require('express3-handlebars')
+  .create({
+    defaultLayout: 'main',
+    helpers: {
+      section: function (name, options) {
+        if (!this._sections)this._sections = {};
+        this._sections[name] = options.fn(this);
+        return null;
+      }
+    }
+  });
 
 // view engine setup
 app.engine('handlebars', handlebars.engine);

@@ -18,9 +18,15 @@ require('./aticle');
 // require('./topic_collect');
 // require('./message');
 
+
+// sys
+require('./sys/user');
+
 exports.User         = mongoose.model('User');
 exports.Aticle        = mongoose.model('Aticle');
 // exports.Reply        = mongoose.model('Reply');
 // exports.TopicCollect = mongoose.model('TopicCollect');
 // exports.Message      = mongoose.model('Message');
 
+//管理员
+exports.SysUser         = mongoose.model('SysUser');
