@@ -14,12 +14,14 @@ mongoose.connect(config.db, {
 // models
 require('./user');
 require('./aticle');
-// require('./reply');
+require('./photo');
 // require('./topic_collect');
 // require('./message');
 
 exports.User         = mongoose.model('User');
 exports.Aticle        = mongoose.model('Aticle');
+exports.Photo        = mongoose.model('Photo');
+
 // exports.Reply        = mongoose.model('Reply');
 // exports.TopicCollect = mongoose.model('TopicCollect');
 // exports.Message      = mongoose.model('Message');
