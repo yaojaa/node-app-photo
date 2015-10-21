@@ -35,10 +35,7 @@ var config = {
   cnzz_tracker_id: '',
 
   // mongodb 配置
-  db: 'mongodb://127.0.0.1/cms',
-
-
-
+  db: 'mongodb://1.93.14.48:27017/cms',
   session_secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // 务必修改
   auth_cookie_name: 'node_club',
 
