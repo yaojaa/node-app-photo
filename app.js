@@ -33,7 +33,7 @@ app.use(session(
   { secret: config.session_secret, 
     name:'defautsession',
 
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 1000 * 60 * 30 },//session设置30分钟
      resave: false,
     saveUninitialized: true,
   }
