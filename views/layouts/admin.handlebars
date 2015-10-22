@@ -18,6 +18,7 @@
   <!-- Custom styles for this template -->
   <link href="/stylesheets/dashboard.css" rel="stylesheet">
   <link href="/stylesheets/common.css" rel="stylesheet">
+  <link href="/stylesheets/bootbox.css" rel="stylesheet">
 </head>
 
 <body>
@@ -36,7 +37,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">当前用户: 【{{loginname}}】</a></li>
-        <li><a href="/sys/repwd">【修改密码】</a></li>
+        <li><a href="javascript:CMS.repwd();">【修改密码】</a></li>
         <li><a href="/sys/logout">退出</a></li>
       </ul>
     </div>
@@ -66,6 +67,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/lib/bootbox.js"></script>
 <script src="/lib/common.js"></script>
 {{{_sections.script}}}
 </body>

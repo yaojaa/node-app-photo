@@ -5,6 +5,11 @@ var router = express.Router();
 
 router.use('/*', function (req, res, next) {
   var user = req.session.sysUser;
+  if(user){
+    console.log("user name === " + user['login_name']);
+  } else {
+    console.log("user no login ");
+  }
   var path = req.originalUrl;
   if (!user && path != '/sys/login') {
     res.redirect('/sys/login');
@@ -31,11 +36,15 @@ router.get('/user/list', function (req, res) {
 
 router.post('/user/list', main.page);
 
+router.post('/user/add', main.save);
+
+router.post('/user/repwd', main.repwd);
+
 function out(req, res, view, data) {
   var user = req.session.sysUser;
   if (!data) data = {};
   data.layout = 'admin';
-  data.loginname = user.login_name;
+  data.loginname = user['login_name'];
   res.render(view, data);
 }
 

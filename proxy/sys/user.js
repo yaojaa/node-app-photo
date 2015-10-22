@@ -11,6 +11,23 @@ exports.get = function (model, callback) {
   User.findOne(model, callback);
 };
 
+
+/**
+ * 根据Id更新
+ * @param {Function} callback 回调函数
+ */
+exports.update = function (id, model, callback) {
+  User.update({_id : id}, model, {multi: false}, callback);
+};
+
+/**
+ * 根据Id更新
+ * @param {Function} callback 回调函数
+ */
+exports.del = function (id, callback) {
+  User.remove({_id : id}, callback);
+};
+
 /**
  * 分页查询
  * @param query 查询条件
@@ -20,6 +37,7 @@ exports.get = function (model, callback) {
 exports.page = function (query, opt, callback) {
   var pageNo = opt.pageNo || 1;
   var pageSize = opt.pageSize || 10;
+  pageNo--;
   async.parallel([
     function (callback) {
       var skip = pageNo * pageSize;

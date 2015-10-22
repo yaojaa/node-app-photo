@@ -1,7 +1,12 @@
+*{
+  font-family: microsoft yahei;
+  outline: none;
+}
+
 .alert-fixed {
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
   width: 100%;
   text-align: center;
   animation: disappear forwards 1s;
@@ -13,7 +18,7 @@
 .alert-fixed-ie {
   position: fixed;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
   width: 100%;
   text-align: center;
 }
@@ -137,4 +142,8 @@
 
 .pagination-pos {
   float: right;
+}
+
+.bootwrap{
+  margin-top: 100px;
 }
