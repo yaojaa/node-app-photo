@@ -12,7 +12,11 @@ router.use('/*', function (req, res, next) {
   }
   var path = req.originalUrl;
   if (!user && path != '/sys/login') {
-    res.redirect('/sys/login');
+    if(req.xhr){
+      res.send({status:"002",msg:"no login"});
+    } else {
+      res.redirect('/sys/login');
+    }
   } else {
     next();
   }

@@ -47,7 +47,7 @@ var CMS = {
           if (data.status == "000") {
             obj.success(data);
           } else if (data.status == "002") {
-            window.location = 'login.html';
+            window.location = '/sys/login';
           } else {
             $.danger(data.msg);
           }

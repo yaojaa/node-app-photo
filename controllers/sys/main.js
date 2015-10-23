@@ -106,15 +106,14 @@ exports.repwd = function(req, res, next) {
 
   var user = req.session.sysUser;
 
-  var md5 = crypto.createHash('md5'),
-    oldpassword = md5.update(oldpassword).digest('hex');
+  oldpassword = crypto.createHash('md5').update(oldpassword).digest('hex');
 
   if(oldpassword != user.password){
     res.send({status:"001",msg:"password is wrong"});
     return;
   }
 
-  password = md5.update(password).digest('hex');
+  password = crypto.createHash('md5').update(password).digest('hex');
   User.update(user._id,{password : password},function(err){
     if(err){
       res.send({status:"001",msg:err.message});
