@@ -11,7 +11,7 @@ var session = require('express-session');
 var app = express();
 var cors = require('cors');
 
-var handlebars = require('express3-handlebars')
+var handlebars = require('express-handlebars')
   .create({
     defaultLayout: 'main',
     helpers: {

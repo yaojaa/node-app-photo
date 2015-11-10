@@ -1,0 +1,1 @@
+require.config({paths:{jquery:"lib/jquery-1.11.1.min",touch:"lib/touch"}}),define(["jquery"],function(a){return function(){a(".menu-icon").on("click",function(){a("html,body").scrollTop(0),a("body").toggleClass("push-left"),a("html").toggleClass("html-of"),a(".menu").show()})}});

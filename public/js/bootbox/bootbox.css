@@ -1,0 +1,226 @@
+    .bootbox-close-button{
+    	transition: all .5s;
+-moz-transition: all .5s; /* Firefox 4 */
+-webkit-transition: all .5s; /* Safari 和 Chrome */
+-o-transition: all .5s; /* Opera */
+font-size: 32px;
+font-weight: 100
+    }
+    .bootbox-close-button:hover{
+    	-webkit-transform:rotate(180deg);
+    	-moz-transform:rotate(180deg);
+         transform:rotate(180deg);
+
+    }
+    .modal-footer{
+    	text-align: center;
+    background-color: #f5f5f5;
+    border-top: 0 none;
+    padding-bottom: 14px;
+    padding-top: 12px;
+
+    }
+.modal-content{
+	border-radius: 0
+}
+.modal-header{
+	 margin-bottom: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 48px;
+}
+
+.modal-header i{
+	font-size: 28px;
+	display: block;
+	margin: 0 auto;
+	width: 30px
+}    
+
+.modal-title{
+	text-align:left;
+}
+
+.modal-info .modal-header {
+    border-bottom: 3px solid #57b5e3;
+    color: #57b5e3;
+}
+.modal-danger .modal-header {
+    border-bottom: 3px solid #e46f61;
+    color: #d73d32;
+}
+.modal-warning .modal-header {
+    border-bottom: 3px solid #ffce55;
+    color: #f4b400;
+}
+.modal-success .modal-header {
+    border-bottom: 3px solid #a0d468;
+    color: #53a93f;
+}
+
+.modal-success .bootbox-body,.modal-danger .bootbox-body,.modal-warning .bootbox-body,.modal-info .bootbox-body{
+	text-align: center;
+	color: #737373;
+	font-size: 18px;
+}
+
+.modal-footer .btn{
+	margin:0 10px;
+	padding: 5px 15px;
+	border-radius: 3px
+}
+.loading  i{
+    font-size: 12px;
+    color: #666;
+    margin-right: 8px;
+    -webkit-animation-name: loading-rotate;
+    -webkit-animation-duration: 0.9s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+      -moz-animation-name: loading-rotate;
+    -moz-animation-duration: 0.9s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+      animation-name: loading-rotate;
+    animation-duration: 0.9s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+}
+
+@-webkit-keyframes loading-rotate {
+    from {
+    -webkit-transform: rotate(0deg);
+    }
+    to {
+    -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes loading-rotate {
+    from {
+    -moz-transform: rotate(0deg);
+    }
+    to {
+    -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes loading-rotate {
+    from {
+    transform: rotate(0deg);
+    }
+    to {
+    transform: rotate(360deg);
+    }
+}
+
+.formRb {
+    left: auto;
+    top: auto;
+}
+.formRb .modal-dialog{
+    margin: 0 auto
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.slideInUp {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+}
+
+@-webkit-keyframes slideInUp {
+  0% {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInUp {
+  0% {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInUp {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
+}
+/*message style*/
+.bootbox-messenger{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 500px;
+  margin: 0 auto
+}
+
+.bootbox-messenger.msg-on-top{
+  top: 0;
+  margin: 0 auto
+}
+
+.bootbox-messenger.msg-on-rb{
+  right:0 ;
+  bottom: 0;
+  left:auto;
+  top: auto;
+}
+
+.bootbox-messenger.msg-on-bottom{
+  bottom: 0;
+  top: auto;
+  margin:0 auto
+}
+
+.bootbox-messenger.msg-on-tr{
+  right: 0;
+  top: 0;
+  left: auto;
+}
+
+.bootbox-messenger.msg-on-lt{
+  left: 0;
+  top: 0;
+  right: auto;
+}
+
+
+.bootbox-messenger.msg-on-lb{
+  left: 0;
+  bottom: 0;
+  right: auto;
+  top: auto;
+}
+
+
+.bootbox-messenger li{
+  padding: 10px;
+  margin:0;
+  overflow: hidden;
+  list-style: none;
+}
+.messenger-close{
+  float: right;
+  font-size: 24px;
+}

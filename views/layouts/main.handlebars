@@ -4,7 +4,9 @@
     <title>NodeJSCMS</title>
 
 	<!-- 新 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/common.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+
 
 
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
@@ -34,33 +36,43 @@
 {{/if}}
 
 
-<header>
+    <div id="header">
+      <div class="innerwapper">
+        <h1 id="logo"> <a href="/">月色写真</a></h1>
+        <ul class="menu">
+          <li class="on"><a href="/">首页</a></li>
+          <li><a href="/aticle">文章</a></lii>
+          <li><a href="/photo">图集</a></li>
+          <li><a href="/video">视频</a></li>
+<!--           <li><a href="/madou.html">模特</a></li>
+          <li><a href="list-shop.html">商店</a></li> -->
+        </ul>
+        <div class="userLoging">
 
-	<h1>NodeJSCMS</h1>
-	
+        {{#if user}}
 
 
-
-{{#if user}}
-
-
-<h2>欢迎回来！！{{user.username}}</h2> <a href="/logout">退出</a> <a href="/create-aticle">发文字</a> <a href="/create-photo">发图片</a>
+<a href="/ucenter">{{user.username}} </a><a href="/logout">退出</a> <a href="/create-aticle">发文字</a> <a href="/create-photo">发图片</a>
 
 
 {{else}}
 
-<div class="user">
-			<a href="/signup">注册</a><a href="/login">登录</a>
-		</div>
+   <a href="login.html" title="View login page" class="start-btn">会员登录</a><a href="reg.html" title="View login page" class="start-btn">注册</a>
 
 
 {{/if}}
-<hr>
-	<nav><a href="/">首页</a> <a href="/aticle">文章</a> <a href="/photo">图片</a> <a href="/video">视频</a></nav>
-		
 
-	</header>
-    {{{body}}}
+     
+
+
+        </div>
+      </div>
+      <div class="navbar-gradient"></div>
+    </div>
+
+
+
+ {{{body}}}
 
 	{{#if showTests}}
 		<div id="mocha"></div>
