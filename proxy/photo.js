@@ -1,13 +1,28 @@
 var models  = require('../models');
 var Photo    = models.Photo;
 
+exports.getPhotosByQuery = function (query, opt, callback) {
+  query.deleted = false;
+  Photo.find(query, {}, opt, function (err, topics) {
+    if (err) {
+      return callback(err);
+    }
+    if (topics.length === 0) {
+      return callback([]);
+    }
+      return callback(topics);
 
-exports.newAndSave = function (title, content, authorId, callback) {
-    var topic       = new Aticle();
-    topic.title     = title;
-    topic.content   = content;
-    topic.author_id = authorId;
-    topic.save(callback);
+    });
+};
+
+exports.newAndSave = function (title, discrib,pictures,category, authorId, callback) {
+    var picture       = new Photo();
+    picture.title     = title;
+    picture.discrib   = discrib;
+    picture.pictures = pictures;
+    picture.category = category;
+    picture.author_id = authorId;
+    picture.save(callback);
 };
 
 exports.findAll=function(callback){
@@ -15,18 +30,19 @@ exports.findAll=function(callback){
 };
 
 //返回文章列表和数量
-exports.findOnePage=function(page,callback){
+exports.findOnePage=function(page,category,callback){
+
 
     Photo.count({},function(err,total){
 
-	Photo.find({})
+	Photo.find({},{"pictures":{"$slice":4}})
 	.limit(10)
 	.skip((page-1)*10)
 	.sort('-create_at')
 	.exec(function(err,docs){
-
+       // console.log(typeof docs.pictures)
+		// console.log(docs.pictures.splice(0,4));
 		callback(err,docs,total)
-
 	})
 	})
 	

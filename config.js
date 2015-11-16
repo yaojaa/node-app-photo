@@ -88,14 +88,21 @@ var config = {
 
   // 7牛的access信息，用于文件上传
   qn_access: {
-    accessKey: 'your access key',
-    secretKey: 'your secret key',
-    bucket: 'your bucket name',
-    domain: 'http://your qiniu domain',
-    // 如果vps在国外，请使用 http://up.qiniug.com/ ，这是七牛的国际节点
-    // 如果在国内，此项请留空
-    uploadURL: 'http://xxxxxxxx',
+    // accessKey: 'your access key',
+    // secretKey: 'your secret key',
+    // bucket: 'your bucket name',
+    // domain: 'http://your qiniu domain',
+    // // 如果vps在国外，请使用 http://up.qiniug.com/ ，这是七牛的国际节点
+    // // 如果在国内，此项请留空
+    // uploadURL: 'http://xxxxxxxx',
+    'ACCESS_KEY': 'dgJKO74XfcnDumOtIaKqJmNZNB9iBLXOLbC2sNTo',
+    'SECRET_KEY': 'ITVzXH5yOQhtSLEjeF4uc4SkX4DhCfEYQVKBpXgT',
+    'Bucket_Name': 'nodeyuese',
+    'Uptoken_Url': '/uptoken',
+    'Domain': 'http://7xobdo.com1.z0.glb.clouddn.com'
   },
+
+
 
   // 文件上传配置
   // 注：如果填写 qn_access，则会上传到 7牛，以下配置无效
@@ -109,6 +116,16 @@ var config = {
     ['share', '分享'],
     ['ask', '问答'],
     ['job', '招聘'],
+  ],
+
+  //分类
+  category:[
+    {name:'street', text:'街拍'},
+    {name:'travel', text:'旅行'},
+    {name:'fashion',text: '时尚'},
+    {name:'food', text:'美食'},
+    {name:'animals',text: '动物'},
+    {name:'art', text:'艺术'}
   ],
 
   // 极光推送

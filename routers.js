@@ -3,6 +3,11 @@ var sysRouter = require('./sys_routers');
 var sign = require('./controllers/sign');
 var aticle = require('./controllers/aticle');
 var photo = require('./controllers/photo');
+var video = require('./controllers/video');
+
+var config = require('./config')
+
+var qiniu=require('qiniu');
 
 
 
@@ -38,25 +43,37 @@ router.get('/login', sign.showLogin);  // 进入登录页面
 router.post('/login', sign.login);  // 提交登录信息
 
 
-router.get('/photo', function (req, res) {
- res.render('photo')
-})
 
-router.get('/video', function (req, res) {
- res.render('video')
-})
+//根据这两句生成uptoken
+qiniu.conf.ACCESS_KEY = config.qn_access.ACCESS_KEY;
+qiniu.conf.SECRET_KEY = config.qn_access.SECRET_KEY;
+
+var uptoken = new qiniu.rs.PutPolicy(config.qn_access.Bucket_Name);
+
+router.get('/uptoken',function(req,res){
+ var token = uptoken.token();
+        res.json({
+            uptoken: token
+        });
+    })
 
 
 router.get('/aticle', aticle.showAticleList) //文章列表
-
-
 router.get('/a/:_id', aticle.showDetail) //文章正文
-
-
 router.get('/create-aticle', aticle.showCreate)
-
 router.post('/create-aticle', aticle.create)
 
+
+router.get('/photo', photo.showPhotoList) //图片列表
+router.get('/photo/:_id', photo.showDetail) //图片正文
 router.get('/create-photo', photo.showCreate)
+router.post('/create-photo', photo.publish)
+
+router.get('/video', video.showVideoList) //视频列表
+router.get('/video/:_id', video.showDetail) //视频正文
+router.get('/create-video', video.showCreate)
+router.post('/create-video', video.publish)
+
+
 
 module.exports = router;

@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>图片 {{photo.title}} </h1>
+
+    <h4 class="list-group-item-heading">{{photo.title}} <small>{{photo.update_at}}</small></h4>
+  
+  <div align="center">
+  	    {{#each photo.pictures}}
+ <img src="{{this}}?imageView2/1/w/1200/" alt="">
+ <hr>
+  {{/each}}
+
+  </div>
+
+</div>
+
+
+</div>

@@ -1,1 +1,46 @@
-<h1>图集</h1>
+<link rel="stylesheet" href="css/list.min.css"/>
+<div class="container">
+<ul class="subNav">
+  <li role="presentation" class="active"><a href="?category=all">全部</a></li>
+
+{{#each category}}
+  <li role="presentation" ><a href="?category={{name}}">{{text}}</a></li>
+{{/each}}
+</ul>
+
+</div>
+
+<div class="container">
+
+<div class="list-group">
+  {{#each photos}}
+  <a href="/photo/{{_id}}" class="list-group-item ">
+    <h4 class="list-group-item-heading">{{title}} </h4>
+    <p class="list-group-item-text">{{discrib}}</p>
+        <p class="list-group-item-text">
+       {{#each pictures}}
+ <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
+  {{/each}}
+        </p>
+
+  </a>
+  <br>
+  {{/each}}
+
+   
+</div>
+</div>
+
+
+<span class="prepage"><a title="上一页" href="?{{prev}}">上一页</a></span>
+<span class="prepage"><a title="上一页" href="?{{next}}">下一页</a></span>
+共计{{count}}条
+
+
+<script>
+	//$.getJSON('/api/v1/aticles',{limit:5,page:1},function(data){
+
+	//	console.log(data)
+
+	//})
+</script>

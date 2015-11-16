@@ -15,6 +15,8 @@ mongoose.connect(config.db, {
 require('./user');
 require('./aticle');
 require('./photo');
+require('./video');
+
 // require('./topic_collect');
 // require('./message');
 
@@ -25,6 +27,8 @@ require('./sys/user');
 exports.User         = mongoose.model('User');
 exports.Aticle        = mongoose.model('Aticle');
 exports.Photo        = mongoose.model('Photo');
+exports.Video        = mongoose.model('Video');
+
 
 // exports.Reply        = mongoose.model('Reply');
 // exports.TopicCollect = mongoose.model('TopicCollect');

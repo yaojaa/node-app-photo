@@ -8,9 +8,9 @@ var PhotoSchema = new Schema({
   discrib:{type:String}, //相册描述
   author_id: { type: String}, //作者
   pictures:{ type: Array},
+  category:{type:String},
   create_at: { type: Date, default: Date.now },
   update_at: { type: Date, default: Date.now },
-
 });
 // AticleSchema.index({title: 1}, {unique: true});
 mongoose.model('Photo', PhotoSchema);
