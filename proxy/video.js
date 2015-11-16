@@ -1,6 +1,5 @@
 var models  = require('../models');
 var Video    = models.Video;
-var uuid    = require('node-uuid');
 
 
 exports.newAndSave = function (title, discrib,cover_pic, url,duration,size,tages,authorId, callback) {
