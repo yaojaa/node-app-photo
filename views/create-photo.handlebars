@@ -19,34 +19,50 @@
       </ol>
   <h1>发照片</h1>
 
-<form method="post" action="/create-photo" class="form" >
-<p>分类：
-<select>
-   <option value="0" >请选择</option>
+<form method="post" action="/create-photo" class="form-horizontal"  >
+     <input type="hidden" id="domain" value="{{Domain}}">
+        <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">
+
+<div class="form-group">
+    <label for="inputEmail3" class="col-sm-1 control-label">类别：</label>
+    <div class="col-sm-10">
+<select class="form-control" name="category">
+   <option value="0"  >请选择</option>
 
   {{#each category}}
    <option value="{{name}}" >{{text}}</option>
   {{/each}}
-</select>
-</p>
-  <p><input class="form-control" type="text" name="title" placeholder="标题" /></p>
-<br>
-<p><input class="form-control" type="text" name="discrib" placeholder="简介" /> </p>
+</select>    </div>
+  </div>
 
+
+
+ <div class="form-group">
+    <label for="title" class="col-sm-1 control-label">标题：</label>
+    <div class="col-sm-10">
+<input class="form-control" type="text" name="title" placeholder="标题" />    </div>
+  </div>
+
+    <div class="form-group">
+    <label for="title" class="col-sm-1 control-label">简介：</label>
+    <div class="col-sm-10">
+<input class="form-control" type="text" name="discrib" placeholder="标题" />    </div>
+  </div>
 <!-- <p><input class="form-control" type="text" name="tage" placeholder="标签" /> </p>
  -->
 
- <div class="page-container">
-    <input type="hidden" id="domain" value="{{Domain}}">
-        <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">
- <div class="col-md-12">
-            <div id="container">
-                <a class="btn btn-default btn-lg " id="pickfiles" href="#" >
+     <div class="form-group">
+    <label for="title" class="col-sm-1 control-label">图片：</label>
+    <div class="col-sm-10">
+                <div id="container">
+
+<a class="btn btn-default btn-lg " id="pickfiles" href="#" >
                     <i class="glyphicon glyphicon-plus"></i>
                     <span>选择图片</span>
-                </a>
-            </div>
-        </div>
+                </a></div>
+  </div>  </div>
+
+
 
         <div style="display:none" id="success" class="col-md-12">
             <div class="alert-success">
@@ -68,12 +84,11 @@
         </div>
 
 
-    </div>
-  
+  <p align="center"><button class="pull-center btn btn-success btn-large" type="submit">发布</button> </p>
+
 
 </div>
 
-<p><button class="pull-center btn btn-success btn-large" type="submit">发布</button> </p>
 </form>
 
 

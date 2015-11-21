@@ -74,7 +74,7 @@ exports.signup = function(req, res, next) {
             if (err) {
                 return next(err);
             }
-            req.session.user = user;//用户信息存入 session
+            // req.session.user = user;//用户信息存入 session
             res.render('user/login', {
                 success: '欢迎加入,恭喜你注册成功！账号：' + email 
             });
