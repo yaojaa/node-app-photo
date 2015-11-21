@@ -1,6 +1,5 @@
 var models  = require('../models');
 var Aticle    = models.Aticle;
-var uuid    = require('node-uuid');
 
 
 exports.newAndSave = function (title, content, authorId, callback) {

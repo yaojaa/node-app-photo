@@ -1,6 +1,5 @@
 var config = require('../config');
 var User = require('../proxy/user.js');
-var uuid = require('node-uuid');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
 var crypto = require('crypto');

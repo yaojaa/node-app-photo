@@ -9,10 +9,18 @@
     "node": "0.12.x"
   },
   "dependencies": {
+    "async": "^1.5.0",
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "cors": "^2.7.1",
+    "eventproxy": "^0.3.4",
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
+    "express-session": "^1.12.1",
     "mongoose": "^4.2.3",
-    "qiniu": "^6.1.8"
+    "qiniu": "^6.1.8",
+    "uuid": "^2.0.1",
+    "validator": "^4.2.1"
   },
   "devDependencies": {
     "coveralls": "2.11.2",
