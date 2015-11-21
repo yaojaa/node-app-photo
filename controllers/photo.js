@@ -51,7 +51,7 @@ exports.publish = function(req, res) {
        if (err) {
         return next(err);
               }
-    res.render('create-photo',{success:'发布成功！'});
+    res.render('photo',{success:'发布成功！'});
 
    })
 
