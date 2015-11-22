@@ -2,7 +2,7 @@ var config = require('../config');
 var Aticle = require('../proxy/aticle.js');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
-
+var http = require('http');
 
 //findOnePage
 exports.showAticleList = function(req, res) {
@@ -14,6 +14,23 @@ exports.showAticleList = function(req, res) {
      if (err) {
         return (err);
               }
+
+
+var opts = {
+  hostname: 'https://cnodejs.org',
+  path: 'api/v1/topics',
+  method: 'GET'
+};
+
+  http.request(opts,function(data){
+
+      console.log(data)
+
+
+    })
+
+
+
 
   res.render('aticle',{
     page:page,
@@ -65,5 +82,12 @@ exports.showDetail=function(req, res){
 
 }
 
+ 
+exports.delAticleById=function(req,res){
+  var id=req.body.id;
+  Aticle.delAticleById(id,function(){
+    
+  })
+}
 
 

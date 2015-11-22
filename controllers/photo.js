@@ -4,13 +4,11 @@ var validator = require('validator');
 var eventproxy = require('eventproxy');
 
 
-//findOnePage
+//显示列表
 exports.showPhotoList = function(req, res) {
 
   var page = req.query.p ? parseInt(req.query.p) : 1;
-  var category =req.query.category || 'all'
-
-
+  var category =req.query.category || 'all';
   Photo.findOnePage(page,category,function(err,lists,count){
 
      if (err) {
@@ -24,8 +22,6 @@ exports.showPhotoList = function(req, res) {
     prev:'p='+parseInt(page-1),
     next:'p='+parseInt(page+1),
     count:count})
-
-
   })
 };
 
@@ -67,9 +63,6 @@ exports.showDetail=function(req, res){
 
 
    })
-
-
-
 }
 
 

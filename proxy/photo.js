@@ -55,3 +55,9 @@ exports.findOnePhoto=function(_id,callback){
 
 }
 
+exports.removePhoto=function(_id,callback){
+
+    Photo.remove({'_id':_id},callback)
+
+}
+
