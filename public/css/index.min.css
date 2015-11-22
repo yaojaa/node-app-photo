@@ -1,2 +1,442 @@
-@keyframes jump{0%{animation-timing-function:ease-out;margin-bottom:0}50%{animation-timing-function:ease-in;margin-bottom:10px}100%{animation-timing-function:ease-out;margin-bottom:0}}#banner{background:url("../images/bannerbg.jpg") center top no-repeat #eee;background-size:cover;text-align:center;height:647px;transition:height 1s;-moz-transition:height 1s;-webkit-transition:height 1s;-o-transition:height 1s;overflow:hidden;color:#fff;text-shadow:2px 2px 2px #333;position:relative}#banner .cover{position:absolute;left:0;top:0;bottom:0;right:0}#banner video{margin:0;padding:0;width:100%;display:none}#banner .middle{position:absolute;top:0;bottom:0;right:0;left:0;margin:auto;height:280px}#banner h2{font-size:116px;line-height:1.2;letter-spacing:12px;font-weight:400}#banner h3{font-size:52px;letter-spacing:7px;margin:10px 0 0 0}#banner .more{font-size:28px;color:#fff;position:absolute;margin:0 auto;background:rgba(255,126,0,0.9);bottom:0;left:50%;display:inline-block;padding:10px 0;width:200px;margin-left:-100px;font-weight:300;width:200px;animation:jump 5s linear 2s infinite alternate}#banner .more:hover{background:#229bd7}.bg-color{background:#f1f1f1}.thum{border:1px solid #ddd;background:#fff;border-radius:2px;margin-bottom:20px}.thum .txt{padding:0 10px;line-height:1.6}.thum a{color:#555}.thum p{color:#777;padding-bottom:10px}.thum:hover{box-shadow:2px 2px 5px #ddd}.thum:hover img{transform:scale(1.2)}.img-wapper{width:100%;min-height:140px;position:relative;overflow:hidden}.img-wapper img{max-width:100%;display:block;transition:all 0.5s ease-in}.img-wapper .time-line{position:absolute;left:0;bottom:0;line-height:2.2;background:#333;opacity:.8;color:#fff;width:100%;padding:0 10px;background:url("http://img0.bdstatic.com/static/superstar/widget/fragments/index/pics/img/desc-bg_bc1694d.png") repeat-x scroll 0 0 transparent}#video h2,#photo h2,#madou h2,#reg h2{font-size:48px;text-align:center;line-height:2.2}#video .subtit,#photo .subtit,#madou .subtit,#reg .subtit{font-size:20px;font-size:2rem;line-height:1.6;text-align:center;padding:0 10px;max-width:777px;margin:0 auto 30px}#video .subtit span,#photo .subtit span,#madou .subtit span,#reg .subtit span{text-align:left;display:inline-block}#prolist{margin:20px auto 0;overflow:hidden;padding:0 30px 0}#prolist li{float:left;width:20%;margin:20px auto}#prolist li .img-wapper{overflow:hidden}#prolist li .img-wapper h5{font-size:18px;font-size:1.8rem;background:#eee;height:40px;line-height:40px;text-align:center;font-weight:bold}#prolist li .img-wapper img{display:block;width:100%}#prolist li:hover .txt{top:0;opacity:0.95}#prolist li .txt{background:#333;color:#fff;height:100%;width:100%;opacity:0.9;margin:0 auto;-moz-transition:all .5s;-webkit-transition:all .5s}#prolist li .txt h5{font-size:18px;font-size:1.8rem;padding:10px 0;font-weight:bold;text-align:center}#prolist li .txt p{font-size:18px;font-size:1.8rem;padding:0 18px;line-height:1.5;text-align:left}#prolist li .txt p i{font-style:normal;color:#f46f12}#reg{color:#fff;background:url(https://ppcdn.500px.org/93953991/081befd3bcc2922a14f41bed208d712c7ba949c2/2048.jpg);background-attachment:fixed;background-size:cover;padding-top:50px;height:450px}#reg .btn{height:50px}#reg .form-control{height:50px;line-height:50px;padding-top:5px;padding-bottom:5px;font-size:18px;margin-bottom:15px;opacity:0.8}#friend .innerwapper{margin:0 auto}#friend .innerwapper ul{overflow:hidden;padding:30px 0}#friend .innerwapper li{text-align:center;float:left;width:33.3333333%;height:300px}#friend .innerwapper li img{border-radius:50%}#friend .innerwapper h3{font-size:24px;color:#ef8456;padding:3px 0}#friend .innerwapper h4{font-size:20px;color:#5f5f5f}#friend .innerwapper p{font-size:15px;font-size:1.5em;line-height:1.5;color:#5f5f5f;text-align:left;padding:5px 2em}#conect{background:url("../img/conectbg.jpg");background-size:cover;padding-bottom:30px}#conect h2{font-size:38px;color:#fff;text-align:center;padding:30px 0}#conect p.wx{text-align:center}#conect p{font-size:18px;line-height:1.8;color:#fff;text-align:center}#conect p i{font-size:28px;color:#f46f12}#conect p i span{color:#fff;font-size:22px}#conect p i span.hr{letter-spacing:2px}#conect form{width:700px;margin:40px auto 0}#conect form input{border:1px solid #ccc;font-size:16px;color:#fff;padding:5px;width:500px;height:34px;line-height:34px;text-align:left;background:none}#conect form button{background:#f46f12;color:#fff;border:none;font-size:20px;padding:10px 35px;border-radius:5px;margin:0 0 0 20px;letter-spacing:6px}#conect form button:hover{color:#fff;background:#c00}#conect .card{margin:0 auto;width:300px;text-align:center}@media (max-width: 768px){#banner{padding-top:40px}#banner .middle{height:80px}#banner video{display:none}#banner h2{font-size:28px;letter-spacing:10px;font-weight:400}#banner h3{font-size:16px;letter-spacing:2px;margin:10px 0 0 0}#banner .more{padding:5px 0}#banner .more-warper{width:130px;margin-left:-65px;height:36px}#friend .innerwapper li{width:100%;height:auto;padding-bottom:15px}#conect form{width:90%}#conect form input{width:100%}#conect form button{margin:20px 0 0 0}}.title-area{overflow:hidden}#Content img{display:block;margin:10px;max-width:100%}
+@keyframes jump {
+    0% {
+        animation-timing-function: ease-out;
+        margin-bottom: 0
+    }
+    50% {
+        animation-timing-function: ease-in;
+        margin-bottom: 10px
+    }
+    100% {
+        animation-timing-function: ease-out;
+        margin-bottom: 0
+    }
+}
+
+#banner {
+    background: url("https://drscdn.500px.org/photo/129507617/m%3D2048/fb5ece89461088259b292cc097f1faae") center top no-repeat #eee fixed ;
+    background-size: 100%;
+    text-align: center;
+    height: 600px;
+    transition: height 1s;
+    -moz-transition: height 1s;
+    -webkit-transition: height 1s;
+    -o-transition: height 1s;
+    overflow: hidden;
+    color: #fff;
+    text-shadow: 2px 2px 2px #333;
+    position: relative
+}
+
+#banner .cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0
+}
+
+#banner video {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: none
+}
+
+#banner .middle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    height: 280px
+}
+
+#banner h2 {
+    font-size: 116px;
+    line-height: 1.2;
+    letter-spacing: 12px;
+    font-weight: 400
+}
+
+#banner h3 {
+    font-size: 52px;
+    letter-spacing: 7px;
+    margin: 10px 0 0 0
+}
+
+#banner .more {
+    font-size: 28px;
+    color: #fff;
+    position: absolute;
+    margin: 0 auto;
+    background: rgba(255, 126, 0, 0.9);
+    bottom: 0;
+    left: 50%;
+    display: inline-block;
+    padding: 10px 0;
+    width: 200px;
+    margin-left: -100px;
+    font-weight: 300;
+    width: 200px;
+    animation: jump 5s linear 2s infinite alternate
+}
+
+#banner .more:hover {
+    background: #229bd7
+}
+
+.bg-color {
+    background: #f1f1f1
+}
+
+.thum {
+    border: 1px solid #ddd;
+    background: #fff;
+    border-radius: 2px;
+    margin-bottom: 20px
+}
+
+.thum .txt {
+    padding: 0 10px;
+    line-height: 1.6
+}
+
+.thum a {
+    color: #555
+}
+
+.thum p {
+    color: #777;
+    padding-bottom: 10px
+}
+
+.thum:hover {
+    box-shadow: 2px 2px 5px #ddd
+}
+
+.thum:hover img {
+    transform: scale(1.2)
+}
+
+.img-wapper {
+    width: 100%;
+    min-height: 140px;
+    position: relative;
+    overflow: hidden
+}
+
+.img-wapper img {
+    max-width: 100%;
+    display: block;
+    transition: all 0.5s ease-in
+}
+
+.img-wapper .time-line {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    line-height: 2.2;
+    background: #333;
+    opacity: .8;
+    color: #fff;
+    width: 100%;
+    padding: 0 10px;
+    background: url("http://img0.bdstatic.com/static/superstar/widget/fragments/index/pics/img/desc-bg_bc1694d.png") repeat-x scroll 0 0 transparent
+}
+
+#video h2,
+#photo h2,
+#madou h2,
+#reg h2 {
+    font-size: 48px;
+    text-align: center;
+    line-height: 2.2
+}
+
+#video .subtit,
+#photo .subtit,
+#madou .subtit,
+#reg .subtit {
+    font-size: 20px;
+    font-size: 2rem;
+    line-height: 1.6;
+    text-align: center;
+    padding: 0 10px;
+    max-width: 777px;
+    margin: 0 auto 30px
+}
+
+#video .subtit span,
+#photo .subtit span,
+#madou .subtit span,
+#reg .subtit span {
+    text-align: left;
+    display: inline-block
+}
+
+#prolist {
+    margin: 20px auto 0;
+    overflow: hidden;
+    padding: 0 30px 0
+}
+
+#prolist li {
+    float: left;
+    width: 20%;
+    margin: 20px auto
+}
+
+#prolist li .img-wapper {
+    overflow: hidden
+}
+
+#prolist li .img-wapper h5 {
+    font-size: 18px;
+    font-size: 1.8rem;
+    background: #eee;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-weight: bold
+}
+
+#prolist li .img-wapper img {
+    display: block;
+    width: 100%
+}
+
+#prolist li:hover .txt {
+    top: 0;
+    opacity: 0.95
+}
+
+#prolist li .txt {
+    background: #333;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    opacity: 0.9;
+    margin: 0 auto;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s
+}
+
+#prolist li .txt h5 {
+    font-size: 18px;
+    font-size: 1.8rem;
+    padding: 10px 0;
+    font-weight: bold;
+    text-align: center
+}
+
+#prolist li .txt p {
+    font-size: 18px;
+    font-size: 1.8rem;
+    padding: 0 18px;
+    line-height: 1.5;
+    text-align: left
+}
+
+#prolist li .txt p i {
+    font-style: normal;
+    color: #f46f12
+}
+
+#reg {
+    color: #fff;
+    background: url('https://drscdn.500px.org/photo/129551963/m%3D2048/d65fd5180182763c95a43257ac1559ca');
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 50px;
+    height: 650px
+}
+
+#reg .btn {
+    height: 50px
+}
+
+#reg .form-control {
+    height: 50px;
+    line-height: 50px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    margin-bottom: 15px;
+    opacity: 0.8
+}
+
+#friend .innerwapper {
+    margin: 0 auto
+}
+
+#friend .innerwapper ul {
+    overflow: hidden;
+    padding: 30px 0
+}
+
+#friend .innerwapper li {
+    text-align: center;
+    float: left;
+    width: 33.3333333%;
+    height: 300px
+}
+
+#friend .innerwapper li img {
+    border-radius: 50%
+}
+
+#friend .innerwapper h3 {
+    font-size: 24px;
+    color: #ef8456;
+    padding: 3px 0
+}
+
+#friend .innerwapper h4 {
+    font-size: 20px;
+    color: #5f5f5f
+}
+
+#friend .innerwapper p {
+    font-size: 15px;
+    font-size: 1.5em;
+    line-height: 1.5;
+    color: #5f5f5f;
+    text-align: left;
+    padding: 5px 2em
+}
+
+#conect {
+    background: url("../img/conectbg.jpg");
+    background-size: cover;
+    padding-bottom: 30px
+}
+
+#conect h2 {
+    font-size: 38px;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0
+}
+
+#conect p.wx {
+    text-align: center
+}
+
+#conect p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #fff;
+    text-align: center
+}
+
+#conect p i {
+    font-size: 28px;
+    color: #f46f12
+}
+
+#conect p i span {
+    color: #fff;
+    font-size: 22px
+}
+
+#conect p i span.hr {
+    letter-spacing: 2px
+}
+
+#conect form {
+    width: 700px;
+    margin: 40px auto 0
+}
+
+#conect form input {
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #fff;
+    padding: 5px;
+    width: 500px;
+    height: 34px;
+    line-height: 34px;
+    text-align: left;
+    background: none
+}
+
+#conect form button {
+    background: #f46f12;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    padding: 10px 35px;
+    border-radius: 5px;
+    margin: 0 0 0 20px;
+    letter-spacing: 6px
+}
+
+#conect form button:hover {
+    color: #fff;
+    background: #c00
+}
+
+#conect .card {
+    margin: 0 auto;
+    width: 300px;
+    text-align: center
+}
+
+@media (max-width: 768px) {
+    #banner {
+        padding-top: 40px
+    }
+    #banner .middle {
+        height: 80px
+    }
+    #banner video {
+        display: none
+    }
+    #banner h2 {
+        font-size: 28px;
+        letter-spacing: 10px;
+        font-weight: 400
+    }
+    #banner h3 {
+        font-size: 16px;
+        letter-spacing: 2px;
+        margin: 10px 0 0 0
+    }
+    #banner .more {
+        padding: 5px 0
+    }
+    #banner .more-warper {
+        width: 130px;
+        margin-left: -65px;
+        height: 36px
+    }
+    #friend .innerwapper li {
+        width: 100%;
+        height: auto;
+        padding-bottom: 15px
+    }
+    #conect form {
+        width: 90%
+    }
+    #conect form input {
+        width: 100%
+    }
+    #conect form button {
+        margin: 20px 0 0 0
+    }
+}
+
+.title-area {
+    overflow: hidden
+}
+
+#Content img {
+    display: block;
+    margin: 10px;
+    max-width: 100%
+}
+
+
 /*# sourceMappingURL=index.min.css.map */
