@@ -3,6 +3,9 @@ var bodyParser = require('body-parser');
 
 var aticleController   = require('./api/v1/aticle');
 
+var photoController   = require('./api/v1/photo');
+
+
 // var topicController   = require('./api/v1/topic');
 // var userController    = require('./api/v1/user');
 // var toolsController   = require('./api/v1/tools');
@@ -21,9 +24,6 @@ router.get('/aticles', aticleController.index);
 
 router.post('/upload', function (req,res) {
 
-	console.log(req.body);
-
-	console.log('upload...........................')
 
 	res.send({'req':'req'})
 
@@ -32,14 +32,7 @@ router.post('/upload', function (req,res) {
 });
 
 
-router.get('/upload', function (req,res) {
-
-	res.send({'req':12313})
-
-
-	// body...
-});
-
+router.post('/delAticle',aticleController.delAticle)
 
 
 

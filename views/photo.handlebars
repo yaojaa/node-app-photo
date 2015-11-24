@@ -14,17 +14,20 @@
 
 <div class="list-group">
   {{#each photos}}
-  <a href="/photo/{{_id}}" class="list-group-item ">
+ <div class="list-group-item ">
     <h4 class="list-group-item-heading">{{title}} </h4>
     <p class="list-group-item-text">{{discrib}}</p>
-        <p class="list-group-item-text">
+        <a href="/photo/{{_id}}" > <p class="list-group-item-text">
        {{#each pictures}}
  <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
   {{/each}}
+  </a>
         </p>
 
   </a>
   <br>
+  <button class="btn btn-sm delphoto" onclick="delphoto('{{_id}}')">删除 </button>
+ </div>
   {{/each}}
 
    
@@ -38,9 +41,22 @@
 
 
 <script>
-	//$.getJSON('/api/v1/aticles',{limit:5,page:1},function(data){
 
-	//	console.log(data)
+function delphoto(_id){
 
-	//})
+  alert(_id)
+
+    // $.getJSON('/api/v1/aticles',{id:_id},function(data){
+
+    //    console.log(data)
+
+    //   })
+
+
+}
+
+
+
+$('.delphoto').on('click',delphoto)
+
 </script>

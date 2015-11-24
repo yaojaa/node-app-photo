@@ -9,11 +9,6 @@ function FileProgress(file, targetID) {
     this.height = 0;
     this.fileProgressWrapper = $('#' + this.fileProgressID);
     if (!this.fileProgressWrapper.length) {
-        // <div class="progress">
-        //   <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-        //     <span class="sr-only">20% Complete</span>
-        //   </div>
-        // </div>
 
         this.fileProgressWrapper = $('<tr></tr>');
         var Wrappeer = this.fileProgressWrapper;
@@ -234,12 +229,12 @@ console.info(info)
     var Wrapper = $('<div class="Wrapper"/>');
     var imgWrapper = $('<div class="imgWrapper col-md-3"/>');
     var linkWrapper = $('<a class="linkWrapper" target="_blank"/>');
-    var showImg = $('<img src="loading.gif"/>');
+    var showImg = $('<img src="img/loading.gif"/>');
 
     progressNameTd.append(Wrapper);
 
     if (!isImg) {
-        showImg.attr('src', 'default.png');
+        showImg.attr('src', 'img/default.png');
         Wrapper.addClass('default');
 
         imgWrapper.append(showImg);
@@ -268,7 +263,7 @@ console.info(info)
                     $('#myModal-img').find('.text-warning').show();
                 }
                 var newImg = new Image();
-                modalBody.find('img').attr('src', 'loading.gif');
+                modalBody.find('img').attr('src', 'img/loading.gif');
                 newImg.onload = function() {
                     modalBody.find('img').attr('src', url).data('key', key).data('h', height);
                     modalBody.find('.modal-body-wrapper').find('a').attr('href', url);
@@ -495,13 +490,6 @@ $(function() {
 
 
 
-    $('#show_code').on('click', function() {
-        $('#myModal-code').modal();
-        $('pre code').each(function(i, e) {
-            hljs.highlightBlock(e);
-        });
-    });
-
 
     $('body').on('click', 'table button.btn', function() {
         $(this).parents('tr').next().toggle();
@@ -613,7 +601,7 @@ $(function() {
         var newUrl = Qiniu.pipeline(fopArr, key);
 
         var newImg = new Image();
-        img.attr('src', 'loading.gif');
+        img.attr('src', 'img/loading.gif');
         newImg.onload = function() {
             img.attr('src', newUrl);
             img.parent('a').attr('href', newUrl);

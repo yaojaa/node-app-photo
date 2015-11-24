@@ -1,31 +1,66 @@
 
-<h1>文章</h1>
+<div class="container">
+<br>
+<div class="panel panel-default">
+  <div class="panel-heading">文章</div>
 
 
-<div class="list-group">
-  
+    <div class="list-group">
+  <ul>
   {{#each aticles}}
-  <a href="/a/{{_id}}" class="list-group-item ">
-    <h4 class="list-group-item-heading">{{title}} <small>{{update_at}}</small></h4>
+  <li class="list-group-item ">
+  
+    <h3 class="list-group-item-heading"><a href="/a/{{_id}}" >{{title}}   </a> 
+<small>{{update_at}}</small>
+
+<button aria-label="Close" onclick="del_aticle('{{_id}}')"  class="close" type="button"><span aria-hidden="true">×</span></button>
+    </h3>
     <p class="list-group-item-text">{{content}}</p>
-  </a>
+
+  
+  </li>
   {{/each}}
-
+</ul>
    
-</div>
+  </div>
 
+    <div class="panel-footer">
 
-<span class="prepage"><a title="上一页" href="?{{prev}}">上一页</a></span>
+    	<span class="prepage"><a title="上一页" href="?{{prev}}">上一页</a></span>
 <span class="prepage"><a title="上一页" href="?{{next}}">下一页</a></span>
 共计{{count}}条
 
 
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
 <script>
-	$.getJSON('/api/v1/aticles',{limit:5,page:1},function(data){
 
-		console.log(data)
+function del_aticle(_id){
 
-	})
+  console.log(this);
+
+    $.post('/api/v1/delAticle',{id:_id},function(res){
+      if(res.errorno===0){
+        alert('删除成功！')
+      }
+      })
+
+
+}
+
+
+
+$('.del_aticle').on('click',del_aticle)
+
 </script>
-
-

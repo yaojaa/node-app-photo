@@ -65,5 +65,12 @@ exports.showDetail=function(req, res){
 
 }
 
+ 
+exports.delAticleById=function(req,res){
+  var id=req.body.id;
+  Aticle.delAticleById(id,function(){
+    
+  })
+}
 
 

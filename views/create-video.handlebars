@@ -1,15 +1,52 @@
-
 <div class="container">
-  <h1>发布视频</h1>
 
-<form method="post" action="/create-video" class="form">
-  <p><input class="form-control" type="text" name="title" placeholder="标题" /></p>
-    <p><input class="form-control" type="text" name="duration" placeholder="时长" /></p>
-  <p><input class="form-control" type="text" name="size" placeholder="大小" /></p>
-  <p><textarea class="form-control" name="discrib" id="" cols="30" rows="10">简介</textarea> </p>
-  <p><input class="form-control" type="text" name="cover_pic" placeholder="视频封面" /></p>
-  <p><input class="form-control" type="text" name="url" placeholder="视频地址" /></p>
-  <p><button class="btn btn-success" type="submit">发布</button>
+<ol class="breadcrumb">
+        <li><a href="/">主页</a><span class="divider"></span></li>
+        
+        <li class="active">发布视频</li>
+        
+      </ol>
+  <h1 align="center">发布视频</h1>
+  <br>
+<form method="post" action="/create-video" class="form-horizontal" >
+
+ 
+ <div class="form-group clearfix">
+    <label class="col-sm-1 control-label">标题：</label>
+		    <div class="col-sm-10">
+		<input class="form-control" type="text" name="title" placeholder="标题" />    
+		</div>
+  </div>
+
+   <div class="form-group clearfix">
+    <label class="col-sm-1 control-label">时长：</label>
+    <div class="col-sm-10">
+<input class="form-control" type="text" name="duration" placeholder="时长" />    
+       </div>
+  </div>
+
+   <div class="form-group">
+    <label class="col-sm-1 control-label">简介：</label>
+    <div class="col-sm-10">
+<textarea class="form-control" name="discrib"  rows="3">简介</textarea>   </div>
+  </div>
+
+   <div class="form-group clearfix">
+    <label class="col-sm-1 control-label">封面：</label>
+    <div class="col-sm-10">
+<input class="form-control" type="file" name="duration" placeholder="封面" />    
+       </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-1 control-label">地址：</label>
+    <div class="col-sm-10">
+<input class="form-control" type="text" name="url" placeholder="视频地址" />
+   </div>
+  </div>
+
+
+  <p align="center"><button class="btn btn-success btn-lg" type="submit">发布</button>
   </p>
 </form>
 

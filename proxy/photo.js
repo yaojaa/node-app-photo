@@ -22,6 +22,7 @@ exports.newAndSave = function (title, discrib,pictures,category, authorId, callb
     picture.pictures = pictures;
     picture.category = category;
     picture.author_id = authorId;
+    console.log(picture);
     picture.save(callback);
 };
 
@@ -32,15 +33,27 @@ exports.findAll=function(callback){
 //返回文章列表和数量
 exports.findOnePage=function(page,category,callback){
 
+console.log(category);
+
+var categoryquery;
+if(category=='all'){
+ categoryquery={};
+}else{
+
+   categoryquery={
+  'category':category}
+}
+
+
 
     Photo.count({},function(err,total){
 
-	Photo.find({},{"pictures":{"$slice":4}})
+	Photo.find(categoryquery,{"pictures":{"$slice":4}})
 	.limit(10)
 	.skip((page-1)*10)
 	.sort('-create_at')
 	.exec(function(err,docs){
-       // console.log(typeof docs.pictures)
+       console.log( docs)
 		// console.log(docs.pictures.splice(0,4));
 		callback(err,docs,total)
 	})
@@ -50,6 +63,12 @@ exports.findOnePage=function(page,category,callback){
 
 exports.findOnePhoto=function(_id,callback){
 	Photo.findOne({'_id':_id},callback)
+
+}
+
+exports.removePhoto=function(_id,callback){
+
+    Photo.remove({'_id':_id},callback)
 
 }
 

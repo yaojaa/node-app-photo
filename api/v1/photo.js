@@ -39,15 +39,14 @@ var index=function(req,res,next){
 }
 
 var delAticle=function(req,res,next){
-  console.log(req.body.id);
   var id=req.body.id;
-  console.log(AticleModel);
-  AticleProxy.delAticleById(id,function(err){
+  AticleModel.delAticleById(id,function(err){
 
     if (err) {
         return next(err);
       }
-      res.json({errorno:0,msg:"删除成功"});
+      res.json({success: true});
+
   })
 
 }

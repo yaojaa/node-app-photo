@@ -37,3 +37,11 @@ exports.findOneAticle=function(_id,callback){
 
 }
 
+exports.delAticleById=function(_id,callback){
+
+	Aticle.remove({'_id':_id}).exec(function(err,status){
+		callback(err,status.result)
+	})
+
+}
+
