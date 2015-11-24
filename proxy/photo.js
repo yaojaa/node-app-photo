@@ -35,9 +35,20 @@ exports.findOnePage=function(page,category,callback){
 
 console.log(category);
 
+var categoryquery;
+if(category=='all'){
+ categoryquery={};
+}else{
+
+   categoryquery={
+  'category':category}
+}
+
+
+
     Photo.count({},function(err,total){
 
-	Photo.find({},{"pictures":{"$slice":4}})
+	Photo.find(categoryquery,{"pictures":{"$slice":4}})
 	.limit(10)
 	.skip((page-1)*10)
 	.sort('-create_at')
