@@ -1,8 +1,8 @@
 var config        = require('../../config');
 
-var models        = require('../../models');
-var AticleModel   = models.Aticle;
-var AticleProxy   = require('../../proxy').Aticle;
+// var models        = require('../../models');
+// var PhotoModel   = models.photo;
+var PhotoProxy   = require('../../proxy').Photo;
 
 
 
@@ -16,7 +16,7 @@ var index=function(req,res,next){
  var page     = parseInt(req.query.page, 10) || 1;
  var query={};
  
-    AticleModel.find({}).limit(limit)
+    PhotoModel.find({}).limit(limit)
     .skip((page - 1) * limit)
     .sort({time:1}).exec(function(err,topics){
 
@@ -38,20 +38,24 @@ var index=function(req,res,next){
 
 }
 
-var delAticle=function(req,res,next){
+var delPhoto=function(req,res,next){
   var id=req.body.id;
-  AticleModel.delAticleById(id,function(err){
+
+  console.log(id);
+
+  PhotoProxy.delPhotoById(id,function(err){
+  console.log('delPhotoById');
 
     if (err) {
         return next(err);
       }
-      res.json({success: true});
+      res.json({errorno:0,msg:"删除成功"});
 
   })
 
 }
 
-exports.delAticle=delAticle
+exports.delPhoto=delPhoto
 
 exports.index=index;
 

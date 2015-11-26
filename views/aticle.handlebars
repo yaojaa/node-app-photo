@@ -48,7 +48,6 @@
 
 function del_aticle(_id){
 
-  console.log(this);
 
     $.post('/api/v1/delAticle',{id:_id},function(res){
       if(res.errorno===0){

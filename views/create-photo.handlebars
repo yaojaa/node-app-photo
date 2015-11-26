@@ -1,14 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/vendor/webuploader/webuploader.css">
 
-<style>
-  
-  #container {
-    color: #838383;
-    font-size: 12px;
-}
 
-</style>
-<br>
 <div class="container">
 
 <ol class="breadcrumb">
@@ -17,7 +9,7 @@
         <li class="active">发布话题</li>
         
       </ol>
-  <h1>发照片</h1>
+  <h1 align="center">发照片</h1>
 
 <form method="post" action="/create-photo" class="form-horizontal"  >
      <input type="hidden" id="domain" value="{{Domain}}">
@@ -97,5 +89,5 @@
 
 <!--引入JS-->
 <script type="text/javascript" src="/vendor/qiniu/qiniu.js"></script>
-<script src="https://raw.githubusercontent.com/qiniu/js-sdk/master/demo/js/plupload/plupload.full.min.js"></script>
+<script src="https://raw.githubusercontent.com/moxiecode/plupload/master/js/plupload.full.min.js"></script>
 <script src="/page/photo-upload.js"></script>

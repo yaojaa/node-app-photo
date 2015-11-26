@@ -33,6 +33,8 @@ router.post('/upload', function (req,res) {
 
 
 router.post('/delAticle',aticleController.delAticle)
+router.post('/delPhoto',photoController.delPhoto)
+
 
 
 

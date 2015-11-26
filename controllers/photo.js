@@ -67,3 +67,9 @@ exports.showDetail=function(req, res){
 
 
 
+exports.delPhotoById=function(req,res){
+  var id=req.body.id;
+  Photo.delPhotoById(id,function(){
+    
+  })
+}

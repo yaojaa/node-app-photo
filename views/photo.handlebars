@@ -1,7 +1,28 @@
+<link rel="stylesheet" href="css/index.min.css"/>
+
 <link rel="stylesheet" href="css/list.min.css"/>
+
+<style>
+.img-wapper{
+  margin-bottom: 10px
+}
+.img-wapper img:first-child{
+  width: 100%
+}
+.img-wapper img{
+  float: left;
+  width: 33.33333333%
+}
+.thum h4,.thum p{
+  overflow: hidden;
+text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>
+
 <div class="container">
 <ul class="subNav">
-  <li role="presentation" class="active"><a href="?category=all">全部</a></li>
+  <li role="presentation" class="on"><a href="?category=all">全部</a></li>
 
 {{#each category}}
   <li role="presentation" ><a href="?category={{name}}">{{text}}</a></li>
@@ -12,51 +33,69 @@
 
 <div class="container">
 
-<div class="list-group">
+<div class="row">
   {{#each photos}}
- <div class="list-group-item ">
-    <h4 class="list-group-item-heading">{{title}} </h4>
-    <p class="list-group-item-text">{{discrib}}</p>
-        <a href="/photo/{{_id}}" > <p class="list-group-item-text">
-       {{#each pictures}}
+
+  <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2 ">
+          <div class="thum"> <a href="/photo/{{_id}}">
+              <div class="img-wapper">
+
+                    {{#each pictures}}
  <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
   {{/each}}
-  </a>
-        </p>
 
-  </a>
-  <br>
-  <button class="btn btn-sm delphoto" onclick="delphoto('{{_id}}')">删除 </button>
- </div>
+</a>
+                <div class="time-line"><em class="r">34张</em> <i class="fa fa-picture-o fa-lg"></i> </div>
+              </div>
+            <div class="txt">
+              <h4> <a href="/photo/{{_id}}">{{title}}  </a></h4>
+              <p>{{discrib}}  <button class="btn btn-sm del" photoid="{{_id}}">X </button>
+</p>
+            </div>
+          </div>
+        </div>
+
   {{/each}}
 
-   
 </div>
+
+<nav>
+  <ul class="pager">共计{{count}}条
+
+    <li class="previous"><a href="?{{prev}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+    <li class="next"><a href="?{{next}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>
 </div>
 
 
-<span class="prepage"><a title="上一页" href="?{{prev}}">上一页</a></span>
-<span class="prepage"><a title="上一页" href="?{{next}}">下一页</a></span>
-共计{{count}}条
+
+
+
 
 
 <script>
 
-function delphoto(_id){
 
-  alert(_id)
+function delPhoto(){
 
-    // $.getJSON('/api/v1/aticles',{id:_id},function(data){
+  var _id= $(this).attr('photoid');
+  var $prent=$(this).closest('.list-group-item ')
 
-    //    console.log(data)
+    $.post('/api/v1/delPhoto',{id:_id},function(res){
+      if(res.errorno===0){
+        alert('删除成功！');
+        $prent.fadeOut();
 
-    //   })
+      }
+      })
 
 
 }
 
 
 
-$('.delphoto').on('click',delphoto)
+$('.del').on('click',delPhoto)
+
 
 </script>
