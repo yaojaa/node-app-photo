@@ -3,13 +3,15 @@ var Photo = require('../proxy/photo.js');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
 
+var list_photo_count=config.list_photo_count;
+
 
 //显示列表
 exports.showPhotoList = function(req, res) {
 
   var page = req.query.p ? parseInt(req.query.p) : 1;
-  var category =req.query.category || 'all';
-  Photo.findOnePage(page,category,function(err,lists,count){
+  var currentCategory =req.query.category || 'all';
+  Photo.findOnePage(page,currentCategory,function(err,lists,count){
 
      if (err) {
         return (err);
@@ -17,10 +19,13 @@ exports.showPhotoList = function(req, res) {
 
   res.render('photo',{
     category:config.category,
+    currentCategory:currentCategory,
     page:page,
     photos:lists,
     prev:'p='+parseInt(page-1),
     next:'p='+parseInt(page+1),
+    isFirstPage: (page - 1) == 0,
+    isLastPage: ((page - 1) * list_photo_count + lists.length) >= count,
     count:count})
   })
 };

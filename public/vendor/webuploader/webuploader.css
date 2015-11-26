@@ -11,7 +11,7 @@
 	display: inline-block;
 	cursor: pointer;
 	background: #00b7ee;
-	padding: 10px 15px;
+	padding: 7px 15px;
 	color: #fff;
 	text-align: center;
 	border-radius: 3px;
@@ -26,3 +26,107 @@
 	pointer-events:none;
 }
 
+.file-item {
+	width: 160px;
+	overflow: hidden;
+	position: relative;
+	float: left;
+	margin-right: 10px
+}
+
+.file-item .error {
+    background: red none repeat scroll 0 0;
+    color: white;
+    font-size: 14px;
+    height: 20px;
+    left: 4px;
+    line-height: 23px;
+    position: absolute;
+    right: 4px;
+    text-align: center;
+    top: 4px;
+}
+.file-item .info {
+    background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;
+    bottom: 4px;
+    color: white;
+    font-size: 12px;
+    height: 20px;
+    left: 4px;
+    line-height: 20px;
+    overflow: hidden;
+    position: absolute;
+    right: 4px;
+    text-indent: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 10;
+}
+.upload-state-done::after {
+    bottom: 0;
+    color: #4cae4c;
+    content: "";
+    font-family: FontAwesome;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    position: absolute;
+    right: 4px;
+    z-index: 99;
+}
+.file-item .progress {
+    background: transparent none repeat scroll 0 0;
+    border-radius: 0;
+    bottom: 4px;
+    height: 4px;
+    left: 4px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    right: 4px;
+    z-index: 15;
+}
+.file-item .progress span {
+    animation: 2s linear 0s normal none infinite running progressmove;
+    background: #d14 ;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    transition: width 200ms linear 0s;
+    width: 0;
+}
+
+#picPicker{
+	float: left;
+}
+
+
+.wu-example {
+    background-color: #fafafa;
+    border-color: #e5e5e5 #eee #eee;
+    border-style: solid;
+    border-width: 1px 0;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05) inset;
+    margin: 15px 0;
+    padding: 45px 15px 15px;
+    position: relative;
+    overflow-x: hidden;
+}
+.wu-example::after {
+    color: #bbb;
+    content: "或本地上传";
+    font-size: 12px;
+    font-weight: bold;
+    left: 15px;
+    letter-spacing: 1px;
+    position: absolute;
+    text-transform: uppercase;
+    top: 15px;
+}
+
+#video-picker{
+	float: left;
+	margin-right: 20px
+}

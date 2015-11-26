@@ -1,6 +1,6 @@
 var models  = require('../models');
 var User    = models.User;
-
+var uuid	= require('node-uuid');
 
 /**
  * 根据邮箱，查找用户

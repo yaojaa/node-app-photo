@@ -17,15 +17,31 @@
   overflow: hidden;
 text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+
+  #all .all a{
+    background: #fff
+  }
+
+ {{#each category}}
+  #{{name}} .{{name}} a{
+    background: #fff
+  }
+{{/each}}
+
 }
 </style>
 
-<div class="container">
+<div class="container" id="{{currentCategory}}">
 <ul class="subNav">
-  <li role="presentation" class="on"><a href="?category=all">全部</a></li>
+
+  
+  <li role="presentation" class="all"><a href="?category=all">全部</a></li>
 
 {{#each category}}
-  <li role="presentation" ><a href="?category={{name}}">{{text}}</a></li>
+  <li class="{{name}}">
+    <a href="?category={{name}}">{{text}}</a></li>
 {{/each}}
 </ul>
 
@@ -42,10 +58,10 @@ text-overflow: ellipsis;
 
                     {{#each pictures}}
  <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
-  {{/each}}
+                   {{/each}}
 
 </a>
-                <div class="time-line"><em class="r">34张</em> <i class="fa fa-picture-o fa-lg"></i> </div>
+                <div class="time-line"><em class="r"></em> <i class="fa fa-picture-o fa-lg"></i> </div>
               </div>
             <div class="txt">
               <h4> <a href="/photo/{{_id}}">{{title}}  </a></h4>
@@ -54,7 +70,9 @@ text-overflow: ellipsis;
             </div>
           </div>
         </div>
+{{else}}
 
+<h3 align="center ">暂无图片！</h3>
   {{/each}}
 
 </div>
@@ -62,8 +80,22 @@ text-overflow: ellipsis;
 <nav>
   <ul class="pager">共计{{count}}条
 
-    <li class="previous"><a href="?{{prev}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
-    <li class="next"><a href="?{{next}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+
+{{#if isFirstPage}}
+  
+  <li class="previous disabled"><a href="#">
+ {{else}}
+  <li class="previous"><a href="?{{prev}}">
+{{/if}}
+    <span aria-hidden="true">&larr;</span> 上一页</a></li>
+
+    {{#if isLastPage}}
+     <li class="next disabled"><a href="#">
+      {{else}}
+      <li class="next "> <a href="?{{next}}">
+{{/if}} 
+
+     下一页 <span aria-hidden="true">&rarr;</span></a></li>
   </ul>
 </nav>
 </div>

@@ -42,8 +42,8 @@ var config = {
   // 程序运行的端口
   port: 3000,
 
-  // 话题列表显示的话题数量
-  list_topic_count: 5,
+  // 图片列表显示数量
+  list_photo_count: 6,
 
   // RSS配置
   rss: {

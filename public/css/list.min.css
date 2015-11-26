@@ -1,2 +1,38 @@
-.subNav{overflow:hidden;margin:15px 0}.subNav .tit{font-size:26px}.subNav li{float:left;margin:8px 15px 8px 0;border-radius:3px}.subNav li a{display:block;padding:6px 15px;position:relative;font-size:16px}.subNav li:hover{background:#fff}.subNav a.active{background:#fff}.more{margin:20px auto 40px;display:block}
+.subNav {
+    overflow: hidden;
+    margin: 15px 0
+}
+
+.subNav .tit {
+    font-size: 26px
+}
+
+.subNav li {
+    float: left;
+    margin: 8px 15px 8px 0;
+    border-radius: 3px
+}
+
+.subNav li a {
+    display: block;
+    padding: 6px 15px;
+    position: relative;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.subNav li:hover {
+    background: #fff
+}
+
+.subNav li.active a {
+    background: #fff
+}
+
+.more {
+    margin: 20px auto 40px;
+    display: block
+}
+
+
 /*# sourceMappingURL=list.min.css.map */

@@ -9,6 +9,8 @@ exports.showAticleList = function(req, res) {
 
     var page = req.query.p ? parseInt(req.query.p) : 1;
 
+
+
   Aticle.findOnePage(page,function(err,lists,count){
 
      if (err) {
@@ -20,7 +22,8 @@ exports.showAticleList = function(req, res) {
     aticles:lists,
     prev:'p='+parseInt(page-1),
     next:'p='+parseInt(page+1),
-    count:count})
+    count:count,
+  })
 
 
   })
