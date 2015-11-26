@@ -1,12 +1,19 @@
 <div class="container">
-  <h1>图片 {{photo.title}} </h1>
+<ol class="breadcrumb">
+        <li><a href="/">主页</a><span class="divider"></span></li>
+        
+        <li class="active">发布话题</li>
+        
+      </ol>
+  <h1 align="center">图片 {{photo.title}} </h1>
 
-    <h4 class="list-group-item-heading">{{photo.title}} <small>{{photo.update_at}}</small></h4>
+    <h4 align="center"  class="list-group-item-heading">{{photo.title}} <small>{{photo.update_at}}</small></h4>
   
+  <br/>
   <div align="center">
   	    {{#each photo.pictures}}
- <img src="{{this}}?imageView2/1/w/800/" alt="">
- <hr>
+ <img src="{{this}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
+ <p> &nbsp;</p>
   {{/each}}
 
   </div>
