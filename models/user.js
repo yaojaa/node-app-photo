@@ -10,7 +10,6 @@ var UserSchema = new Schema({
   profile: { type: String },
   avatar: { type: String },
   is_block: {type: Boolean, default: false},
-
   score: { type: Number, default: 0 },
   topic_count: { type: Number, default: 0 },
   reply_count: { type: Number, default: 0 },

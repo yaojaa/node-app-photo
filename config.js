@@ -44,16 +44,9 @@ var config = {
 
   // 图片列表显示数量
   list_photo_count: 6,
+ // 视频列表显示数量
+  list_video_count: 10,
 
-  // RSS配置
-  rss: {
-    title: 'CNode：Node.js专业中文社区',
-    link: 'http://cnodejs.org',
-    language: 'zh-cn',
-    description: 'CNode：Node.js专业中文社区',
-    //最多获取的RSS Item数量
-    max_rss_items: 50
-  },
 
   // 邮箱配置
   mail_opts: {
@@ -65,9 +58,7 @@ var config = {
     }
   },
 
-  //weibo app key
-  weibo_key: 10000000,
-  weibo_id: 'your_weibo_id',
+
 
   // admin 可删除话题，编辑标签，设某人为达人
   admins: { user_login_name: true },
@@ -126,6 +117,17 @@ var config = {
     {name:'food', text:'美食'},
     {name:'animals',text: '动物'},
     {name:'art', text:'艺术'}
+  ],
+
+  //视频分类
+
+  video_category:[
+    {name:'street', text:'电影'},
+    {name:'travel', text:'电视剧'},
+    {name:'fashion',text: '娱乐节目'},
+    {name:'food', text:'美食'},
+    {name:'animals',text: '动物'},
+    {name:'art', text:'搞笑'}
   ],
 
   // 极光推送

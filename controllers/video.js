@@ -30,6 +30,8 @@ exports.showVideoList = function(req, res) {
 exports.showCreate=function(req, res){
 
   res.render('create-video',{
+        category:config.video_category,
+
         Domain: config.qn_access.Domain,
         Uptoken_Url: config.qn_access.Uptoken_Url
     })
@@ -37,13 +39,15 @@ exports.showCreate=function(req, res){
 }
 
 exports.publish = function(req, res) {
-
+// title, discrib,cover_url, video_url,duration,category,authorId,
    var title = validator.trim(req.body.title);
    var discrib = validator.trim(req.body.discrib);
-   var tags=validator.trim(req.body.tags);
-   var pictures= req.body.pictures;
+      var cover_url = validator.trim(req.body.cover_url);
+   var video_url = validator.trim(req.body.video_url);
+   var duration = validator.trim(req.body.duration);
+   var category=validator.trim(req.body.category);
    var authorId=req.session.user._id || '000';
-   Video.newAndSave(title, discrib, pictures,authorId, function(err){
+   Video.newAndSave(title, discrib,cover_url, video_url,duration,category,authorId, function(err){
        if (err) {
         return next(err);
               }

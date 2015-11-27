@@ -5,6 +5,9 @@ var aticleController   = require('./api/v1/aticle');
 
 var photoController   = require('./api/v1/photo');
 
+var videoController   = require('./api/v1/video');
+
+
 
 // var topicController   = require('./api/v1/topic');
 // var userController    = require('./api/v1/user');
@@ -19,6 +22,9 @@ var router            = app.Router();
 
 
 router.get('/aticles', aticleController.index);
+
+router.get('/videolist', videoController.videolist);
+
 
 //上传图片
 

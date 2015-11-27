@@ -34,27 +34,19 @@ text-overflow: ellipsis;
 <div class="container">
 
 <div class="row">
-  {{#each photos}}
+  {{#each videos}}
 
-  <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2 ">
-          <div class="thum"> <a href="/photo/{{_id}}">
-              <div class="img-wapper">
-
-                    {{#each pictures}}
- <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
-  {{/each}}
-
-</a>
-                <div class="time-line"><em class="r">34张</em> <i class="fa fa-picture-o fa-lg"></i> </div>
-              </div>
+  <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2">
+          <div class="thum"> <a href="javascript:void(0)">
+              <div class="img-wapper"><img src="http://img0.bdstatic.com/img/image/4c15cc0087ec7f5b700b49401d0e2a681418614198.jpg">
+                <div class="time-line"><em class="r">4:13</em> <i class="fa fa-play-circle  fa-lg"></i> </div>
+              </div></a>
             <div class="txt">
-              <h4> <a href="/photo/{{_id}}">{{title}}  </a></h4>
-              <p>{{discrib}}  <button class="btn btn-sm del" photoid="{{_id}}">X </button>
-</p>
+              <h3> <a href="javascript:void(0)">NO.0083 </a></h3>
+              <p>美国对冲基金--与国内的私募基金相比，美国对冲基金可以使用更为灵活的策略和投资工具</p>
             </div>
           </div>
         </div>
-
   {{/each}}
 
 </div>
@@ -76,6 +68,10 @@ text-overflow: ellipsis;
 
 <script>
 
+
+$.get('/api/v1/videolist',function(res){
+  console.log(res);
+})
 
 function delPhoto(){
 

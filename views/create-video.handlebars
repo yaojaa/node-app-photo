@@ -17,7 +17,8 @@
 
 <form method="post" action="/create-video" class="form-horizontal " >
 
-
+     <input type="hidden" id="domain" value="{{Domain}}">
+        <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">
 
 
  
@@ -44,7 +45,7 @@
    <div class="form-group clearfix">
     <label class="col-sm-1 control-label">封面：</label>
     <div class="col-sm-11">
-<input class="form-control" type="text" name="url" placeholder="粘贴远程图片地址" />
+<input class="form-control" type="text" name="cover_url" id="cover_url" placeholder="粘贴远程图片地址" />
 
       <div class="wu-example">
         
@@ -61,23 +62,23 @@
   <div class="form-group">
     <label class="col-sm-1 control-label">地址：</label>
     <div class="col-sm-11">
-<input class="form-control" type="text" name="url" placeholder="粘贴远程视频地址" />
+<input class="form-control" type="text" name="video_url" id="video_url" placeholder="粘贴远程视频地址" />
 
 <div id="uploader" class="wu-example">
     <!--用来存放文件信息-->
     <div id="vlist" class="uploader-list"></div>
     <div class="btns">
         <div id="video-picker">+选择文件</div>
-        <button id="ctlBtn" class="btn btn-default" type="button">开始上传</button>
-    </div>
+<!--         <button id="ctlBtn" class="btn btn-default" type="button">开始上传</button>
+ -->    </div>
 </div
    </div>
   </div>
 
   <div class="form-group">
     <label for="inputEmail3" class="col-sm-1 control-label">类别：</label>
-    <div class="col-sm-1">
-<select class="form-control" name="category">
+    <div class="col-sm-2">
+      <select class="form-control" name="category">
    <option value="0"  >请选择</option>
 
   {{#each category}}
@@ -95,7 +96,23 @@
 
 
 <script>
-  
+
+
+var  uptoken_url= $('#uptoken_url').val();
+
+var getToken=(function(){
+  $.get(uptoken_url,function(res){
+    initUploades(res.uptoken)
+  })
+})()
+
+
+function initUploades (token){
+
+  var formData={
+    'token':token
+  }
+
   var uploader = WebUploader.create({
 
     // 选完文件后，是否自动上传。
@@ -105,12 +122,12 @@
     swf: 'vendor/webuploador/Uploader.swf',
 
     // 文件接收服务端。
-    server: 'http://webuploader.duapp.com/server/fileupload.php',
+    server: 'http://up.qiniu.com',
 
     // 选择文件的按钮。可选。
     // 内部根据当前运行是创建，可能是input元素，也可能是flash.
     pick: '#picPicker',
-    fileNumLimit :1,
+    formData:formData,
 
     // 只允许选择图片文件。
     accept: {
@@ -162,8 +179,10 @@ uploader.on( 'uploadProgress', function( file, percentage ) {
 });
 
 // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-uploader.on( 'uploadSuccess', function( file ) {
+uploader.on( 'uploadSuccess', function( file,response ) {
     $( '#'+file.id ).addClass('upload-state-done');
+        $('#cover_url').val(response.key).attr('readonly','readonly')
+
 });
 
 // 文件上传失败，显示上传出错。
@@ -202,17 +221,19 @@ uploader.on('error', function(handler) {
 var $vlist=$('#vlist');
 
 var videoUploader = WebUploader.create({
+    auto: true,
 
-
+    chunked: true,
     // 文件接收服务端。
-    server: 'http://webuploader.duapp.com/server/fileupload.php',
+    server: 'http://up.qiniu.com',
 
     // 选择文件的按钮。可选。
     // 内部根据当前运行是创建，可能是input元素，也可能是flash.
     pick: '#video-picker',
 
     // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-    resize: false
+    resize: false,
+    formData:formData,
 })
 
 // 当有文件被添加进队列的时候
@@ -245,8 +266,9 @@ videoUploader.on( 'uploadProgress', function( file, percentage ) {
 
 
 
-videoUploader.on( 'uploadSuccess', function( file ) {
+videoUploader.on( 'uploadSuccess', function( file,response) {
     $( '#'+file.id ).find('p.state').text('已上传');
+    $('#video_url').val(response.key).attr('readonly','readonly')
 });
 
 videoUploader.on( 'uploadError', function( file ) {
@@ -257,4 +279,12 @@ videoUploader.on( 'uploadComplete', function( file ) {
     $( '#'+file.id ).find('.progress').fadeOut();
 });
 
+
+}
+
+
+
+
+  
+  
 </script>
