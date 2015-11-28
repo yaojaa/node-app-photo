@@ -51,8 +51,6 @@ Video.count(query,function(err, total){
 	.skip((options.page-1)*10)
 	.sort('-create_at')
 	.exec(function(err,videos){
-
-		console.log(videos)
 		callback(err,videos)
 	})
 	

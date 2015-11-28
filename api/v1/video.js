@@ -1,9 +1,7 @@
-var config        = require('../../config');
-
-var models        = require('../../models');
-var VideoModel   = models.Video;
-var VideoProxy   = require('../../proxy').Video;
-
+var config = require('../../config');
+var models = require('../../models');
+var VideoModel = models.Video;
+var VideoProxy = require('../../proxy').Video;
 
 
 /**
@@ -11,60 +9,87 @@ limit 限制数量
 page 第几页
 */
 
-var index=function(req,res,next){
- var limit  = Number(req.query.limit) || config.list_topic_count;    
- var page     = parseInt(req.query.page, 10) || 1;
- var query={};
+var index = function(req, res, next) {
+    var limit = Number(req.query.limit) || config.list_topic_count;
+    var page = parseInt(req.query.page, 10) || 1;
+    var query = {};
     VideoModel.find({}).limit(limit)
-    .skip((page - 1) * limit)
-    .sort({time:1}).exec(function(err,topics){
-      var datas=topics.map(function(item){
-        return newdata={
-          id:item._id,
-          title:item.title,
-          content:item.content,
-          time:item.update_at
-        }
-      })
-    res.send({data: datas});
+        .skip((page - 1) * limit)
+        .sort({
+            time: 1
+        }).exec(function(err, topics) {
+            var datas = topics.map(function(item) {
+                return newdata = {
+                    id: item._id,
+                    title: item.title,
+                    content: item.content,
+                    time: item.update_at
+                }
+            })
+            res.send({
+                data: datas
+            });
+        })
+}
+
+
+var isOutUrl=function(string){
+   return string.indexOf('http') < 0
+}
+
+var videolist = function(req, res, next) {
+
+
+    var params = {
+        category: req.body.category || '',
+        page: req.body.page || 1
+    }
+
+    VideoProxy.getvideolist(params, function(err, videos) {
+
+        var newlist = videos.map(function(item) {
+
+            //如果是外链地址
+            if (isOutUrl(item.cover_url)) {
+                item.cover_url = config.qn_access.Domain + '/' + item.cover_url;
+            }
+            if (isOutUrl(item.video_url)) {
+                item.video_url = config.qn_access.Domain + '/' + item.video_url;
+            }
+
+            return item
+        })
+
+        res.send({
+            errorno: 0,
+            msg: 'success',
+            data: {
+                list: newlist
+            }
+        });
+
     })
-}
-
-var videolist=function(req,res,next){
-// res.send({errorno:0,msg:'success',data:{
-//       list:'videos'
-//     }});
-
-  var params={
-    category:req.body.category || '',
-    page:req.body.page ||1
-  }
-
-  VideoProxy.getvideolist(params,function(err,videos){
-
-    res.send({errorno:0,msg:'success',data:{
-      list:videos
-    }});
-
-  })
 
 }
 
-var delVideo=function(req,res,next){
-  var id=req.body.id;
-  VideoProxy.delVideoById(id,function(err){
+var delVideo = function(req, res, next) {
+    var id = req.body.id;
+    VideoProxy.delVideoById(id, function(err) {
 
-    if (err) {
-        return next(err);
-      }
-      res.json({errorno:0,msg:"删除成功"});
-  })
+        if (err) {
+            return next(err);
+        }
+        res.json({
+            errorno: 0,
+            msg: "删除成功"
+        });
+    })
 
 }
 
-exports.delVideo=delVideo;
-exports.videolist=videolist;
-exports.index=index;
+exports.delVideo = delVideo;
+exports.videolist = videolist;
+exports.index = index;
 
 
 

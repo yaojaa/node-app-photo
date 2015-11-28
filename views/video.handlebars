@@ -33,21 +33,9 @@ text-overflow: ellipsis;
 
 <div class="container">
 
-<div class="row">
-  {{#each videos}}
+<div class="row" id="video-list">
 
-  <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2">
-          <div class="thum"> <a href="javascript:void(0)">
-              <div class="img-wapper"><img src="http://img0.bdstatic.com/img/image/4c15cc0087ec7f5b700b49401d0e2a681418614198.jpg">
-                <div class="time-line"><em class="r">4:13</em> <i class="fa fa-play-circle  fa-lg"></i> </div>
-              </div></a>
-            <div class="txt">
-              <h3> <a href="javascript:void(0)">NO.0083 </a></h3>
-              <p>美国对冲基金--与国内的私募基金相比，美国对冲基金可以使用更为灵活的策略和投资工具</p>
-            </div>
-          </div>
-        </div>
-  {{/each}}
+加载中...
 
 </div>
 
@@ -62,15 +50,31 @@ text-overflow: ellipsis;
 
 
 
-
-
-
-
 <script>
 
-
 $.get('/api/v1/videolist',function(res){
-  console.log(res);
+  console.log();
+
+  var html='';
+  $.each(res.data.list,function(k,item){
+
+    html+='<div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2" >'+
+          '<div class="thum"> <a href="javascript:void(0)">'+
+              '<div class="img-wapper"><img src="'+ item.cover_url +'">'+
+                '<div class="time-line"><em class="r">'+ item.duration +'</em> <i class="fa fa-play-circle  fa-lg"></i> </div>'+
+              '</div></a>'+
+            '<div class="txt">'+
+              '<h3> <a href="javascript:void(0)">'+ item.title +'</a></h3>'+
+              '<p>'+ item.discrib +'</p>'+
+           ' </div>'+
+         ' </div>'+
+        '</div>'
+
+      })
+
+  $('#video-list').html(html)
+
+
 })
 
 function delPhoto(){
