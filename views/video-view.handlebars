@@ -1,0 +1,46 @@
+<div class="container">
+<ol class="breadcrumb">
+        <li><a href="/">主页</a><span class="divider"></span></li>
+        
+        <li> <a href="video/">视频</a> <span class="divider"></span></li>
+        <li class="active">{{video.title}}</li>
+
+        
+      </ol>
+  <h1 align="center"> {{video.title}} </h1>
+
+    <h4 align="center"  class="list-group-item-heading">{{video.title}} <small>{{video.update_at}}</small></h4>
+  
+  <br/>
+<div id="player-container">
+
+视频加载中...
+  
+</div>
+
+
+    <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+
+
+</div>
+
+
+</div>
+
+<script src="/vendor/jwplayer/jwplayer.js"></script>
+<script>
+  thePlayer = jwplayer('player-container').setup({  
+    file: '{{video.video_url}}',  
+            width: '100%',  
+            height: '600',
+            type : 'mp4',
+            autostart:true,
+            provider: 'video',  
+            dock: false  
+        });  
+
+</script>
