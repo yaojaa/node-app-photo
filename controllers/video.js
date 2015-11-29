@@ -1,7 +1,6 @@
 var config = require('../config');
-var Video = require('../proxy/video.js');
-var validator = require('validator');
-var eventproxy = require('eventproxy');
+var Video = require('../proxy/').Video;
+var validator    = require('validator');
 
 
 //findOnePage
@@ -19,6 +18,7 @@ exports.showVideoList = function(req, res) {
   res.render('video',{
     page:page,
     videos:lists,
+    category:config.video_category,
     prev:'p='+parseInt(page-1),
     next:'p='+parseInt(page+1),
     count:count})
@@ -57,20 +57,28 @@ exports.publish = function(req, res) {
 
 };
 
-
-exports.showDetail=function(req, res){
-   var _id=req.params._id;
-   Video.findOneVideo(_id,function(err,doc){
-      res.render('video-view',{
-        video:doc
-  })
-
-
-   })
-
-
-
+var isOutUrl=function(string){
+   return string.indexOf('http') < 0
 }
+exports.showDetail=function(req, res,next){
+   var _id=req.params._id;
+   Video.findOneVideo(_id,function(err,video){
+ if (err) {
+        return next(err);
+              }
+
+
+     if (isOutUrl(video.video_url)) {
+                video.video_url = config.qn_access.Domain + '/' + video.video_url;
+            }
+         console.log('video is',video);
+       
+      res.render('video-view',{
+        video:video,
+        })
+   })
+}
+
 
 
 

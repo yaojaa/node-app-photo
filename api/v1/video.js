@@ -74,11 +74,17 @@ var videolist = function(req, res, next) {
 
 var delVideo = function(req, res, next) {
     var id = req.body.id;
+
+    console.log('delVideocontroller',id);
+
     VideoProxy.delVideoById(id, function(err) {
 
         if (err) {
             return next(err);
         }
+
+            console.log('VideoProxy',id);
+
         res.json({
             errorno: 0,
             msg: "删除成功"

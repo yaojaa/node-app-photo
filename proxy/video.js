@@ -79,3 +79,14 @@ exports.findOneVideo=function(_id,callback){
 
 }
 
+exports.delVideoById = function(_id, callback) {
+
+    Video.remove({
+        '_id': _id
+    }).exec(function(err, status) {
+        callback(err, status.result)
+    })
+
+}
+
+

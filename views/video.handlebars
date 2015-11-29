@@ -53,19 +53,18 @@ text-overflow: ellipsis;
 <script>
 
 $.get('/api/v1/videolist',function(res){
-  console.log();
 
   var html='';
   $.each(res.data.list,function(k,item){
 
-    html+='<div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2" >'+
-          '<div class="thum"> <a href="javascript:void(0)">'+
+  html+='<div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2 item" >'+
+          '<div class="thum"> <a href="/video/'+item._id+'">'+
               '<div class="img-wapper"><img src="'+ item.cover_url +'">'+
                 '<div class="time-line"><em class="r">'+ item.duration +'</em> <i class="fa fa-play-circle  fa-lg"></i> </div>'+
               '</div></a>'+
             '<div class="txt">'+
-              '<h3> <a href="javascript:void(0)">'+ item.title +'</a></h3>'+
-              '<p>'+ item.discrib +'</p>'+
+              '<h3> <a href="/video/'+item._id+'">'+ item.title +'</a></h3>'+
+              '<p>'+ item.discrib +'<button video-id="'+item._id+'" class="btn btn-sm del" photoid="{{_id}}">X </button></p>'+
            ' </div>'+
          ' </div>'+
         '</div>'
@@ -77,12 +76,12 @@ $.get('/api/v1/videolist',function(res){
 
 })
 
-function delPhoto(){
+function delVideo(){
 
-  var _id= $(this).attr('photoid');
-  var $prent=$(this).closest('.list-group-item ')
+  var _id= $(this).attr('video-id');
+  var $prent=$(this).closest('.item ')
 
-    $.post('/api/v1/delPhoto',{id:_id},function(res){
+    $.post('/api/v1/delVideo',{id:_id},function(res){
       if(res.errorno===0){
         alert('删除成功！');
         $prent.fadeOut();
@@ -95,7 +94,7 @@ function delPhoto(){
 
 
 
-$('.del').on('click',delPhoto)
+$(document).delegate('.del','click',delVideo)
 
 
 </script>
