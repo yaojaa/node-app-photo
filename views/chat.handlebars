@@ -2,48 +2,101 @@
   <style>
   #votelist li{
 
-    margin: 10px
+    margin: 10px;
+    cursor:pointer;
+    list-style-type:decimal;
 
 
   }
+    #votelist li:hover{
+      background: #f8f8f8
+    }
   #votelist .on{
-    color: green
+    color: green;
+    font-weight: bold;
   }
+
+ #votelist .on:before{
+  content: '✔'
+ }
+
+
   #votelist em{
     background: green;
     transition:all 0.8s ;
     display: inline-block;
     color: #fff;
-    padding:3px;
-    width: 100px
+    padding:2px 0 0 3px;
+    width: 50px
+  }
+
+
+  #enterform{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top:0;
+    right:0;
+    bottom: 0;
+    background: #000;
+    color: #fff;
+    z-index: 99;
+    text-align: center;
   }
   </style>
       <div class="container">
         <h2>{{title}}</h2>
 
 
-      <div class="form" id="enterform">
-        <h3 class="title">What's your name?</h3>
-        <input name="usernameInput" id="username" maxlength="14" type="text" value="游客">
-        <button id="enter">Enter</button>
+      <div class="form row" id="enterform">
+        <br> <br> <br> <br>
+        <h1 class="title">What's your name?</h1> <br> <br>
+
+        <div style="padding:0 20%"><input name="usernameInput" class="form-control input-lg" id="username" maxlength="14" type="text" value="游客"></div>
+
+         <br> <br> <br>
+
+        <button id="enter" class="btn btn-success">Enter</button>
       </div>
 
+  <div class="row">
+    <div class="col-lg-9">
 
-<div style="border:1px solid #c00; width:200px;min-height:300px"> 
-  <h3>在线列表 （<em id="number">0</em>）</h3>
-  <ul id="userlist">
-                
- </ul>
-
-</div>
-          
-
-          <ol id="votelist">
+      <div class="panel panel-default">
+  <div class="panel-heading">请投票： </div>
+  <div class="panel-body">
+     <ol id="votelist">
             {{#each users}}
             <li id="{{name}}">{{name}}: <em>{{score}}</em></li>
             {{/each}}
-          </ol>    
+          </ol> 
+  </div>
+</div>
 
+
+         
+
+      
+    </div>
+    <div class="col-lg-3">
+      <div class="panel panel-default">
+  <div class="panel-heading">在线列表 （<em id="number">0</em>）</div>
+  <div class="panel-body">
+      <ul id="userlist">
+                
+ </ul>
+  </div>
+
+
+      </div>
+    </div>
+
+</div>
+
+          
+
+         
         
 
 
@@ -51,7 +104,16 @@
 
         <ul id="messages"></ul>
     <form action="" >
-      <input id="m" autocomplete="off" /><button>Send</button>
+
+      <div class="col-lg-6">
+<div class="input-group input-group-lg">
+      <input id="m"  type="text" class="form-control" placeholder="请输入文字...匿名哦">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">发送!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+
     </form>
 
         </div>
@@ -75,6 +137,25 @@ var $userlist=$('#userlist')
 
 
   });
+
+
+
+  socket.on('messagecome',function(data){
+
+    $('<h1>').text(data).appendTo($('body')).css({
+      position:'absolute',
+      top:'80%',
+      opacity:0,
+      width:'100%',
+      textAlign:'center'
+    }).animate({
+      top:'30%',
+      fontSize:50,
+      opacity:1
+    }).delay(500).fadeOut();
+
+
+  })
 
 
   socket.on('login',function(data){
@@ -134,7 +215,7 @@ var $userlist=$('#userlist')
 
   function setScore(data){
       $('#'+data.name).find('em').text(data.score).css({
-      width:data.score*80
+      width:data.score*10+'%'
     })
   }
 
