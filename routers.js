@@ -4,6 +4,8 @@ var sign = require('./controllers/sign');
 var aticle = require('./controllers/aticle');
 var photo = require('./controllers/photo');
 var video = require('./controllers/video');
+var chat = require('./controllers/chat');
+
 
 var config = require('./config')
 
@@ -74,6 +76,7 @@ router.get('/video/:_id', video.showDetail) //视频正文
 router.get('/create-video', video.showCreate)
 router.post('/create-video', video.publish)
 
+router.get('/chat', chat.chat);  // 聊天
 
 
 module.exports = router;

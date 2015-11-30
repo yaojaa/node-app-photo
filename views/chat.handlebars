@@ -1,0 +1,171 @@
+
+  <style>
+  #votelist li{
+
+    margin: 10px
+
+
+  }
+  #votelist .on{
+    color: green
+  }
+  #votelist em{
+    background: green;
+    transition:all 0.8s ;
+    display: inline-block;
+    color: #fff;
+    padding:3px;
+    width: 100px
+  }
+  </style>
+      <div class="container">
+        <h2>{{title}}</h2>
+
+
+      <div class="form" id="enterform">
+        <h3 class="title">What's your name?</h3>
+        <input name="usernameInput" id="username" maxlength="14" type="text" value="游客">
+        <button id="enter">Enter</button>
+      </div>
+
+
+<div style="border:1px solid #c00; width:200px;min-height:300px"> 
+  <h3>在线列表 （<em id="number">0</em>）</h3>
+  <ul id="userlist">
+                
+ </ul>
+
+</div>
+          
+
+          <ol id="votelist">
+            {{#each users}}
+            <li id="{{name}}">{{name}}: <em>{{score}}</em></li>
+            {{/each}}
+          </ol>    
+
+        
+
+
+
+
+        <ul id="messages"></ul>
+    <form action="" >
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+
+        </div>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+ <script>
+
+var $userlist=$('#userlist')
+
+  var socket = io();
+
+  socket.on('connect',function(msg){
+
+    console.log(msg);
+
+  })
+
+  socket.on('upmessagecome', function(data){
+
+    setScore(data);
+
+
+  });
+
+
+  socket.on('login',function(data){
+        $('#messages').append($('<li>').text(data.username+'登录了'));
+  })
+
+// Whenever the server emits 'user joined', log it in the chat body
+  socket.on('user joined', function (data) {
+
+     $userlist.html('');
+    $.each(data.usernames,function(k,v){
+             $userlist.append($('<li>').text(k));
+
+    })
+
+    $('#number').text(data.numUsers)
+
+    //data.voteUsers
+    //set score
+    console.info('userjoined!')
+    data.voteUsers.forEach(function(value,index){
+
+      setScore(value)
+
+
+    })
+
+
+  });
+
+
+  socket.on('user left', function (data) {
+    console.log(data.username + ' left');
+
+
+  });
+
+
+
+
+  function adduser(){
+
+    $('#enterform').fadeOut();
+
+    var username=$.trim($('#username').val());
+
+    if (username) {
+      // $loginPage.fadeOut();
+      // $chatPage.show();
+      // $loginPage.off('click');
+      // $currentInput = $inputMessage.focus();
+      // Tell the server your username
+      socket.emit('add user', username);
+    }
+
+  }
+
+  function setScore(data){
+      $('#'+data.name).find('em').text(data.score).css({
+      width:data.score*80
+    })
+  }
+
+
+
+  $('#enter').on('click',adduser)
+
+
+  $('form').submit(function(){
+    socket.emit('message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+
+
+  $('#votelist').delegate('li','click',function(){
+
+    $(this).toggleClass('on');
+
+   var currentClass=  $(this).attr('class');
+
+    if(currentClass==='on'){
+
+        socket.emit('vote', this.id);
+
+    }else{
+         socket.emit('down', this.id);
+
+    }
+
+
+
+  })
+</script>

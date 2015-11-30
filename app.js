@@ -12,16 +12,16 @@ var app = express();
 var cors = require('cors');
 
 var handlebars = require('express-handlebars')
-  .create({
-    defaultLayout: 'main',
-    helpers: {
-      section: function (name, options) {
-        if (!this._sections)this._sections = {};
-        this._sections[name] = options.fn(this);
-        return null;
-      }
-    }
-  });
+    .create({
+        defaultLayout: 'main',
+        helpers: {
+            section: function(name, options) {
+                if (!this._sections) this._sections = {};
+                this._sections[name] = options.fn(this);
+                return null;
+            }
+        }
+    });
 
 // view engine setup
 app.engine('handlebars', handlebars.engine);
@@ -29,44 +29,46 @@ app.set('view engine', 'handlebars');
 
 // //开启cookie
 app.use(cookieParser(config.session_secret));
-app.use(session(
-  { secret: config.session_secret, 
-    name:'defautsession',
+app.use(session({
+    secret: config.session_secret,
+    name: 'defautsession',
 
-    cookie: { maxAge: 1000 * 60 * 30 },//session设置30分钟
-     resave: false,
+    cookie: {
+        maxAge: 1000 * 60 * 30
+    }, //session设置30分钟
+    resave: false,
     saveUninitialized: true,
-  }
-    ))
+}))
 
 
 /**
-* cookie 中间件
-* 先判断是否有cookie，有的话直接登录
-*/
-app.use(function (req, res, next) {
+ * cookie 中间件
+ * 先判断是否有cookie，有的话直接登录
+ */
+app.use(function(req, res, next) {
     if (req.session.user) {
-        return next();//若有session，直接跳过此中间件
+        return next(); //若有session，直接跳过此中间件
     } else {
-        var cookie = req.signedCookies[config.auth_cookie_name];//读cookie，通过配置文件中标识符读cookie
-            if (!cookie) {
-                return next();//若没有此站点的cookie，直接跳过此中间件
-            }
+        var cookie = req.signedCookies[config.auth_cookie_name]; //读cookie，通过配置文件中标识符读cookie
+        if (!cookie) {
+            return next(); //若没有此站点的cookie，直接跳过此中间件
+        }
 
-  //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
+        //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
         var auth = cookie.split('$$$$');
-        var username = auth[0], passwd = auth[1];//解密后拿到username与password
-            var data = {
-                username:username,
-                password:passwd,
-            }
+        var username = auth[0],
+            passwd = auth[1]; //解密后拿到username与password
+        var data = {
+            username: username,
+            password: passwd,
+        }
 
-          req.session.user = data;//存在此用户，开启session，存储user
-          return next();//进行下一步
-        
-       }
+        req.session.user = data; //存在此用户，开启session，存储user
+        return next(); //进行下一步
 
-        })
+    }
+
+})
 
 
 
@@ -82,7 +84,9 @@ app.use(function (req, res, next) {
 
 // app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 
 
@@ -90,8 +94,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //处理session的中间件
 app.use(function(req, res, next) {
-  req.user=res.locals.user=req.session.user;
-  next();
+    req.user = res.locals.user = req.session.user;
+    next();
 });
 
 
@@ -105,7 +109,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //路由
-var router=require('./routers.js');
+var router = require('./routers.js');
 var apiRouterV1 = require('./api_router_v1');
 
 app.use('/api/v1', cors(), apiRouterV1);
@@ -121,32 +125,34 @@ app.use('/', router);
 
 
 
-app.get('/vacations',function(req,res){
-  vacation.find({available:true},function(err,vacations){
+app.get('/vacations', function(req, res) {
+    vacation.find({
+        available: true
+    }, function(err, vacations) {
 
-    var context={
-        vacations:vacations.map(function(vacation){
-          return {
-            sku:vacation.sku,
-            name:vacation.name,
-            descripton:vacation.descripton,
-            price:vacation.getDisplayPrice(),
-            inSeason:vacation.inSeason,
-          }
-        })
-    }
+        var context = {
+            vacations: vacations.map(function(vacation) {
+                return {
+                    sku: vacation.sku,
+                    name: vacation.name,
+                    descripton: vacation.descripton,
+                    price: vacation.getDisplayPrice(),
+                    inSeason: vacation.inSeason,
+                }
+            })
+        }
 
-  })
+    })
 
-  res.render('vacations',context)
+    res.render('vacations', context)
 
 })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -154,31 +160,140 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 
-var server=app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+var server = app.listen(3000, function() {
+    var host = server.address().address;
+    var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+    console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+//socket 相关
+
+var users = require('./user_data').users;
+
+
+
+var io = require('socket.io').listen(server);
+
+// usernames which are currently connected to the chat
+var usernames = {};
+var numUsers = 0;
+
+
+
+
+io.on('connection', function(socket) {
+    var addedUser = false;
+    console.log('a user connected');
+
+    io.emit('connect', usernames);
+
+    socket.on('disconnect', function() {
+        console.log('user disconnected');
+
+        if (addedUser) {
+            delete usernames[socket.username];
+            --numUsers;
+        }
+
+
+        socket.broadcast.emit('user left', {
+            username: socket.username,
+            numUsers: numUsers
+        });
+
+
+
+
+    });
+
+
+
+
+    socket.on('message', function(msg) {
+        console.log(msg);
+        io.emit('messagecome', msg);
+    });
+
+
+    socket.on('vote', function(name) {
+        users.forEach(function(value, index) {
+            if (value.name == name) {
+                value.score++;
+
+                io.emit('upmessagecome', {
+                    name: value.name,
+                    score: value.score
+                });
+                return false
+
+            }
+        })
+    });
+
+
+        socket.on('down', function(name) {
+        users.forEach(function(value, index) {
+            if (value.name == name) {
+                value.score--;
+                io.emit('upmessagecome', {
+                    name: value.name,
+                    score: value.score
+                });
+                return false
+
+            }
+        })
+    });
+
+
+    socket.on('add user', function(username) {
+        console.log(username);
+        addedUser = true;
+        // we store the username in the socket session for this client
+        socket.username = username;
+        usernames[username] = username;
+        ++numUsers;
+        socket.broadcast.emit('login', {
+            numUsers: numUsers,
+            username: socket.username
+        });
+
+        // echo globally (all clients) that a person has connected
+        io.emit('user joined', {
+            usernames: usernames,
+            numUsers: numUsers,
+            voteUsers:users
+        });
+
+    });
+
+
+
+});
+
+//socket end
+
 
 module.exports = app;
