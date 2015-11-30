@@ -46,7 +46,10 @@
   }
   </style>
       <div class="container">
-        <h2 aglin="center">{{title}}</h2>
+                <br>                <br>
+
+
+        <h1 align="center">{{title}}工具</h1>
         <br>
 
 
@@ -236,9 +239,18 @@ var $userlist=$('#userlist')
 
   $('#votelist').delegate('li','click',function(){
 
+        if($('.on').size()>=3 &&  !$(this).hasClass('on') ){
+    alert('最多三票,点击名字可取消');
+    return 
+   }
+
     $(this).toggleClass('on');
 
+
+
+
    var currentClass=  $(this).attr('class');
+
 
     if(currentClass==='on'){
 
