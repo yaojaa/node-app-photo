@@ -27,7 +27,7 @@ var users=require('../user_data').users;
 exports.chat = function(req, res) {
 
     res.render('chat', {
-            title: 'chat demo',
+            title: '即时投票',
             users: users,
 
     })
