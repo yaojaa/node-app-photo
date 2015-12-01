@@ -41,6 +41,8 @@ exports.create = function(req, res) {
    var content = validator.trim(req.body.content);
    var authorId=req.session.user._id || '000';
 
+   console.log(content);
+
    Aticle.newAndSave(title, content, authorId, function(err){
 
        if (err) {

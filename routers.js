@@ -60,21 +60,21 @@ router.get('/uptoken',function(req,res){
     })
 
 
-// router.get('/aticle', aticle.showAticleList) //文章列表
-// router.get('/a/:_id', aticle.showDetail) //文章正文
-// router.get('/create-aticle', aticle.showCreate)
-// router.post('/create-aticle', aticle.create)
+router.get('/aticle', aticle.showAticleList) //文章列表
+router.get('/a/:_id', aticle.showDetail) //文章正文
+router.get('/create-aticle', aticle.showCreate)
+router.post('/create-aticle', aticle.create)
 
 
-// router.get('/photo', photo.showPhotoList) //图片列表
-// router.get('/photo/:_id', photo.showDetail) //图片正文
-// router.get('/create-photo', photo.showCreate)
-// router.post('/create-photo', photo.publish)
+router.get('/photo', photo.showPhotoList) //图片列表
+router.get('/photo/:_id', photo.showDetail) //图片正文
+router.get('/create-photo', photo.showCreate)
+router.post('/create-photo', photo.publish)
 
-// router.get('/video', video.showVideoList) //视频列表
-// router.get('/video/:_id', video.showDetail) //视频正文
-// router.get('/create-video', video.showCreate)
-// router.post('/create-video', video.publish)
+router.get('/video', video.showVideoList) //视频列表
+router.get('/video/:_id', video.showDetail) //视频正文
+router.get('/create-video', video.showCreate)
+router.post('/create-video', video.publish)
 
 router.get('/chat', chat.chat);  // 聊天
 

@@ -1,14 +1,32 @@
+
+<style>
+
+#aticleContent {
+    background-color: #fff;
+    margin-bottom: 50px;
+    padding: 50px;
+    line-height: 1.6;
+    box-shadow: 0 0 6px #ddd
+}
+
+#aticleContent p{
+	margin: 1.2em;
+	line-height: 1.6
+}
+</style>
+
 <div class="container">
 <ol class="breadcrumb">
         <li><a href="/">主页</a><span class="divider"></span></li>
         
-        <li class="active">发布话题</li>
+        <li class="active">正文</li>
         
       </ol>
-  <h1>文章正文</h1>
 
-    <h4 class="list-group-item-heading">{{aticle.title}} <small>{{aticle.update_at}}</small></h4>
-    <p class="list-group-item-text">{{aticle.content}}</p>
+    <div id="aticleContent">
+    	    <h1 class="list-group-item-heading">{{aticle.title}} </h1>
+<hr>
+    	{{{aticle.content}}}</div>
 
 </div>
 

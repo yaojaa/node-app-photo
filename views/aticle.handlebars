@@ -13,10 +13,10 @@
     <h3 class="list-group-item-heading"><a href="/a/{{_id}}" >{{title}}   </a> 
 <small>{{update_at}}</small>
 
-<button aria-label="Close" onclick="del_aticle('{{_id}}')"  class="close" type="button"><span aria-hidden="true">×</span></button>
+<button aria-label="Close" onclick="del_aticle(this,'{{_id}}')"  class="close" type="button"><span aria-hidden="true">×</span></button>
     </h3>
-    <p class="list-group-item-text">{{content}}</p>
-
+<!--     <p class="list-group-item-text">{{content}}</p>
+ -->
   
   </li>
   {{/each}}
@@ -46,12 +46,13 @@
 
 <script>
 
-function del_aticle(_id){
+function del_aticle(btn,_id){
 
 
     $.post('/api/v1/delAticle',{id:_id},function(res){
       if(res.errorno===0){
-        alert('删除成功！')
+
+        $(btn).closest('.list-group-item').remove();
       }
       })
 
@@ -59,7 +60,5 @@ function del_aticle(_id){
 }
 
 
-
-$('.del_aticle').on('click',del_aticle)
 
 </script>

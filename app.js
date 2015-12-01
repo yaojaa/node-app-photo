@@ -205,7 +205,6 @@ var numUsers = 0;
 
 io.on('connection', function(socket) {
     var addedUser = false;
-    console.log('a user connected');
 
     io.emit('connect', usernames);
 
@@ -232,7 +231,6 @@ io.on('connection', function(socket) {
 
 
     socket.on('message', function(msg) {
-        console.log(msg);
         io.emit('messagecome', msg);
     });
 
