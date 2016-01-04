@@ -1,0 +1,47 @@
+<div class="container">
+<ol class="breadcrumb">
+        <li><a href="/">主页</a><span class="divider"></span></li>
+        
+        <li class="active">升级VIP</li>
+        
+      </ol>
+
+
+<div class="row">
+
+  <h2>开通会员</h2>
+  <h3>你的账号余额为：{{user.score}}</h3>
+  
+  <div class="fillmoney">
+    <input type="number" value="100">元 1000金币 <button>充值</button>
+  </div>
+<br><br>
+  <form action="/tovip" method="post">
+    <div class="form-group">
+      <input type="text" name="username" class="form-control" value="{{user.username}}">
+    </div>
+
+    <div class="form-group">
+           
+      <input type="radio" name="expireDate" class="form-control" value="30"> 一个月
+      <input type="radio" name="expireDate" class="form-control" value="90"> 三个月
+      <input type="radio" name="expireDate" class="form-control" value="180"> 半年
+      <input type="radio" name="expireDate" class="form-control" value="365"> 一年
+
+
+    </div>
+
+
+    <button>升级</button>
+  </form>
+  
+      
+    </div>
+
+</div>
+ 
+
+</div>
+
+
+</div>

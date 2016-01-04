@@ -9,8 +9,9 @@ var UserSchema = new Schema({
   signature: { type: String },
   profile: { type: String },
   avatar: { type: String },
-  is_block: {type: Boolean, default: false},
-  score: { type: Number, default: 0 },
+  is_vip: {type: Boolean, default: false},
+  score: { type: Number, default: 0 },  //积分
+  money: { type: Number, default: 0 },  //账户余额
   topic_count: { type: Number, default: 0 },
   reply_count: { type: Number, default: 0 },
   follower_count: { type: Number, default: 0 },
@@ -19,13 +20,12 @@ var UserSchema = new Schema({
   collect_topic_count: { type: Number, default: 0 },
   create_at: { type: Date, default: Date.now },
   update_at: { type: Date, default: Date.now },
-  is_star: { type: Boolean },
+  expire_date:{type: String},
   level: { type: String },
   active: { type: Boolean, default: false },
 
   receive_reply_mail: {type: Boolean, default: false },
   receive_at_mail: { type: Boolean, default: false },
-  from_wp: { type: Boolean },
   retrieve_time: {type: Number},
   retrieve_key: {type: String},
   accessToken: {type: String},

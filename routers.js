@@ -6,6 +6,9 @@ var photo = require('./controllers/photo');
 var video = require('./controllers/video');
 var chat = require('./controllers/chat');
 
+var ucenter = require('./controllers/ucenter');
+
+
 
 var config = require('./config')
 
@@ -78,5 +81,13 @@ router.post('/create-video', video.publish)
 
 router.get('/chat', chat.chat);  // 聊天
 
+//用户中心
 
+router.get('/ucenter', ucenter.show);  // 用户中心
+router.get('/score', ucenter.score);  // 积分充值
+
+
+router.get('/tovip', ucenter.showvip);  // 开通vip
+
+router.post('/tovip', ucenter.openvip);  // 开通vip
 module.exports = router;

@@ -14,6 +14,12 @@ exports.getUserByMail = function (email, callback) {
   User.findOne({'email': email}, callback);
 };
 
+exports.getUserByName = function (username, callback) {
+  User.findOne({'user_name': username}, callback);
+};
+
+
+
 exports.newAndSave = function (password, email, username,active, callback) {
   var user         = new User();
   user.password    = password;

@@ -45,30 +45,9 @@ app.use(session({
  * cookie 中间件
  * 先判断是否有cookie，有的话直接登录
  */
-app.use(function(req, res, next) {
-    if (req.session.user) {
-        return next(); //若有session，直接跳过此中间件
-    } else {
-        var cookie = req.signedCookies[config.auth_cookie_name]; //读cookie，通过配置文件中标识符读cookie
-        if (!cookie) {
-            return next(); //若没有此站点的cookie，直接跳过此中间件
-        }
+// app.use(function(req, res, next) {
 
-        //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
-        var auth = cookie.split('$$$$');
-        var username = auth[0],
-            passwd = auth[1]; //解密后拿到username与password
-        var data = {
-            username: username,
-            password: passwd,
-        }
-
-        req.session.user = data; //存在此用户，开启session，存储user
-        return next(); //进行下一步
-
-    }
-
-})
+// })
 
 
 
@@ -89,15 +68,28 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-
-
-
 //处理session的中间件
 app.use(function(req, res, next) {
+
+
     req.user = res.locals.user = req.session.user;
     next();
 });
 
+
+app.use(function(req, res, next) {
+
+
+      if (!req.session.user) {
+
+        console.log('no session');
+        var login=require('./controllers/sign.js');
+        login.checkIsLogin(req,res,next)
+        }else{
+            next()
+        }
+
+});
 
 
 
@@ -121,6 +113,11 @@ app.use('/', router);
 
 //   next();
 // });
+
+
+
+
+
 
 
 

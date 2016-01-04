@@ -10,7 +10,7 @@ var config = {
 
   get mini_assets() { return !this.debug; }, // 是否启用静态文件的合并压缩，详见视图中的Loader
 
-  name: 'Nodeclub', // 社区名字
+  name: '漫影', // 社区名字
   description: 'CNode：Node.js专业中文社区', // 社区的描述
   keywords: 'nodejs, node, express, connect, socket.io',
 
@@ -35,7 +35,9 @@ var config = {
   cnzz_tracker_id: '',
 
   // mongodb 配置
-  db: 'mongodb://1.93.14.48:27017/cms',
+  // db: 'mongodb://1.93.14.48:27017/cms',
+  db: 'mongodb://127.0.0.1:27017/cms2',
+
   session_secret: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxx', // 务必修改
   auth_cookie_name: 'node_club',
 
@@ -61,7 +63,7 @@ var config = {
 
 
   // admin 可删除话题，编辑标签，设某人为达人
-  admins: { user_login_name: true },
+  admins: { 'yaojaa@vip.qq.com': true },
 
   // github 登陆的配置
   GITHUB_OAUTH: {

@@ -7,6 +7,12 @@ var photoController   = require('./api/v1/photo');
 
 var videoController   = require('./api/v1/video');
 
+var ucenterController   = require('./api/v1/ucenter');
+
+var auth		=	require('./middlewares/auth')
+
+// 接口格式
+// {errorno:0, msg:'',data:{}}
 
 
 // var topicController   = require('./api/v1/topic');
@@ -39,10 +45,12 @@ router.post('/upload', function (req,res) {
 
 
 router.post('/delAticle',aticleController.delAticle)
-router.post('/delPhoto',photoController.delPhoto)
-router.post('/delVideo',videoController.delVideo)
+router.post('/delPhoto', auth.adminRequired, photoController.delPhoto)
+router.post('/delVideo', auth.adminRequired, videoController.delVideo)
 
+//开通vip
 
+router.post('/tovip', ucenterController.tovip);
 
 
 

@@ -89,12 +89,82 @@ exports.signup = function(req, res, next) {
 
 
 
-
 exports.showLogin = function(req, res) {
     res.render('user/login');
+}
 
+
+function makeSession(req,user){
+
+  console.log(config.admins);
+
+  console.log('config.admins.hasOwnProperty(user.email)',config.admins.hasOwnProperty(user.email))
+    req.session.user={
+          username:user.user_name,
+          email:user.email,
+          score:user.score,
+          is_vip:user.is_vip,
+          is_admin:config.admins.hasOwnProperty(user.email)
+        };
 
 }
+
+
+//检查登录，自动登录
+function checkIsLogin(req,res,next){
+
+
+    
+
+  if (req.session.user) {
+        return next(); //若有session，直接跳过此中间件
+    } else {
+        console.log('读取cookies')
+
+        var cookie = req.signedCookies[config.auth_cookie_name]; //读cookie，通过配置文件中标识符读cookie
+        if (!cookie) {
+        console.log('没有cookies')
+
+            return next(); //若没有此站点的cookie，直接跳过此中间件
+        }
+
+        console.log('有cookies')
+
+
+        //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
+        var auth = cookie.split('$$$$');
+        var email = auth[0],
+            password = auth[1]; //解密后拿到username与password
+
+
+    User.getUserByMail(email, function(err, user) {
+
+
+        if (err) {
+            return next();
+        }
+
+        if (!user) {
+        
+            return next();
+        }
+
+        if (password !== user.password) {
+   
+            return next();
+        }
+
+        makeSession(req,user)
+
+
+        return next(); //进行下一步
+
+    })
+  }
+
+}
+
+exports.checkIsLogin=checkIsLogin;
 
 
 //登录
@@ -113,9 +183,6 @@ exports.login = function(req, res, next) {
       //生成密码的 md5 值
   var md5 = crypto.createHash('md5'),
       password = md5.update(password).digest('hex');
-
-              console.log('输入的密码加密后:'+password)
-
 
     User.getUserByMail(email, function(err, user) {
         if (err) {
@@ -138,10 +205,11 @@ exports.login = function(req, res, next) {
             return next();
         }
 
-        req.session.user=user;
+        makeSession(req,user)
+
 
         function gen_session(user, res) {
-              var auth_token = user.user_name + '$$$$'+ user.password; // 以后可能会存储更多信息，用 $$$$ 来分隔
+              var auth_token = user.email + '$$$$'+ user.password ; // 以后可能会存储更多信息，用 $$$$ 来分隔
               var opts = {
                 path: '/',
                 maxAge: 1000 * 60 * 60 * 24 * 30,
@@ -151,9 +219,9 @@ exports.login = function(req, res, next) {
               res.cookie(config.auth_cookie_name, auth_token, opts); //cookie 有效期30天
             }
 
-       gen_session(user, res);
+      gen_session(user, res);
 
-        res.redirect('/')
+      res.redirect('/')
 
 
     })
