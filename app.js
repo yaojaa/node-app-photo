@@ -26,6 +26,7 @@ var handlebars = require('express-handlebars')
 // view engine setup
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
+console.log(__dirname);
 app.set('views', __dirname + '/views');
 
 // //开启cookie
