@@ -4,7 +4,6 @@ var sign = require('./controllers/sign');
 var aticle = require('./controllers/aticle');
 var photo = require('./controllers/photo');
 var video = require('./controllers/video');
-var chat = require('./controllers/chat');
 
 var ucenter = require('./controllers/ucenter');
 
@@ -22,7 +21,6 @@ var router = express.Router();
 
 
 router.get('/', function (req, res) {
-  console.log('###########################################',app.get('views'));
  res.render('home',{user:req.session.user})
 })
 
@@ -79,8 +77,6 @@ router.get('/video', video.showVideoList) //视频列表
 router.get('/video/:_id', video.showDetail) //视频正文
 router.get('/create-video', video.showCreate)
 router.post('/create-video', video.publish)
-
-router.get('/chat', chat.chat);  // 聊天
 
 //用户中心
 

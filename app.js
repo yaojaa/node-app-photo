@@ -27,7 +27,7 @@ var handlebars = require('express-handlebars')
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 console.log(__dirname);
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + 'views');
 
 // //开启cookie
 app.use(cookieParser(config.session_secret));
@@ -82,8 +82,6 @@ app.use(function (req, res, next) {
 
 
   if (!req.session.user) {
-
-    console.log('no session');
     var login = require('./controllers/sign.js');
     login.checkIsLogin(req, res, next)
   } else {
