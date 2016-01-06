@@ -22,6 +22,7 @@ var router = express.Router();
 
 
 router.get('/', function (req, res) {
+  console.log('###########################################',app.get('views'));
  res.render('home',{user:req.session.user})
 })
 
