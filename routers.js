@@ -7,6 +7,7 @@ var video = require('./controllers/video');
 
 var ucenter = require('./controllers/ucenter');
 var auth = require('./middlewares/auth');
+var response = require('./middlewares/response');
 
 
 var config = require('./config')
@@ -18,6 +19,8 @@ var app = express();
 
 var router = express.Router();
 
+//添加接口返回函数
+router.use(response);
 
 router.get('/', function (req, res) {
   res.render('home', {user: req.session.user})
@@ -88,7 +91,8 @@ router.get('/uc/account', function(req, res) {
   res.render('account');
 });
 
-
+// 账户安全
+router.post('/uc/account/pwd', ucenter.pwd);
 
 
 module.exports = router;

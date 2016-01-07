@@ -40,12 +40,12 @@
             </div>
           </div>
           <div class="panel-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" name="dataForm">
               <div class="form-group">
                 <label class="col-sm-2 control-label">原密码: </label>
 
                 <div class="col-sm-6">
-                  <input type="password" class="form-control" id="oldPassword">
+                  <input type="password" name="oldpwd" class="form-control" id="oldPassword">
                 </div>
               </div>
 
@@ -53,7 +53,7 @@
                 <label class="col-sm-2 control-label">新密码: </label>
 
                 <div class="col-sm-6">
-                  <input type="password" class="form-control" id="password">
+                  <input type="password" name="newpwd" class="form-control" id="password"/>
                 </div>
               </div>
 
@@ -61,7 +61,7 @@
                 <label class="col-sm-2 control-label">确认新密码: </label>
 
                 <div class="col-sm-6">
-                  <input type="password" class="form-control" id="password1">
+                  <input type="password" name="repwd" class="form-control" id="password1"/>
                 </div>
               </div>
 
@@ -79,26 +79,43 @@
     </div>
   </div>
 </div>
-</div>
 <script>
 
+  String.prototype.isEmpty = function () {
+    if (this == null) return true;
+    //this.value.replace(/^\s+|\s+&/g, '');
+    return this.length === 0;
+  };
+
   $('#submit').on('click', function (e) {
+    var form = document.forms['dataForm'];
+    var oldpwd = $.trim(form.oldpwd.value);
+    var newpwd = $.trim(form.newpwd.value);
+    var repwd = $.trim(form.repwd.value);
 
-  });
-
-  var form = {
-    _pass: true,
-    submit: function (callback) {
-      if (this._pass) {
-        this._pass = false;
-        this._pass = !callback();
-      }
-      return this;
-    },
-    recover: function () {
-      this._pass = true;
-      return this;
+    if (oldpwd.isEmpty() || newpwd.isEmpty() || repwd.isEmpty()) {
+      return alert('全部必填');
     }
 
-  }
+    if (newpwd !== repwd) {
+      return alert('两次密码不一致');
+    }
+    $.ajax({
+      url: "/uc/account/pwd",
+      type: "post",
+      data: {oldpwd: oldpwd, newpwd: newpwd},
+      timeout: 3000,
+      dataType: "JSON",
+      success: function (data) {
+        alert(data.msg);
+        if (data.status == 1) {
+          form.reset();
+        }
+      },
+      error: function () {
+        alert('失败');
+      }
+    });
+  });
+
 </script>

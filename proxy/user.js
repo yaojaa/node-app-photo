@@ -31,3 +31,6 @@ exports.newAndSave = function (password, email, username,active, callback) {
   user.save(callback);
 };
 
+exports.update = function (id, model, callback) {
+  User.update({_id : id}, model, {multi: false}, callback);
+};

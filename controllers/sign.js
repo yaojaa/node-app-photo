@@ -97,11 +97,11 @@ exports.showLogin = function (req, res) {
 
 function makeSession(req, user) {
 
-  console.log(config.admins);
-
   console.log('config.admins.hasOwnProperty(user.email)', config.admins.hasOwnProperty(user.email))
   req.session.user = {
+    id: user._id,
     username: user.user_name,
+    password: user.password,
     email: user.email,
     score: user.score,
     is_vip: user.is_vip,
