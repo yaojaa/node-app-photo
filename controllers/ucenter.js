@@ -7,10 +7,14 @@ var eventproxy = require('eventproxy');
 
 //显示列表
 exports.show = function(req, res) {
-
   res.render('ucenter',{
     score:100
   })
+};
+
+//账号编辑
+exports.account = function(req, res) {
+  res.render('account');
 };
 
 exports.showvip = function(req, res) {
