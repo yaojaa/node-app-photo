@@ -27,7 +27,7 @@ console.log(req.session.user)
  */
 exports.userRequired = function (req, res, next) {
   if (!req.session || !req.session.user) {
-    return res.status(403).send('forbidden!');
+    return res.send({errorno:-1,msg:'未登录'});
   }
 
   next();

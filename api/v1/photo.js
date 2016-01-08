@@ -40,11 +40,7 @@ var index=function(req,res,next){
 
 var delPhoto=function(req,res,next){
   var id=req.body.id;
-
-  console.log(id);
-
   PhotoProxy.delPhotoById(id,function(err){
-  console.log('delPhotoById');
 
     if (err) {
         return next(err);
@@ -54,6 +50,17 @@ var delPhoto=function(req,res,next){
   })
 
 }
+
+
+var buyPhoto=function(req,res,next){
+
+  console.log(req.session.user);
+
+   res.json({errorno:0,msg:"购买成功"});
+
+
+}
+exports.buyPhoto=buyPhoto
 
 exports.delPhoto=delPhoto
 

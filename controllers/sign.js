@@ -53,9 +53,6 @@ exports.signup = function(req, res, next) {
   var md5 = crypto.createHash('md5'),
       password = md5.update(password).digest('hex');
 
-      console.log(password, email,loginname);
-
-
   User.getUserByMail(email, function(err, users) {
 
         if (err) {
@@ -95,18 +92,14 @@ exports.showLogin = function(req, res) {
 
 
 function makeSession(req,user){
-
-  console.log(config.admins);
-
-  console.log('config.admins.hasOwnProperty(user.email)',config.admins.hasOwnProperty(user.email))
     req.session.user={
           username:user.user_name,
           email:user.email,
           score:user.score,
+          money:user.money,
           is_vip:user.is_vip,
           is_admin:config.admins.hasOwnProperty(user.email)
         };
-
 }
 
 

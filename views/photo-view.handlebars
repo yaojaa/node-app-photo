@@ -1,20 +1,85 @@
+
+<link rel="stylesheet" href="http://r.ph.126.net/share/css/gen/shareSetPage.css?v=12291627">
+
+<link rel="stylesheet" href="http://r.ph.126.net/share/css/gen/sharePageCommon.css?v=12291627">
+
+
+<script>
+  var PAGECONFIG={
+      PHOTOID:'{{photo.id}}'
+  }
+</script>
+
+<style>
+  .g-mainwraper {
+    letter-spacing: -4px;
+    margin: 0 auto;
+    width: 100%;
+    word-spacing: -0.43em;
+}
+</style>
+
 <div class="container">
 <ol class="breadcrumb">
         <li><a href="/">主页</a><span class="divider"></span></li>
-        
-        <li class="active">发布话题</li>
+        <li><a href="/">图集</a><span class="divider"></span></li>
+
+        <li class="active">详情</li>
         
       </ol>
-  <h1 align="center">图片 {{photo.title}} </h1>
 
-    <h4 align="center"  class="list-group-item-heading">{{photo.title}} <small>{{photo.update_at}}</small></h4>
-  
-  <br/>
-  <div align="center">
-  	    {{#each photo.pictures}}
+
+      <div class="g-mainwraper g-mainwraper-hostinfo ">
+  <ul class="m-lineBox m-lineBox-userinfo">
+    <li id="J-host-face" class="o-box o-box-face">
+      <a title="进入lihefa_0509@126的个人展区" hidefocus="true" href="http://lhf19520601.pp.163.com/">
+        <img width="100" onerror="this.src='http://r.ph.126.net/image/default/duser140.png'" src="http://img1.ph.126.net/ShvdMLUS_kdyXgz-n0OJkg==/3294946077475288060.jpg" alt="进入lihefa_0509@126的个人展区">
+      </a>
+    </li>
+    <li class="o-box o-box-userinfo">
+      <h2 id="p_username_copy" class="picset-title">
+       {{photo.title}} 
+      </h2>
+      <p class="picset-count">
+        <b class="f-lineBlock">[16张]</b>
+      </p>
+      <p id="J-picset-attention" class="picset-cmtnum">
+        <b title="浏览量" class="w-ico-attention">点击数</b> <span id="J-picset-viewcount">2328</span>
+        <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
+        <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span>
+      </p>
+      <p class="picset-author">
+        <b style="vertical-align: -2px;">&copy;</b> <a style="vertical-align: -2px;" title="进入lihefa_0509@126的小屋" href="http://lhf19520601.pp.163.com/">lihefa_0509@126</a>
+        <span style="vertical-align: middle;" class="author-unfollow">
+          <a id="J-go-attention" data-needlogin="true" class="w-btnDeepSkyBlue J-go-attention f-ml15" hidefocus="true" onclick="return false;" href="#"><b class="btn-plus">+</b> 关注他</a>
+          <a class="w-btnDeepSkyBlueDisabled f-ml15" hidefocus="true" onclick="return false;" href="#"><b class="btn-plus">√</b> 已关注</a>
+          <a data-needlogin="true" id="J-go-unfollow" onclick="return false;" hidefocus="true" class="J-go-unfollow act-unfollow" href="#">取消关注</a>
+        </span>
+        <a id="J-go-praise" data-needlogin="true" style="vertical-align: middle;" class="w-btnWhiteSmoke f-ml5" hidefocus="true" onclick="return false;" href="#">赞他(2159)</a>
+
+
+      </p>
+
+    </li>
+  </ul>
+</div>
+
+  <p align="center" ><i>浏览：1152次</i><i>时间：{{photo.update_at}} </i>已有<i class="red">183</i>人购买</p>
+
+<!--未购买-->
+<div class="row">
+<div class="col-lg-8">  {{#each photo.pictures}}
  <img src="{{this}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
- <p> &nbsp;</p>
-  {{/each}}
+  {{/each}}</div>
+<div class="col-lg-4"> {{photo.money}}  <button class="btn btn-danger btn-buy"> 21 购买</button>
+</div>
+</div>
+
+
+
+
+  
+
 
   </div>
 
@@ -22,3 +87,23 @@
 
 
 </div>
+
+
+<script>
+
+$('.btn-buy').on('click',function(){
+   var postdata={
+    photoId:PAGECONFIG.PHOTOID
+   }
+  $.post('/api/v1/buyPhoto',postdata,function (data) {
+
+        console.log(data)
+  
+      })
+  
+
+
+})
+
+
+</script>

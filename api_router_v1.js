@@ -47,6 +47,8 @@ router.post('/upload', function (req,res) {
 router.post('/delAticle',aticleController.delAticle)
 router.post('/delPhoto', auth.adminRequired, photoController.delPhoto)
 router.post('/delVideo', auth.adminRequired, videoController.delVideo)
+router.post('/buyPhoto', auth.userRequired, photoController.buyPhoto)
+
 
 //开通vip
 
