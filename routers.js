@@ -86,12 +86,12 @@ router.get('/tovip', auth.validateLogin, ucenter.showvip);  // 开通vip
 router.post('/tovip', auth.validateLogin, ucenter.openvip);  // 开通vip
 //验证登录
 router.use('/uc',auth.validateLogin);
-// 账户安全
+//账户安全
 router.get('/uc/account', function(req, res) {
   res.render('account');
 });
 
-// 账户安全
+//修改密码
 router.post('/uc/account/pwd', ucenter.pwd);
 
 
