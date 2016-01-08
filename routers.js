@@ -6,22 +6,24 @@ var photo = require('./controllers/photo');
 var video = require('./controllers/video');
 
 var ucenter = require('./controllers/ucenter');
-
+var auth = require('./middlewares/auth');
+var response = require('./middlewares/response');
 
 
 var config = require('./config')
 
-var qiniu=require('qiniu');
-
+var qiniu = require('qiniu');
 
 
 var app = express();
 
 var router = express.Router();
 
+//添加接口返回函数
+router.use(response);
 
 router.get('/', function (req, res) {
- res.render('home',{user:req.session.user})
+  res.render('home', {user: req.session.user})
 })
 
 //后台接口
@@ -47,19 +49,18 @@ router.get('/login', sign.showLogin);  // 进入登录页面
 router.post('/login', sign.login);  // 提交登录信息
 
 
-
 //根据这两句生成uptoken
 qiniu.conf.ACCESS_KEY = config.qn_access.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qn_access.SECRET_KEY;
 
 var uptoken = new qiniu.rs.PutPolicy(config.qn_access.Bucket_Name);
 
-router.get('/uptoken',function(req,res){
- var token = uptoken.token();
-        res.json({
-            uptoken: token
-        });
-    })
+router.get('/uptoken', function (req, res) {
+  var token = uptoken.token();
+  res.json({
+    uptoken: token
+  });
+})
 
 
 router.get('/aticle', aticle.showAticleList) //文章列表
@@ -79,12 +80,19 @@ router.get('/create-video', video.showCreate)
 router.post('/create-video', video.publish)
 
 //用户中心
+router.get('/ucenter', auth.validateLogin, ucenter.show);  // 用户中心
+router.get('/score', auth.validateLogin, ucenter.score);  // 积分充值
+router.get('/tovip', auth.validateLogin, ucenter.showvip);  // 开通vip
+router.post('/tovip', auth.validateLogin, ucenter.openvip);  // 开通vip
+//验证登录
+router.use('/uc',auth.validateLogin);
+//账户安全
+router.get('/uc/account', function(req, res) {
+  res.render('account');
+});
 
-router.get('/ucenter', ucenter.show);  // 用户中心
-router.get('/score', ucenter.score);  // 积分充值
+//修改密码
+router.post('/uc/account/pwd', ucenter.pwd);
 
 
-router.get('/tovip', ucenter.showvip);  // 开通vip
-
-router.post('/tovip', ucenter.openvip);  // 开通vip
 module.exports = router;
