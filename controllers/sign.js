@@ -99,7 +99,12 @@ function makeSession(req, user) {
           score:user.score,
           money:user.money,
           is_vip:user.is_vip,
-          is_admin:config.admins.hasOwnProperty(user.email)
+          is_admin:config.admins.hasOwnProperty(user.email),
+          signature:user.signature,
+          nickname:user.nickname,
+          cell_phone:user.cell_phone,
+          wx:user.wx,
+          QQ:user.QQ
         };
 }
 

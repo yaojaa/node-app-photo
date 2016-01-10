@@ -30,6 +30,10 @@ var UserSchema = new Schema({
   retrieve_time: {type: Number},
   retrieve_key: {type: String},
   accessToken: {type: String},
+  nickname: {type: String},
+  cell_phone: {type: String},
+  wx: {type: String},
+  QQ: {type: String}
 });
 
 UserSchema.index({email: 1}, {unique: true});
