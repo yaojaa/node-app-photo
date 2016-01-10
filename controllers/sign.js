@@ -111,12 +111,10 @@ function checkIsLogin(req, res, next) {
   if (req.session.user) {
     return next(); //若有session，直接跳过此中间件
   } else {
-    console.log('读取cookies')
 
     var cookie = req.signedCookies[config.auth_cookie_name]; //读cookie，通过配置文件中标识符读cookie
     if (!cookie) {
       console.log('没有cookies')
-
       return next(); //若没有此站点的cookie，直接跳过此中间件
     }
 
