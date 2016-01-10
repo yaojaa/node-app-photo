@@ -53,14 +53,6 @@ exports.signup = function (req, res, next) {
   //生成密码的 md5 值
   var md5 = crypto.createHash('md5'),
     password = md5.update(password).digest('hex');
-
-<<<<<<< .mine
-
-
-=======
-
-
->>>>>>> .theirs
   User.getUserByMail(email, function (err, users) {
 
     if (err) {
@@ -100,33 +92,15 @@ exports.showLogin = function (req, res) {
 
 
 function makeSession(req, user) {
-<<<<<<< .mine
     req.session.user={
           username:user.user_name,
           email:user.email,
+          id:user._id,
           score:user.score,
           money:user.money,
           is_vip:user.is_vip,
           is_admin:config.admins.hasOwnProperty(user.email)
         };
-
-
-
-
-=======
-
-  console.log('config.admins.hasOwnProperty(user.email)', config.admins.hasOwnProperty(user.email))
-  req.session.user = {
-    id: user._id,
-    username: user.user_name,
-    password: user.password,
-    email: user.email,
-    score: user.score,
-    is_vip: user.is_vip,
-    is_admin: config.admins.hasOwnProperty(user.email)
-  };
-
->>>>>>> .theirs
 }
 
 

@@ -18,14 +18,14 @@ exports.getPhotosByQuery = function(query, opt, callback) {
     });
 };
 
-exports.newAndSave = function(title, discrib, pictures, category, authorId, callback) {
+exports.newAndSave = function(title, discrib, pictures, category, authorId,price, callback) {
     var picture = new Photo();
     picture.title = title;
     picture.discrib = discrib;
     picture.pictures = pictures;
     picture.category = category;
     picture.author_id = authorId;
-    console.log(picture);
+    picture.price=price;
     picture.save(callback);
 };
 
@@ -65,7 +65,8 @@ console.log('需要返回的图片数量',list_photo_count);
 
 };
 
-exports.findOnePhoto = function(_id, callback) {
+
+exports.findOnePhoto = exports.findPhotoById = function(_id, callback) {
     Photo.findOne({
         '_id': _id
     }, callback)

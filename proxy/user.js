@@ -31,6 +31,17 @@ exports.newAndSave = function (password, email, username,active, callback) {
   user.save(callback);
 };
 
+// Tank.update({ _id: id }, { $set: { size: 'large' }}, callback);
+//http://www.nodeclass.com/api/mongoose.html#guide_documents
+
+exports.updateUser=function(id,query,callback){
+  User.update({ _id: id }, query, callback);
+}
+
+exports.pushHasBuy=function(id,photoID,callback){
+  User.update({ _id: id }, { $push:{ hasBuy: photoID }}, callback);
+}
+
 exports.update = function (id, model, callback) {
   User.update({_id : id}, model, {multi: false}, callback);
 };

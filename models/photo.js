@@ -9,6 +9,7 @@ var PhotoSchema = new Schema({
   author_id: { type: String}, //作者
   pictures:{ type: Array},
   category:{type:String},
+  price:{type:Number,default:0},
   create_at: { type: Date, default: Date.now },
   update_at: { type: Date, default: Date.now },
 });

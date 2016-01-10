@@ -1,8 +1,10 @@
 var config        = require('../../config');
-
+var Eventproxy    = require('eventproxy');
 // var models        = require('../../models');
 // var PhotoModel   = models.photo;
 var PhotoProxy   = require('../../proxy').Photo;
+var UserProxy   = require('../../proxy').User;
+
 
 
 
@@ -52,11 +54,89 @@ var delPhoto=function(req,res,next){
 }
 
 
+/*购买*/
+
 var buyPhoto=function(req,res,next){
 
-  console.log(req.session.user);
+  var usermail=req.session.user.email;
+  var userId=req.session.user.id;
+  var photoId=req.body.photoId;
+  var ep= new Eventproxy();
+      ep.all('userReady','photoReady',function(user,photo){
 
-   res.json({errorno:0,msg:"购买成功"});
+
+        console.log('是否购买过：',user.hasBuy.indexOf(photoId)>-1,user);
+
+        if(user.hasBuy.indexOf(photoId)>-1){
+
+          return  res.json({errorno:-2,msg:"你已经购买过啦"});
+
+        }
+ 
+        //账户余额不够
+        if(user.money<photo.price){
+         return res.json({errorno:-1,msg:"账户余额不足"});
+
+        }else{
+        //扣钱，更新数据 { $set: dataobj}
+
+           //更新user账户数据
+           UserProxy.updateUser(user._id,{
+            $set:{money:parseInt(user.money-photo.price)},
+            $push:{ hasBuy: photoId }
+           },function(err,res){
+
+            if(err){
+              return console.log(err)
+            }
+
+            if(res.ok==1){
+               ep.emit('buySuccess');
+               //写入已购买数组
+                console.log(err,res)
+               }
+
+            }
+
+
+           )
+
+       
+
+        }
+
+
+
+      })
+
+      ep.on('buySuccess',function(){
+            //添加已购买photoId
+            res.json({errorno:0,msg:"购买成功！"});
+      })
+
+
+  UserProxy.getUserByMail(usermail,function(err,userData){
+
+    if(err){
+      return next()
+    }
+    console.log(userData);
+    ep.emit('userReady',userData)
+    
+  })
+
+
+  PhotoProxy.findPhotoById(photoId,function(err,photoData){
+     if(err){
+      return next()
+    }
+    console.log(photoData);
+    ep.emit('photoReady',photoData)
+
+  })
+
+  
+
 
 
 }

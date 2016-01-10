@@ -48,7 +48,8 @@ exports.publish = function(req, res) {
    var pictures= req.body.pictures;
    var category=req.body.category;
    var authorId=req.session.user._id || '000';
-   Photo.newAndSave(title, discrib, pictures,category,authorId, function(err){
+   var price=validator.trim(req.body.price)
+   Photo.newAndSave(title, discrib, pictures,category,authorId,price, function(err){
        if (err) {
         return next(err);
               }
@@ -61,9 +62,10 @@ exports.publish = function(req, res) {
 
 exports.showDetail=function(req, res){
    var _id=req.params._id;
-   Photo.findOnePhoto(_id,function(err,doc){
+   Photo.findPhotoById(_id,function(err,dataPhoto){
+    console.log(dataPhoto);
       res.render('photo-view',{
-        photo:doc
+        photo:dataPhoto
   })
 
 
