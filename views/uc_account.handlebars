@@ -100,22 +100,15 @@
     if (newpwd !== repwd) {
       return alert('两次密码不一致');
     }
-    $.ajax({
+
+    my.ajax({
       url: "/uc/account/pwd",
-      type: "post",
       data: {oldpwd: oldpwd, newpwd: newpwd},
-      timeout: 3000,
-      dataType: "JSON",
       success: function (data) {
-        alert(data.msg);
-        if (data.status == 1) {
-          form.reset();
-        }
-      },
-      error: function () {
-        alert('失败');
+        form.reset();
       }
     });
+
   });
 
 </script>
