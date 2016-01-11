@@ -1,6 +1,18 @@
 /**
  * 对response扩展
  * 添加接口函数,接口规则
+  * {
+ *  errorno:1, //状态吗
+ *  msg:'文字提示，成功 失败等'
+ *  data:{  //具体返回的数据
+ *    item:{},
+ *    list:[],
+ *    pageNo:1,
+ *    count:100,
+ *    total:10
+ *  }
+ * }
+ *
  * {
  *  status:1,
  *  msg:{
