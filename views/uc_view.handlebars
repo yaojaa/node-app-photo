@@ -35,33 +35,49 @@
           <div class="panel-heading">
             <div class="row">
               <div class="col-md-7">
-                <h1>修改密码</h1>
+                <h3>个人信息</h3>
               </div>
             </div>
           </div>
           <div class="panel-body">
             <form class="form-horizontal" name="dataForm">
               <div class="form-group">
-                <label class="col-sm-2 control-label">原密码: </label>
+                <label class="col-sm-2 control-label">昵称: </label>
 
                 <div class="col-sm-6">
-                  <input type="password" name="oldpwd" class="form-control" id="oldPassword">
+                  <input type="text" name="nickname" value="{{user.nickname}}" class="form-control">
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-2 control-label">新密码: </label>
+                <label class="col-sm-2 control-label">手机号码: </label>
 
                 <div class="col-sm-6">
-                  <input type="password" name="newpwd" class="form-control" id="password"/>
+                  <input type="text" name="cell_phone" value="{{user.cell_phone}}" class="form-control"/>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="col-sm-2 control-label">确认新密码: </label>
+                <label class="col-sm-2 control-label">微信号: </label>
 
                 <div class="col-sm-6">
-                  <input type="password" name="repwd" class="form-control" id="password1"/>
+                  <input type="text" name="wx" value="{{user.wx}}" class="form-control"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">QQ: </label>
+
+                <div class="col-sm-6">
+                  <input type="text" name="QQ" value="{{user.QQ}}" class="form-control"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">个人签名: </label>
+
+                <div class="col-sm-6">
+                  <textarea type="text" name="signature" class="form-control">{{user.signature}}</textarea>
                 </div>
               </div>
 
@@ -88,22 +104,10 @@
   };
 
   $('#submit').on('click', function (e) {
-    var form = document.forms['dataForm'];
-    var oldpwd = $.trim(form.oldpwd.value);
-    var newpwd = $.trim(form.newpwd.value);
-    var repwd = $.trim(form.repwd.value);
-
-    if (oldpwd.isEmpty() || newpwd.isEmpty() || repwd.isEmpty()) {
-      return alert('全部必填');
-    }
-
-    if (newpwd !== repwd) {
-      return alert('两次密码不一致');
-    }
     $.ajax({
-      url: "/uc/account/pwd",
+      url: "/uc/account/edit",
       type: "post",
-      data: {oldpwd: oldpwd, newpwd: newpwd},
+      data: $('form').serialize(),
       timeout: 3000,
       dataType: "JSON",
       success: function (data) {

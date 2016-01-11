@@ -4,6 +4,7 @@ var validator = require('validator');
 var eventproxy = require('eventproxy');
 var User = require('../proxy/user.js');
 var crypto = require('crypto');
+var Photo = require('../proxy/photo.js');
 
 //显示列表
 exports.show = function (req, res) {
@@ -23,10 +24,55 @@ exports.pwd = function (req, res) {
   }
   var newpwd = crypto.createHash('md5').update(req.body.newpwd).digest('hex');
   User.update(user.id, {password: newpwd}, function (err, result) {
-    if(err) return res.fail('修改密码失败');
+    if (err) return res.fail('修改密码失败');
     user.password = newpwd;
     res.ok();
   });
+};
+
+//编辑个人资料
+exports.editInfo = function (req, res) {
+
+  var user = req.session.user;
+  User.update(user.id, req.body, function (err, result) {
+    if (err) return res.fail('修改个人信息失败');
+    user.nickname = req.body.nickname;
+    user.cell_phone = req.body.cell_phone;
+    user.wx = req.body.wx;
+    user.QQ = req.body.QQ;
+    user.signature = req.body.signature;
+    res.ok();
+  });
+};
+
+//展示个人图片
+exports.showPhotos = function (req, res, next) {
+  var q = {};
+  var user = req.session.user;
+  q.author_id = user.id;
+  var pageNo = req.query.p ? parseInt(req.query.p) : 1;
+  var list_photo_count = config.list_photo_count;
+  var currentCategory = req.query.category;
+  if (currentCategory && currentCategory !== 'all') {
+    q.category = currentCategory;
+  } else {
+    currentCategory = 'all';
+  }
+  Photo.page(q, {pageNo: pageNo, sort: '-update_at'}, function (err, page) {
+    if (err)return next(err);
+    res.render('uc_photos', {
+      category: config.category,
+      currentCategory: currentCategory,
+      page: pageNo,
+      photos: page.list,
+      prev: 'p=' + parseInt(pageNo - 1),
+      next: 'p=' + parseInt(pageNo + 1),
+      isFirstPage: pageNo === 1,
+      isLastPage: pageNo === page.total,
+      count: page.count
+    })
+  });
+
 };
 
 exports.showvip = function (req, res) {
