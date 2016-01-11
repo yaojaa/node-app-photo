@@ -85,14 +85,19 @@ router.get('/score', auth.validateLogin, ucenter.score);  // 积分充值
 router.get('/tovip', auth.validateLogin, ucenter.showvip);  // 开通vip
 router.post('/tovip', auth.validateLogin, ucenter.openvip);  // 开通vip
 //验证登录
-router.use('/uc',auth.validateLogin);
+router.use('/uc', auth.validateLogin);
 //账户安全
-router.get('/uc/account', function(req, res) {
-  res.render('account');
+router.get('/uc/account', function (req, res) {
+  res.render('uc_account');
+});
+//个人资料
+router.get('/uc/view', function (req, res) {
+  res.render('uc_view', {user: req.session.user});
 });
 
 //修改密码
 router.post('/uc/account/pwd', ucenter.pwd);
-
-
+//修改个人资料
+router.post('/uc/account/edit', ucenter.editInfo);
+router.get('/uc/photo', ucenter.showPhotos);
 module.exports = router;

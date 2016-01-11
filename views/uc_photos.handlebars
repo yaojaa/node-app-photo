@@ -1,0 +1,125 @@
+<link rel="stylesheet" href="/css/index.min.css"/>
+
+<link rel="stylesheet" href="/css/list.min.css"/>
+
+<style>
+  .img-wapper {
+    margin-bottom: 10px
+  }
+
+  .img-wapper img:first-child {
+    width: 100%
+  }
+
+  .img-wapper img {
+    float: left;
+    width: 33.33333333%
+  }
+
+  .thum h4, .thum p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #all .all a {
+    background: #fff
+  }
+
+  .bg-w {
+    background: #fff
+  }
+
+  #{{currentCategory}}
+  {
+    background: transparent
+  ;
+  }
+
+</style>
+
+
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">主页</a><span class="divider"></span></li>
+    <li class="active">个人中心</li>
+  </ol>
+  <div class="row">
+    <div class="col-lg-2">
+      <ul id="siderNav" class="nav  nav-stacked">
+        <li class=""><i class="icon-chevron-right pull-right"></i> <a href="/uc/account">账号安全</a></li>
+        <li class=""><i class="icon-chevron-right pull-right"></i><a href="/uc/recharge/recharge_form">账户充值</a></li>
+        <li class=""><i class="icon-chevron-right pull-right"></i><a href="/uc/recharge/recharge_list">充值记录</a></li>
+        <li class="active"><i class="icon-chevron-right pull-right"></i> <a href="/uc/user/usergroup_list">升级VIP</a>
+        </li>
+        <li class=""><i class="icon-chevron-right pull-right"></i> <a href="/uc/user/userporder_list">商品订单</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-10">
+
+      <ul class="subNav">
+        <li role="presentation" id="all" class="bg-w"><a href="?category=all">全部</a></li>
+        {{#each category}}
+          <li id="{{name}}" class="bg-w">
+            <a href="?category={{name}}">{{text}}</a></li>
+        {{/each}}
+      </ul>
+
+
+    <div class="row">
+      {{#each photos}}
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2 ">
+          <div class="thum"><a href="/photo/{{_id}}">
+            <div class="img-wapper">
+
+              {{#each pictures}}
+                <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
+              {{/each}}
+
+          </a>
+
+            <div class="time-line"><em class="r"></em> <i class="fa fa-picture-o fa-lg"></i></div>
+          </div>
+          <div class="txt">
+            <h4><a href="/photo/{{_id}}">{{title}}  </a></h4>
+
+            <p>{{discrib}}
+              <button class="btn btn-sm del" photoid="{{_id}}">X</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      {{else}}
+
+        <h3 align="center ">暂无图片！</h3>
+      {{/each}}
+
+    </div>
+
+    <nav>
+      <ul class="pager">共计{{count}}条
+
+
+        {{#if isFirstPage}}
+
+        <li class="previous disabled"><a href="#">
+        {{else}}
+        <li class="previous"><a href="?{{prev}}">
+        {{/if}}
+        <span aria-hidden="true">&larr;</span> 上一页</a></li>
+
+        {{#if isLastPage}}
+        <li class="next disabled"><a href="#">
+        {{else}}
+        <li class="next "> <a href="?{{next}}">
+        {{/if}}
+
+        下一页 <span aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </nav>
+
+
+  </div>
+</div>
+</div>

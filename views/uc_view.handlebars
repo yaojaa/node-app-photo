@@ -1,0 +1,125 @@
+<style>
+  .m_container {
+    background: #fff;
+    padding: 20px
+  }
+
+  .price {
+    color: #f60;
+    font-size: 18px;
+  }
+
+  .u-width-100 {
+    min-width: 100px;
+  }
+</style>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">主页</a><span class="divider"></span></li>
+    <li class="active">个人中心</li>
+  </ol>
+  <div class="row">
+    <div class="col-lg-2">
+      <ul id="siderNav" class="nav  nav-stacked">
+        <li class=""><i class="icon-chevron-right pull-right"></i> <a href="/uc/account">账号安全</a></li>
+        <li class=""><i class="icon-chevron-right pull-right"></i><a href="/uc/recharge/recharge_form">账户充值</a></li>
+        <li class=""><i class="icon-chevron-right pull-right"></i><a href="/uc/recharge/recharge_list">充值记录</a></li>
+        <li class="active"><i class="icon-chevron-right pull-right"></i> <a href="/uc/user/usergroup_list">升级VIP</a>
+        </li>
+        <li class=""><i class="icon-chevron-right pull-right"></i> <a href="/uc/user/userporder_list">商品订单</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-10">
+      <div class="m_container">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-md-7">
+                <h3>个人信息</h3>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal" name="dataForm">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">昵称: </label>
+
+                <div class="col-sm-6">
+                  <input type="text" name="nickname" value="{{user.nickname}}" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">手机号码: </label>
+
+                <div class="col-sm-6">
+                  <input type="text" name="cell_phone" value="{{user.cell_phone}}" class="form-control"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">微信号: </label>
+
+                <div class="col-sm-6">
+                  <input type="text" name="wx" value="{{user.wx}}" class="form-control"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">QQ: </label>
+
+                <div class="col-sm-6">
+                  <input type="text" name="QQ" value="{{user.QQ}}" class="form-control"/>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-2 control-label">个人签名: </label>
+
+                <div class="col-sm-6">
+                  <textarea type="text" name="signature" class="form-control">{{user.signature}}</textarea>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-3 col-sm-offset-2">
+                  <button class="btn btn-success u-width-100" type="button" id="submit">提交</button>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  String.prototype.isEmpty = function () {
+    if (this == null) return true;
+    //this.value.replace(/^\s+|\s+&/g, '');
+    return this.length === 0;
+  };
+
+  $('#submit').on('click', function (e) {
+    $.ajax({
+      url: "/uc/account/edit",
+      type: "post",
+      data: $('form').serialize(),
+      timeout: 3000,
+      dataType: "JSON",
+      success: function (data) {
+        alert(data.msg);
+        if (data.status == 1) {
+          form.reset();
+        }
+      },
+      error: function () {
+        alert('失败');
+      }
+    });
+  });
+
+</script>

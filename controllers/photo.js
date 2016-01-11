@@ -47,7 +47,7 @@ exports.publish = function(req, res) {
    var tags=validator.trim(req.body.tags);
    var pictures= req.body.pictures;
    var category=req.body.category;
-   var authorId=req.session.user._id || '000';
+   var authorId=req.session.user.id || '000';
    var price=validator.trim(req.body.price)
    Photo.newAndSave(title, discrib, pictures,category,authorId,price, function(err){
        if (err) {
