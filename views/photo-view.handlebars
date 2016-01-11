@@ -1,9 +1,12 @@
-
+<!-- 
 <link rel="stylesheet" href="http://r.ph.126.net/share/css/gen/shareSetPage.css?v=12291627">
 
 <link rel="stylesheet" href="http://r.ph.126.net/share/css/gen/sharePageCommon.css?v=12291627">
 
+ -->
+ <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
 
+ <script src="/vendor/sweetalert/sweetalert.min.js"></script> 
 <script>
   var PAGECONFIG={
       PHOTOID:'{{photo.id}}'
@@ -33,7 +36,7 @@
   <ul class="m-lineBox m-lineBox-userinfo">
     <li id="J-host-face" class="o-box o-box-face">
       <a title="进入lihefa_0509@126的个人展区" hidefocus="true" href="http://lhf19520601.pp.163.com/">
-        <img width="100" onerror="this.src='http://r.ph.126.net/image/default/duser140.png'" src="http://img1.ph.126.net/ShvdMLUS_kdyXgz-n0OJkg==/3294946077475288060.jpg" alt="进入lihefa_0509@126的个人展区">
+        <img width="100" <!-- onerror="this.src='http://r.ph.126.net/image/default/duser140.png'" --> src="http://img1.ph.126.net/ShvdMLUS_kdyXgz-n0OJkg==/3294946077475288060.jpg" alt="进入lihefa_0509@126的个人展区">
       </a>
     </li>
     <li class="o-box o-box-userinfo">
@@ -97,7 +100,16 @@ $('.btn-buy').on('click',function(){
    }
   $.post('/api/v1/buyPhoto',postdata,function (data) {
 
-        console.log(data)
+          if(data.errorno!==0){
+
+            swal({   title: data.msg,     type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   
+              confirmButtonText: "立即充值",   
+              cancelButtonText: "下次再说",   
+
+              closeOnConfirm: false }, function(){  
+                location.href="/score" 
+              });
+          }
   
       })
   

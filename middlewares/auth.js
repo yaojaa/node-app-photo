@@ -51,7 +51,7 @@ exports.vipUser = function () {
 // 验证用户是否登录
 exports.validateLogin = function (req, res, next) {
   if (!req.session || !req.session.user) {
-    res.redirect('/login?service=' + encodeURIComponent(req.originalUrl));
+    res.redirect('/login');
   } else {
     next();
   }

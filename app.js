@@ -26,7 +26,6 @@ var handlebars = require('express-handlebars')
 // view engine setup
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-console.log(__dirname);
 app.set('views', __dirname + '/views');
 
 // //开启cookie
@@ -71,24 +70,22 @@ app.use(bodyParser.urlencoded({
 
 //处理session的中间件
 app.use(function (req, res, next) {
-
-
   req.user = res.locals.user = req.session.user;
   next();
 });
 
+//验证是否自动登录 这里会执行多次
+// app.use(function (req, res, next) {
 
-app.use(function (req, res, next) {
 
+//   if (!req.session.user) {
+//     var login = require('./controllers/sign.js');
+//     login.checkIsLogin(req)
+//   } else {
+//     next()
+//   }
 
-  if (!req.session.user) {
-    var login = require('./controllers/sign.js');
-    login.checkIsLogin(req, res, next)
-  } else {
-    next()
-  }
-
-});
+// });
 
 
 //static中间件
@@ -113,28 +110,7 @@ app.use('/', router);
 // });
 
 
-app.get('/vacations', function (req, res) {
-  vacation.find({
-    available: true
-  }, function (err, vacations) {
 
-    var context = {
-      vacations: vacations.map(function (vacation) {
-        return {
-          sku: vacation.sku,
-          name: vacation.name,
-          descripton: vacation.descripton,
-          price: vacation.getDisplayPrice(),
-          inSeason: vacation.inSeason,
-        }
-      })
-    }
-
-  })
-
-  res.render('vacations', context)
-
-})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
