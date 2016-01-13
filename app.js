@@ -28,6 +28,10 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 
+//app.use(function(req,res,next){
+//  if(!res.locals.partials) res.locals.partials = {};
+//});
+
 // //开启cookie
 app.use(cookieParser(config.session_secret));
 app.use(session({

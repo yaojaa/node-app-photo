@@ -45,16 +45,7 @@
     <li class="active">个人中心</li>
   </ol>
   <div class="row">
-    <div class="col-lg-2">
-      <ul id="siderNav" class="nav  nav-stacked">
-        <li class=""><i class="icon-chevron-right pull-right"></i> <a href="/uc/account">账号安全</a></li>
-        <li class=""><i class="icon-chevron-right pull-right"></i><a href="/uc/recharge/recharge_form">账户充值</a></li>
-        <li class=""><i class="icon-chevron-right pull-right"></i><a href="/uc/recharge/recharge_list">充值记录</a></li>
-        <li class="active"><i class="icon-chevron-right pull-right"></i> <a href="/uc/user/usergroup_list">升级VIP</a>
-        </li>
-        <li class=""><i class="icon-chevron-right pull-right"></i> <a href="/uc/user/userporder_list">商品订单</a></li>
-      </ul>
-    </div>
+    {{>uc_menu}}
     <div class="col-lg-10">
 
       <ul class="subNav">
@@ -66,60 +57,60 @@
       </ul>
 
 
-    <div class="row">
-      {{#each photos}}
+      <div class="row">
+        {{#each photos}}
 
-        <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2 ">
-          <div class="thum"><a href="/photo/{{_id}}">
-            <div class="img-wapper">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2 ">
+            <div class="thum">
+              <a href="/photo/{{_id}}">
+                <div class="img-wapper">
 
-              {{#each pictures}}
-                <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
-              {{/each}}
+                  {{#each pictures}}
+                    <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
+                  {{/each}}
+                </div>
+              </a>
 
-          </a>
+              <div class="time-line"><em class="r"></em> <i class="fa fa-picture-o fa-lg"></i></div>
+            </div>
+            <div class="txt">
+              <h4><a href="/photo/{{_id}}">{{title}}  </a></h4>
 
-            <div class="time-line"><em class="r"></em> <i class="fa fa-picture-o fa-lg"></i></div>
+              <p>{{discrib}}
+                <button class="btn btn-sm del" photoid="{{_id}}">X</button>
+              </p>
+            </div>
           </div>
-          <div class="txt">
-            <h4><a href="/photo/{{_id}}">{{title}}  </a></h4>
+        {{else}}
 
-            <p>{{discrib}}
-              <button class="btn btn-sm del" photoid="{{_id}}">X</button>
-            </p>
-          </div>
-        </div>
+          <h3 align="center ">暂无图片！</h3>
+        {{/each}}
+
       </div>
-      {{else}}
 
-        <h3 align="center ">暂无图片！</h3>
-      {{/each}}
+      <nav>
+        <ul class="pager">共计{{count}}条
+
+
+          {{#if isFirstPage}}
+
+          <li class="previous disabled"><a href="#">
+          {{else}}
+          <li class="previous"><a href="?{{prev}}">
+          {{/if}}
+          <span aria-hidden="true">&larr;</span> 上一页</a></li>
+
+          {{#if isLastPage}}
+          <li class="next disabled"><a href="#">
+          {{else}}
+          <li class="next "> <a href="?{{next}}">
+          {{/if}}
+
+          下一页 <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+      </nav>
+
 
     </div>
-
-    <nav>
-      <ul class="pager">共计{{count}}条
-
-
-        {{#if isFirstPage}}
-
-        <li class="previous disabled"><a href="#">
-        {{else}}
-        <li class="previous"><a href="?{{prev}}">
-        {{/if}}
-        <span aria-hidden="true">&larr;</span> 上一页</a></li>
-
-        {{#if isLastPage}}
-        <li class="next disabled"><a href="#">
-        {{else}}
-        <li class="next "> <a href="?{{next}}">
-        {{/if}}
-
-        下一页 <span aria-hidden="true">&rarr;</span></a></li>
-      </ul>
-    </nav>
-
-
   </div>
-</div>
 </div>
