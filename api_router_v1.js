@@ -49,6 +49,9 @@ router.post('/delPhoto', auth.adminRequired, photoController.delPhoto)
 router.post('/delVideo', auth.adminRequired, videoController.delVideo)
 router.post('/buyPhoto', auth.userRequired, photoController.buyPhoto)
 
+router.post('/checkIsBuy', auth.userRequired, photoController.checkIsBuy)
+
+
 
 //开通vip
 

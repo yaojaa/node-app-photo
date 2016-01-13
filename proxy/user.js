@@ -38,6 +38,11 @@ exports.updateUser=function(id,query,callback){
   User.update({ _id: id }, query, callback);
 }
 
+exports.fillMoney=function(id,moneyNum,callback){
+  User.update({ _id: id }, { $set:{ money: moneyNum }}, callback);
+}
+
+
 exports.pushHasBuy=function(id,photoID,callback){
   User.update({ _id: id }, { $push:{ hasBuy: photoID }}, callback);
 }

@@ -94,21 +94,54 @@
 
 <script>
 
-$('.btn-buy').on('click',function(){
    var postdata={
     photoId:PAGECONFIG.PHOTOID
    }
+
+  $.post('/api/v1/checkIsBuy',postdata,function (data) {
+    console.log(data)
+    $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled',true)
+  })
+$('.btn-buy').on('click',function(){
+
+
+  // $(this).attr('disabled',true).text('loading..')
+
+
   $.post('/api/v1/buyPhoto',postdata,function (data) {
 
-          if(data.errorno!==0){
+          if(data.errorno==-1){
+            swal({   title: data.msg,     type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   
+              confirmButtonText: "立即登陆",   
+              cancelButtonText: "下次再说",   
+              closeOnConfirm: false }, function(){  
+                location.href="/login" 
+              });
+          }
+          else if(data.errorno==-2){
 
             swal({   title: data.msg,     type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   
               confirmButtonText: "立即充值",   
               cancelButtonText: "下次再说",   
-
               closeOnConfirm: false }, function(){  
                 location.href="/score" 
               });
+
+          }
+
+          else if(data.errorno==-3){
+
+            alert(data.msg);
+           
+          }
+          else if(data.errorno==0){
+
+              swal({ title: data.msg,     type: "success",   showCancelButton: false,   confirmButtonColor: "#DD6B55",   
+              confirmButtonText: "确定",   
+              closeOnConfirm: false }, function(){  
+                location.href=location.href
+              });
+
           }
   
       })
