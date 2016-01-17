@@ -14,7 +14,7 @@
 }
 
 #banner {
-    background: url("https://drscdn.500px.org/photo/129507617/m%3D2048/fb5ece89461088259b292cc097f1faae") center top no-repeat #eee fixed ;
+    background: url("https://drscdn.500px.org/photo/129507617/m%3D2048/fb5ece89461088259b292cc097f1faae") center top no-repeat #eee fixed;
     background-size: 100%;
     text-align: center;
     height: 600px;
@@ -436,6 +436,24 @@
     display: block;
     margin: 10px;
     max-width: 100%
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    background: none;
+    border: 0;
+}
+
+.nav-tabs {
+    text-align: center;
+    margin: 30px auto;
+    border-top: 1px solid #ddd;
+}
+
+.nav-tabs>li {
+    float: none;
+    display: inline-block;
 }
 
 
