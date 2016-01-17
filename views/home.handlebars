@@ -1,150 +1,152 @@
-    <link rel="stylesheet" href="/css/index.min.css?9988">
-
-    <div id="banner">
-      <div class="cover"></div>
-      <div class="middle"> 
+<link rel="stylesheet" href="/css/index.min.css?9988">
+<link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
+<script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
+<style type="text/css" media="screen">
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+  background: none;
+  border:0;
+}
+.nav-tabs{
+  text-align: center;
+  margin:30px auto;
+  border-top: 1px solid #ddd;
+}
+  .nav-tabs>li{
+    float: none;
+    display: inline-block;
+  }
+</style>
+<div id="banner">
+    <div class="cover"></div>
+    <div class="middle">
         <h2>漫影 </h2>
         <h3>分享你的照片，实现你的价值</h3>
         <br>
         <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started" class="btn btn-lg btn-info">立即加入</a>
-      </div>
     </div>
-
-    <div class="tab_wrapper">
-<ul class="tabs px_tabs">
-<li class="active">
-<a href="#" data-tab="everyday">Everyday moments</a>
-</li>
-<li>
-<a href="#" data-tab="slow">Slow Living</a>
-</li>
-<li class="hide_on_mobile">
-<a href="#" data-tab="unique">Breathtaking images</a>
-</li>
-<li class="hide_on_tablet hide_on_mobile">
-<a href="#" data-tab="glass">Through the looking glass</a>
-</li>
-<li class="more hide_on_tablet hide_on_mobile">
-<a href="#" data-tab="more">More</a>
-<div class="popover category">
-<div class="arrow-with-fill">
-<div class="fill"></div>
 </div>
-<div class="contain">
-<div class="inside clearfix">
-<div class="header clearfix">
-<h3>Explore Photo Categories</h3>
+<div class="tab_wrapper">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#new_pic" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a></li>
+        <li role="presentation"><a href="#hot_pic" aria-controls="hot_pic" role="tab" data-toggle="tab">热门图片</a></li>
+        <li role="presentation"><a href="#follow" aria-controls="follow" role="tab" data-toggle="tab">我关注的图片</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="new_pic">
+            <div class="basicExample">
+                <a href="/images/01.jpg">
+                    <img alt="caption for image 1" src="/images/01.jpg" />
+                </a>
+                <a href="/images/02.jpg">
+                    <img alt="caption for image 2" src="/images/02.jpg" />
+                </a>
+                <a href="/images/03.jpg">
+                    <img alt="caption for image 2" src="/images/03.jpg" />
+                </a>
+                <a href="/images/04.jpg">
+                    <img alt="caption for image 2" src="/images/04.jpg" />
+                </a>
+                <a href="/images/05.jpg">
+                    <img alt="caption for image 2" src="/images/05.jpg" />
+                </a>
+                <a href="/images/06.jpg">
+                    <img alt="caption for image 2" src="/images/06.jpg" />
+                </a>
+                <a href="/images/07.jpg">
+                    <img alt="caption for image 2" src="/images/07.jpg" />
+                </a>
+                <a href="/images/08.jpg">
+                    <img alt="caption for image 2" src="/images/08.jpg" />
+                </a>
+                <a href="/images/09.jpg">
+                    <img alt="caption for image 2" src="/images/09.jpg" />
+                </a>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="hot_pic"><div class="basicExample">
+                <a href="/images/09.jpg">
+                    <img alt="caption for image 1" src="/images/09.jpg" />
+                </a>
+                <a href="/images/05.jpg">
+                    <img alt="caption for image 2" src="/images/05.jpg" />
+                </a>
+                <a href="/images/03.jpg">
+                    <img alt="caption for image 2" src="/images/03.jpg" />
+                </a>
+                <a href="/images/04.jpg">
+                    <img alt="caption for image 2" src="/images/04.jpg" />
+                </a>
+                <a href="/images/01.jpg">
+                    <img alt="caption for image 2" src="/images/01.jpg" />
+                </a>
+                <a href="/images/06.jpg">
+                    <img alt="caption for image 2" src="/images/06.jpg" />
+                </a>
+                <a href="/images/07.jpg">
+                    <img alt="caption for image 2" src="/images/07.jpg" />
+                </a>
+                <a href="/images/08.jpg">
+                    <img alt="caption for image 2" src="/images/08.jpg" />
+                </a>
+                <a href="/images/02.jpg">
+                    <img alt="caption for image 2" src="/images/02.jpg" />
+                </a>
+            </div></div>
+        <div role="tabpanel" class="tab-pane" id="follow"><div class="basicExample">
+                <a href="/images/02.jpg">
+                    <img alt="caption for image 1" src="/images/02.jpg" />
+                </a>
+                <a href="/images/04.jpg">
+                    <img alt="caption for image 2" src="/images/04.jpg" />
+                </a>
+                <a href="/images/03.jpg">
+                    <img alt="caption for image 2" src="/images/03.jpg" />
+                </a>
+                <a href="/images/01.jpg">
+                    <img alt="caption for image 2" src="/images/01.jpg" />
+                </a>
+                <a href="/images/05.jpg">
+                    <img alt="caption for image 2" src="/images/05.jpg" />
+                </a>
+                <a href="/images/06.jpg">
+                    <img alt="caption for image 2" src="/images/06.jpg" />
+                </a>
+                <a href="/images/09.jpg">
+                    <img alt="caption for image 2" src="/images/09.jpg" />
+                </a>
+                <a href="/images/08.jpg">
+                    <img alt="caption for image 2" src="/images/08.jpg" />
+                </a>
+                <a href="/images/07.jpg">
+                    <img alt="caption for image 2" src="/images/07.jpg" />
+                </a>
+            </div></div>
+    </div>
 </div>
-<div class="info">
-<ul data-filter="category" class="filter">
-<li>
-<a href="/popular?categories=Abstract">Abstract</a>
-</li>
-<li>
-<a href="/popular?categories=Macro">Macro</a>
-</li>
-<li>
-<a href="/popular?categories=Animals">Animals</a>
-</li>
-<li>
-<a href="/popular?categories=Nature">Nature</a>
-</li>
-<li>
-<a href="/popular?categories=Black+and+White">Black and White</a>
-</li>
-<li>
-<a href="/popular?categories=Nude">Nude</a>
-</li>
-<li>
-<a href="/popular?categories=Celebrities">Celebrities</a>
-</li>
-<li>
-<a href="/popular?categories=People">People</a>
-</li>
-<li>
-<a href="/popular?categories=City+%26+Architecture">City &amp; Architecture</a>
-</li>
-<li>
-<a href="/popular?categories=Performing+Arts">Performing Arts</a>
-</li>
-<li>
-<a href="/popular?categories=Commercial">Commercial</a>
-</li>
-<li>
-<a href="/popular?categories=Sport">Sport</a>
-</li>
-<li>
-<a href="/popular?categories=Concert">Concert</a>
-</li>
-<li>
-<a href="/popular?categories=Still+Life">Still Life</a>
-</li>
-<li>
-<a href="/popular?categories=Family">Family</a>
-</li>
-<li>
-<a href="/popular?categories=Street">Street</a>
-</li>
-<li>
-<a href="/popular?categories=Fashion">Fashion</a>
-</li>
-<li>
-<a href="/popular?categories=Transportation">Transportation</a>
-</li>
-<li>
-<a href="/popular?categories=Film">Film</a>
-</li>
-<li>
-<a href="/popular?categories=Travel">Travel</a>
-</li>
-<li>
-<a href="/popular?categories=Fine+Art">Fine Art</a>
-</li>
-<li>
-<a href="/popular?categories=Underwater">Underwater</a>
-</li>
-<li>
-<a href="/popular?categories=Food">Food</a>
-</li>
-<li>
-<a href="/popular?categories=Urban+Exploration">Urban Exploration</a>
-</li>
-<li>
-<a href="/popular?categories=Journalism">Journalism</a>
-</li>
-<li>
-<a href="/popular?categories=Wedding">Wedding</a>
-</li>
-<li>
-<a href="/popular?categories=Landscapes">Landscapes</a>
-</li>
-<li>
-<a href="/popular?categories=Uncategorized">Uncategorized</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-  
-    <div id="reg">
-      <div class="container">
+<div id="reg">
+    <div class="container">
         <h2>加入会员</h2>
         <div class="subtit"> <span>成为会员只需一步，立即体验吧</span></div>
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3 col-md-offset-2 col-pc-offset-2 col-lg-offset-2">
-            <input type="text" name="mini_name" placeholder="电子邮箱" class="form-control">
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-            <input type="text" name="mini_name" placeholder="设置密码" class="form-control">
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-            <button class="reg btn btn-success btn-lg">马上开始体验</button>
-          </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3 col-md-offset-2 col-pc-offset-2 col-lg-offset-2">
+                <input type="text" name="mini_name" placeholder="电子邮箱" class="form-control">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
+                <input type="text" name="mini_name" placeholder="设置密码" class="form-control">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
+                <button class="reg btn btn-success btn-lg">马上开始体验</button>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="navbar-gradient"></div>
+</div>
+<div class="navbar-gradient"></div>
+<script type="text/javascript">
+  $('.basicExample').justifiedGallery({
+    rowHeight : 350,
+    lastRow : 'nojustify',
+    margins : 3
+});
+</script>

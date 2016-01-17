@@ -35,8 +35,8 @@ var config = {
   cnzz_tracker_id: '',
 
   // mongodb 配置
-  db: 'mongodb://127.0.0.1:27017/cms',
-  // db: 'mongodb://123.56.230.118:27017/photocms',
+  //db: 'mongodb://127.0.0.1:27017/cms',
+  db: 'mongodb://123.56.230.118:27017/photocms',
 
   session_secret: 'sdasd8sdujja', // 务必修改
   auth_cookie_name: 'manyingapp',
