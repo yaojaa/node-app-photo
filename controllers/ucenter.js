@@ -5,6 +5,7 @@ var eventproxy = require('eventproxy');
 var User = require('../proxy/user.js');
 var crypto = require('crypto');
 var Photo = require('../proxy/photo.js');
+var Score = require('../proxy/score');
 
 //显示列表
 exports.show = function (req, res) {

@@ -8,7 +8,9 @@ var config = {
   // debug 为 true 时，用于本地调试
   debug: true,
 
-  get mini_assets() { return !this.debug; }, // 是否启用静态文件的合并压缩，详见视图中的Loader
+  get mini_assets() {
+    return !this.debug;
+  }, // 是否启用静态文件的合并压缩，详见视图中的Loader
 
   name: '漫影', // 社区名字
   description: 'CNode：Node.js专业中文社区', // 社区的描述
@@ -23,7 +25,7 @@ var config = {
   // 右上角的导航区
   site_navs: [
     // 格式 [ path, title, [target=''] ]
-    [ '/about', '关于' ]
+    ['/about', '关于']
   ],
   // cdn host，如 http://cnodejs.qiniudn.com
   site_static_host: '', // 静态文件存储域名
@@ -46,7 +48,7 @@ var config = {
 
   // 图片列表显示数量
   list_photo_count: 6,
- // 视频列表显示数量
+  // 视频列表显示数量
   list_video_count: 10,
 
 
@@ -61,9 +63,8 @@ var config = {
   },
 
 
-
   // admin 可删除话题，编辑标签，设某人为达人
-  admins: { 'yaojaa@vip.qq.com': true },
+  admins: {'yaojaa@vip.qq.com': true},
 
   // github 登陆的配置
   GITHUB_OAUTH: {
@@ -96,7 +97,6 @@ var config = {
   },
 
 
-
   // 文件上传配置
   // 注：如果填写 qn_access，则会上传到 7牛，以下配置无效
   upload: {
@@ -112,24 +112,24 @@ var config = {
   ],
 
   //分类
-  category:[
-    {name:'street', text:'街拍'},
-    {name:'travel', text:'旅行'},
-    {name:'fashion',text: '时尚'},
-    {name:'food', text:'美食'},
-    {name:'animals',text: '动物'},
-    {name:'art', text:'艺术'}
+  category: [
+    {name: 'street', text: '街拍'},
+    {name: 'travel', text: '旅行'},
+    {name: 'fashion', text: '时尚'},
+    {name: 'food', text: '美食'},
+    {name: 'animals', text: '动物'},
+    {name: 'art', text: '艺术'}
   ],
 
   //视频分类
 
-  video_category:[
-    {name:'street', text:'电影'},
-    {name:'travel', text:'电视剧'},
-    {name:'fashion',text: '娱乐节目'},
-    {name:'food', text:'美食'},
-    {name:'animals',text: '动物'},
-    {name:'art', text:'搞笑'}
+  video_category: [
+    {name: 'street', text: '电影'},
+    {name: 'travel', text: '电视剧'},
+    {name: 'fashion', text: '娱乐节目'},
+    {name: 'food', text: '美食'},
+    {name: 'animals', text: '动物'},
+    {name: 'art', text: '搞笑'}
   ],
 
   // 极光推送
@@ -137,6 +137,37 @@ var config = {
     appKey: 'YourAccessKeyyyyyyyyyyyy',
     masterSecret: 'YourSecretKeyyyyyyyyyyyyy',
     isDebug: false,
+  },
+
+  //积分规则,score：每次获取的积分数，gainType：获取的类型，0无限制，1：每天多少次，gainTimes：每天多少次
+  score: {
+    //发图集
+    'J_FATUJI': {
+      title: '发图集',
+      score: 1, //每次获取的积分
+      gainType: 0
+    },
+    //发回复
+    'J_FAHUIFU': {
+      title: '发回复',
+      score: 2,
+      gainType: 1,
+      gainTimes: 1
+    },
+    //收到赞
+    'J_SHOUDAOZAN': {
+      title: '收到赞',
+      score: 3, //每次获取的积分
+      gainType: 1,
+      gainTimes: 2
+    },
+    //被关注
+    'J_BEIGUANZHU': {
+      title: '被关注',
+      score: 4, //每次获取的积分
+      gainType: 1,
+      gainTimes: 3
+    }
   },
 
   create_post_per_day: 1000, // 每个用户一天可以发的主题数

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var config   = require('../config');
+var config = require('../config');
 
 mongoose.connect(config.db, {
   server: {poolSize: 20}
@@ -16,6 +16,8 @@ require('./user');
 require('./aticle');
 require('./photo');
 require('./video');
+require('./score');
+require('./score_log');
 
 // require('./topic_collect');
 // require('./message');
@@ -24,10 +26,12 @@ require('./video');
 // sys
 require('./sys/user');
 
-exports.User         = mongoose.model('User');
-exports.Aticle        = mongoose.model('Aticle');
-exports.Photo        = mongoose.model('Photo');
-exports.Video        = mongoose.model('Video');
+exports.User = mongoose.model('User');
+exports.Aticle = mongoose.model('Aticle');
+exports.Photo = mongoose.model('Photo');
+exports.Video = mongoose.model('Video');
+exports.Score = mongoose.model('Score');
+exports.ScoreLog = mongoose.model('ScoreLog');
 
 
 // exports.Reply        = mongoose.model('Reply');
@@ -35,4 +39,4 @@ exports.Video        = mongoose.model('Video');
 // exports.Message      = mongoose.model('Message');
 
 //管理员
-exports.SysUser         = mongoose.model('SysUser');
+exports.SysUser = mongoose.model('SysUser');

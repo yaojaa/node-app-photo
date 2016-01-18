@@ -6,7 +6,7 @@ var AticleSchema = new Schema({
   name: { type: String },
   create_at: { type: Date, default: Date.now },
   update_at: { type: Date, default: Date.now },
-  catygory:
+  catygory:{ type: String }
 
 
 });
