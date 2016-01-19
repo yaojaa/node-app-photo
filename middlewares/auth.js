@@ -27,7 +27,7 @@ exports.adminRequired = function (req, res, next) {
  */
 exports.userRequired = function (req, res, next) {
   if (!req.session || !req.session.user) {
-    return res.send({errorno:-1,msg:'未登录'});
+    return res.send({errorno: -1, msg: '未登录'});
   }
 
   next();
@@ -52,6 +52,16 @@ exports.vipUser = function () {
 exports.validateLogin = function (req, res, next) {
   if (!req.session || !req.session.user) {
     res.redirect('/login?service=' + encodeURIComponent(req.originalUrl));
+  } else {
+    next();
+  }
+
+};
+
+// 验证用户是否登录
+exports.ajaxValidateLogin = function (req, res, next) {
+  if (!req.session || !req.session.user) {
+    res.fail('-2', 'no login');
   } else {
     next();
   }

@@ -4,6 +4,7 @@ var sign = require('./controllers/sign');
 var aticle = require('./controllers/aticle');
 var photo = require('./controllers/photo');
 var video = require('./controllers/video');
+var comment = require('./controllers/comment');
 
 var ucenter = require('./controllers/ucenter');
 var auth = require('./middlewares/auth');
@@ -100,5 +101,12 @@ router.post('/uc/account/pwd', ucenter.pwd);
 //修改个人资料
 router.post('/uc/account/edit', ucenter.editInfo);
 router.get('/uc/photo', ucenter.showPhotos);
+
+//评论
+//添加
+router.post('/comment/add', auth.ajaxValidateLogin, comment.add);
+//加载列表
+router.get('/comment/page', comment.page);
+router.post('/comment/page', comment.page);
 
 module.exports = router;

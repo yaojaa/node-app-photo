@@ -18,6 +18,7 @@ require('./photo');
 require('./video');
 require('./score');
 require('./score_log');
+require('./comment');
 
 // require('./topic_collect');
 // require('./message');
@@ -32,6 +33,7 @@ exports.Photo = mongoose.model('Photo');
 exports.Video = mongoose.model('Video');
 exports.Score = mongoose.model('Score');
 exports.ScoreLog = mongoose.model('ScoreLog');
+exports.Comment = mongoose.model('Comment');
 
 
 // exports.Reply        = mongoose.model('Reply');
