@@ -20,16 +20,96 @@
     width: 100%;
     word-spacing: -0.43em;
 }
+
+.darkbg{
+  background: #111
+}
+.price{
+     font-size: 18px;
+    font-weight: bold;
+    line-height: 36px;
+    color: #d6d6d6;
+    vertical-align: middle;
+}
+
+.photo-header{
+  background: #222;
+  padding:10px 20px;
+  color: #ccc;
+  margin-top: 20px;
+}
+
+.photo-header h1{
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow:1px 1px 1px #000;
+
+}
+
+.photo-actions-section{
+  background: #222;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: #777
+}
 </style>
 
+<div class="darkbg">
+
 <div class="container">
-<ol class="breadcrumb">
+<!-- <ol class="breadcrumb">
         <li><a href="/">主页</a><span class="divider"></span></li>
         <li><a href="/">图集</a><span class="divider"></span></li>
 
         <li class="active">详情</li>
         
-      </ol>
+      </ol> -->
+
+      <!---->
+
+<div class="container">
+<div class="row">
+<div class="col-md-8">
+<section class="photo-details-section">
+<div class="photo-header clearfix">
+  
+<h1 class="pull-left">{{photo.title}}</h1>
+<p class="pull-right" id="J-picset-attention" class="picset-cmtnum">
+        <b title="浏览量" class="w-ico-attention">点击数</b> <span id="J-picset-viewcount">2328</span>
+        <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
+        <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span>
+      </p>
+</div>
+
+<div class="photo">
+<img width="100%" src="/images/01.jpg" alt="">
+
+
+</div>
+</section>
+</div>
+<div class="col-md-4">
+<div class="photo-actions-section">
+<div class="cart-actions not-in-cart">
+
+<div class="price">[16张] 售价：{{photo.price}}</div>
+<button class="btn-buy btn btn-primary btn-block btn-lg">
+立即购买
+</button>
+
+<p>已有<i class="red">183</i>人购买</p>
+
+<hr>
+<h3>作者信息：</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+      <!---->
 
 
       <div class="g-mainwraper g-mainwraper-hostinfo ">
@@ -46,11 +126,7 @@
       <p class="picset-count">
         <b class="f-lineBlock">[16张]</b>
       </p>
-      <p id="J-picset-attention" class="picset-cmtnum">
-        <b title="浏览量" class="w-ico-attention">点击数</b> <span id="J-picset-viewcount">2328</span>
-        <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
-        <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span>
-      </p>
+      
       <p class="picset-author">
         <b style="vertical-align: -2px;">&copy;</b> <a style="vertical-align: -2px;" title="进入lihefa_0509@126的小屋" href="http://lhf19520601.pp.163.com/">lihefa_0509@126</a>
         <span style="vertical-align: middle;" class="author-unfollow">
@@ -67,14 +143,14 @@
   </ul>
 </div>
 
-  <p align="center" ><i>浏览：1152次</i><i>时间：{{photo.update_at}} </i>已有<i class="red">183</i>人购买</p>
+  <p align="center" ><i>浏览：1152次</i><i>时间：{{photo.update_at}} </i></p>
 
 <!--未购买-->
 <div class="row">
 <div class="col-lg-8">  {{#each photo.pictures}}
  <img src="{{this}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
   {{/each}}</div>
-<div class="col-lg-4"> <button class="btn btn-danger btn-buy">  {{photo.price}}  购买</button>
+<div class="col-lg-4"> <button class="btn btn-danger ">  {{photo.price}}  购买</button>
 </div>
 </div>
 
@@ -88,6 +164,7 @@
 
 </div>
 
+</div>
 
 </div>
 
@@ -100,7 +177,10 @@
 
   $.post('/api/v1/checkIsBuy',postdata,function (data) {
     console.log(data)
-    $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled',true)
+    if(data.errorno===0){
+          $('.btn-buy').addClass('btn-success').text('已购买')
+
+    }
   })
 $('.btn-buy').on('click',function(){
 
