@@ -96,6 +96,16 @@ router.get('/uc/view', function (req, res) {
   res.render('uc_view', {user: req.session.user});
 });
 
+
+//个人主页
+router.get('/userspace',function(req,res){
+  res.render('userspace', {user: req.session.user});
+
+
+})
+
+
+
 //修改密码
 router.post('/uc/account/pwd', ucenter.pwd);
 //修改个人资料
