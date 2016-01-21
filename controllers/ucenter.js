@@ -6,6 +6,8 @@ var User = require('../proxy/user.js');
 var crypto = require('crypto');
 var Photo = require('../proxy/photo.js');
 var Score = require('../proxy/score');
+var Money = require('../proxy/money');
+var moment = require('moment');
 
 //显示列表
 exports.show = function (req, res) {
@@ -83,12 +85,42 @@ exports.showvip = function (req, res) {
 };
 
 //充值
-exports.recharge = function (req, res) {
-
-  res.render('uc_score')
+exports.rechargeForm = function (req, res) {
+  var money = validator.trim(req.query.money);
+  var type = parseInt(req.query.type);
+  if (!money) return res.render('uc_recharge_pay', {result: '请填写money'});
+  if (type !== 0 && type !== 1)return res.render('uc_recharge_pay', {result: '请用支付宝或微信支付'});
+  var model = {};
+  model.money = money;
+  model.type = type;
+  model.userId = req.session.user.id;
+  Money.save(model, function (err, result) {
+    res.render('uc_recharge_pay', {result: '支付成功'});
+  });
 
 };
 
+//充值记录
+exports.rechargeList = function (req, res) {
+  var userId = req.session.user.id;
+  Money.page({userId: userId, errorno: 1}, {sort: '-create_at'}, function (err, page) {
+      page.list.forEach(function (item) {
+        item.createAt = moment(item.create_at).format('YYYY-MM-DD hh:mm:ss');
+        if (item.type === 0) {
+          item.pay = '支付宝';
+        } else if (item.type === 1) {
+          item.pay = '微信';
+        } else {
+          item.pay = '未知';
+        }
+      });
+      res.render('uc_recharge_list', page);
+    }
+  )
+  ;
+
+}
+;
 
 //开通VIP
 exports.openvip = function (req, res) {

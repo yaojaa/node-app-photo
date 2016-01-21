@@ -19,6 +19,7 @@ require('./video');
 require('./score');
 require('./score_log');
 require('./comment');
+require('./money_log');
 
 // require('./topic_collect');
 // require('./message');
@@ -34,6 +35,7 @@ exports.Video = mongoose.model('Video');
 exports.Score = mongoose.model('Score');
 exports.ScoreLog = mongoose.model('ScoreLog');
 exports.Comment = mongoose.model('Comment');
+exports.MoneyLog = mongoose.model('MoneyLog');
 
 
 // exports.Reply        = mongoose.model('Reply');

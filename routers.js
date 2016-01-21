@@ -97,7 +97,9 @@ router.get('/uc/recharge', auth.validateLogin, function (req, res) {
 });
 
 //账户充值
-router.post('/uc/recharge/form', auth.ajaxValidateLogin, ucenter.recharge);
+router.get('/uc/recharge/form', auth.ajaxValidateLogin, ucenter.rechargeForm);
+//充值记录
+router.get('/uc/recharge/list', auth.ajaxValidateLogin, ucenter.rechargeList);
 
 //个人资料
 router.get('/uc/view', function (req, res) {

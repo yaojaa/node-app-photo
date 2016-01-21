@@ -25,19 +25,14 @@
             <small>（287303540@qq.com）账户余额：{{user.score}}</small>
           </h3>
         </div>
-        <h3>账户充值</h3>
+        <h3>账户充值记录</h3>
         <hr>
         <div class="fillmoney">
-          <form action="/uc/recharge/form">
-            <div class="form-group">
-              <input type="text" name="money" class="form-control input-lg" placeholder="请输入金额">
-              <input type="hidden" name="type" id="pay_type">
-            </div>
-            <div class="form-group">
-              <button class="btn btn-success" onclick="javascript:pay_type.value=0;">支付宝</button>
-              <button class="btn btn-success" onclick="javascript:pay_type.value=1;">微信</button>
-            </div>
-          </form>
+
+          {{#each list}}
+            充值时间：{{createAt}}，充值金额：{{money}}，支付方式：{{pay}}<br>
+          {{/each}}
+
         </div>
       </div>
     </div>
