@@ -82,7 +82,6 @@ router.post('/create-video', video.publish)
 
 //用户中心
 router.get('/ucenter', auth.validateLogin, ucenter.show);  // 用户中心
-router.get('/score', auth.validateLogin, ucenter.score);  // 积分充值
 router.get('/tovip', auth.validateLogin, ucenter.showvip);  // 开通vip
 router.post('/tovip', auth.validateLogin, ucenter.openvip);  // 开通vip
 //验证登录
