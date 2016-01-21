@@ -82,10 +82,10 @@ exports.showvip = function (req, res) {
 
 };
 
+//充值
+exports.recharge = function (req, res) {
 
-exports.score = function (req, res) {
-
-  res.render('score')
+  res.render('uc_score')
 
 };
 

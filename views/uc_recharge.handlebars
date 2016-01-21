@@ -1,0 +1,60 @@
+<style>
+  .m_container {
+    background: #fff;
+    padding: 20px
+  }
+
+  .price {
+    color: #f60;
+    font-size: 18px;
+  }
+</style>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">主页</a><span class="divider"></span></li>
+    <li class="active">个人中心</li>
+  </ol>
+
+
+  <div class="row">
+    {{>uc_menu}}
+    <div class="col-lg-10">
+      <div class="m_container">
+        <div class="alert alert-success">
+          <h3>{{user.username}}
+            <small>（287303540@qq.com）账户余额：{{user.score}}</small>
+          </h3>
+        </div>
+        <h3>账户充值</h3>
+        <hr>
+        <div class="fillmoney">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" placeholder="请输入金额">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success">支付宝</button>
+            <button class="btn btn-success">微信</button>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  $('.open-btn').on('click', function (e) {
+
+    e.preventDefault();
+
+    var needMoney = $(this).attr('data-price');
+
+    $.post('/api/v1/tovip', {needMoney: needMoney}, function (data) {
+
+      console.info(data);
+    })
+
+
+  })
+
+</script>

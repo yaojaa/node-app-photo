@@ -91,6 +91,15 @@ router.use('/uc', auth.validateLogin);
 router.get('/uc/account', function (req, res) {
   res.render('uc_account');
 });
+
+//账户充值页
+router.get('/uc/recharge', auth.validateLogin, function (req, res) {
+  res.render('uc_recharge');
+});
+
+//账户充值
+router.post('/uc/recharge/form', auth.ajaxValidateLogin, ucenter.recharge);
+
 //个人资料
 router.get('/uc/view', function (req, res) {
   res.render('uc_view', {user: req.session.user});
@@ -98,12 +107,11 @@ router.get('/uc/view', function (req, res) {
 
 
 //个人主页
-router.get('/userspace',function(req,res){
+router.get('/userspace', function (req, res) {
   res.render('userspace', {user: req.session.user});
 
 
 })
-
 
 
 //修改密码
