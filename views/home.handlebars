@@ -59,15 +59,15 @@
       success: function (data) {
         var list = data.list;
         var html = '';
+        html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
         for (var i = 0, length = list.length; i < length; i++) {
-          html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
           var pictures = list[i].pictures
           for (var j = 0, size = pictures.length; j < size; j++) {
             var pic = pictures[j];
             html += '<a href="' + pic + '"><img src="' + pic + '"/></a>';
           }
-          html += '</div></div>';
         }
+        html += '</div></div>';
         $('#pic-container').html(html);
 
         $('.basicExample').justifiedGallery({
