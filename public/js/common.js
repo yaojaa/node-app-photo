@@ -10,7 +10,7 @@ my.ajax = function (options) {
   var error = options.error;
   options.success = function (data) {
     if (data.errorno >= 0) {
-      success(data);
+      success(data.data);
     } else {
       alert(data.msg);
     }

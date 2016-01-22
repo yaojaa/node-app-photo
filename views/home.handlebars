@@ -2,136 +2,82 @@
 <link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
 <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
 <div id="banner">
-    <div class="cover"></div>
-    <div class="middle">
-        <h2>漫影 </h2>
-        <h3>分享你的照片，实现你的价值</h3>
-        <br>
-        <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started" class="btn btn-lg btn-info">立即加入</a>
-    </div>
+  <div class="cover"></div>
+  <div class="middle">
+    <h2>漫影 </h2>
+
+    <h3>分享你的照片，实现你的价值</h3>
+    <br>
+    <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+       class="btn btn-lg btn-info">立即加入</a>
+  </div>
 </div>
 <div class="tab_wrapper">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#new_pic" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a></li>
-        <li role="presentation"><a href="#hot_pic" aria-controls="hot_pic" role="tab" data-toggle="tab">热门图片</a></li>
-        <li role="presentation"><a href="#follow" aria-controls="follow" role="tab" data-toggle="tab">我关注的图片</a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="new_pic">
-            <div class="basicExample">
-                <a href="/images/01.jpg">
-                    <img alt="caption for image 1" src="/images/01.jpg" />
-                </a>
-                <a href="/images/02.jpg">
-                    <img alt="caption for image 2" src="/images/02.jpg" />
-                </a>
-                <a href="/images/03.jpg">
-                    <img alt="caption for image 2" src="/images/03.jpg" />
-                </a>
-                <a href="/images/04.jpg">
-                    <img alt="caption for image 2" src="/images/04.jpg" />
-                </a>
-                <a href="/images/05.jpg">
-                    <img alt="caption for image 2" src="/images/05.jpg" />
-                </a>
-                <a href="/images/06.jpg">
-                    <img alt="caption for image 2" src="/images/06.jpg" />
-                </a>
-                <a href="/images/07.jpg">
-                    <img alt="caption for image 2" src="/images/07.jpg" />
-                </a>
-                <a href="/images/08.jpg">
-                    <img alt="caption for image 2" src="/images/08.jpg" />
-                </a>
-                <a href="/images/09.jpg">
-                    <img alt="caption for image 2" src="/images/09.jpg" />
-                </a>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="hot_pic"><div class="basicExample">
-                <a href="/images/09.jpg">
-                    <img alt="caption for image 1" src="/images/09.jpg" />
-                </a>
-                <a href="/images/05.jpg">
-                    <img alt="caption for image 2" src="/images/05.jpg" />
-                </a>
-                <a href="/images/03.jpg">
-                    <img alt="caption for image 2" src="/images/03.jpg" />
-                </a>
-                <a href="/images/04.jpg">
-                    <img alt="caption for image 2" src="/images/04.jpg" />
-                </a>
-                <a href="/images/01.jpg">
-                    <img alt="caption for image 2" src="/images/01.jpg" />
-                </a>
-                <a href="/images/06.jpg">
-                    <img alt="caption for image 2" src="/images/06.jpg" />
-                </a>
-                <a href="/images/07.jpg">
-                    <img alt="caption for image 2" src="/images/07.jpg" />
-                </a>
-                <a href="/images/08.jpg">
-                    <img alt="caption for image 2" src="/images/08.jpg" />
-                </a>
-                <a href="/images/02.jpg">
-                    <img alt="caption for image 2" src="/images/02.jpg" />
-                </a>
-            </div></div>
-        <div role="tabpanel" class="tab-pane" id="follow"><div class="basicExample">
-                <a href="/images/02.jpg">
-                    <img alt="caption for image 1" src="/images/02.jpg" />
-                </a>
-                <a href="/images/04.jpg">
-                    <img alt="caption for image 2" src="/images/04.jpg" />
-                </a>
-                <a href="/images/03.jpg">
-                    <img alt="caption for image 2" src="/images/03.jpg" />
-                </a>
-                <a href="/images/01.jpg">
-                    <img alt="caption for image 2" src="/images/01.jpg" />
-                </a>
-                <a href="/images/05.jpg">
-                    <img alt="caption for image 2" src="/images/05.jpg" />
-                </a>
-                <a href="/images/06.jpg">
-                    <img alt="caption for image 2" src="/images/06.jpg" />
-                </a>
-                <a href="/images/09.jpg">
-                    <img alt="caption for image 2" src="/images/09.jpg" />
-                </a>
-                <a href="/images/08.jpg">
-                    <img alt="caption for image 2" src="/images/08.jpg" />
-                </a>
-                <a href="/images/07.jpg">
-                    <img alt="caption for image 2" src="/images/07.jpg" />
-                </a>
-            </div></div>
-    </div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#new_pic" onclick="showPicture(1)" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
+    </li>
+    <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab" data-toggle="tab">热门图片</a>
+    </li>
+    {{#if user}}
+    <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab" data-toggle="tab">我关注的图片</a>
+    </li>
+    {{/if}}
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content" id="pic-container">
+
+  </div>
 </div>
 <div id="reg">
-    <div class="container">
-        <h2>加入会员</h2>
-        <div class="subtit"> <span>成为会员只需一步，立即体验吧</span></div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3 col-md-offset-2 col-pc-offset-2 col-lg-offset-2">
-                <input type="text" name="mini_name" placeholder="电子邮箱" class="form-control">
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-                <input type="text" name="mini_name" placeholder="设置密码" class="form-control">
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-                <button class="reg btn btn-success btn-lg">马上开始体验</button>
-            </div>
-        </div>
+  <div class="container">
+    <h2>加入会员</h2>
+
+    <div class="subtit"><span>成为会员只需一步，立即体验吧</span></div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3 col-md-offset-2 col-pc-offset-2 col-lg-offset-2">
+        <input type="text" name="mini_name" placeholder="电子邮箱" class="form-control">
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
+        <input type="text" name="mini_name" placeholder="设置密码" class="form-control">
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
+        <button class="reg btn btn-success btn-lg">马上开始体验</button>
+      </div>
     </div>
+  </div>
 </div>
 <div class="navbar-gradient"></div>
 <script type="text/javascript">
-  $('.basicExample').justifiedGallery({
-    rowHeight : 350,
-    lastRow : 'nojustify',
-    margins : 3
-});
+
+  function showPicture(type) {
+
+    my.ajax({
+      url: "/home/photo/list",
+      data: {type: type, pageNo: 1},
+      success: function (data) {
+        var list = data.list;
+        var html = '';
+        for (var i = 0, length = list.length; i < length; i++) {
+          html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
+          var pictures = list[i].pictures
+          for (var j = 0, size = pictures.length; j < size; j++) {
+            var pic = pictures[j];
+            html += '<a href="' + pic + '"><img src="' + pic + '"/></a>';
+          }
+          html += '</div></div>';
+        }
+        $('#pic-container').html(html);
+
+        $('.basicExample').justifiedGallery({
+          rowHeight: 350,
+          lastRow: 'nojustify',
+          margins: 3
+        });
+      }
+    });
+
+  }
+  showPicture(1);
 </script>

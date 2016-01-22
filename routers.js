@@ -128,4 +128,7 @@ router.post('/comment/add', auth.ajaxValidateLogin, comment.add);
 router.get('/comment/page', comment.page);
 router.post('/comment/page', comment.page);
 
+//首页图片列表
+router.post('/home/photo/list', photo.findList);
+
 module.exports = router;
