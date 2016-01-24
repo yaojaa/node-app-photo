@@ -173,6 +173,14 @@ var config = {
   create_post_per_day: 1000, // 每个用户一天可以发的主题数
   create_reply_per_day: 1000, // 每个用户一天可以发的评论数
   visit_per_day: 1000, // 每个 ip 每天能访问的次数
+  nav_list:[//导航
+    {name:'首页',url:'/'},
+    {name:'街拍',url:'/street'},
+    {name:'旅行',url:'/travel'},
+    {name:'时尚',url:'/fashion'},
+    {name:'美食',url:'/food'},
+    {name:'动物',url:'/animals'}
+  ]
 };
 
 module.exports = config;
