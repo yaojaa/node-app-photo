@@ -64,7 +64,9 @@ exports.publish = function (req, res) {
 exports.showDetail = function (req, res) {
   var _id = req.params._id;
   Photo.findPhotoById(_id, function (err, dataPhoto) {
+    console.log(dataPhoto);
     res.render('photo-view', {
+      title:dataPhoto.title,
       photo: dataPhoto
     })
   })

@@ -1,9 +1,4 @@
-<!-- 
-<link rel="stylesheet" href="http://r.ph.126.net/share/css/gen/shareSetPage.css?v=12291627">
 
-<link rel="stylesheet" href="http://r.ph.126.net/share/css/gen/sharePageCommon.css?v=12291627">
-
- -->
  <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
 
  <script src="/vendor/sweetalert/sweetalert.min.js"></script> 
@@ -82,28 +77,40 @@
 </div>
 
 <div class="photo">
+ <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
 
 
 {{#each photo.pictures}}
- <img width="100%" src="{{this}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
-  {{/each}}
+ <img width="18%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} ">
+{{/each}}
 
 </div>
 </section>
 </div>
 <div class="col-md-4">
 <div class="photo-actions-section">
+<div >图片简介：{{photo.discrib}} [{{photo.pictures.length}}张]</div>
+
+
 <div class="cart-actions not-in-cart">
 
-<div class="price">[16张] 售价：{{photo.price}}</div>
+{{#if photo.price}}
+<div class="price"> 售价：{{photo.price}}</div>
 <button class="btn-buy btn btn-primary btn-block btn-lg">
 立即购买
 </button>
 
 <p>已有<i class="red">183</i>人购买</p>
+{{/if}}
+
+
+
+
 
 <hr>
 <h3>作者信息：</h3>
+{{photo.author_id}}
+<button>关注作者</button>
 
 </div>
 

@@ -1,6 +1,16 @@
 var config = require('../../config');
 var userProxy = require('../../proxy/user.js');
 
+//获取用户信息
+
+exports.getUserInfoById=function(req, res){
+
+    var id=req.body.id;
+
+    
+
+
+}
 
 
 //开通VIP

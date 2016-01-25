@@ -37,12 +37,10 @@ text-overflow: ellipsis;
 <ul class="subNav">
 
   
-  <li role="presentation" class="all"><a href="?category=all">全部</a></li>
+  <li role="presentation" class="all"><a href="?sort=new">最新</a></li>
+  <li  class="all"><a href="?sort=hot">本周热门</a></li>
 
-{{#each category}}
-  <li class="{{name}}">
-    <a href="?category={{name}}">{{text}}</a></li>
-{{/each}}
+
 </ul>
 
 </div>

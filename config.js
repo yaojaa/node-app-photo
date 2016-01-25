@@ -113,12 +113,10 @@ var config = {
 
   //分类
   category: [
+      {name: 'art', text: '风光'},
     {name: 'street', text: '街拍'},
-    {name: 'travel', text: '旅行'},
+    {name: 'travel', text: '人像'},
     {name: 'fashion', text: '时尚'},
-    {name: 'food', text: '美食'},
-    {name: 'animals', text: '动物'},
-    {name: 'art', text: '艺术'}
   ],
 
   //视频分类
