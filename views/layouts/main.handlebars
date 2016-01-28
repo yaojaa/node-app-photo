@@ -1,92 +1,91 @@
 <!doctype html>
 <html>
+
 <head>
     <title>漫影首页</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
-	<!-- 新 Bootstrap 核心 CSS 文件 -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" href="/css/common.min.css">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/common.min.css">
     <link rel="stylesheet" href="/css/font-awesome.min.css">
-
-	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-
-	{{#if showTests}}
-		<link rel="stylesheet" href="/vendor/mocha.css">
-	{{/if}}
-		<script src="/vendor/js/jquery-2.1.4.min.js" > </script>
-		<script src="/js/common.js" > </script>
-
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {{#if showTests}}
+    <link rel="stylesheet" href="/vendor/mocha.css"> {{/if}}
+    <script src="/vendor/js/jquery-2.1.4.min.js">
+    </script>
+    <script src="/js/common.js">
+    </script>
 </head>
+
 <body>
-{{#if success}}
-  <div class="alert alert-success" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{success}}</div>
-{{/if}}
-
-{{#if error}}
-  <div  class="alert alert-danger" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}} </div>
-{{/if}}
-
-
-    <div id="header">
-      <div class="innerwapper">
-        <h1 id="logo"> <a href="/">风影</a></h1>
-        <ul class="menu">
-          {{#each category}}
-  <li class="{{name}}">
-    <a href="?category={{name}}">{{text}}</a></li>
-{{/each}}
-<!--           <li><a href="/aticle">文章</a></li>
- -->          <li><a href="/photo">图集</a></li>
-          <li><a href="/video">视频</a></li>
-          <li><a href="/video">排行榜</a></li>
-
-        </ul>
-        <div class="userLoging">
-
-        {{#if user}}
-
-
-<a href="/ucenter">{{user.username}} </a><a href="/logout">退出</a> <a href="/create-aticle">发文字</a> <a href="/create-photo">发图片</a>
-<a href="/create-video">发视频</a>
-<a href="/score">充值</a>
-{{user.money}}
-{{else}}
-
-   <a href="/login" title="View login page" class="start-btn">会员登录</a><a href="/signup" title="View login page" class="start-btn">注册</a>
-
-
-{{/if}}
-
-     
-
-
+    {{#if success}}
+    <div class="alert alert-success" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{success}}</div>
+    {{/if}} {{#if error}}
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}} </div>
+    {{/if}}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">风影</a>
+            </div>
+            <div class="navbar-collapse collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                   <li><a href="/"><span class="glyphicon glyphicon-home"></span>首页</a></li>
+                    {{#each category}}
+                    <li class="{{name}}">
+                        <a href="?category={{name}}">{{text}}</a></li>
+                    {{/each}}
+                    <li><a href="/photo"><span class="glyphicon glyphicon-picture"></span>图集</a></li>
+                    <li><a href="/video"><span class="glyphicon glyphicon-film"></span>视频</a></li>
+                    <li><a href="/video"><span class="glyphicon glyphicon-list"></span>排行榜</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control input-sm" placeholder="Search">
+                        <span class="form-control-feedback"><span class="glyphicon glyphicon-search"></span></span>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right ">
+                    {{#if user}}
+                    <li><a href="/ucenter">{{user.username}} </a></li>
+                    <li><a href="/logout">退出</a></li> 
+                    <li><a href="/create-aticle">发文字</a></li>
+                    <li><a href="/create-photo">发图片</a></li>
+                    <li><a href="/create-video">发视频</a></li>
+                    <li><a href="/score">充值</a></li> {{user.money}} {{else}}
+                    <li><a href="/login" title="View login page" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a></li>
+                    <li><a href="/signup" title="View login page" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a></li> {{/if}}
+                </ul>
+            </div>
         </div>
-      </div>
-      <div class="navbar-gradient"></div>
     </div>
-
-
-
- {{{body}}}
-
-	{{#if showTests}}
-		<div id="mocha"></div>
-		<script src="/vendor/mocha.js"></script>
-		<script src="/vendor/chai.js"></script>
-		<script>
-			mocha.ui('tdd');
-			var assert = chai.assert;
-		</script>
-		<script src="/qa/tests-global.js"></script>
-		{{#if pageTestScript}}
-			<script src="{{pageTestScript}}"></script>
-		{{/if}}
-		<script>mocha.run();</script>
-	{{/if}}
+    {{{body}}} {{#if showTests}}
+    <div id="mocha"></div>
+    <script src="/vendor/mocha.js"></script>
+    <script src="/vendor/chai.js"></script>
+    <script>
+    mocha.ui('tdd');
+    var assert = chai.assert;
+    </script>
+    <script src="/qa/tests-global.js"></script>
+    {{#if pageTestScript}}
+    <script src="{{pageTestScript}}"></script>
+    {{/if}}
+    <script>
+    mocha.run();
+    </script>
+    {{/if}}
 </body>
+
 </html>
