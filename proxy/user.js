@@ -18,6 +18,12 @@ exports.getUserByName = function (username, callback) {
   User.findOne({'user_name': username}, callback);
 };
 
+exports.getUserID = function (id, callback) {
+  User.findOne({'_id': id}, callback);
+};
+
+
+
 
 
 exports.newAndSave = function (password, email, username,active, callback) {

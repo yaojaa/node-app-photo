@@ -6,6 +6,21 @@ var userProxy = require('../../proxy/user.js');
 exports.getUserInfoById=function(req, res){
 
     var id=req.body.id;
+    console.log('req.query',req.query);
+
+    userProxy.getUserID(id,function(err,data){
+
+      if (err){
+        return err
+      }
+
+      res.json({
+        errorno:0,
+        data:data,
+        msg:'成功'
+      })
+
+    })
 
     
 

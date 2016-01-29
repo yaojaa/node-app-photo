@@ -4,7 +4,8 @@
  <script src="/vendor/sweetalert/sweetalert.min.js"></script> 
 <script>
   var PAGECONFIG={
-      PHOTOID:'{{photo.id}}'
+      photoId:'{{photo.id}}',
+      authorId:'{{photo.author_id}}'
   }
 </script>
 
@@ -145,8 +146,16 @@
 <script>
 
    var postdata={
-    photoId:PAGECONFIG.PHOTOID
+    photoId:PAGECONFIG.photoId
    }
+
+
+
+   $.post('/api/v1/getUserInfoById',{id:PAGECONFIG.authorId},function(data){
+
+    console.log(data)
+
+   })
 
   $.post('/api/v1/checkIsBuy',postdata,function (data) {
     console.log(data)

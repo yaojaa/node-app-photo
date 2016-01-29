@@ -26,6 +26,9 @@ var config            = require('./config');
 
 var router            = app.Router();
 
+//获取用户信息
+router.post('/getUserInfoById',ucenterController.getUserInfoById)
+
 
 router.get('/aticles', aticleController.index);
 
