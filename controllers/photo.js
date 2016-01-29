@@ -111,3 +111,38 @@ exports.findList = function (req, res) {
     res.ok(list);
   });
 }
+
+/**
+ *
+ * @param req
+ *  req.query.categories:图片分类
+ * @param res
+ */
+exports.classify = function (req, res, next) {
+  var classifies = ['popular', 'fresh', 'editors'];
+  var classify = req.params.classify;
+  var categories = req.query.categories;
+  var pageNo = req.query.pageNo;
+  if (classifies.indexOf(classify) === -1) {
+    return next(new Error('not found'));
+  }
+  var where = {};
+  var keys = {
+    pictures: {$slice: 1}
+  };
+  var options = {pageNo: pageNo, sort: '-create_at'};
+  if (classify === 'popular') {
+    options.sort = '-browse_cnt';
+  }
+  if (categories) {
+    where.category = categories;
+  }
+
+  Photo.page(where, keys, options, function (err, list) {
+    if (err) {
+      return res.fail();
+    }
+    res.ok(list);
+  });
+
+};

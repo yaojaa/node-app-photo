@@ -116,14 +116,14 @@ exports.updateCountById = function (id, type, callback) {
   Photo.update({_id: id}, {'$inc': model}, {multi: false}, callback);
 };
 
-
 /**
  * 分页查询
  * @param query 查询条件
+ * @param keys 查询的字段
  * @param opt 排序，分页如{pageNo: 1，pageSize: 10, sort: '-create_at'}
  * @param callback
  */
-exports.page = function (query, opt, callback) {
+exports.page = function (query, keys, opt, callback) {
   var pageNo = opt.pageNo || 1;
   var pageSize = opt.pageSize || 10;
   pageNo--;
@@ -133,7 +133,7 @@ exports.page = function (query, opt, callback) {
       var limit = pageSize;
       opt.skip = skip;
       opt.limit = limit;
-      Photo.find(query, {}, opt, callback);
+      Photo.find(query, keys, opt, callback);
     },
     function (callback) {
       Photo.count(query, callback);

@@ -130,5 +130,6 @@ router.post('/comment/page', comment.page);
 
 //首页图片列表
 router.post('/home/photo/list', photo.findList);
-
+//热门(popular) 最新(fresh) 编辑推荐(editors)
+router.get('/:classify', photo.classify);
 module.exports = router;
