@@ -26,9 +26,7 @@ var handlebars = require('express-handlebars')
 // view engine setup
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-console.log('app __dirname==============',__dirname);
 app.set('views', __dirname + '/views');
-console.log('app __dirname2==============',app.get('views'));
 //app.use(function(req,res,next){
 //  if(!res.locals.partials) res.locals.partials = {};
 //});
