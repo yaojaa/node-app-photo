@@ -14,10 +14,10 @@
 }
 
 #banner {
-    background: url("https://drscdn.500px.org/photo/129507617/m%3D2048/fb5ece89461088259b292cc097f1faae") center top no-repeat #eee fixed;
-    background-size: 100%;
+
     text-align: center;
-    height: 600px;
+    height: auto;
+    max-height: 600px;
     transition: height 1s;
     -moz-transition: height 1s;
     -webkit-transition: height 1s;
@@ -27,7 +27,9 @@
     text-shadow: 2px 2px 2px #333;
     position: relative
 }
-
+#banner img{
+    width: 100%;
+}
 #banner .cover {
     position: absolute;
     left: 0;
@@ -383,10 +385,12 @@
     width: 300px;
     text-align: center
 }
-
+@media (max-width: 1024px) {
+    #bubbleCanvas{display: none;}
+}
 @media (max-width: 768px) {
-    #banner {
-        padding-top: 40px
+    .nav-tabs{
+        margin: 10px auto !important;
     }
     #banner .middle {
         height: 80px

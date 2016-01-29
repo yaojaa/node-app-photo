@@ -2675,4 +2675,10 @@ body {
 }
 .navbar-nav li .glyphicon{
     margin-right: 8px;
+    width: 16px;
+    display: inline-block;
+}
+.navbar{
+    border-radius:0 !important;
+    margin-bottom: 0 !important;
 }
