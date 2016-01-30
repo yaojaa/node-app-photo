@@ -10,7 +10,7 @@
     <h3>分享精彩，实现价值</h3>
     <br>
     <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-       class="btn btn-lg btn-info">立即加入</a>
+       class="button button-primary button-rounded">立即加入</a>
   </div>
 </div>
 <div class="tab_wrapper">
@@ -38,13 +38,13 @@
     <div class="subtit"><span>成为会员只需一步，立即体验吧</span></div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3 col-md-offset-2 col-pc-offset-2 col-lg-offset-2">
-        <input type="text" name="mini_name" placeholder="电子邮箱" class="form-control">
+        <input type="text" name="mini_name" placeholder="电子邮箱" class="form-control input-sm">
       </div>
       <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-        <input type="text" name="mini_name" placeholder="设置密码" class="form-control">
+        <input type="text" name="mini_name" placeholder="设置密码" class="form-control input-sm">
       </div>
       <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-        <button class="reg btn btn-success btn-lg">马上开始体验</button>
+        <button class="reg button button-rounded button-caution button-large">马上开始体验</button>
       </div>
     </div>
   </div>
@@ -169,9 +169,9 @@
     };
   }
 
-  //閫傞厤鍗氬鍥崥瀹�
+  
   $("#banner").append("<canvas id=\"bubbleCanvas\" width=\"800\" height=\"563\"></canvas>");
-
+  $('.navbar').addClass('navbar-fixed-top')
   initHeader();
   addListeners();
 }());

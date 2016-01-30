@@ -33,16 +33,21 @@ text-overflow: ellipsis;
 }
 </style>
 
-<div class="container" id="{{currentCategory}}">
-<ul class="subNav">
 
-  
+<div class="container" id="{{currentCategory}}">
+
+<ul class="subNav clearfix">
   <li role="presentation" class="all"><a href="?sort=new">最新</a></li>
   <li  class="all"><a href="?sort=hot">本周热门</a></li>
-
-
+  <li class="btn-group pull-right ">
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">全部分类 <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">人体艺术</a></li>
+        <li><a href="#">自然风景</a></li>
+        <li><a href="#">美食</a></li>
+      </ul>
+  </li>
 </ul>
-
 </div>
 
 <div class="container">

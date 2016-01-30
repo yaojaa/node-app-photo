@@ -390,7 +390,7 @@
 }
 @media (max-width: 768px) {
     .nav-tabs{
-        margin: 10px auto !important;
+        margin: 0px auto !important;
     }
     #banner .middle {
         height: 80px
@@ -441,24 +441,5 @@
     margin: 10px;
     max-width: 100%
 }
-
-.nav-tabs>li.active>a,
-.nav-tabs>li.active>a:focus,
-.nav-tabs>li.active>a:hover {
-    background: none;
-    border: 0;
-}
-
-.nav-tabs {
-    text-align: center;
-    margin: 30px auto;
-    border-top: 1px solid #ddd;
-}
-
-.nav-tabs>li {
-    float: none;
-    display: inline-block;
-}
-
 
 /*# sourceMappingURL=index.min.css.map */
