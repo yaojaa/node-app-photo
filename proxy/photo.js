@@ -48,7 +48,6 @@ exports.findOnePage = function (page, category, callback) {
       'category': category
     }
   }
-  console.log('需要返回的图片数量', list_photo_count);
   Photo.count(categoryquery, function (err, total) {
     Photo.find(categoryquery, {
       "pictures": {
@@ -127,27 +126,64 @@ exports.page = function (query, keys, opt, callback) {
   var pageNo = opt.pageNo || 1;
   var pageSize = opt.pageSize || 10;
   pageNo--;
-  async.parallel([
-    function (callback) {
+  console.log('pageNo',pageNo)
+  console.log('go here');
+
+  // an example using an object instead of an array
+async.parallel({
+    one: function(callback){
       var skip = pageNo * pageSize;
       var limit = pageSize;
+            console.log('opt',opt)
+
       opt.skip = skip;
       opt.limit = limit;
       Photo.find(query, keys, opt, callback);
     },
-    function (callback) {
-      Photo.count(query, callback);
+    two: function(callback){
+        Photo.count(query, callback);
     }
-  ], function (err, result) {
-    if (err) {
-      callback(err);
-      return;
-    }
-
-    var list = result[0];
-    var count = result[1];//总记录数
+},
+function(err, results) {
+    var list = result.one;
+    var count = result.teo;//总记录数
     var total = Math.ceil(count / pageSize);//总页数
-    callback(null, {list: list, count: count, total: total});
-  });
+    callback(null, list);
+
+});
+
+
+
+  // async.parallel([
+  //   function (callback) {
+  //       console.log('111')
+
+  //     var skip = pageNo * pageSize;
+  //     var limit = pageSize;
+  //     opt.skip = skip;
+  //     opt.limit = limit;
+  //     Photo.find(query, keys, opt, callback);
+  //   },
+  //   function (callback) {
+  //       console.log('222')
+
+  //     Photo.count(query, callback);
+  //   }
+  // ], function (err, result) {
+
+  //   //     console.log(err, result)
+
+  //   // if (err) {
+  //   //   callback(err);
+  //   //   return;
+  //   // }
+
+  //   // console.log('result',result)
+
+  //   // var list = result[0];
+  //   // var count = result[1];//总记录数
+  //   // var total = Math.ceil(count / pageSize);//总页数
+  //   // callback(err, {});
+  // });
 
 };

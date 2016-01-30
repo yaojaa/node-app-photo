@@ -104,7 +104,7 @@ exports.findList = function (req, res) {
       where._id = {'$in': follow};
       break;
   }
-  Photo.page(where, options, function (err, list) {
+  Photo.page(where, {},options, function (err, list) {
     if (err) {
       return res.fail();
     }
