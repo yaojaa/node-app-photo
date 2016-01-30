@@ -145,8 +145,8 @@ async.parallel({
     }
 },
 function(err, results) {
-    var list = result.one;
-    var count = result.teo;//总记录数
+    var list = results.one;
+    var count = results.tow;//总记录数
     var total = Math.ceil(count / pageSize);//总页数
     callback(null, list);
 
