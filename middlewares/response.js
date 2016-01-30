@@ -44,7 +44,7 @@ proto.fail = function (code, msg) {
 proto.ok = function (code, msg, obj) {
   if (obj == null) {
     obj = code;
-    code = 1;
+    code = 0;
     msg = 'success';
   }
   this.json({errorno: code, msg: msg, data: obj});
