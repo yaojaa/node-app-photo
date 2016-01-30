@@ -40,7 +40,7 @@ text-overflow: ellipsis;
   <li role="presentation" class="all"><a href="?sort=new">最新</a></li>
   <li  class="all"><a href="?sort=hot">本周热门</a></li>
   <li class="btn-group pull-right ">
-    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">全部分类 <span class="caret"></span></button>
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>全部分类</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
         <li><a href="#">人体艺术</a></li>
         <li><a href="#">自然风景</a></li>
@@ -132,5 +132,11 @@ function delPhoto(){
 
 $('.del').on('click',delPhoto)
 
-
+//分类
+$('.dropdown-toggle').each(function() {
+        var that = $(this)
+        $(this).siblings('.dropdown-menu').find('a').click(function() {
+            that.find('strong').html($(this).html())
+        })
+    })
 </script>
