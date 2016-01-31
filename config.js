@@ -116,7 +116,7 @@ var config = {
       {name: 'art', text: '风光'},
     {name: 'street', text: '街拍'},
     {name: 'travel', text: '人像'},
-    {name: 'fashion', text: '时尚'},
+    {name: 'fashion', text: '时尚'}
   ],
 
   //视频分类

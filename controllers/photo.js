@@ -1,5 +1,6 @@
 var config = require('../config');
 var Photo = require('../proxy/photo.js');
+var User = require('../proxy/user.js');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
 
@@ -11,24 +12,37 @@ exports.showPhotoList = function (req, res) {
 
   var page = req.query.p ? parseInt(req.query.p) : 1;
   var currentCategory = req.query.category || 'all';
-  Photo.findOnePage(page, currentCategory, function (err, lists, count) {
 
-    if (err) {
-      return (err);
-    }
+  var user = req.session.user;
+  //是否显示推荐按钮
+  var showRecommend = false;
+  if (user) {
+    showRecommend = true;
+  }
+  res.render('photo', {
+    category: config.category,
+    currentCategory: currentCategory,
+    showRecommend: showRecommend
+  });
 
-    res.render('photo', {
-      category: config.category,
-      currentCategory: currentCategory,
-      page: page,
-      photos: lists,
-      prev: 'p=' + parseInt(page - 1),
-      next: 'p=' + parseInt(page + 1),
-      isFirstPage: (page - 1) == 0,
-      isLastPage: ((page - 1) * list_photo_count + lists.length) >= count,
-      count: count
-    })
-  })
+  /*Photo.findOnePage(page, currentCategory, function (err, lists, count) {
+
+   if (err) {
+   return (err);
+   }
+
+   res.render('photo', {
+   category: config.category,
+   currentCategory: currentCategory,
+   page: page,
+   photos: lists,
+   prev: 'p=' + parseInt(page - 1),
+   next: 'p=' + parseInt(page + 1),
+   isFirstPage: (page - 1) == 0,
+   isLastPage: ((page - 1) * list_photo_count + lists.length) >= count,
+   count: count
+   })
+   })*/
 };
 
 exports.showCreate = function (req, res) {
@@ -141,9 +155,35 @@ exports.classify = function (req, res, next) {
     if (err) {
       return res.fail();
     }
-    res.ok(list);
-  });
+    if (list.length === 0) return res.ok([]);
+    var userIds = [];
+    list = list.map(function (item) {
+      item = item.toObject();
+      userIds.push(item.author_id);
+      return item;
+    });
 
+    //查询图集所属用户
+    User.findByIds(userIds, function (err, users) {
+      if (err) {
+        console.error('查询图集所属的用户信息出错：', err.stack);
+        return res.ok(list);
+      }
+      list.forEach(function (item) {
+        for (var i = 0, length = users.length; i < length; i++) {
+          var user = users[i];
+          if (item.author_id == user._id) {
+            item.userName = user.nickname || user.user_name;
+            item.userAvatar = user.avatar;
+            break;
+          }
+
+        }
+
+      });
+      res.ok(list);
+    });
+  });
 };
 
 /**

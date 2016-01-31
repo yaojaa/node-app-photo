@@ -1,6 +1,6 @@
-var models  = require('../models');
-var User    = models.User;
-var uuid	= require('node-uuid');
+var models = require('../models');
+var User = models.User;
+var uuid = require('node-uuid');
 
 /**
  * 根据邮箱，查找用户
@@ -23,16 +23,18 @@ exports.getUserID = function (id, callback) {
 };
 
 
+exports.findByIds = function (ids, callback) {
+  User.find({'_id': {'$in': ids}}, callback);
+};
 
 
-
-exports.newAndSave = function (password, email, username,active, callback) {
-  var user         = new User();
-  user.password    = password;
-  user.email       = email;
-  user.user_name    = username;
-  user.avatar      = '';
-  user.active      = active || false;
+exports.newAndSave = function (password, email, username, active, callback) {
+  var user = new User();
+  user.password = password;
+  user.email = email;
+  user.user_name = username;
+  user.avatar = '';
+  user.active = active || false;
   user.accessToken = uuid.v4();
   user.save(callback);
 };
@@ -40,19 +42,19 @@ exports.newAndSave = function (password, email, username,active, callback) {
 // Tank.update({ _id: id }, { $set: { size: 'large' }}, callback);
 //http://www.nodeclass.com/api/mongoose.html#guide_documents
 
-exports.updateUser=function(id,query,callback){
-  User.update({ _id: id }, query, callback);
+exports.updateUser = function (id, query, callback) {
+  User.update({_id: id}, query, callback);
 }
 
-exports.fillMoney=function(id,moneyNum,callback){
-  User.update({ _id: id }, { $set:{ money: moneyNum }}, callback);
+exports.fillMoney = function (id, moneyNum, callback) {
+  User.update({_id: id}, {$set: {money: moneyNum}}, callback);
 }
 
 
-exports.pushHasBuy=function(id,photoID,callback){
-  User.update({ _id: id }, { $push:{ hasBuy: photoID }}, callback);
+exports.pushHasBuy = function (id, photoID, callback) {
+  User.update({_id: id}, {$push: {hasBuy: photoID}}, callback);
 }
 
 exports.update = function (id, model, callback) {
-  User.update({_id : id}, model, {multi: false}, callback);
+  User.update({_id: id}, model, {multi: false}, callback);
 };

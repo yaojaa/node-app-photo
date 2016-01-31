@@ -1,145 +1,146 @@
 <link rel="stylesheet" href="css/index.min.css"/>
-
 <link rel="stylesheet" href="css/list.min.css"/>
-
+<link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
+<script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
 <style>
-.img-wapper{
-  margin-bottom: 10px
-}
-.img-wapper img:first-child{
-  width: 100%
-}
-.img-wapper img{
-  float: left;
-  width: 33.33333333%
-}
-.thum h4,.thum p{
-  overflow: hidden;
-text-overflow: ellipsis;
+  .img-wapper {
+    margin-bottom: 10px
+  }
+
+  .img-wapper img:first-child {
+    width: 100%
+  }
+
+  .img-wapper img {
+    float: left;
+    width: 33.33333333%
+  }
+
+  .thum h4, .thum p {
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-
-  #all .all a{
+  #all .all a {
     background: #fff
   }
 
- {{#each category}}
-  #{{name}} .{{name}} a{
-    background: #fff
-  }
-{{/each}}
+    {{#each category}}
+    #{{name}}  {{name}} {
+      background: #fff
+    }
+    {{/each}}
 
-}
+  }
+
+  .img-wrap {
+    position: relative;
+  }
+
+  .img-auth, .img-right {
+    color: #fff;
+    font-size: 20px;
+    position: absolute;
+  }
+
+  .img-auth {
+    bottom: 0;
+    left: 5px;
+  }
+
+  .img-right {
+    bottom: 0;
+    right: 5px;
+  }
 </style>
 
 
 <div class="container" id="{{currentCategory}}">
 
-<ul class="subNav clearfix">
-  <li role="presentation" class="all"><a href="?sort=new">最新</a></li>
-  <li  class="all"><a href="?sort=hot">本周热门</a></li>
-  <li class="btn-group pull-right ">
-    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><strong>所有类别</strong> <span class="caret"></span></button>
+  <ul class="subNav clearfix">
+    <li role="presentation" class="all"><a href="#fresh" onclick="showPicture('fresh')">最新</a></li>
+    <li class="all"><a href="#popular" onclick="showPicture('popular')">本周热门</a></li>
+    <li class="btn-group pull-right ">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false"><strong>所有类别</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
 
-    <li><a href="#">所有类别</a></li>
-    <li role="separator" class="divider"></li>
-        <li><a href="#">人体艺术</a></li>
-        <li><a href="#">自然风景</a></li>
-        <li><a href="#">美食</a></li>
+        <li><a href="#">所有类别</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#" onclick="showPicture(null,'art')">风光</a></li>
+        <li><a href="#" onclick="showPicture(null,'street')">街拍</a></li>
+        <li><a href="#" onclick="showPicture(null,'travel')">人像</a></li>
+        <li><a href="#" onclick="showPicture(null,'fashion')">时尚</a></li>
       </ul>
-  </li>
-</ul>
-</div>
-
-<div class="container">
-
-<div class="row">
-  {{#each photos}}
-
-  <div class="col-xs-12 col-sm-6 col-md-4 col-pc-3 col-lg-2 ">
-          <div class="thum"> <a href="/photo/{{_id}}">
-              <div class="img-wapper">
-
-                    {{#each pictures}}
- <img src="{{this}}?imageView2/1/w/300/h/300" alt="">
-                   {{/each}}
-
-</a>
-                <div class="time-line"><em class="r"></em> <i class="fa fa-picture-o fa-lg"></i> </div>
-              </div>
-            <div class="txt">
-              <h4> <a href="/photo/{{_id}}">{{title}}  </a></h4>
-              <p>{{discrib}}  <button class="btn btn-sm del" photoid="{{_id}}">X </button>
-</p>
-            </div>
-          </div>
-        </div>
-{{else}}
-
-<h3 align="center ">暂无图片！</h3>
-  {{/each}}
-
-</div>
-
-<nav>
-  <ul class="pager">共计{{count}}条
-
-
-{{#if isFirstPage}}
-  
-  <li class="previous disabled"><a href="#">
- {{else}}
-  <li class="previous"><a href="?{{prev}}">
-{{/if}}
-    <span aria-hidden="true">&larr;</span> 上一页</a></li>
-
-    {{#if isLastPage}}
-     <li class="next disabled"><a href="#">
-      {{else}}
-      <li class="next "> <a href="?{{next}}">
-{{/if}} 
-
-     下一页 <span aria-hidden="true">&rarr;</span></a></li>
+    </li>
   </ul>
-</nav>
 </div>
 
+<!-- Tab panes -->
+<div class="tab-content" id="pic-container">
 
+</div>
 
+<script type="text/javascript">
+  my.showRecommend = {{showRecommend}};
+  my.classify = null;
+  my.categories = null;
+  function showPicture(classify, categories) {
+    if (classify) {
+      my.classify = classify;
+    }
+    if (categories) {
+      my.categories = categories;
+    }
+    my.ajax({
+      url: "/photo/list/classify",
+      type: 'get',
+      data: {classify: my.classify, categories: my.categories, pageNo: 1},
+      success: function (list) {
+        var html = '';
+        html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
+        for (var i = 0, length = list.length; i < length; i++) {
 
+          var randomWidth = parseInt(Math.random() * 400 + 300);
+          var item = list[i];
+          var pic = item.pictures[0];
+          html += '<a class="img-wrap" href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/>' +
+              '<b class="img-auth">' + item.userName + '</b>';
+          if (my.showRecommend) {
+            if (item.recommend) {
+              html += '<b class="img-right" data-id="' + item._id + '">已推荐</b>';
+            } else {
+              html += '<b class="img-right" data-id="' + item._id + '">推荐</b>';
+            }
+          }
+          html += '</a>';
+        }
+        html += '</div></div>';
+        $('#pic-container').html(html);
 
-
-
-<script>
-
-
-function delPhoto(){
-
-  var _id= $(this).attr('photoid');
-  var $prent=$(this).closest('.list-group-item ')
-
-    $.post('/api/v1/delPhoto',{id:_id},function(res){
-      if(res.errorno===0){
-        alert('删除成功！');
-        $prent.fadeOut();
-
+        $('.basicExample').justifiedGallery({
+          rowHeight: 350,
+          lastRow: 'nojustify',
+          margins: 10
+        });
       }
-      })
+    });
 
+  }
+  showPicture();
 
-}
-
-
-
-$('.del').on('click',delPhoto)
-
-//分类
-$('.dropdown-toggle').each(function() {
-        var that = $(this)
-        $(this).siblings('.dropdown-menu').find('a').click(function() {
-            that.find('strong').html($(this).html())
-        })
-    })
+  //推荐
+  $('.img-right').click(function () {
+    var _this = $(this);
+    var id = _this.data('id');
+    my.ajax({
+      url: "/photo/list/recommend",
+      type: 'get',
+      data: {id: id},
+      success: function (list) {
+        _this.text('已推荐');
+      }
+    });
+  });
 </script>

@@ -131,7 +131,7 @@ router.post('/comment/page', comment.page);
 //首页图片列表
 router.post('/home/photo/list', photo.findList);
 //热门(popular) 最新(fresh) 编辑推荐(editors)
-router.get('/photo/classify', photo.classify);
+router.get('/photo/list/classify', photo.classify);
 //推荐或取消
-router.get('/photo/recommend', photo.recommend);
+router.get('/photo/list/recommend', photo.recommend);
 module.exports = router;
