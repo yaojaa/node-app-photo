@@ -10,6 +10,7 @@ var PhotoSchema = new Schema({
   pictures: {type: Array},
   category: {type: String},
   price: {type: Number, default: 0},
+  recommend: {type: Boolean, default: false},//是否推荐
   browse_cnt: {type: Number, default: 0},//图集被点击浏览的次数
   like_cnt: {type: Number, default: 0},//图集被点赞的次数
   comment_cnt: {type: Number, default: 0},//图集被评论的次数

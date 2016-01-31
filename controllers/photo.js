@@ -66,7 +66,7 @@ exports.showDetail = function (req, res) {
   Photo.findPhotoById(_id, function (err, dataPhoto) {
     console.log(dataPhoto);
     res.render('photo-view', {
-      title:dataPhoto.title,
+      title: dataPhoto.title,
       photo: dataPhoto
     })
   })
@@ -104,7 +104,7 @@ exports.findList = function (req, res) {
       where._id = {'$in': follow};
       break;
   }
-  Photo.page(where, {},options, function (err, list) {
+  Photo.page(where, {}, options, function (err, list) {
     if (err) {
       return res.fail();
     }
@@ -115,17 +115,14 @@ exports.findList = function (req, res) {
 /**
  *
  * @param req
+ *  req.query.classify:editors,fresh,popular
  *  req.query.categories:图片分类
  * @param res
  */
 exports.classify = function (req, res, next) {
-  var classifies = ['popular', 'fresh', 'editors'];
-  var classify = req.params.classify;
+  var classify = req.query.classify;
   var categories = req.query.categories;
   var pageNo = req.query.pageNo;
-  if (classifies.indexOf(classify) === -1) {
-    return next(new Error('not found'));
-  }
   var where = {};
   var keys = {
     pictures: {$slice: 1}
@@ -133,6 +130,8 @@ exports.classify = function (req, res, next) {
   var options = {pageNo: pageNo, sort: '-create_at'};
   if (classify === 'popular') {
     options.sort = '-browse_cnt';
+  } else if (classify === 'editors') {
+    where.recommend = true;
   }
   if (categories) {
     where.category = categories;
@@ -145,4 +144,24 @@ exports.classify = function (req, res, next) {
     res.ok(list);
   });
 
+};
+
+/**
+ *  推荐图集
+ * @param req
+ *  req.query.id
+ *    图集ID
+ * @param res
+ */
+exports.recommend = function (req, res) {
+  var user = req.session.user;
+  if (!user) {
+    return res.fail('请登录');
+  }
+  var id = req.query.id;
+  if (!id) return res.fail();
+  Photo.update(id, {recommend: true}, function (err, ret) {
+    if (err) return res.fail();
+    res.ok(ret);
+  })
 };
