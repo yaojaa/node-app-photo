@@ -16,7 +16,7 @@ exports.showPhotoList = function (req, res) {
   var user = req.session.user;
   //是否显示推荐按钮
   var showRecommend = false;
-  if (user) {
+  if (user && user.isadmin) {
     showRecommend = true;
   }
   res.render('photo', {
@@ -197,6 +197,9 @@ exports.recommend = function (req, res) {
   var user = req.session.user;
   if (!user) {
     return res.fail('请登录');
+  }
+  if (!user.isadmin) {
+    return res.fail('非管理员操作');
   }
   var id = req.query.id;
   if (!id) return res.fail();
