@@ -1,5 +1,6 @@
 var config = require('../../config');
 var userProxy = require('../../proxy/user.js');
+var _ = require('../../lib/tools.js')
 
 //获取用户信息
 
@@ -14,9 +15,15 @@ exports.getUserInfoById=function(req, res){
         return err
       }
 
+      console.log(_.pick,'pick')
+
+      var sendData=_.pick(data,['user_name','_id']);
+
+      
+
       res.json({
         errorno:0,
-        data:data,
+        data:sendData,
         msg:'成功'
       })
 
