@@ -139,7 +139,7 @@ exports.classify = function (req, res, next) {
   var pageNo = req.query.pageNo;
   var where = {};
   var keys = {
-    pictures: {$slice: 1}
+    /*pictures: {$slice: 1}*/
   };
   var options = {pageNo: pageNo, sort: '-create_at'};
   if (classify === 'popular') {

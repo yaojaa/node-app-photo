@@ -126,32 +126,28 @@ exports.page = function (query, keys, opt, callback) {
   var pageNo = opt.pageNo || 1;
   var pageSize = opt.pageSize || 10;
   pageNo--;
-  console.log('pageNo',pageNo)
-  console.log('go here');
 
   // an example using an object instead of an array
-async.parallel({
-    one: function(callback){
-      var skip = pageNo * pageSize;
-      var limit = pageSize;
-            console.log('opt',opt)
+  async.parallel({
+      one: function (callback) {
+        var skip = pageNo * pageSize;
+        var limit = pageSize;
 
-      opt.skip = skip;
-      opt.limit = limit;
-      Photo.find(query, keys, opt, callback);
-    },
-    two: function(callback){
+        opt.skip = skip;
+        opt.limit = limit;
+        Photo.find(query, keys, opt, callback);
+      },
+      two: function (callback) {
         Photo.count(query, callback);
-    }
-},
-function(err, results) {
-    var list = results.one;
-    var count = results.tow;//总记录数
-    var total = Math.ceil(count / pageSize);//总页数
-    callback(null, list);
+      }
+    },
+    function (err, results) {
+      var list = results.one;
+      var count = results.tow;//总记录数
+      var total = Math.ceil(count / pageSize);//总页数
+      callback(null, list);
 
-});
-
+    });
 
 
   // async.parallel([

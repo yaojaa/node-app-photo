@@ -3,55 +3,59 @@
 <link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
 <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
 <style>
-  .img-wapper {
-    margin-bottom: 10px
-  }
-
-  .img-wapper img:first-child {
-    width: 100%
-  }
-
-  .img-wapper img {
-    float: left;
-    width: 33.33333333%
-  }
-
-  .thum h4, .thum p {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  #all .all a {
-    background: #fff
-  }
-
-    {{#each category}}
-    #{{name}}  {{name}} {
-      background: #fff
-    }
-    {{/each}}
-
-  }
-
-  .img-wrap {
+  .album-wrapper {
     position: relative;
   }
 
-  .img-auth, .img-right {
-    color: #fff;
-    font-size: 20px;
+  .album-number {
     position: absolute;
+    color: #fff;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+
   }
 
-  .img-auth {
-    bottom: 0;
-    left: 5px;
+  .album-description {
+    position: absolute;
+    width: 100%;
+    bottom: 5px;
+    vertical-align: middle;
   }
 
-  .img-right {
-    bottom: 0;
-    right: 5px;
+  .album-description a {
+    float: left;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .album-description .a-txt {
+    line-height: 30px;
+  }
+
+  .album-description .belong-name {
+    margin-left: 5px;
+  }
+
+  .album-description .tuijian {
+    float: right;
+    margin-right: 5px;
+  }
+
+  .album-description a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .album-description .belong-icon {
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+  }
+
+  .album-description .belong-icon-wrapper {
+    margin-left: 5px;
   }
 </style>
 
@@ -59,19 +63,18 @@
 <div class="container" id="{{currentCategory}}">
 
   <ul class="subNav clearfix">
-    <li role="presentation" class="all"><a href="#fresh" onclick="showPicture('fresh')">最新</a></li>
-    <li class="all"><a href="#popular" onclick="showPicture('popular')">本周热门</a></li>
+    <li role="presentation" class="all"><a href="javascript:;" onclick="showPicture('fresh')">最新</a></li>
+    <li class="all"><a href="javascript:;" onclick="showPicture('popular')">本周热门</a></li>
     <li class="btn-group pull-right ">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false"><strong>所有类别</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
-
-        <li><a href="#">所有类别</a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="#" onclick="showPicture(null,'art')">风光</a></li>
-        <li><a href="#" onclick="showPicture(null,'street')">街拍</a></li>
-        <li><a href="#" onclick="showPicture(null,'travel')">人像</a></li>
-        <li><a href="#" onclick="showPicture(null,'fashion')">时尚</a></li>
+        <li><a href="javascript:;" onclick="showPicture()">所有类别</a></li>
+        <li role="separator" class="divider" ></li>
+        <li><a href="javascript:;" onclick="showPicture(null,'art')">风光</a></li>
+        <li><a href="javascript:;" onclick="showPicture(null,'street')">街拍</a></li>
+        <li><a href="javascript:;" onclick="showPicture(null,'travel')">人像</a></li>
+        <li><a href="javascript:;" onclick="showPicture(null,'fashion')">时尚</a></li>
       </ul>
     </li>
   </ul>
@@ -79,68 +82,108 @@
 
 <!-- Tab panes -->
 <div class="tab-content" id="pic-container">
+  <div role="tabpanel" class="tab-pane active" id="new_pic">
+    <div id="basicExample">
+    </div>
+  </div>
 
-</div>
-
-<script type="text/javascript">
-  my.showRecommend = {{showRecommend}};
-  my.classify = null;
-  my.categories = null;
-  function showPicture(classify, categories) {
-    if (classify) {
-      my.classify = classify;
-    }
-    if (categories) {
-      my.categories = categories;
-    }
-    my.ajax({
-      url: "/photo/list/classify",
-      type: 'get',
-      data: {classify: my.classify, categories: my.categories, pageNo: 1},
-      success: function (list) {
-        var html = '';
-        html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
-        for (var i = 0, length = list.length; i < length; i++) {
-
-          var randomWidth = parseInt(Math.random() * 400 + 300);
-          var item = list[i];
-          var pic = item.pictures[0];
-          html += '<a class="img-wrap" href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/>' +
-              '<b class="img-auth">' + item.userName + '</b>';
-          if (my.showRecommend) {
-            if (item.recommend) {
-              html += '<b class="img-right" data-id="' + item._id + '">已推荐</b>';
-            } else {
-              html += '<b class="img-right" data-id="' + item._id + '">推荐</b>';
-            }
+  <script type="text/javascript">
+    my.showRecommend = {{showRecommend}} ;
+    my.classify = null;
+    my.categories = null;
+    my.basicExample = $('#basicExample');
+    my.pageNo = 1;
+    function showPicture(classify, categories, mark) {
+      if (classify) {
+        my.classify = classify;
+      }
+      if (categories) {
+        my.categories = categories;
+      }
+      if (!mark) {
+        my.pageNo = 1;
+        my.basicExample.html('');
+      }
+      my.ajax({
+        url: "/photo/list/classify",
+        type: 'get',
+        data: {classify: my.classify, categories: my.categories, pageNo: my.pageNo},
+        success: function (list) {
+          var html = '';
+          my.pageNo++;
+          if (list.length == 0) {
+            return;
           }
-          html += '</a>';
+
+          for (var i = 0, length = list.length; i < length; i++) {
+
+            var randomWidth = parseInt(Math.random() * 400 + 300);
+            var item = list[i];
+            var pic = item.pictures[0];
+            var userAvatar = item.userAvatar || 'http://himg.bdimg.com/sys/portrait/item/99d3e7ac91e69fb3e58d8ae9a699e5889d402e.jpg';
+            html += '<div class="album-wrapper jg-entry">';
+            html += '<div class="album-number">' + item.pictures.length + '张</div>';
+            html += '<a href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/></a>';
+            html += '<div class="album-description">';
+            html += '<a class="belong-icon-wrapper" href="/user/1242142134">';
+            html += '<img class="belong-icon" src="' + userAvatar + '" alt=""/></a>';
+            html += '<a class="a-txt belong-name" href="/user/12454324">' + item.userName + '</a>';
+
+            if (my.showRecommend) {
+              if (item.recommend) {
+                html += '<a class="a-txt tuijian" href="javascript:;" data-id="' + item._id + '">已推荐</a>';
+              } else {
+                html += '<a class="a-txt tuijian" href="javascript:;" data-id="' + item._id + '">推荐</a>';
+              }
+            }
+            html += '</div>';
+            html += '</div>';
+          }
+
+          if (mark) {
+            my.basicExample.append(html);
+          } else {
+            my.basicExample.html(html);
+          }
+
+          tuijian();
+
+          my.basicExample.justifiedGallery({
+            rowHeight: 350,
+            lastRow: 'nojustify',
+            margins: 10
+          });
         }
-        html += '</div></div>';
-        $('#pic-container').html(html);
+      });
 
-        $('.basicExample').justifiedGallery({
-          rowHeight: 350,
-          lastRow: 'nojustify',
-          margins: 10
+    }
+
+    function tuijian() {
+      //推荐
+      $('.tuijian').click(function () {
+        var _this = $(this);
+        var id = _this.data('id');
+        alert(id);
+        my.ajax({
+          url: "/photo/list/recommend",
+          type: 'get',
+          data: {id: id},
+          success: function (list) {
+            _this.text('已推荐');
+          }
         });
+      });
+    }
+
+    //展示图片
+    showPicture();
+
+    $(window).scroll(function () {
+      var scrollTop = $(this).scrollTop();
+      var scrollHeight = $(document).height();
+      var windowHeight = $(this).height();
+      if (scrollTop + windowHeight == scrollHeight) {
+        showPicture(null, null, true);
       }
     });
-
-  }
-  showPicture();
-
-  //推荐
-  $('.img-right').click(function () {
-    var _this = $(this);
-    var id = _this.data('id');
-    my.ajax({
-      url: "/photo/list/recommend",
-      type: 'get',
-      data: {id: id},
-      success: function (list) {
-        _this.text('已推荐');
-      }
-    });
-  });
-</script>
+  </script>
