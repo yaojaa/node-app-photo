@@ -15,11 +15,7 @@ exports.getUserInfoById=function(req, res){
         return err
       }
 
-      console.log(_.pick,'pick')
-
-      var sendData=_.pick(data,['user_name','_id']);
-
-      
+      var sendData=_.pick(data,['user_name','_id','avatar','nickname']);
 
       res.json({
         errorno:0,

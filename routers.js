@@ -103,7 +103,13 @@ router.get('/uc/recharge/list', auth.ajaxValidateLogin, ucenter.rechargeList);
 
 //个人资料
 router.get('/uc/view', function (req, res) {
-  res.render('uc_view', {user: req.session.user});
+	console.log(req.session.user)
+  res.render('uc_view', 
+  	{user: req.session.user ,
+  	Domain: config.qn_access.Domain,
+    Uptoken_Url: config.qn_access.Uptoken_Url
+	}
+);
 });
 
 

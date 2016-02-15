@@ -80,10 +80,15 @@
 <div class="photo">
  <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
 
+{{#if photo.price}}
 
+<h3>全部照片预览</h3>
 {{#each photo.pictures}}
- <img width="18%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} ">
+ <img width="16.666666666666666666%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} ">
 {{/each}}
+
+{{/if}}
+
 
 </div>
 </section>
@@ -110,7 +115,13 @@
 
 <hr>
 <h3>作者信息：</h3>
-{{photo.author_id}}
+<script>
+ {{photo.author_id}}
+{{photo.nickname}}
+{{photo.avatar}}
+</script>
+
+
 <button>关注作者</button>
 
 </div>

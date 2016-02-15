@@ -43,6 +43,7 @@ exports.editInfo = function (req, res) {
     user.cell_phone = req.body.cell_phone;
     user.wx = req.body.wx;
     user.QQ = req.body.QQ;
+    user.avatar=req.body.avatar;
     user.signature = req.body.signature;
     res.ok();
   });

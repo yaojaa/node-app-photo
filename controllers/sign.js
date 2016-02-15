@@ -91,11 +91,12 @@ exports.showLogin = function (req, res) {
 }
 
 
-function makeSession(req, user) {
+function makeSession(req, user,res) {
   req.session.user = {
     username: user.user_name,
     password: user.password,
     email: user.email,
+    avatar:user.avatar,
     id: user._id,
     score: user.score,
     money: user.money,
@@ -107,6 +108,17 @@ function makeSession(req, user) {
     wx: user.wx,
     QQ: user.QQ
   };
+
+     var auth_token = user.email + '$$$$' + user.password; // 以后可能会存储更多信息，用 $$$$ 来分隔
+      var opts = {
+        path: '/',
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        signed: true,
+        httpOnly: true
+      };
+      res.cookie(config.auth_cookie_name, auth_token, opts); //cookie 有效期30天
+
+
 }
 
 
@@ -120,12 +132,8 @@ function checkIsLogin(req, res, next) {
 
     var cookie = req.signedCookies[config.auth_cookie_name]; //读cookie，通过配置文件中标识符读cookie
     if (!cookie) {
-      console.log('没有cookies')
       return next(); //若没有此站点的cookie，直接跳过此中间件
     }
-
-    console.log('有cookies')
-
 
     //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
     var auth = cookie.split('$$$$');
@@ -150,7 +158,7 @@ function checkIsLogin(req, res, next) {
         return next();
       }
 
-      makeSession(req, user)
+      makeSession(req, user,res)
 
 
       return next(); //进行下一步
@@ -201,21 +209,7 @@ exports.login = function (req, res, next) {
       return next();
     }
 
-    makeSession(req, user)
-
-
-    // function gen_session(user, res) {
-    //   var auth_token = user.email + '$$$$' + user.password; // 以后可能会存储更多信息，用 $$$$ 来分隔
-    //   var opts = {
-    //     path: '/',
-    //     maxAge: 1000 * 60 * 60 * 24 * 30,
-    //     signed: true,
-    //     httpOnly: true
-    //   };
-    //   res.cookie(config.auth_cookie_name, auth_token, opts); //cookie 有效期30天
-    // }
-
-    // gen_session(user, res);
+    makeSession(req, user,res)
 
     if (req.query.service) {
       res.redirect(req.query.service);

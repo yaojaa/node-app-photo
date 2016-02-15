@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="/vendor/webuploader/webuploader.css">
+
+
 <style>
   .m_container {
     background: #fff;
@@ -11,6 +14,19 @@
 
   .u-width-100 {
     min-width: 100px;
+  }
+  .file-item{
+    width: 120px;
+    height: 120px;
+        border-radius: 50%
+
+  }
+  .thumbnail{
+    padding: 0
+  }
+
+  .upload-state-done::after{
+    right: 46px
   }
 </style>
 <div class="container">
@@ -32,6 +48,9 @@
           </div>
           <div class="panel-body">
             <form class="form-horizontal" name="dataForm">
+                   <input type="hidden" id="domain" value="{{Domain}}">
+        <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">昵称: </label>
 
@@ -72,6 +91,33 @@
                 </div>
               </div>
 
+                      <div class="form-group">
+                <label class="col-sm-2 control-label">头像: </label>
+
+                <div class="col-sm-6">
+
+<input class="form-control" type="hidden" name="avatar" id="avatar" value="{{user.avatar}}" />
+
+                        <div class="wu-example">
+      
+                        <div id="uploader-cover">
+                            <!--用来存放item-->
+                            <div id="fileList" class="uploader-list">
+
+
+                              {{#if user.avatar}}
+
+                              <div class="file-item thumbnail upload-state-done" id="WU_FILE_0"><img width="120" height="120" src="http://7xobdo.com1.z0.glb.clouddn.com/{{user.avatar}}"></div>
+                              {{/if}}
+                              
+                            </div>
+                            <div id="picPicker">+选择头像图片</div>
+                        </div>       
+                        </div>
+                  
+                </div>
+              </div>
+
               <div class="form-group">
                 <div class="col-sm-3 col-sm-offset-2">
                   <button class="btn btn-success u-width-100" type="button" id="submit">提交</button>
@@ -86,7 +132,125 @@
     </div>
   </div>
 </div>
+
+<script src="/vendor/webuploader/webuploader.js"></script>
+
 <script>
+
+
+
+var  uptoken_url= $('#uptoken_url').val();
+
+var getToken=(function(){
+  $.get(uptoken_url,function(res){
+    initUploades(res.uptoken)
+  })
+})()
+
+
+function initUploades (token){
+
+  var formData={
+    'token':token
+  }
+
+  var uploader = WebUploader.create({
+
+    // 选完文件后，是否自动上传。
+    auto: true,
+
+    // swf文件路径
+    swf: 'vendor/webuploador/Uploader.swf',
+
+    // 文件接收服务端。
+    server: 'http://up.qiniu.com',
+
+    // 选择文件的按钮。可选。
+    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+    pick: '#picPicker',
+    formData:formData,
+
+    // 只允许选择图片文件。
+    accept: {
+        title: 'Images',
+        extensions: 'gif,jpg,jpeg,bmp,png',
+        mimeTypes: 'image/*'
+    }
+});
+// 当有文件添加进来的时候
+uploader.on( 'fileQueued', function( file ) {
+   $('#fileList').html('');
+    var $li = $(
+            '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+            '</div>'
+            ),
+        $img = $li.find('img');
+
+
+    // $list为容器jQuery实例
+    $('#fileList').append( $li );
+
+    // 创建缩略图
+    // 如果为非图片文件，可以不用调用此方法。
+    // thumbnailWidth x thumbnailHeight 为 100 x 100
+    uploader.makeThumb( file, function( error, src ) {
+        if ( error ) {
+            $img.replaceWith('<span>不能预览</span>');
+            return;
+        }
+
+        $img.attr( 'src', src );
+    }, 130, 130 );
+});
+// 文件上传过程中创建进度条实时显示。
+uploader.on( 'uploadProgress', function( file, percentage ) {
+    var $li = $( '#'+file.id ),
+        $percent = $li.find('.progress span');
+
+    // 避免重复创建
+    if ( !$percent.length ) {
+        $percent = $('<p class="progress"><span></span></p>')
+                .appendTo( $li )
+                .find('span');
+    }
+
+    $percent.css( 'width', percentage * 100 + '%' );
+});
+
+// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+uploader.on( 'uploadSuccess', function( file,response ) {
+    $( '#'+file.id ).addClass('upload-state-done');
+    console.log(response)
+        $('#avatar').val(response.key).attr('readonly','readonly')
+
+});
+
+// 文件上传失败，显示上传出错。
+uploader.on( 'uploadError', function( file ) {
+    var $li = $( '#'+file.id ),
+        $error = $li.find('div.error');
+
+    // 避免重复创建
+    if ( !$error.length ) {
+        $error = $('<div class="error"></div>').appendTo( $li );
+    }
+
+    $error.text('上传失败');
+
+uploader.reset();
+  
+
+
+});
+
+// 完成上传完了，成功或者失败，先删除进度条。
+uploader.on( 'uploadComplete', function( file ) {
+    $( '#'+file.id ).find('.progress').remove();
+});
+
+
+}
 
   String.prototype.isEmpty = function () {
     if (this == null) return true;
@@ -102,9 +266,11 @@
       timeout: 3000,
       dataType: "JSON",
       success: function (data) {
-        alert(data.msg);
         if (data.status == 1) {
           form.reset();
+        }
+        if(data.errorno===0){
+          alert('修改成功')
         }
       },
       error: function () {

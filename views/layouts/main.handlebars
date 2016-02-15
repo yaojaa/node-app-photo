@@ -53,12 +53,12 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right ">
                     {{#if user}}
-                    <li><a href="/ucenter">{{user.username}} </a></li>
+                    <li><a href="/ucenter">{{user.username}} {{user.money}}</a></li>
                     <li><a href="/logout">退出</a></li> 
                     <li><a href="/create-aticle">发文字</a></li>
                     <li><a href="/create-photo">发图片</a></li>
                     <li><a href="/create-video">发视频</a></li>
-                    <li><a href="/score">充值</a></li> {{user.money}} {{else}}
+                    <li><a href="/score">充值</a></li>  {{else}}
                     <li><a href="/login" title="View login page" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a></li>
                     <li><a href="/signup" title="View login page" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a></li> {{/if}}
                 </ul>
