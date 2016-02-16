@@ -57,17 +57,21 @@
   .album-description .belong-icon-wrapper {
     margin-left: 5px;
   }
+
+  .bg-w {
+    background: #fff
+  }
 </style>
 
 
 <div class="container" id="{{currentCategory}}">
 
   <ul class="subNav clearfix">
-    <li role="presentation" class="all"><a href="javascript:;" onclick="showPicture('fresh')">最新</a></li>
-    <li class="all"><a href="javascript:;" onclick="showPicture('popular')">本周热门</a></li>
+    <li role="presentation" class="u-menu bg-w"><a href="javascript:;" onclick="showPicture('fresh')">最新</a></li>
+    <li class="u-menu"><a href="javascript:;" onclick="showPicture('popular')">本周热门</a></li>
     <li class="btn-group pull-right ">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false"><strong>所有类别</strong> <span class="caret"></span></button>
+              aria-expanded="false"><strong id="showTitle">所有类别</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
         <li><a href="javascript:;" onclick="showPicture(null,'all')">所有类别</a></li>
         <li role="separator" class="divider"></li>
@@ -93,12 +97,23 @@
     my.categories = null;
     my.basicExample = $('#basicExample');
     my.pageNo = 1;
-
+    my.$showTitle = $('#showTitle');
+    my.$allMenu = $('.u-menu');
     $(function () {
       //下拉加载图片
       pullDownToLoadMore(function () {
         showPicture(null, null, true);
       });
+
+      $('.dropdown-menu li').click(function () {
+        my.$showTitle.text($(this).text());
+      });
+
+      my.$allMenu.click(function () {
+        my.$allMenu.removeClass('bg-w');
+        $(this).addClass('bg-w');
+      });
+
     });
 
     function showPicture(classify, categories, mark) {
