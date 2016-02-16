@@ -70,7 +70,7 @@
               aria-expanded="false"><strong>所有类别</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
         <li><a href="javascript:;" onclick="showPicture()">所有类别</a></li>
-        <li role="separator" class="divider" ></li>
+        <li role="separator" class="divider"></li>
         <li><a href="javascript:;" onclick="showPicture(null,'art')">风光</a></li>
         <li><a href="javascript:;" onclick="showPicture(null,'street')">街拍</a></li>
         <li><a href="javascript:;" onclick="showPicture(null,'travel')">人像</a></li>
@@ -93,6 +93,14 @@
     my.categories = null;
     my.basicExample = $('#basicExample');
     my.pageNo = 1;
+
+    $(function () {
+      //下拉加载图片
+      pullDownToLoadMore(function () {
+        showPicture(null, null, true);
+      });
+    });
+
     function showPicture(classify, categories, mark) {
       if (classify) {
         my.classify = classify;
@@ -178,12 +186,22 @@
     //展示图片
     showPicture();
 
-    $(window).scroll(function () {
-      var scrollTop = $(this).scrollTop();
-      var scrollHeight = $(document).height();
-      var windowHeight = $(this).height();
-      if (scrollTop + windowHeight == scrollHeight) {
-        showPicture(null, null, true);
-      }
-    });
+    function pullDownToLoadMore(callback) {
+      var $win = $(window);
+      var $doc = $(document);
+      var totalheight = 0;
+      var range = 50;
+      var maxnum = 10000;
+      var num = 1;
+      $win.scroll(function () {
+        totalheight = parseFloat($win.height()) + parseFloat($win.scrollTop());
+        if ($doc.height() - range <= totalheight && num <= maxnum) {
+          num++;
+          if (typeof callback === 'function') {
+            callback();
+          }
+        }
+      });
+    }
+
   </script>
