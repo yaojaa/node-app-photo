@@ -69,7 +69,7 @@
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false"><strong>所有类别</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
-        <li><a href="javascript:;" onclick="showPicture()">所有类别</a></li>
+        <li><a href="javascript:;" onclick="showPicture(null,'all')">所有类别</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="javascript:;" onclick="showPicture(null,'art')">风光</a></li>
         <li><a href="javascript:;" onclick="showPicture(null,'street')">街拍</a></li>
@@ -106,7 +106,11 @@
         my.classify = classify;
       }
       if (categories) {
-        my.categories = categories;
+        if (categories === 'all') {
+          my.categories = null;
+        } else {
+          my.categories = categories;
+        }
       }
       if (!mark) {
         my.pageNo = 1;
