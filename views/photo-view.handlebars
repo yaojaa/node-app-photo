@@ -1,7 +1,6 @@
 
  <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
 
- <script src="/vendor/sweetalert/sweetalert.min.js"></script> 
 <script>
   var PAGECONFIG={
       photoId:'{{photo.id}}',
@@ -65,7 +64,7 @@
 
 <div class="container">
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-9">
 <section class="photo-details-section">
 <div class="photo-header clearfix">
   
@@ -93,7 +92,7 @@
 </div>
 </section>
 </div>
-<div class="col-md-4">
+<div class="col-md-3">
 <div class="photo-actions-section">
 <div >图片简介：{{photo.discrib}} [{{photo.pictures.length}}张]</div>
 
@@ -115,14 +114,47 @@
 
 <hr>
 <h3>作者信息：</h3>
-<script>
- {{photo.author_id}}
-{{photo.nickname}}
-{{photo.avatar}}
-</script>
+<div id="author">
+  加载中...
+</div>
 
-
-<button>关注作者</button>
+<h3>评论：</h3>
+<div id="comment">
+  <div class="publish">
+    <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+    <textarea name="" id="" cols="30" rows="1">请输入评论</textarea>
+    <button>发布</button>
+  </div>
+  hr
+  <ul>
+    <li>
+      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+      <p> thitw：哈哈，好期待啊 评论内容</p>
+      <p>今天 18:24 </p>
+    </li>
+        <li>
+      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+      <p> thitw：哈哈，好期待啊 评论内容</p>
+      <p>今天 18:24 </p>
+    </li>
+        <li>
+      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+      <p> thitw：哈哈，好期待啊 评论内容</p>
+      <p>今天 18:24 </p>
+    </li>
+        <li>
+      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+      <p> thitw：哈哈，好期待啊 评论内容</p>
+      <p>今天 18:24 </p>
+    </li>
+        <li>
+      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+      <p> thitw：哈哈，好期待啊 评论内容</p>
+      <p>今天 18:24 </p>
+    </li>
+  </ul>
+  加载中...
+</div>
 
 </div>
 
@@ -153,8 +185,16 @@
 
 </div>
 
+ <script src="/vendor/sweetalert/sweetalert.min.js"></script> 
+ <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script> 
+
+  <script src="/tpl/author.hbs.js"></script> 
+
+
 
 <script>
+
+
 
    var postdata={
     photoId:PAGECONFIG.photoId
@@ -162,9 +202,13 @@
 
 
 
-   $.post('/api/v1/getUserInfoById',{id:PAGECONFIG.authorId},function(data){
+   $.post('/api/v1/getUserInfoById',{id:PAGECONFIG.authorId},function(json){
 
-    console.log(data)
+
+
+   var html= Handlebars.templates.author(json.data);
+   console.log(html)
+   $('#author').html(html);
 
    })
 
