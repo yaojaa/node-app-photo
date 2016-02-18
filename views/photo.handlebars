@@ -67,18 +67,18 @@
 <div class="container" id="{{currentCategory}}">
 
   <ul class="subNav clearfix">
-    <li role="presentation" class="u-menu bg-w"><a href="javascript:;" onclick="showPicture('fresh')">最新</a></li>
-    <li class="u-menu"><a href="javascript:;" onclick="showPicture('popular')">本周热门</a></li>
+    <li role="presentation" class="u-menu bg-w"><a href="javascript:;" onclick="reShowPicture('fresh')">最新</a></li>
+    <li class="u-menu"><a href="javascript:;" onclick="reShowPicture('popular')">本周热门</a></li>
     <li class="btn-group pull-right ">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false"><strong id="showTitle">所有类别</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
-        <li><a href="javascript:;" onclick="showPicture(null,'all')">所有类别</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'all')">所有类别</a></li>
         <li role="separator" class="divider"></li>
-        <li><a href="javascript:;" onclick="showPicture(null,'art')">风光</a></li>
-        <li><a href="javascript:;" onclick="showPicture(null,'street')">街拍</a></li>
-        <li><a href="javascript:;" onclick="showPicture(null,'travel')">人像</a></li>
-        <li><a href="javascript:;" onclick="showPicture(null,'fashion')">时尚</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'art')">风光</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'street')">街拍</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'travel')">人像</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'fashion')">时尚</a></li>
       </ul>
     </li>
   </ul>
@@ -99,10 +99,15 @@
     my.pageNo = 1;
     my.$showTitle = $('#showTitle');
     my.$allMenu = $('.u-menu');
+    //是否继续加载数据
+    my.gono = true;
+
     $(function () {
       //下拉加载图片
       pullDownToLoadMore(function () {
-        showPicture(null, null, true);
+        if (my.gono) {
+          showPicture(null, null, true);
+        }
       });
 
       $('.dropdown-menu li').click(function () {
@@ -116,7 +121,14 @@
 
     });
 
+
+    function reShowPicture(classify, categories) {
+      my.gono = true;
+      showPicture(classify, categories);
+    }
+
     function showPicture(classify, categories, mark) {
+      my.gono = false;
       if (classify) {
         my.classify = classify;
       }
@@ -138,7 +150,9 @@
         success: function (list) {
           var html = '';
           my.pageNo++;
+          my.gono = true;
           if (list.length == 0) {
+            my.gono = false;
             return;
           }
 
@@ -169,17 +183,18 @@
 
           if (mark) {
             my.basicExample.append(html);
+            my.basicExample.justifiedGallery('norewind');
           } else {
             my.basicExample.html(html);
+            my.basicExample.justifiedGallery({
+              rowHeight: 350,
+              lastRow: 'nojustify',
+              margins: 10
+            });
           }
 
           tuijian();
 
-          my.basicExample.justifiedGallery({
-            rowHeight: 350,
-            lastRow: 'nojustify',
-            margins: 10
-          });
         }
       });
 
