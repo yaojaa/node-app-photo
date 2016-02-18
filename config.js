@@ -65,6 +65,7 @@ var config = {
 
   // admin 可删除话题，编辑标签，设某人为达人
   admins: {'yaojaa@vip.qq.com': true},
+  avatar:'https://i2.wp.com/pacdn.500px.org/userpic.png?ssl=1', //默认头像地址
 
   // github 登陆的配置
   GITHUB_OAUTH: {

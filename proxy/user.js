@@ -1,6 +1,7 @@
 var models = require('../models');
 var User = models.User;
 var uuid = require('node-uuid');
+var config=require('../config');
 
 /**
  * 根据邮箱，查找用户
@@ -28,12 +29,12 @@ exports.findByIds = function (ids, callback) {
 };
 
 
-exports.newAndSave = function (password, email, username, active, callback) {
+exports.newAndSave = function (password, email, nickname, active, callback) {
   var user = new User();
   user.password = password;
   user.email = email;
-  user.user_name = username;
-  user.avatar = '';
+  user.nickname = nickname;
+  user.avatar = config.avatar;
   user.active = active || false;
   user.accessToken = uuid.v4();
   user.save(callback);

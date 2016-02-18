@@ -86,10 +86,16 @@
  <img width="16.666666666666666666%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} ">
 {{/each}}
 
+{{else}}
+
+{{#each photo.pictures}}
+ <img width="100%" src="{{this}}" alt="{{photo.title}} ">
+{{/each}}
+
+
 {{/if}}
-
-
 </div>
+
 </section>
 </div>
 <div class="col-md-3">

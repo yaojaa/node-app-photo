@@ -60,6 +60,7 @@ var checkIsBuy=function(req,res,next){
   var photoId = req.body.photoId;
 console.log(usermail)
   if(!usermail){
+    res.json({errorno:-1,msg:"未登录"});
     return next()
   }
 

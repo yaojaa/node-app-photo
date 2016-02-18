@@ -17,27 +17,27 @@ exports.showSignup = function (req, res) {
 exports.signup = function (req, res, next) {
   var email = validator.trim(req.body.email.toLowerCase());
   var password = validator.trim(req.body.password);
-  var loginname = validator.trim(req.body.username);
+  var nickname = validator.trim(req.body.nickname);
 
   var ep = new eventproxy();
   ep.fail(next);
   ep.on('prop_err', function (msg) {
     res.status(422);
-    res.render('user/signup', {error: msg, loginname: loginname, email: email});
+    res.render('user/signup', {error: msg, nickname: nickname, email: email});
   });
 
 
   // 验证信息的正确性
 
-  if ([loginname, password, email].some(function (item) {
+  if ([nickname, password, email].some(function (item) {
       return item === '';
     })) {
     ep.emit('prop_err', '信息不完整。');
     return;
   }
 
-  if (loginname.length < 5) {
-    ep.emit('prop_err', '用户名至少需要5个字符。');
+  if (nickname.length < 2) {
+    ep.emit('prop_err', '用户名至少需要2个字符。');
     return;
   }
   if (password.length < 6) {
@@ -65,7 +65,7 @@ exports.signup = function (req, res, next) {
       return next();
     }
 
-    User.newAndSave(password, email, loginname, false, function (err) {
+    User.newAndSave(password, email, nickname, false, function (err) {
 
       if (err) {
         return next(err);
@@ -93,7 +93,7 @@ exports.showLogin = function (req, res) {
 
 function makeSession(req, user,res) {
   req.session.user = {
-    username: user.user_name,
+    username: user.nickname,
     password: user.password,
     email: user.email,
     avatar:user.avatar,
