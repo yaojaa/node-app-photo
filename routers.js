@@ -8,6 +8,7 @@ var comment = require('./controllers/comment');
 
 var ucenter = require('./controllers/ucenter');
 var auth = require('./middlewares/auth');
+var local = require('./middlewares/local');
 var response = require('./middlewares/response');
 
 
@@ -22,6 +23,8 @@ var router = express.Router();
 
 //添加接口返回函数
 router.use(response);
+//添加本地变量
+router.use(local);
 
 router.get('/', function (req, res) {
   res.render('home', {user: req.session.user})
@@ -103,13 +106,14 @@ router.get('/uc/recharge/list', auth.ajaxValidateLogin, ucenter.rechargeList);
 
 //个人资料
 router.get('/uc/view', function (req, res) {
-	console.log(req.session.user)
-  res.render('uc_view', 
-  	{user: req.session.user ,
-  	Domain: config.qn_access.Domain,
-    Uptoken_Url: config.qn_access.Uptoken_Url
-	}
-);
+  console.log(req.session.user)
+  res.render('uc_view',
+    {
+      user: req.session.user,
+      Domain: config.qn_access.Domain,
+      Uptoken_Url: config.qn_access.Uptoken_Url
+    }
+  );
 });
 
 

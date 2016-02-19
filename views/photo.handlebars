@@ -161,7 +161,7 @@
             var randomWidth = parseInt(Math.random() * 400 + 300);
             var item = list[i];
             var pic = item.pictures[0];
-            var userAvatar = item.userAvatar || 'http://himg.bdimg.com/sys/portrait/item/99d3e7ac91e69fb3e58d8ae9a699e5889d402e.jpg';
+            var userAvatar = item.userAvatar ? '{{baseImageURL }}' + item.userAvatar : '{{avatar }}';
             html += '<div class="album-wrapper jg-entry">';
             html += '<div class="album-number">' + item.pictures.length + '张</div>';
             html += '<a href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/></a>';

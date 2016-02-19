@@ -65,8 +65,8 @@ var config = {
 
   // admin 可删除话题，编辑标签，设某人为达人
   admins: {'yaojaa@vip.qq.com': true},
-  avatar:'https://i2.wp.com/pacdn.500px.org/userpic.png?ssl=1', //默认头像地址
-
+  avatar: 'https://i2.wp.com/pacdn.500px.org/userpic.png?ssl=1', //默认头像地址
+  baseImageURL: 'http://7xobdo.com1.z0.glb.clouddn.com/', //头像地址
   // github 登陆的配置
   GITHUB_OAUTH: {
     clientID: 'your GITHUB_CLIENT_ID',
@@ -114,7 +114,7 @@ var config = {
 
   //分类
   category: [
-      {name: 'art', text: '风光'},
+    {name: 'art', text: '风光'},
     {name: 'street', text: '街拍'},
     {name: 'travel', text: '人像'},
     {name: 'fashion', text: '时尚'}
@@ -172,13 +172,13 @@ var config = {
   create_post_per_day: 1000, // 每个用户一天可以发的主题数
   create_reply_per_day: 1000, // 每个用户一天可以发的评论数
   visit_per_day: 1000, // 每个 ip 每天能访问的次数
-  nav_list:[//导航
-    {name:'首页',url:'/'},
-    {name:'街拍',url:'/street'},
-    {name:'旅行',url:'/travel'},
-    {name:'时尚',url:'/fashion'},
-    {name:'美食',url:'/food'},
-    {name:'动物',url:'/animals'}
+  nav_list: [//导航
+    {name: '首页', url: '/'},
+    {name: '街拍', url: '/street'},
+    {name: '旅行', url: '/travel'},
+    {name: '时尚', url: '/fashion'},
+    {name: '美食', url: '/food'},
+    {name: '动物', url: '/animals'}
   ]
 };
 

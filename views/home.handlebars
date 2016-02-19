@@ -2,15 +2,19 @@
 <link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
 <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
 <div id="banner">
- <img src="../images/banner.jpg" alt="">
+  <img src="../images/banner.jpg" alt="">
+
   <div class="cover"></div>
   <div class="middle">
     <h2>风影 </h2>
 
     <h3>分享精彩，实现价值</h3>
     <br>
-    <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-       class="button button-primary button-rounded">立即加入</a>
+    {{#if user}}
+    {{else}}
+      <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+         class="button button-primary button-rounded">立即加入</a>
+    {{/if}}
   </div>
 </div>
 <div class="tab_wrapper">
@@ -19,11 +23,13 @@
     <li role="presentation" class="active">
       <a href="#new_pic" onclick="showPicture(1)" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
     </li>
-    <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab" data-toggle="tab">热门图片</a>
+    <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab"
+                               data-toggle="tab">热门图片</a>
     </li>
     {{#if user}}
-    <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab" data-toggle="tab">我关注的图片</a>
-    </li>
+      <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"
+                                 data-toggle="tab">我关注的图片</a>
+      </li>
     {{/if}}
   </ul>
   <!-- Tab panes -->
@@ -53,7 +59,6 @@
 <script type="text/javascript">
 
 
-
   function showPicture(type) {
 
 
@@ -64,12 +69,12 @@
         var html = '';
         html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
         for (var i = 0, length = list.length; i < length; i++) {
-
-          var randomWidth=parseInt(Math.random()*400+300);
-          var pictures = list[i].pictures
+          var item = list[i];
+          var randomWidth = parseInt(Math.random() * 400 + 300);
+          var pictures = item.pictures
           for (var j = 0, size = pictures.length; j < size; j++) {
             var pic = pictures[j];
-            html += '<a href="' + pic + '"><img src="' + pic + '?imageView2/1/w/'+randomWidth+'/"/></a>';
+            html += '<a href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/></a>';
           }
         }
         html += '</div></div>';
@@ -88,91 +93,102 @@
 </script>
 
 <script>
-  (function(){
-  var width, height, canvas, ctx, circles;
-  function initHeader() {
-    try{
-      canvas = document.getElementById('bubbleCanvas');
-      if($("#bubbleCanvas").length>0){
-        width = window.innerWidth*0.25>300?window.innerWidth*0.25:300;
-        //height = window.innerHeight;
-        height = 255;
-        canvas.width = width;
-        canvas.height = height;
-        ctx = canvas.getContext('2d');
-        circles = [];
-        for(var x = 0; x < width*0.5; x++) {
-          var c = new Circle();
-          circles.push(c);
-        }
-        animate();
-      }
-    }catch(ex){if(window.cosole&&window.cosole.log){cosole.log(ex)}}
-  }
-  function addListeners() {
-    try{
-      if($("#bubbleCanvas").length>0){
-        window.addEventListener('resize', resize);
-      }
-    }catch(ex){if(window.cosole&&window.cosole.log){cosole.log(ex)}}
-  }
-  function resize() {
-    width = window.innerWidth*0.25>300?window.innerWidth*0.25:300;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-  }
+  (function () {
+    var width, height, canvas, ctx, circles;
 
-  function animate() {
-    ctx.clearRect(0,0,width,height);
-    for(var i in circles) {
-      circles[i].draw();
+    function initHeader() {
+      try {
+        canvas = document.getElementById('bubbleCanvas');
+        if ($("#bubbleCanvas").length > 0) {
+          width = window.innerWidth * 0.25 > 300 ? window.innerWidth * 0.25 : 300;
+          //height = window.innerHeight;
+          height = 255;
+          canvas.width = width;
+          canvas.height = height;
+          ctx = canvas.getContext('2d');
+          circles = [];
+          for (var x = 0; x < width * 0.5; x++) {
+            var c = new Circle();
+            circles.push(c);
+          }
+          animate();
+        }
+      } catch (ex) {
+        if (window.cosole && window.cosole.log) {
+          cosole.log(ex)
+        }
+      }
     }
-    window.requestAFrame = (function () {
-      return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||
-        function (callback) {
-          return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
-        };
-    })();
-    requestAFrame(animate);
-  }
+
+    function addListeners() {
+      try {
+        if ($("#bubbleCanvas").length > 0) {
+          window.addEventListener('resize', resize);
+        }
+      } catch (ex) {
+        if (window.cosole && window.cosole.log) {
+          cosole.log(ex)
+        }
+      }
+    }
+
+    function resize() {
+      width = window.innerWidth * 0.25 > 300 ? window.innerWidth * 0.25 : 300;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      for (var i in circles) {
+        circles[i].draw();
+      }
+      window.requestAFrame = (function () {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                                          function (callback) {
+                                            return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
+                                          };
+      })();
+      requestAFrame(animate);
+    }
 
 // Canvas manipulation
-  function Circle() {
-    var _this = this;
+    function Circle() {
+      var _this = this;
 
-    // constructor
-    (function() {
-      _this.pos = {};
-      init();
-    })();
+      // constructor
+      (function () {
+        _this.pos = {};
+        init();
+      })();
 
-    function init() {
-      _this.pos.x = Math.random()*width;
-      _this.pos.y = height+Math.random()*100;
-      _this.alpha = 0.1+Math.random()*0.3;
-      _this.scale = 0.1+Math.random()*0.3;
-      _this.velocity = Math.random();
+      function init() {
+        _this.pos.x = Math.random() * width;
+        _this.pos.y = height + Math.random() * 100;
+        _this.alpha = 0.1 + Math.random() * 0.3;
+        _this.scale = 0.1 + Math.random() * 0.3;
+        _this.velocity = Math.random();
+      }
+
+      this.draw = function () {
+        if (_this.alpha <= 0) {
+          init();
+        }
+        _this.pos.y -= _this.velocity;
+        _this.alpha -= 0.0005;
+        ctx.beginPath();
+        ctx.arc(_this.pos.x, _this.pos.y, _this.scale * 10, 0, 2 * Math.PI, false);
+        ctx.fillStyle = 'rgba(255,255,255,' + _this.alpha + ')';
+        ctx.fill();
+      };
     }
 
-    this.draw = function() {
-      if(_this.alpha <= 0) {
-        init();
-      }
-      _this.pos.y -= _this.velocity;
-      _this.alpha -= 0.0005;
-      ctx.beginPath();
-      ctx.arc(_this.pos.x, _this.pos.y, _this.scale*10, 0, 2 * Math.PI, false);
-      ctx.fillStyle = 'rgba(255,255,255,'+ _this.alpha+')';
-      ctx.fill();
-    };
-  }
 
-  
-  $("#banner").append("<canvas id=\"bubbleCanvas\" width=\"800\" height=\"563\"></canvas>");
-  $('.navbar').addClass('navbar-fixed-top')
-  initHeader();
-  addListeners();
-}());
+    $("#banner").append("<canvas id=\"bubbleCanvas\" width=\"800\" height=\"563\"></canvas>");
+    $('.navbar').addClass('navbar-fixed-top')
+    initHeader();
+    addListeners();
+  }());
 
 </script>
