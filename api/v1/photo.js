@@ -58,7 +58,6 @@ var checkIsBuy=function(req,res,next){
 
   var usermail=req.session.user.email;
   var photoId = req.body.photoId;
-console.log(usermail)
   if(!usermail){
     res.json({errorno:-1,msg:"未登录"});
     return next()
@@ -71,7 +70,12 @@ console.log(usermail)
       return next()
     }
     if(userData.hasBuy.indexOf(photoId)>-1){
-          return  res.json({errorno:0,msg:"已购买"});
+
+       PhotoProxy.findPhotoById(photoId, function (err, dataPhoto) {
+
+       return  res.json({errorno:0,msg:"已购买",data:dataPhoto.pictures})
+
+       })
         }
   })
 
@@ -109,6 +113,8 @@ var buyPhoto=function(req,res,next){
             $push:{ hasBuy: photoId }
            },function(err,res){
 
+            req.session.user.money=user.money-photo.price
+
             if(err){
               return console.log(err)
             }
@@ -116,7 +122,6 @@ var buyPhoto=function(req,res,next){
             if(res.ok==1){
                ep.emit('buySuccess');
                //写入已购买数组
-                console.log(err,res)
                }
 
             }

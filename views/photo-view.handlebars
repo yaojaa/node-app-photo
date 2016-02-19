@@ -77,9 +77,10 @@
 </div>
 
 <div class="photo">
+{{#if photo.price}}
+
  <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
 
-{{#if photo.price}}
 
 <h3>全部照片预览</h3>
 {{#each photo.pictures}}
@@ -89,7 +90,9 @@
 {{else}}
 
 {{#each photo.pictures}}
- <img width="100%" src="{{this}}" alt="{{photo.title}} ">
+<p><img style="max-width:100%" src="{{this}}?imageView2/1/w/1000/" alt="{{photo.title}} ">
+</p>
+<hr>
 {{/each}}
 
 
@@ -213,15 +216,13 @@
 
 
    var html= Handlebars.templates.author(json.data);
-   console.log(html)
    $('#author').html(html);
 
    })
 
   $.post('/api/v1/checkIsBuy',postdata,function (data) {
-    console.log(data)
     if(data.errorno===0){
-          $('.btn-buy').addClass('btn-success').text('已购买')
+          $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled',true)
 
     }
   })
