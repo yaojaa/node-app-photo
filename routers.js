@@ -5,6 +5,7 @@ var aticle = require('./controllers/aticle');
 var photo = require('./controllers/photo');
 var video = require('./controllers/video');
 var comment = require('./controllers/comment');
+var wechat = require('./controllers/wechat');
 
 var ucenter = require('./controllers/ucenter');
 var auth = require('./middlewares/auth');
@@ -52,6 +53,9 @@ router.get('/login', sign.showLogin);  // 进入登录页面
 
 router.post('/login', sign.login);  // 提交登录信息
 
+
+router.get('/wechat/login', wechat.login);  // 进入微信登录页面
+router.get('/wechat/callback', wechat.callback);  // 进入微信登录页面
 
 //根据这两句生成uptoken
 qiniu.conf.ACCESS_KEY = config.qn_access.ACCESS_KEY;
