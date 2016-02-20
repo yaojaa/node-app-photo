@@ -2,85 +2,92 @@
 <html>
 
 <head>
-    <title>风影-摄影师自己的家园</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/common.min.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/buttons.css">
-    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    {{#if showTests}}
+  <title>风影-摄影师自己的家园</title>
+  <!--qq登录验证-->
+  <meta property="qc:admins" content="1114473662665671517563757"/>
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <!-- 新 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/common.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/buttons.css">
+  <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+  <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  {{#if showTests}}
     <link rel="stylesheet" href="/vendor/mocha.css"> {{/if}}
-    <script src="/vendor/js/jquery-2.1.4.min.js"></script>
-    <script src="/js/common.js"></script>
+  <script src="/vendor/js/jquery-2.1.4.min.js"></script>
+  <script src="/js/common.js"></script>
 </head>
 
 <body>
-    {{#if success}}
-    <div class="alert alert-success" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{success}}</div>
-    {{/if}} {{#if error}}
-    <div class="alert alert-danger" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{error}} </div>
-    {{/if}}
-    <div class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">风影</a>
-            </div>
-            <div class="navbar-collapse collapse" role="navigation">
-                <ul class="nav navbar-nav">
-                   <li><a href="/"><span class="glyphicon glyphicon-home"></span>首页</a></li>
-                    <li><a href="/photo"><span class="glyphicon glyphicon-picture"></span>图集</a></li>
-                    <li><a href="/video"><span class="glyphicon glyphicon-film"></span>视频</a></li>
-                    <li><a href="/video"><span class="glyphicon glyphicon-list"></span>排行榜</a></li>
-                </ul>
-                <form class="navbar-form navbar-left hidden-sm" role="search">
-                    <div class="form-group has-feedback">
-                        <input type="text" class="form-control input-sm" placeholder="Search">
-                        <span class="form-control-feedback"><span class="glyphicon glyphicon-search"></span></span>
-                    </div>
-                </form>
-                <ul class="nav navbar-nav navbar-right ">
-                    {{#if user}}
-                    <li><a href="/ucenter">{{user.username}} {{user.money}}</a></li>
-                    <li><a href="/logout">退出</a></li> 
-                    <li><a href="/create-aticle">发文字</a></li>
-                    <li><a href="/create-photo">发图片</a></li>
-                    <li><a href="/create-video">发视频</a></li>
-                    <li><a href="/score">充值</a></li>  {{else}}
-                    <li><a href="/login" title="View login page" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a></li>
-                    <li><a href="/signup" title="View login page" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a></li> {{/if}}
-                </ul>
-            </div>
-        </div>
+{{#if success}}
+  <div class="alert alert-success" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>{{success}}</div>
+{{/if}} {{#if error}}
+  <div class="alert alert-danger" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>{{error}} </div>
+{{/if}}
+<div class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">风影</a>
     </div>
-    {{{body}}} {{#if showTests}}
-    <div id="mocha"></div>
-    <script src="/vendor/mocha.js"></script>
-    <script src="/vendor/chai.js"></script>
-    <script>
+    <div class="navbar-collapse collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li><a href="/"><span class="glyphicon glyphicon-home"></span>首页</a></li>
+        <li><a href="/photo"><span class="glyphicon glyphicon-picture"></span>图集</a></li>
+        <li><a href="/video"><span class="glyphicon glyphicon-film"></span>视频</a></li>
+        <li><a href="/video"><span class="glyphicon glyphicon-list"></span>排行榜</a></li>
+      </ul>
+      <form class="navbar-form navbar-left hidden-sm" role="search">
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control input-sm" placeholder="Search">
+          <span class="form-control-feedback"><span class="glyphicon glyphicon-search"></span></span>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right ">
+        {{#if user}}
+          <li><a href="/ucenter">{{user.username}} {{user.money}}</a></li>
+          <li><a href="/logout">退出</a></li>
+          <li><a href="/create-aticle">发文字</a></li>
+          <li><a href="/create-photo">发图片</a></li>
+          <li><a href="/create-video">发视频</a></li>
+          <li><a href="/score">充值</a></li>  {{else}}
+          <li><a href="/login" title="View login page" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a>
+          </li>
+          <li><a href="/signup" title="View login page" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a>
+          </li> {{/if}}
+      </ul>
+    </div>
+  </div>
+</div>
+{{{body}}} {{#if showTests}}
+  <div id="mocha"></div>
+  <script src="/vendor/mocha.js"></script>
+  <script src="/vendor/chai.js"></script>
+  <script>
     mocha.ui('tdd');
     var assert = chai.assert;
-    </script>
-    <script src="/qa/tests-global.js"></script>
-    {{#if pageTestScript}}
+  </script>
+  <script src="/qa/tests-global.js"></script>
+  {{#if pageTestScript}}
     <script src="{{pageTestScript}}"></script>
-    {{/if}}
-    <script>
+  {{/if}}
+  <script>
     mocha.run();
-    </script>
-    {{/if}}
+  </script>
+{{/if}}
 </body>
 
 </html>
