@@ -1,40 +1,42 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var UserSchema = new Schema({
-  password: {type: String},
-  email: {type: String},
-  user_name: {type: String},
-  profile_image_url: {type: String},
-  location: {type: String},
-  signature: {type: String},
-  profile: {type: String},
-  avatar: {type: String},
-  is_vip: {type: Boolean, default: false},
+  nickname: {type: String}, //昵称
+  password: {type: String},//密码 
+  email: {type: String},//邮箱
+  
+  is_vip: {type: Boolean, default: false}, //是否VIP
   score: {type: Number, default: 0},  //积分
   money: {type: Number, default: 10000},  //账户余额
   hasBuy: {type: Array}, //已经购买的图集
-  topic_count: {type: Number, default: 0},
-  reply_count: {type: Number, default: 0},
-  follower_count: {type: Number, default: 0},
-  following_count: {type: Number, default: 0},
-  collect_tag_count: {type: Number, default: 0},
-  collect_topic_count: {type: Number, default: 0},
+  topic_count: {type: Number, default: 0}, //主题数量
+  reply_count: {type: Number, default: 0}, //回复数量
+  followers:{type: Array},//关注者列表粉丝
+  followings:{type: Array},//关注
+
+
   create_at: {type: Date, default: Date.now},
   update_at: {type: Date, default: Date.now},
-  expire_date: {type: String},
-  level: {type: String},
-  active: {type: Boolean, default: false},
+  expire_date: {type: String},//vip到期时间
+  level: {type: String},//等级
+  active: {type: Boolean, default: false}, //是否激活，用来锁定用户
 
-  receive_reply_mail: {type: Boolean, default: false},
-  receive_at_mail: {type: Boolean, default: false},
-  retrieve_time: {type: Number},
-  retrieve_key: {type: String},
+ 
   accessToken: {type: String},
-  nickname: {type: String},
-  cell_phone: {type: String},
-  wx: {type: String},
-  QQ: {type: String},
-  openid: {type: String}
+  //个人资料
+  cell_phone: {type: String},//手机
+  wx: {type: String}, //联系微信
+  QQ: {type: String}, //联系QQ
+  signature: {type: String},//用户签名
+  profile: {type: String}, //用户简介
+  avatar: {type: String}, //头像
+  //第三方
+  openid:{type: String},
+  qq_user:{type: String},
+  wx_user:{type: String}
+
+
+
 });
 
 UserSchema.index({email: 1}, {unique: true});
