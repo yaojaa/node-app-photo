@@ -93,6 +93,8 @@ var PAGECONFIG = {
   color:#666;
 }
 </style>
+
+
 <div class="darkbg">
     <div class="container">
         <!-- <ol class="breadcrumb">
@@ -128,21 +130,30 @@ var PAGECONFIG = {
                 </div>
                 <div class="col-md-3">
                     <div class="photo-actions-section">
-                        <div>图片简介：{{photo.discrib}} [{{photo.pictures.length}}张]</div>
+                    <h4>作品简介</h4>
+
+                        <div>{{photo.discrib}} [{{photo.pictures.length}}张]</div>
                         <div class="cart-actions not-in-cart">
                             {{#if photo.price}}
-                            <div class="price"> 售价：{{photo.price}}</div>
+                            <div class="price"> 售价：￥{{photo.price}}</div>
                             <button class="btn-buy btn btn-primary btn-block btn-lg">
                                 立即购买
                             </button>
                             <p>已有<i class="red">183</i>人购买</p>
                             {{/if}}
-                            <hr>
-                            <h4>作者信息：</h4>
+                            <h4>作者信息</h4>
+
                             <div id="author">
-                                加载中...
+                            <div class="clearfix">
+<div class="headpic"><img src="{{qn_access.Domain}}/{{headpic}}?imageView2/1/w/50/"></div>
+<div class="title"><a href="/space/56c5972980370e7853a8e251">{{name}}</a></div>
+<div class="flow"> <button id="56c5972980370e7853a8e251" class="btn btn-primary btn-mn flow">关注</button></div>
+</div>
+
+
                             </div>
-                            <h4>评论：</h4>
+                            <h4>评论</h4>
+
                             <div id="comment">
                                 <div class="media">
                                     <div class="media-left media-top">
@@ -239,14 +250,14 @@ $.post('/api/v1/getUserInfoById', {
 $.post('/api/v1/checkIsBuy', postdata, function(data) {
     if (data.errorno === 0) {
         $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled', true)
-
     }
 })
+
+
 $('.btn-buy').on('click', function() {
 
 
     // $(this).attr('disabled',true).text('loading..')
-
 
     $.post('/api/v1/buyPhoto', postdata, function(data) {
 
@@ -297,7 +308,8 @@ $('.btn-buy').on('click', function() {
 
     })
 
-
-
 })
+
+//关注取消关注
+
 </script>

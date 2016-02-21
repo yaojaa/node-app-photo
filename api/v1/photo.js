@@ -63,27 +63,22 @@ var checkIsBuy=function(req,res,next){
     return next()
   }
 
-
  UserProxy.getUserByMail(usermail,function(err,userData){
-
     if(err){
-      return next()
+      return  res.json({errorno:-1,msg:"getUserByMail数据出错"})
+
     }
     if(userData.hasBuy.indexOf(photoId)>-1){
+      res.json({errorno:0,msg:"已购买"})
+       // PhotoProxy.findPhotoById(photoId, function (err, dataPhoto) {
+       // return  res.json({errorno:0,msg:"已购买",data:dataPhoto.pictures})
+       // })
+        }
+        else{
+                res.json({errorno:-1,msg:"未购买"})
 
-       PhotoProxy.findPhotoById(photoId, function (err, dataPhoto) {
-
-       return  res.json({errorno:0,msg:"已购买",data:dataPhoto.pictures})
-
-       })
         }
   })
-
-
-
-  
- 
-
 }
 
 /*购买*/
@@ -107,6 +102,17 @@ var buyPhoto=function(req,res,next){
         }else{
         //扣钱，更新数据 { $set: dataobj}
 
+         //更新图集购买的人数 +1
+
+        PhotoProxy.updateTrade_cnt(photoId,function(err,data){
+
+          console.log('updateTrade_cnt')
+
+          console.log(data);
+
+
+        })
+
            //更新user账户数据
            UserProxy.updateUser(user._id,{
             $set:{money:parseInt(user.money-photo.price)},
@@ -116,7 +122,7 @@ var buyPhoto=function(req,res,next){
             req.session.user.money=user.money-photo.price
 
             if(err){
-              return console.log(err)
+              return 
             }
 
             if(res.ok==1){
@@ -125,9 +131,10 @@ var buyPhoto=function(req,res,next){
                }
 
             }
+         )
 
 
-           )
+
 
        
 
@@ -148,7 +155,6 @@ var buyPhoto=function(req,res,next){
     if(err){
       return next()
     }
-    console.log(userData);
     ep.emit('userReady',userData)
     
   })
@@ -158,7 +164,6 @@ var buyPhoto=function(req,res,next){
      if(err){
       return next()
     }
-    console.log(photoData);
     ep.emit('photoReady',photoData)
 
   })

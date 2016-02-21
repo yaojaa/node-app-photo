@@ -85,6 +85,7 @@ exports.signup = function (req, res, next) {
 
 
 exports.showLogin = function (req, res) {
+  req.session._loginReferer = req.headers.referer;
   res.render('user/login', {
     service: req.query.service || ''
   });
@@ -171,10 +172,23 @@ function checkIsLogin(req, res, next) {
 exports.checkIsLogin = checkIsLogin;
 
 
+var notJump = [
+  '/reset_pass',     //reset password page, avoid to reset twice
+  '/signup'       //regist page
+];
+
+
 //登录
 exports.login = function (req, res, next) {
   var email = validator.trim(req.body.email.toLowerCase());
   var password = validator.trim(req.body.password);
+
+  //来路
+   var refer = req.session._loginReferer || '/';
+
+   console.log(req.session._loginReferer)
+
+
 
 
   if (!email || !password) {
@@ -209,13 +223,17 @@ exports.login = function (req, res, next) {
       return next();
     }
 
-    makeSession(req, user,res)
+    makeSession(req, user,res);
 
-    if (req.query.service) {
-      res.redirect(req.query.service);
-    } else {
-      res.redirect('/');
-    }
+
+    for (var i = 0, len = notJump.length; i !== len; ++i) {
+        if (refer.indexOf(notJump[i]) >= 0) {
+          refer = '/';
+          break;
+        }
+      }
+
+      res.redirect(refer);
   })
 
 }
