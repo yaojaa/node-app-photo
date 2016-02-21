@@ -1,278 +1,303 @@
-
- <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
-
+<link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
 <script>
-  var PAGECONFIG={
-      photoId:'{{photo.id}}',
-      authorId:'{{photo.author_id}}'
-  }
+var PAGECONFIG = {
+    photoId: '{{photo.id}}',
+    authorId: '{{photo.author_id}}'
+}
 </script>
-
 <style>
-  .g-mainwraper {
+.g-mainwraper {
     letter-spacing: -4px;
     margin: 0 auto;
     width: 100%;
     word-spacing: -0.43em;
 }
 
-.darkbg{
-  background: #111
+.darkbg {
+    background: #111
 }
-.price{
-     font-size: 18px;
+
+.price {
+    font-size: 18px;
     font-weight: bold;
     line-height: 36px;
     color: #d6d6d6;
     vertical-align: middle;
 }
 
-.photo-header{
-  background: #222;
-  padding:10px 20px;
-  color: #ccc;
-  margin-top: 20px;
+.photo-header {
+    background: #222;
+    padding: 10px 20px;
+    color: #ccc;
+    margin-top: 20px;
 }
 
-.photo-header h1{
-  font-size: 20px;
+.photo-header h1 {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.photo-actions-section {
+    background: #222;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: #777
+}
+
+#author {
+    overflow: hidden;
+    zoom: 1;
+    padding: 20px 0;
+}
+
+#author .headpic {
+    float: left;
+    width: 50px;
+    height: 50px;
+}
+
+#author .headpic img {
+    border-radius: 100%;
+}
+
+#author .title {
+    margin-left: 60px;
+    font-size: 14px;
+}
+
+#author>.clearfix>.flow {
+    margin-left: 60px;
+    text-align: left;
+}
+
+#author .btn {
+    margin-top: 5px;
+    padding: 2px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+#comment {
+    padding-top: 20px;
+    font-size: 12px !important;
+}
+#comment .info strong{
   font-weight: bold;
-  text-shadow:1px 1px 1px #000;
-
+  padding-right: 10px;
+  color:#999;
 }
-
-.photo-actions-section{
-  background: #222;
-  padding: 10px 20px;
-  margin-top: 20px;
-  color: #777
+#comment .date{
+  padding-top: 5px;
+  color:#666;
 }
 </style>
-
 <div class="darkbg">
-
-<div class="container">
-<!-- <ol class="breadcrumb">
+    <div class="container">
+        <!-- <ol class="breadcrumb">
         <li><a href="/">主页</a><span class="divider"></span></li>
         <li><a href="/">图集</a><span class="divider"></span></li>
 
         <li class="active">详情</li>
         
       </ol> -->
-
-      <!---->
-
-<div class="container">
-<div class="row">
-<div class="col-md-9">
-<section class="photo-details-section">
-<div class="photo-header clearfix">
-  
-<h1 class="pull-left">{{photo.title}}</h1>
-<p class="pull-right" id="J-picset-attention" class="picset-cmtnum">
-        <b title="浏览量" class="w-ico-attention">点击数</b> <span id="J-picset-viewcount">2328</span>
-        <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
-        <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span>
-      </p>
+        <!---->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <section class="photo-details-section">
+                        <div class="photo-header clearfix">
+                            <h1 class="pull-left">{{photo.title}}</h1>
+                            <p class="pull-right" id="J-picset-attention" class="picset-cmtnum">
+                                <b title="浏览量" class="w-ico-attention">点击数</b> <span id="J-picset-viewcount">2328</span>
+                                <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
+                                <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span>
+                            </p>
+                        </div>
+                        <div class="photo">
+                            {{#if photo.price}}
+                            <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
+                            <h3>全部照片预览</h3> {{#each photo.pictures}}
+                            <img width="16.666666666666666666%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} "> {{/each}} {{else}} {{#each photo.pictures}}
+                            <p><img style="max-width:100%" src="{{this}}?imageView2/1/w/1000/" alt="{{photo.title}} ">
+                            </p>
+                            <hr> {{/each}} {{/if}}
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-3">
+                    <div class="photo-actions-section">
+                        <div>图片简介：{{photo.discrib}} [{{photo.pictures.length}}张]</div>
+                        <div class="cart-actions not-in-cart">
+                            {{#if photo.price}}
+                            <div class="price"> 售价：{{photo.price}}</div>
+                            <button class="btn-buy btn btn-primary btn-block btn-lg">
+                                立即购买
+                            </button>
+                            <p>已有<i class="red">183</i>人购买</p>
+                            {{/if}}
+                            <hr>
+                            <h4>作者信息：</h4>
+                            <div id="author">
+                                加载中...
+                            </div>
+                            <h4>评论：</h4>
+                            <div id="comment">
+                                <div class="media">
+                                    <div class="media-left media-top">
+                                        <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="has-feedback" style="padding-bottom: 10px;">
+                                            <input class="form-control" type="text" name="">
+                                            <span class="form-control-feedback"><i class="glyphicon glyphicon-comment"></i></span>
+                                        </div>
+                                        <!-- <button class="button button-caution button-rounded button-small">发布</button> -->
+                                    </div>
+                                </div>
+                                <div id="comment">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
+                                            <p class="date">发布时间：15天前</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
+                                            <p class="date">发布时间：15天前</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
+                                            <p class="date">发布时间：15天前</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
+                                            <p class="date">发布时间：15天前</p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
+                                            <p class="date">发布时间：15天前</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!---->
+            <p align="center"><i>浏览：1152次</i><i>时间：{{photo.update_at}} </i></p>
+            <!--未购买-->
+        </div>
+    </div>
 </div>
-
-<div class="photo">
-{{#if photo.price}}
-
- <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
-
-
-<h3>全部照片预览</h3>
-{{#each photo.pictures}}
- <img width="16.666666666666666666%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} ">
-{{/each}}
-
-{{else}}
-
-{{#each photo.pictures}}
-<p><img style="max-width:100%" src="{{this}}?imageView2/1/w/1000/" alt="{{photo.title}} ">
-</p>
-<hr>
-{{/each}}
-
-
-{{/if}}
 </div>
-
-</section>
-</div>
-<div class="col-md-3">
-<div class="photo-actions-section">
-<div >图片简介：{{photo.discrib}} [{{photo.pictures.length}}张]</div>
-
-
-<div class="cart-actions not-in-cart">
-
-{{#if photo.price}}
-<div class="price"> 售价：{{photo.price}}</div>
-<button class="btn-buy btn btn-primary btn-block btn-lg">
-立即购买
-</button>
-
-<p>已有<i class="red">183</i>人购买</p>
-{{/if}}
-
-
-
-
-
-<hr>
-<h3>作者信息：</h3>
-<div id="author">
-  加载中...
-</div>
-
-<h3>评论：</h3>
-<div id="comment">
-  <div class="publish">
-    <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-    <textarea name="" id="" cols="30" rows="1">请输入评论</textarea>
-    <button>发布</button>
-  </div>
-  hr
-  <ul>
-    <li>
-      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-      <p> thitw：哈哈，好期待啊 评论内容</p>
-      <p>今天 18:24 </p>
-    </li>
-        <li>
-      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-      <p> thitw：哈哈，好期待啊 评论内容</p>
-      <p>今天 18:24 </p>
-    </li>
-        <li>
-      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-      <p> thitw：哈哈，好期待啊 评论内容</p>
-      <p>今天 18:24 </p>
-    </li>
-        <li>
-      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-      <p> thitw：哈哈，好期待啊 评论内容</p>
-      <p>今天 18:24 </p>
-    </li>
-        <li>
-      <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-      <p> thitw：哈哈，好期待啊 评论内容</p>
-      <p>今天 18:24 </p>
-    </li>
-  </ul>
-  加载中...
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-      <!---->
-
-
-
-  <p align="center" ><i>浏览：1152次</i><i>时间：{{photo.update_at}} </i></p>
-
-<!--未购买-->
-
-
-
-
-  
-
-
-  </div>
-
-</div>
-
-</div>
-
-</div>
-
- <script src="/vendor/sweetalert/sweetalert.min.js"></script> 
- <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script> 
-
-  <script src="/tpl/author.hbs.js"></script> 
-
-
-
+<script src="/vendor/sweetalert/sweetalert.min.js"></script>
+<script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
+<script src="/tpl/author.hbs.js"></script>
 <script>
+var postdata = {
+    photoId: PAGECONFIG.photoId
+}
 
 
 
-   var postdata={
-    photoId:PAGECONFIG.photoId
-   }
+$.post('/api/v1/getUserInfoById', {
+    id: PAGECONFIG.authorId
+}, function(json) {
 
 
 
-   $.post('/api/v1/getUserInfoById',{id:PAGECONFIG.authorId},function(json){
-
-
-
-   var html= Handlebars.templates.author(json.data);
-   $('#author').html(html);
-
-   })
-
-  $.post('/api/v1/checkIsBuy',postdata,function (data) {
-    if(data.errorno===0){
-          $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled',true)
-
-    }
-  })
-$('.btn-buy').on('click',function(){
-
-
-  // $(this).attr('disabled',true).text('loading..')
-
-
-  $.post('/api/v1/buyPhoto',postdata,function (data) {
-
-          if(data.errorno==-1){
-            swal({   title: data.msg,     type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   
-              confirmButtonText: "立即登陆",   
-              cancelButtonText: "下次再说",   
-              closeOnConfirm: false }, function(){  
-                location.href="/login" 
-              });
-          }
-          else if(data.errorno==-2){
-
-            swal({   title: data.msg,     type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   
-              confirmButtonText: "立即充值",   
-              cancelButtonText: "下次再说",   
-              closeOnConfirm: false }, function(){  
-                location.href="/score" 
-              });
-
-          }
-
-          else if(data.errorno==-3){
-
-            alert(data.msg);
-           
-          }
-          else if(data.errorno==0){
-
-              swal({ title: data.msg,     type: "success",   showCancelButton: false,   confirmButtonColor: "#DD6B55",   
-              confirmButtonText: "确定",   
-              closeOnConfirm: false }, function(){  
-                location.href=location.href
-              });
-
-          }
-  
-      })
-  
-
+    var html = Handlebars.templates.author(json.data);
+    $('#author').html(html);
 
 })
 
+$.post('/api/v1/checkIsBuy', postdata, function(data) {
+    if (data.errorno === 0) {
+        $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled', true)
 
+    }
+})
+$('.btn-buy').on('click', function() {
+
+
+    // $(this).attr('disabled',true).text('loading..')
+
+
+    $.post('/api/v1/buyPhoto', postdata, function(data) {
+
+        if (data.errorno == -1) {
+            swal({
+                title: data.msg,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "立即登陆",
+                cancelButtonText: "下次再说",
+                closeOnConfirm: false
+            }, function() {
+                location.href = "/login"
+            });
+        } else if (data.errorno == -2) {
+
+            swal({
+                title: data.msg,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "立即充值",
+                cancelButtonText: "下次再说",
+                closeOnConfirm: false
+            }, function() {
+                location.href = "/score"
+            });
+
+        } else if (data.errorno == -3) {
+
+            alert(data.msg);
+
+        } else if (data.errorno == 0) {
+
+            swal({
+                title: data.msg,
+                type: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                closeOnConfirm: false
+            }, function() {
+                location.href = location.href
+            });
+
+        }
+
+    })
+
+
+
+})
 </script>
