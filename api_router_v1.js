@@ -35,16 +35,6 @@ router.get('/aticles', aticleController.index);
 router.get('/videolist', videoController.videolist);
 
 
-//上传图片
-
-router.post('/upload', function (req,res) {
-
-
-	res.send({'req':'req'})
-
-
-	// body...
-});
 
 
 router.post('/delAticle',aticleController.delAticle)
@@ -54,6 +44,8 @@ router.post('/buyPhoto', auth.userRequired, photoController.buyPhoto)
 
 router.post('/checkIsBuy', auth.userRequired, photoController.checkIsBuy)
 
+//关注
+router.post('/follow', ucenterController.follow);
 
 
 //开通vip

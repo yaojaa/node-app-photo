@@ -35,10 +35,10 @@ app.set('views', __dirname + '/views');
 app.use(cookieParser(config.session_secret));
 app.use(session({
   secret: config.session_secret,
-  name: 'defautsession',
+  name: 'defautsession22',
 
   cookie: {
-    maxAge: 1000 * 60 * 30
+    maxAge: 1000 * 60 * 30 *5
   }, //session设置30分钟
   resave: false,
   saveUninitialized: true,
@@ -76,6 +76,9 @@ app.use(function (req, res, next) {
   req.user = res.locals.user = req.session.user;
   next();
 });
+
+app.locals.qn_access=config.qn_access
+
 
 //验证是否自动登录 这里会执行多次
 // app.use(function (req, res, next) {

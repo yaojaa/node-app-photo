@@ -2,6 +2,8 @@ var models = require('../models');
 var User = models.User;
 var uuid = require('node-uuid');
 var config = require('../config');
+var async = require('async');
+
 
 /**
  * 根据邮箱，查找用户
@@ -74,4 +76,69 @@ exports.pushHasBuy = function (id, photoID, callback) {
 
 exports.update = function (id, model, callback) {
   User.update({_id: id}, model, {multi: false}, callback);
-};
+}
+
+//关注某人
+exports.follow=function(followID,userID,callback){
+
+async.parallel({
+      one: function (callback) {
+
+        User.findOne({'_id': userID}, function(err,user){
+          if (err || !user) {
+            return callback(err);
+          }
+          user.followers.addToSet(followID);
+
+          user.save(callback);
+
+        });
+
+      },
+      two: function (callback) {
+
+          User.findOne({'_id': followID}, function(err,user){
+          if (err || !user) {
+            return callback(err);
+          }
+          user.followings.addToSet(userID);
+
+          user.save(callback);
+
+        });
+
+      },
+      three:function(callback){
+
+          User.findOne({'_id': userID}, callback);
+      }
+    },
+    function (err, results) {
+
+  
+      callback(err, results);
+
+    });
+
+}
+
+//取消关注某人
+exports.unfollow=function(followID,userID,callback){
+async.parallel({
+      one: function (callback) {
+    User.update({_id: userID}, {$pull: {'followers': followID}}, callback);
+
+      },
+      two: function (callback) {
+    User.update({_id: followID}, {$pull: {'followings': userID}}, callback);
+
+      }
+    },
+    function (err, results) {
+  
+      callback(err, results);
+
+    });
+
+}
+

@@ -88,6 +88,13 @@ exports.update = function (id, model, callback) {
   Photo.update({_id: id}, model, {multi: false}, callback);
 };
 
+//自动加1
+exports.updateTrade_cnt=function(id,callback){
+
+  Photo.findByIdAndUpdate(id, { $inc: { trade_cnt: 1 }}, callback);
+
+}
+
 /**
  * 更新图集被点击浏览的次数，图集被点赞的次数，图集被评论的次数，图集被购买的次数
  * @param id
@@ -127,7 +134,6 @@ exports.page = function (query, keys, opt, callback) {
   var pageSize = opt.pageSize || 10;
   pageNo--;
 
-  // an example using an object instead of an array
   async.parallel({
       one: function (callback) {
         var skip = pageNo * pageSize;

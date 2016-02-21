@@ -2,13 +2,52 @@ var config = require('../../config');
 var userProxy = require('../../proxy/user.js');
 var _ = require('../../lib/tools.js')
 
+
+//关注 与取消关注 用户 
+
+exports.follow=function(req,res){
+
+  var type=req.body.type;
+  var followID=req.body.followID;
+  var userID=req.body.userID;
+
+  if(type==='follow'){
+          userProxy.follow(followID,userID,function(err,data){
+               if (err){
+                  return err
+                }
+                res.json({
+                  errorno:0,
+                  data:data.three.followers,
+                  msg:'关注成功'
+                })
+        })
+
+    }
+
+
+    if(type==='unfollow'){
+
+            userProxy.unfollow(followID,userID,function(err,data){
+                 if (err){
+                    return err
+                  }
+                  res.json({
+                    errorno:0,
+                    data:{},
+                    msg:'关注成功'
+                  })
+            })
+
+    }
+
+
+
+}
+
 //获取用户信息
-
 exports.getUserInfoById=function(req, res){
-
     var id=req.body.id;
-    console.log('req.query',req.query);
-
     userProxy.getUserID(id,function(err,data){
 
       if (err){

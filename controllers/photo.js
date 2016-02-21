@@ -74,23 +74,53 @@ exports.publish = function (req, res) {
 
 };
 
-
+//图片正文页
 exports.showDetail = function (req, res) {
   var _id = req.params._id;
+  var usermail=req.session.user.email;
+  var photoId = req.body.photoId;
+
+var checkIsBuy=(function(){
+  if(!usermail){
+    return false
+  }
+
+ UserProxy.getUserByMail(usermail,function(err,userData){
+    if(err){
+      return  false
+
+    }
+    if(userData.hasBuy.indexOf(photoId)>-1){
+      return true
+       // PhotoProxy.findPhotoById(photoId, function (err, dataPhoto) {
+       // return  res.json({errorno:0,msg:"已购买",data:dataPhoto.pictures})
+       // })
+        }
+        else{
+            return  false
+        }
+  })
+  })()
+
+
+
   Photo.findPhotoById(_id, function (err, dataPhoto) {
-    console.log(dataPhoto);
+
     res.render('photo-view', {
       title: dataPhoto.title,
-      photo: dataPhoto
+      photo: dataPhoto,
+      isbuy:checkIsBuy
     })
   })
 
   //修改浏览次数
   Photo.updateCountById(_id, 1, function (err) {
     if (err) {
-      console.error('修改图片浏览次数出错了:', err);
+      return console.error('修改图片浏览次数出错了:', err);
     }
   });
+
+  
 }
 
 /**
