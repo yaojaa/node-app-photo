@@ -8,6 +8,7 @@ var Photo = require('../proxy/photo.js');
 var Score = require('../proxy/score');
 var Money = require('../proxy/money');
 var moment = require('moment');
+var async = require('async');
 
 //显示列表
 exports.show = function (req, res) {
@@ -43,7 +44,7 @@ exports.editInfo = function (req, res) {
     user.cell_phone = req.body.cell_phone;
     user.wx = req.body.wx;
     user.QQ = req.body.QQ;
-    user.avatar=req.body.avatar;
+    user.avatar = req.body.avatar;
     user.signature = req.body.signature;
     res.ok();
   });
@@ -172,5 +173,54 @@ exports.openvip = function (req, res) {
 
 };
 
+/**
+ * 用户中心
+ * @param req
+ * @param res
+ */
+exports.userspace = function (req, res, next) {
+  var userid = req.params.id;
+  var isSelf = false;
+  var user = null;
+  if (!userid) {//不存在，查询当前用户的个人主页
+    user = req.session.user;
+    isSelf = true;
+    if (!user) {
+      return res.redirect('/login?service=/userspace');
+    }
+    userid = user.id;
+  } else if (req.session.user && req.session.user.id === userid) {
+    isSelf = true;
+  }
 
+  async.parallel([function (cb) {
+    User.getUserID(userid, cb);
+  }, function (cb) {
+    Photo.page({author_id: userid}, {}, {pageNo: 1, pageSize: 10000, sort: '-update_at'}, cb);
+  }], function (err, result) {
+    if (err) {
+      return next(err);
+    }
+    user = result[0];
+    var photos = result[1];
+    if (user == null) {
+      return next('用户不存在');
+    }
 
+    var avatar = user.avatar;
+    if (!avatar) {
+      avatar = req.app.locals.avatar;
+    } else {
+      if (avatar.indexOf('http') === -1) {
+        avatar = req.app.locals.baseImageURL + avatar;
+      }
+    }
+    user.avatar = avatar;
+    var totalPicturesCount = 0;
+    photos.forEach(function (item) {
+      totalPicturesCount += item.pictures.length;
+    });
+    res.render('userspace', {userInfo: result[0], photos: photos, isSelf: isSelf, totalPicturesCount: totalPicturesCount});
+  });
+
+};

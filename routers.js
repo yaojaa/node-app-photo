@@ -124,11 +124,7 @@ router.get('/uc/view', function (req, res) {
 
 
 //个人主页
-router.get('/userspace', function (req, res) {
-  res.render('userspace', {user: req.session.user});
-
-
-})
+router.get('/userspace(/:id)?', ucenter.userspace);
 
 
 //修改密码

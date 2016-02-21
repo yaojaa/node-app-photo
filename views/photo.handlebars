@@ -166,9 +166,9 @@
             html += '<div class="album-number">' + item.pictures.length + '张</div>';
             html += '<a href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/></a>';
             html += '<div class="album-description">';
-            html += '<a class="belong-icon-wrapper" href="/user/1242142134">';
+            html += '<a class="belong-icon-wrapper" href="/userspace/' + item.author_id + '">';
             html += '<img class="belong-icon" src="' + userAvatar + '" alt=""/></a>';
-            html += '<a class="a-txt belong-name" href="/user/12454324">' + item.userName + '</a>';
+            html += '<a class="a-txt belong-name" href="/userspace/' + item.author_id + '">' + item.userName + '</a>';
 
             if (my.showRecommend) {
               if (item.recommend) {
