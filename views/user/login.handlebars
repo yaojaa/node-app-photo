@@ -1,7 +1,28 @@
 {{success}}
 
 {{error}}
-
+<style>
+  .login-sns li {
+    display: inline-block;
+  }
+  li {
+    line-height: 20px;
+  }
+  .login-sns li>a {
+    width: 44px;
+    height: 44px;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 44px;
+    font-size: 20px;
+    background: #eeeeee;
+    text-align: center;
+  }
+  a {
+    color: #555555;
+    text-decoration: none;
+  }
+</style>
 <div class="container">
 
   <div class="row">
@@ -30,6 +51,20 @@
             </fieldset>
           </form>
 
+          <div class="login-sns">
+            <p>您还可以通过以下方式直接登录</p>
+            <ul class="login-sns">
+              <li class="weibo">
+                <a href="/users/auth/weibo"><i class="fa fa-weibo"></i></a>
+              </li>
+              <li class="qq">
+                <a href="/users/auth/qq_connect"><i class="fa fa-qq"></i></a>
+              </li>
+              <li class="wechat">
+                <a href="/users/auth/wechat"><i class="fa fa-wechat"></i></a>
+              </li>
+            </ul>
+          </div>
 
         </div>
       </div>
