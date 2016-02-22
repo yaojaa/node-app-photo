@@ -3,9 +3,9 @@ var request = require('request');
 var User = require('../proxy/user');
 
 
-var appid = 'wxbdc5610cc59c1631';
-var secret = '';
-var redirect_uri = 'https%3A%2F%2Fpassport.yhd.com%2Fwechat%2Fcallback.do';
+var appid = 'wxfaca66b0a27a3ab2';
+var secret = '6fc3ee057a59ee751ba5987e06925e68';
+var redirect_uri = 'http://www.fengimage.com/wechat/callback';
 
 exports.login = function (req, res) {
 
@@ -30,9 +30,10 @@ exports.callback = function (req, res) {
     console.log('授权登录状态不一致');
     return res.end('授权登录状态不一致，登录被驳回');
   }
-
+  console.log('请求access_token的url地址', url);
   request({url: url}, function (error, response, body) {
     if (!error) {
+      console.log('请求access_token的结果', body);
       var result = JSON.parse(body);
       if (!result.errcode) {
         //接口调用凭证
@@ -50,13 +51,13 @@ exports.callback = function (req, res) {
           if (err) {
             return;
           }
-
+          console.log('微信用户在数据库是否存在', user == null);
           if (!user) {//用户不存在，请求微信接口
             getWXUserInfo(result.access_token, result.openid, function (err, wxuser) {
               if (err) {
                 return;
               }
-
+              console.log('微信用户信息', wxuser);
               wxuser.openid;
               wxuser.nickname;
               wxuser.sex;
@@ -68,9 +69,9 @@ exports.callback = function (req, res) {
               wxuser.unionid;
 
               //保存用户信息
-              User.add(wxuser, function (err, model) {
-                //登录成功
-              });
+              //User.add(wxuser, function (err, model) {
+              //登录成功
+              //});
 
             });
 
