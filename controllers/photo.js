@@ -2,7 +2,7 @@ var config = require('../config');
 var Photo = require('../proxy/photo.js');
 var User = require('../proxy/user.js');
 var validator = require('validator');
-var eventproxy = require('eventproxy');
+var EventProxy = require('eventproxy');
 
 var list_photo_count = config.list_photo_count;
 
@@ -76,42 +76,99 @@ exports.publish = function (req, res) {
 
 //图片正文页
 exports.showDetail = function (req, res) {
+
   var _id = req.params._id;
-  var usermail=req.session.user.email;
-  var photoId = req.body.photoId;
+  var usermail=req.session.user?req.session.user.email : '';
+  var user_id=req.session.user?req.session.user._id : '';
 
-var checkIsBuy=(function(){
-  if(!usermail){
-    return false
-  }
-
- UserProxy.getUserByMail(usermail,function(err,userData){
-    if(err){
-      return  false
-
-    }
-    if(userData.hasBuy.indexOf(photoId)>-1){
-      return true
-       // PhotoProxy.findPhotoById(photoId, function (err, dataPhoto) {
-       // return  res.json({errorno:0,msg:"已购买",data:dataPhoto.pictures})
-       // })
-        }
-        else{
-            return  false
-        }
-  })
-  })()
+   var ep = new EventProxy();
 
 
 
-  Photo.findPhotoById(_id, function (err, dataPhoto) {
+   ep.all('dataPhoto', 'isBuy', 'author','isFollow',function (dataPhoto, isBuy,author,isFollow) {
+
+    console.log('isFollow',isFollow)
 
     res.render('photo-view', {
       title: dataPhoto.title,
       photo: dataPhoto,
-      isbuy:checkIsBuy
+      isBuy:isBuy,
+      author:author,
+      isFollow:isFollow
     })
+
+   })
+
+//1.判断是否购买
+  if(usermail){
+
+    var checkIsBuy=(function(){
+      if(!usermail){
+        return ep.emit('isBuy', false);
+      }
+
+     User.getUserByMail(usermail,function(err,userData){
+        if(err){
+          return ep.emit('error', err);
+        }
+        console.log(userData.hasBuy,_id);
+        if(userData.hasBuy.indexOf(_id)>-1){
+           ep.emit('isBuy', true);
+            }
+            else{
+               ep.emit('isBuy', false); 
+            }
+      })
+      })()
+
+    }else{
+          console.log('usermail false');
+
+        ep.emit('isBuy', false);
+
+    }
+
+
+
+
+//2.获取图片信息
+  Photo.findPhotoById(_id, function (err, dataPhoto) {
+ if(err){
+      return ep.emit('error', err);
+    }
+
+  ep.emit('dataPhoto', dataPhoto); 
+
+  getAuthorInfo(dataPhoto.author_id)
+
   })
+
+//3.获取作者信息
+
+ function getAuthorInfo(id){
+      User.getUserID(id,function(err,data){
+      if (err){
+        return err
+      }
+      if(data.followings.indexOf(user_id)>-1){
+            ep.emit('isFollow', true);
+      }else{
+            ep.emit('isFollow', false);
+
+      }
+          ep.emit('author', data);
+    })
+
+  }
+
+  
+//4. 当前用户是否关注了作者
+
+function checkIsFollowAuthor(user_id,author_id){
+
+
+}
+
 
   //修改浏览次数
   Photo.updateCountById(_id, 1, function (err) {

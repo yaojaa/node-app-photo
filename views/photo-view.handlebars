@@ -136,18 +136,32 @@ var PAGECONFIG = {
                         <div class="cart-actions not-in-cart">
                             {{#if photo.price}}
                             <div class="price"> 售价：￥{{photo.price}}</div>
-                            <button class="btn-buy btn btn-primary btn-block btn-lg">
+                            {{#if isBuy }}
+                             <button class="btn-buy btn btn-success btn-block btn-lg" disabled="disabled">
+                                已购买
+                            </button>
+                            
+
+                            {{else}}
+
+                           <button class="btn-buy btn btn-primary btn-block btn-lg">
                                 立即购买
                             </button>
-                            <p>已有<i class="red">183</i>人购买</p>
+
+                            {{/if}}
+                            <p>已有<i class="red">{{photo.trade_cnt}}</i>人购买</p>
                             {{/if}}
                             <h4>作者信息</h4>
 
                             <div id="author">
                             <div class="clearfix">
-<div class="headpic"><img src="{{qn_access.Domain}}/{{headpic}}?imageView2/1/w/50/"></div>
-<div class="title"><a href="/space/56c5972980370e7853a8e251">{{name}}</a></div>
-<div class="flow"> <button id="56c5972980370e7853a8e251" class="btn btn-primary btn-mn flow">关注</button></div>
+<div class="headpic"><img src="{{qn_access.Domain}}/{{author.avatar}}?imageView2/1/w/50/"></div>
+<div class="title"><a href="/space/{{user.id}}">{{author.nickname}}</a></div>
+{{#if isFollow}}
+ <div class="flow"> <button id="{{author._id}}" action-type="unfollow" class="btn btn-primary btn-mn flow">已关注</button></div>
+{{else}}
+ <div class="flow"> <button id="{{author._id}}" action-type="follow" class="btn btn-primary btn-mn flow"> + 关注</button></div>
+{{/if}}
 </div>
 
 
@@ -227,8 +241,8 @@ var PAGECONFIG = {
 </div>
 </div>
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
-<script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
-<script src="/tpl/author.hbs.js"></script>
+<!-- <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
+<script src="/tpl/author.hbs.js"></script> -->
 <script>
 var postdata = {
     photoId: PAGECONFIG.photoId
@@ -236,22 +250,22 @@ var postdata = {
 
 
 
-$.post('/api/v1/getUserInfoById', {
-    id: PAGECONFIG.authorId
-}, function(json) {
+// $.post('/api/v1/getUserInfoById', {
+//     id: PAGECONFIG.authorId
+// }, function(json) {
 
 
 
-    var html = Handlebars.templates.author(json.data);
-    $('#author').html(html);
+//     var html = Handlebars.templates.author(json.data);
+//     $('#author').html(html);
 
-})
+// })
 
-$.post('/api/v1/checkIsBuy', postdata, function(data) {
-    if (data.errorno === 0) {
-        $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled', true)
-    }
-})
+// $.post('/api/v1/checkIsBuy', postdata, function(data) {
+//     if (data.errorno === 0) {
+//         $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled', true)
+//     }
+// })
 
 
 $('.btn-buy').on('click', function() {
