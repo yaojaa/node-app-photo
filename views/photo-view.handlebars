@@ -119,12 +119,23 @@ var PAGECONFIG = {
                         </div>
                         <div class="photo">
                             {{#if photo.price}}
-                            <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
-                            <h3>全部照片预览</h3> {{#each photo.pictures}}
-                            <img width="16.666666666666666666%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} "> {{/each}} {{else}} {{#each photo.pictures}}
-                            <p><img style="max-width:100%" src="{{this}}?imageView2/1/w/1000/" alt="{{photo.title}} ">
-                            </p>
-                            <hr> {{/each}} {{/if}}
+
+                                    {{#if isBuy }}
+
+                                        {{#each photo.pictures}}
+                                        <a href="{{this}}"><img width="100%" class="tobeview" src="{{this}}?imageView2/1/w/1000/" alt="{{photo.title}} "/></a>
+                                         
+                                        {{/each}} 
+
+                                    {{else}}
+                                        <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
+                                        <h3>全部照片预览</h3> 
+                                        {{#each photo.pictures}}
+                                        <img width="16.666666666666666666%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} "> 
+                                        {{/each}} 
+
+                                     {{/if}}
+                            {{/if}}
                         </div>
                     </section>
                 </div>
@@ -143,12 +154,12 @@ var PAGECONFIG = {
                             
 
                             {{else}}
-
                            <button class="btn-buy btn btn-primary btn-block btn-lg">
                                 立即购买
                             </button>
 
                             {{/if}}
+                            <br>
                             <p>已有<i class="red">{{photo.trade_cnt}}</i>人购买</p>
                             {{/if}}
                             <h4>作者信息</h4>
