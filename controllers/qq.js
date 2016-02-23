@@ -51,9 +51,9 @@ exports.callback = function (req, res) {
         if (err) {
           return callback(err);
         }
-        console.log('QQ用户在数据库是否存在', user == null);
+        console.log('QQ用户在数据库是否存在', user != null);
         if (!user) {//用户不存在，请求接口
-
+          user = {};
           getUserInfo(access_token, openid, function (error, response, body) {
             if (error) {
               return callback(error);
