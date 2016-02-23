@@ -20,9 +20,9 @@ exports.callback = function (req, res) {
   var access_token = '';
   var openid = '';
 
-  if (!code || !state || !req.session.qq_state || (req.session.wx_state !== state)) {
+  if (!code || !state || !req.session.qq_state || (req.session.qq_state !== state)) {
     console.log('[QQ]我们的网站被CSRF攻击了或者用户取消了授权');
-    //return res.redirect('/login');
+    return res.redirect('/login');
   } else {
 
     async.waterfall([function (callback) {
