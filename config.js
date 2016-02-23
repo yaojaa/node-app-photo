@@ -179,7 +179,22 @@ var config = {
     {name: '时尚', url: '/fashion'},
     {name: '美食', url: '/food'},
     {name: '动物', url: '/animals'}
-  ]
+  ],
+  qq: {
+    appid: '101294710',
+    appkey: 'c732cfbb3813d9473c32522e6243b7eb',
+    redirect_uri: 'http://www.fengimage.com/qq/callback',
+    scope: 'get_user_info',
+    getUserInfoURL: 'https://graph.qq.com/user/get_user_info',
+    accessTokenURL: 'https://graph.qq.com/oauth2.0/token',
+    authorizeURL: 'https://graph.qq.com/oauth2.0/authorize',
+    getOpenIDURL: 'https://graph.qq.com/oauth2.0/me'
+  },
+  wx: {
+    appid: 'wxfaca66b0a27a3ab2',
+    secret: '6fc3ee057a59ee751ba5987e06925e68',
+    redirect_uri: 'http://www.fengimage.com/wechat/callback'
+  }
 };
 
 module.exports = config;

@@ -48,6 +48,8 @@ exports.newAndSave = function (password, email, nickname, active, callback) {
 
 //添加新用户
 exports.add = function (model, callback) {
+  model.accessToken = uuid.v4();
+  model.avatar = model.avatar || config.avatar;
   User.create(model, function (err, model) {
       if (err) {
         console.error('添加新用户：', err.stack);
@@ -79,12 +81,12 @@ exports.update = function (id, model, callback) {
 }
 
 //关注某人
-exports.follow=function(followID,userID,callback){
+exports.follow = function (followID, userID, callback) {
 
-async.parallel({
+  async.parallel({
       one: function (callback) {
 
-        User.findOne({'_id': userID}, function(err,user){
+        User.findOne({'_id': userID}, function (err, user) {
           if (err || !user) {
             return callback(err);
           }
@@ -97,7 +99,7 @@ async.parallel({
       },
       two: function (callback) {
 
-          User.findOne({'_id': followID}, function(err,user){
+        User.findOne({'_id': followID}, function (err, user) {
           if (err || !user) {
             return callback(err);
           }
@@ -108,14 +110,14 @@ async.parallel({
         });
 
       },
-      three:function(callback){
+      three: function (callback) {
 
-          User.findOne({'_id': userID}, callback);
+        User.findOne({'_id': userID}, callback);
       }
     },
     function (err, results) {
 
-  
+
       callback(err, results);
 
     });
@@ -123,19 +125,19 @@ async.parallel({
 }
 
 //取消关注某人
-exports.unfollow=function(followID,userID,callback){
-async.parallel({
+exports.unfollow = function (followID, userID, callback) {
+  async.parallel({
       one: function (callback) {
-    User.update({_id: userID}, {$pull: {'followers': followID}}, callback);
+        User.update({_id: userID}, {$pull: {'followers': followID}}, callback);
 
       },
       two: function (callback) {
-    User.update({_id: followID}, {$pull: {'followings': userID}}, callback);
+        User.update({_id: followID}, {$pull: {'followings': userID}}, callback);
 
       }
     },
     function (err, results) {
-  
+
       callback(err, results);
 
     });

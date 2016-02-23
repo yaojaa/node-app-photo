@@ -30,6 +30,7 @@ var UserSchema = new Schema({
   signature: {type: String},//用户签名
   profile: {type: String}, //用户简介
   avatar: {type: String}, //头像
+  sex: {type: Number}, //性别，1：男，2：女
   //第三方
   openid:{type: String},
   qq_user:{type: String},

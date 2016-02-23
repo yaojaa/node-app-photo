@@ -22,15 +22,15 @@ exports.callback = function (req, res) {
   var url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' + appid + '&secret=' + secret + '&code=' + code + '&grant_type=authorization_code';
 
   if (!code) {
-    console.log('用户禁止授权');
-    return res.end('你禁止授权登录');
+    console.log('WX用户禁止授权');
+    return res.redirect('/login');
   }
 
   if (req.session.wx_state && req.session.wx_state !== state) {
-    console.log('授权登录状态不一致');
-    return res.end('授权登录状态不一致，登录被驳回');
+    console.log('WX授权登录状态不一致，登录被驳回');
+    return res.redirect('/login');
   }
-  console.log('请求access_token的url地址', url);
+  console.log('WX请求access_token的url地址', url);
   request({url: url}, function (error, response, body) {
     if (!error) {
       console.log('请求access_token的结果', body);

@@ -91,13 +91,14 @@ exports.showLogin = function (req, res) {
   });
 }
 
+exports.makeSession = makeSession;
 
-function makeSession(req, user,res) {
+function makeSession(req, user, res) {
   req.session.user = {
     username: user.nickname,
     password: user.password,
     email: user.email,
-    avatar:user.avatar,
+    avatar: user.avatar,
     id: user._id,
     score: user.score,
     money: user.money,
@@ -110,14 +111,14 @@ function makeSession(req, user,res) {
     QQ: user.QQ
   };
 
-     var auth_token = user.email + '$$$$' + user.password; // 以后可能会存储更多信息，用 $$$$ 来分隔
-      var opts = {
-        path: '/',
-        maxAge: 1000 * 60 * 60 * 24 * 30,
-        signed: true,
-        httpOnly: true
-      };
-      res.cookie(config.auth_cookie_name, auth_token, opts); //cookie 有效期30天
+  var auth_token = user.email + '$$$$' + user.password; // 以后可能会存储更多信息，用 $$$$ 来分隔
+  var opts = {
+    path: '/',
+    maxAge: 1000 * 60 * 60 * 24 * 30,
+    signed: true,
+    httpOnly: true
+  };
+  res.cookie(config.auth_cookie_name, auth_token, opts); //cookie 有效期30天
 
 
 }
@@ -159,7 +160,7 @@ function checkIsLogin(req, res, next) {
         return next();
       }
 
-      makeSession(req, user,res)
+      makeSession(req, user, res)
 
 
       return next(); //进行下一步
@@ -184,11 +185,9 @@ exports.login = function (req, res, next) {
   var password = validator.trim(req.body.password);
 
   //来路
-   var refer = req.session._loginReferer || '/';
+  var refer = req.session._loginReferer || '/';
 
-   console.log(req.session._loginReferer)
-
-
+  console.log(req.session._loginReferer)
 
 
   if (!email || !password) {
@@ -223,17 +222,17 @@ exports.login = function (req, res, next) {
       return next();
     }
 
-    makeSession(req, user,res);
+    makeSession(req, user, res);
 
 
     for (var i = 0, len = notJump.length; i !== len; ++i) {
-        if (refer.indexOf(notJump[i]) >= 0) {
-          refer = '/';
-          break;
-        }
+      if (refer.indexOf(notJump[i]) >= 0) {
+        refer = '/';
+        break;
       }
+    }
 
-      res.redirect(refer);
+    res.redirect(refer);
   })
 
 }
