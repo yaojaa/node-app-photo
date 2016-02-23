@@ -84,12 +84,7 @@ exports.callback = function (req, res) {
     }, function (user, callback) {
       console.log('step4:获取用户的返回值', user);
       if (!user._id) {//没有_id说明从qq获取的用户，将获取的用户存入数据库
-        User.add(user, function (err, model) {
-          console.log('################################');
-          console.log(model);
-          console.log('################################');
-          callback(err, model);
-        });
+        User.add(user, callback);
       } else {
         callback(null, user);
       }
