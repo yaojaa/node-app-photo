@@ -69,7 +69,7 @@ exports.callback = function (req, res) {
               } else {
                 user.sex = 1;
               }
-              user.qq_user = userInfo;
+              user.qq_user = body;
               callback(null, user);
             } else {
               callback(new Error('get userinfo fail'));
@@ -85,16 +85,19 @@ exports.callback = function (req, res) {
       console.log('step4:获取用户的返回值', user);
       if (!user._id) {//没有_id说明从qq获取的用户，将获取的用户存入数据库
         User.add(user, function (err, model) {
-          callback(model);
+          console.log('################################');
+          console.log(model);
+          console.log('################################');
+          callback(err, model);
         });
       } else {
-        callback(user);
+        callback(null, user);
       }
 
     }], function (err, user) {
       if (err) {
         console.log('QQ登录会掉出错：', err.stack);
-        return res.end('server error');
+        return res.redirect('/login');
       }
       makeSession(req, user, res);
       res.redirect('/');
