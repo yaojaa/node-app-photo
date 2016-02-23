@@ -57,6 +57,7 @@ router.post('/login', sign.login);  // 提交登录信息
 
 router.get('/wechat/login', wechat.login);  // 进入微信登录页面
 router.get('/wechat/callback', wechat.callback);  // 进入微信登录页面
+router.get('/qq/login', qq.login);  // 进入微信登录页面
 router.get('/qq/callback', qq.callback);  // 进入微信登录页面
 
 //根据这两句生成uptoken
