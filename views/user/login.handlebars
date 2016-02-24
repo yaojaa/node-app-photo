@@ -2,13 +2,26 @@
 
 {{error}}
 <style>
+  .login-sns {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+  }
+
+  .login-sns .login-list {
+    padding-top: 10px;
+  }
+
   .login-sns li {
     display: inline-block;
   }
+
   li {
     line-height: 20px;
   }
-  .login-sns li>a {
+
+  .login-sns li > a {
     width: 44px;
     height: 44px;
     display: inline-block;
@@ -18,9 +31,19 @@
     background: #eeeeee;
     text-align: center;
   }
+
   a {
     color: #555555;
     text-decoration: none;
+  }
+
+  .qq a:hover {
+    background-color: #15a7f0;
+    color: #fff;
+  }
+  .wechat  a:hover {
+    background-color: #49be38;
+    color: #fff;
   }
 </style>
 <div class="container">
@@ -53,7 +76,7 @@
 
           <div class="login-sns">
             <p>您还可以通过以下方式直接登录</p>
-            <ul class="login-sns">
+            <ul class="login-list">
               <!--<li class="weibo">
                 <a href="/users/auth/weibo"><i class="fa fa-weibo"></i></a>
               </li>-->
