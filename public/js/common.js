@@ -1,5 +1,7 @@
 //设置一个全局变量
-var my = {};
+var my = {
+  baseImageURL: 'http://7xobdo.com1.z0.glb.clouddn.com/'
+};
 
 //对ajax请求结果统一处理
 my.ajax = function (options) {

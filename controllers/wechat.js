@@ -1,17 +1,15 @@
 var crypto = require('crypto');
 var request = require('request');
+var generator = require('../util/randomStatusGenerator');
+//配置文件
+var config = require('../config').wx;
 var User = require('../proxy/user');
-
-
-var appid = 'wxfaca66b0a27a3ab2';
-var secret = '6fc3ee057a59ee751ba5987e06925e68';
-var redirect_uri = 'http://www.fengimage.com/wechat/callback';
+var makeSession = require('./sign').makeSession;
 
 exports.login = function (req, res) {
-
-  var state = generateState();
+  var state = generator.generate();
   req.session.wx_state = state;
-  var url = 'https://open.weixin.qq.com/connect/qrconnect?appid=' + appid + '&redirect_uri=' + redirect_uri + '&response_type=code&scope=snsapi_login&state=' + state + '#wechat_redirect';
+  var url = config.qrconnectURL + '?appid=' + config.appid + '&redirect_uri=' + config.redirect_uri + '&response_type=code&scope=' + config.scope + '&state=' + state + '#wechat_redirect';
   res.redirect(url);
 };
 
@@ -19,7 +17,7 @@ exports.callback = function (req, res) {
 
   var code = req.code;
   var state = req.state;
-  var url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' + appid + '&secret=' + secret + '&code=' + code + '&grant_type=authorization_code';
+  var url = '?appid=' + appid + '&secret=' + secret + '&code=' + code + '&grant_type=authorization_code';
 
   if (!code) {
     console.log('WX用户禁止授权');
@@ -98,7 +96,7 @@ function generateState() {
 
 
 function getWXUserInfo(access_token, openid, callback) {
-  var url = 'https://api.weixin.qq.com/sns/userinfo?access_token=' + access_token + '&openid=' + openid;
+  var url = '?access_token=' + access_token + '&openid=' + openid;
   request({url: url}, function (error, response, body) {
     if (!error) {
       var result = JSON.parse(body);

@@ -193,7 +193,11 @@ var config = {
   wx: {
     appid: 'wxfaca66b0a27a3ab2',
     secret: '6fc3ee057a59ee751ba5987e06925e68',
-    redirect_uri: 'http://www.fengimage.com/wechat/callback'
+    redirect_uri: 'http://www.fengimage.com/wechat/callback',
+    scope: 'snsapi_login',
+    getUserInfoURL: 'https://api.weixin.qq.com/sns/userinfo',
+    accessTokenURL: 'https://api.weixin.qq.com/sns/oauth2/access_token',
+    qrconnectURL: 'https://open.weixin.qq.com/connect/qrconnect'
   }
 };
 
