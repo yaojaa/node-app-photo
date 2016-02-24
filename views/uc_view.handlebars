@@ -185,11 +185,11 @@
     uploader.on('fileQueued', function (file) {
       $('#fileList').html('');
       var $li = $(
-                                                                          '<div id="' + file.id + '" class="file-item thumbnail">' +
-                                                                          '<img>' +
-                                                                          '</div>'
-                                        ),
-                                        $img = $li.find('img');
+                  '<div id="' + file.id + '" class="file-item thumbnail">' +
+                  '<img>' +
+                  '</div>'
+                  ),
+          $img = $li.find('img');
 
 
       // $list为容器jQuery实例
@@ -210,7 +210,7 @@
 // 文件上传过程中创建进度条实时显示。
     uploader.on('uploadProgress', function (file, percentage) {
       var $li = $('#' + file.id),
-                                        $percent = $li.find('.progress span');
+          $percent = $li.find('.progress span');
 
       // 避免重复创建
       if (!$percent.length) {
@@ -232,7 +232,7 @@
 // 文件上传失败，显示上传出错。
     uploader.on('uploadError', function (file) {
       var $li = $('#' + file.id),
-                                        $error = $li.find('div.error');
+          $error = $li.find('div.error');
 
       // 避免重复创建
       if (!$error.length) {

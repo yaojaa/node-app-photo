@@ -161,7 +161,7 @@
             var randomWidth = parseInt(Math.random() * 400 + 300);
             var item = list[i];
             var pic = item.pictures[0];
-            var userAvatar = item.userAvatar ? '{{baseImageURL }}' + item.userAvatar : '{{avatar }}';
+            var userAvatar = item.userAvatar ? item.userAvatar : '{{avatar }}';
             html += '<div class="album-wrapper jg-entry">';
             html += '<div class="album-number">' + item.pictures.length + '张</div>';
             html += '<a href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/></a>';
