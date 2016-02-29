@@ -51,7 +51,11 @@ exports.page = function (query, opt, callback) {
 
     var ids = [];
     list.forEach(function (item) {
-      ids.push(item.userId, item.replyId);
+      if (item.replyId) {
+        ids.push(item.userId, item.replyId);
+      } else {
+        ids.push(item.userId);
+      }
     });
 
     User.find({'_id': {'$in': ids}}, {}, function (err, users) {

@@ -103,10 +103,10 @@ exports.callback = function (req, res) {
 };
 
 /**
- * 由code获取access_token
- * @param access_token
- * @param callback
- */
+* 由code获取access_token
+* @param access_token
+* @param callback
+*/
 function getAccessToken(code, callback) {
   var url = config.accessTokenURL + '?client_id=' + config.appid + '&client_secret=' + config.appkey + '&code=' + code + '&grant_type=authorization_code&redirect_uri=' + config.redirect_uri;
   request({url: url}, function (error, response, body) {
