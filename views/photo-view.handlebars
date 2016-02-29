@@ -92,6 +92,10 @@ var PAGECONFIG = {
   padding-top: 5px;
   color:#666;
 }
+
+#commentBtn{
+    cursor:pointer;
+}
 </style>
 
 
@@ -187,8 +191,9 @@ var PAGECONFIG = {
                                     <div class="media-body">
                                         <div class="has-feedback" style="padding-bottom: 10px;">
                                             <input class="form-control" type="text" name="">
-                                            <span class="form-control-feedback"><i class="glyphicon glyphicon-comment"></i></span>
+                                            
                                         </div>
+                                        <button id="commentBtn">评论</button>
                                         <!-- <button class="button button-caution button-rounded button-small">发布</button> -->
                                     </div>
                                 </div>
@@ -255,9 +260,52 @@ var PAGECONFIG = {
 <!-- <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
 <script src="/tpl/author.hbs.js"></script> -->
 <script>
+
 var postdata = {
     photoId: PAGECONFIG.photoId
 }
+
+//评论
+
+$.get('/comment/page',{belongId:postdata.photoId},function(data){
+
+    console.log(data);
+
+})
+
+
+function commentAdd(){
+  $.post('/comment/add',{ 
+    replyId:'', //回复人ID (对某个人回复对应的这个人ID,可省略)
+    belongId:postdata.photoId, //评论所属ID（图集的ID）
+    content:'这是一条测试评论' //回复内容},function(data){
+},function(data){
+         if (data.errorno == -2) {
+            swal({
+                title: '请先登录',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "登录",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            }, function() {
+                location.href = "/login"
+            });
+
+        }
+        else if(data.errorno==0){
+            
+        }
+})
+}
+
+$('#commentBtn').on('click',function(){
+    commentAdd()
+})
+
+
+
 
 
 
