@@ -183,7 +183,7 @@ var PAGECONFIG = {
                             </div>
                             <h4>评论</h4>
 
-                            <div id="comment">
+                            <div >
                                 <div class="media">
                                     <div class="media-left media-top">
                                         <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
@@ -198,51 +198,7 @@ var PAGECONFIG = {
                                     </div>
                                 </div>
                                 <div id="comment">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
-                                            <p class="date">发布时间：15天前</p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
-                                            <p class="date">发布时间：15天前</p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
-                                            <p class="date">发布时间：15天前</p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
-                                            <p class="date">发布时间：15天前</p>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p class="info"><strong>王磊</strong>Nullam quis risus eget urna mollis ornare vel eu leo</p>
-                                            <p class="date">发布时间：15天前</p>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -257,9 +213,11 @@ var PAGECONFIG = {
 </div>
 </div>
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
-<!-- <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
-<script src="/tpl/author.hbs.js"></script> -->
+<script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
+<script src="/tpl/comment_list.hbs.js"></script>
 <script>
+
+
 
 var postdata = {
     photoId: PAGECONFIG.photoId
@@ -267,9 +225,14 @@ var postdata = {
 
 //评论
 
-$.get('/comment/page',{belongId:postdata.photoId},function(data){
+$.get('/comment/page',{belongId:postdata.photoId},function(json){
 
-    console.log(data);
+  if(json.errorno==0){
+        var html=Handlebars.templates.comment_list(json.data);
+        $('#comment').html(html)
+  }
+
+
 
 })
 

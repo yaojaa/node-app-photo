@@ -22,7 +22,6 @@ var handlebars = require('express-handlebars')
       }
     }
   });
-
 // view engine setup
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
