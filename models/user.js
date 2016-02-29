@@ -40,7 +40,8 @@ var UserSchema = new Schema({
 
 });
 
-UserSchema.index({email: 1}, {unique: true});
+//微信登录或QQ登录时邮箱为空，添加新用户会报错
+//UserSchema.index({email: 1}, {unique: true});
 
 
 mongoose.model('User', UserSchema);
