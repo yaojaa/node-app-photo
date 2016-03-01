@@ -90,7 +90,7 @@ exports.page = function (query, opt, callback) {
           content: item.content,
           createAt: item.create_at,
           userId: item.userId,
-          userName: item.userName,
+          nickname: item.nickname,
           userAvatar: item.userAvatar,
           replyId: item.replyId,
           replyName: item.replyName,
