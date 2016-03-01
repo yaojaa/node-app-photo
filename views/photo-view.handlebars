@@ -91,6 +91,7 @@ var PAGECONFIG = {
 #comment .date{
   padding-top: 5px;
   color:#666;
+  font-size: 11px;
 }
 
 #commentBtn{
@@ -170,7 +171,7 @@ var PAGECONFIG = {
 
                             <div id="author">
                             <div class="clearfix">
-<div class="headpic"><img src="{{qn_access.Domain}}/{{author.avatar}}?imageView2/1/w/50/"></div>
+<div class="headpic"><img width="50" src="{{author.avatar}}?imageView2/1/w/50/"></div>
 <div class="title"><a href="/space/{{user.id}}">{{author.nickname}}</a></div>
 {{#if isFollow}}
  <div class="flow"> <button id="{{author._id}}" action-type="unfollow" class="btn btn-primary btn-mn flow">已关注</button></div>
@@ -186,15 +187,15 @@ var PAGECONFIG = {
                             <div >
                                 <div class="media">
                                     <div class="media-left media-top">
-                                        <img width="20" src="http://tp1.sinaimg.cn/5837072684/50/5748312165/1" alt="">
+                                        <img width="30" height="30" src="{{user.avatar}}?imageView2/1/w/30/" alt="">
                                     </div>
                                     <div class="media-body">
-                                        <div class="has-feedback" style="padding-bottom: 10px;">
-                                            <input class="form-control" type="text" name="">
+                                  <div class="has-feedback" style="padding-bottom: 10px;">
+                                    <input id="commentContent" class="form-control" type="text" name="content">
                                             
                                         </div>
-                                        <button id="commentBtn">评论</button>
-                                        <!-- <button class="button button-caution button-rounded button-small">发布</button> -->
+                                        <button class="btn btn-sm" id="commentBtn">评论</button>
+                                      
                                     </div>
                                 </div>
                                 <div id="comment">
@@ -224,6 +225,7 @@ var postdata = {
 }
 
 //评论
+var getCommentList=function(){
 
 $.get('/comment/page',{belongId:postdata.photoId},function(json){
 
@@ -232,16 +234,26 @@ $.get('/comment/page',{belongId:postdata.photoId},function(json){
         $('#comment').html(html)
   }
 
-
-
 })
+}
+
+getCommentList()
 
 
-function commentAdd(){
+function commentAdd(btn){
+
+    $(btn).text('提交中...')
+
+  var commentContent=$('#commentContent').val();
+
+  if(commentContent==''){
+    return
+  }
+
   $.post('/comment/add',{ 
     replyId:'', //回复人ID (对某个人回复对应的这个人ID,可省略)
     belongId:postdata.photoId, //评论所属ID（图集的ID）
-    content:'这是一条测试评论' //回复内容},function(data){
+    content:commentContent //回复内容},function(data){
 },function(data){
          if (data.errorno == -2) {
             swal({
@@ -258,13 +270,18 @@ function commentAdd(){
 
         }
         else if(data.errorno==0){
-            
+$('#commentContent').val('');
+$(btn).text('评论')
+getCommentList()
+
+
+          
         }
 })
 }
 
 $('#commentBtn').on('click',function(){
-    commentAdd()
+    commentAdd(this)
 })
 
 
