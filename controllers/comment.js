@@ -25,7 +25,7 @@ exports.page = function (req, res) {
     return res.fail('请选择评论所属Id');
   }
 
-  Comment.page({belongId: belongId}, {pageNo: pageNo, sort: 'create_at'}, function (err, ret) {
+  Comment.page({belongId: belongId}, {pageNo: pageNo, sort: '-create_at'}, function (err, ret) {
     if (err) {
       console.error('加载评论列表失败', err.stack);
       return res.fail();

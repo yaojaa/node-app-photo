@@ -3,6 +3,7 @@ var models = require('../models');
 var Comment = models.Comment;
 var User = models.User;
 var async = require('async');
+var moment = require('moment');
 
 exports.add = function (model, callback) {
   Comment.create(model, function (err, model) {
@@ -88,9 +89,9 @@ exports.page = function (query, opt, callback) {
           id: item._id,
           belongId: item.userId,
           content: item.content,
-          createAt: item.create_at,
+          createAt: moment(item.create_at).format('YYYY-MM-DD HH:mm:ss'),
           userId: item.userId,
-          nickname: item.nickname,
+          nickname: item.userName,
           userAvatar: item.userAvatar,
           replyId: item.replyId,
           replyName: item.replyName,
