@@ -81,11 +81,15 @@ var PAGECONFIG = {
 
 #comment {
     padding-top: 20px;
-    font-size: 12px !important;
+    font-size: 14px !important;
+}
+#comment .info {
+  white-space: normal;
+  word-break:break-all;
 }
 #comment .info strong{
   font-weight: bold;
-  padding-right: 10px;
+  padding-right: 5px;
   color:#999;
 }
 #comment .date{
@@ -96,6 +100,10 @@ var PAGECONFIG = {
 
 #commentBtn{
     cursor:pointer;
+}
+
+textarea{
+  overflow: hidden;
 }
 </style>
 
@@ -190,8 +198,8 @@ var PAGECONFIG = {
                                         <img width="30" height="30" src="{{user.avatar}}?imageView2/1/w/30/" alt="">
                                     </div>
                                     <div class="media-body">
-                                  <div class="has-feedback" style="padding-bottom: 10px;">
-                                    <input id="commentContent" class="form-control" type="text" name="content">
+                                  <div style="padding-bottom: 10px;">
+                                    <textarea row="2" autoHeight="true" id="commentContent" class="form-control" type="text" name="content"></textarea>
                                             
                                         </div>
                                         <button class="btn btn-sm" id="commentBtn">评论</button>
@@ -242,13 +250,13 @@ getCommentList()
 
 function commentAdd(btn){
 
-    $(btn).text('提交中...')
 
   var commentContent=$('#commentContent').val();
 
-  if(commentContent==''){
+  if(commentContent=='' || commentContent.length>200){
     return
   }
+    $(btn).text('提交中...')
 
   $.post('/comment/add',{ 
     replyId:'', //回复人ID (对某个人回复对应的这个人ID,可省略)
@@ -270,9 +278,9 @@ function commentAdd(btn){
 
         }
         else if(data.errorno==0){
-$('#commentContent').val('');
-$(btn).text('评论')
-getCommentList()
+          $('#commentContent').val('');
+          $(btn).text('评论')
+          getCommentList()
 
 
           
@@ -285,7 +293,29 @@ $('#commentBtn').on('click',function(){
 })
 
 
-
+    $.fn.autoHeight = function(){
+      
+      function autoHeight(elem){
+        var len=elem.value.length;
+        if(len>200){
+          return elem.value=elem.value.substring(0,200)
+        }
+        elem.style.height = '22px';
+        elem.scrollTop = 0; //防抖动
+        elem.style.height = elem.scrollHeight + 'px';
+      }
+      
+      this.each(function(){
+        autoHeight(this);
+        $(this).on('keyup', function(){
+          autoHeight(this);
+        });
+      });
+     
+    }
+      
+      
+    $('textarea[autoHeight]').autoHeight();
 
 
 
