@@ -44,17 +44,8 @@ app.use(session({
 }))
 
 
-/**
- * cookie 中间件
- * 先判断是否有cookie，有的话直接登录
- */
-// app.use(function(req, res, next) {
-
-// })
 
 
-//消息提示组件
-// app.use(flash());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -73,6 +64,7 @@ app.use(bodyParser.urlencoded({
 //处理session的中间件
 app.use(function (req, res, next) {
   req.user = res.locals.user = req.session.user;
+  app.locals.default_avatar=config.avatar
   next();
 });
 
