@@ -175,7 +175,7 @@ textarea{
                             <br>
                             <p>已有<i class="red">{{photo.trade_cnt}}</i>人购买</p>
                             {{/if}}
-                            <h4>作者信息 {{default_avatar}}</h4>
+                            <h4>作者信息</h4>
 
                             <div id="author">
                             <div class="clearfix">
@@ -286,6 +286,7 @@ function commentAdd(btn){
             }, function() {
                 location.href = "/login"
             });
+          $(btn).text('评论')
 
         }
         else if(data.errorno==0){

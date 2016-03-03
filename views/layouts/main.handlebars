@@ -72,22 +72,43 @@
     </div>
   </div>
 </div>
-{{{body}}} {{#if showTests}}
-  <div id="mocha"></div>
-  <script src="/vendor/mocha.js"></script>
-  <script src="/vendor/chai.js"></script>
-  <script>
-    mocha.ui('tdd');
-    var assert = chai.assert;
-  </script>
-  <script src="/qa/tests-global.js"></script>
-  {{#if pageTestScript}}
-    <script src="{{pageTestScript}}"></script>
-  {{/if}}
-  <script>
-    mocha.run();
-  </script>
-{{/if}}
+{{{body}}} 
+<div class="navbar-gradient"></div>
+<div id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6 col-sm-3 col-md-3 col-pc-3 col-lg-3">
+            <dl>
+              <dt>新手帮助</dt>
+              <dd> <a href="/web/cms/cms_page/9" target="_blank">如何充值</a></dd>
+              <dd> <a href="/web/cms/cms_page/10" target="_blank">升级VIP</a></dd>
+            </dl>
+          </div>
+          <div class="col-xs-6 col-sm-3 col-md-3 col-pc-3 col-lg-3">
+            <dl>
+              <dt>招聘信息</dt>
+              <dd> <a href="/web/cms/cms_page/11" target="_blank">招聘兼职模特</a></dd>
+              <dd> <a href="/web/cms/cms_page/12" target="_blank">招聘摄影师</a></dd>
+              <dd> <a href="/web/cms/cms_page/13" target="_blank">给我们投稿</a></dd>
+            </dl>
+          </div>
+          <div class="col-xs-6 col-sm-3 col-md-3 col-pc-3 col-lg-3">
+            <dl>
+              <dt>联系我们</dt>
+              <dd> <a href="/web/cms/cms_page/14" target="_blank">客服QQ</a></dd>
+              <dd> <a href="/web/cms/cms_page/15" target="_blank">意见反馈</a></dd>
+            </dl>
+          </div>
+          <div class="col-xs-6 col-sm-3 col-md-3 col-pc-3 col-lg-3">
+            <dl>
+              <dt>关注我们</dt>
+              <dd> <a href="/web/cms/cms_page/16" target="_blank">新浪微博</a></dd>
+              <dd> <a href="/web/cms/cms_page/17" target="_blank">微信</a></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
 </body>
 
 </html>
