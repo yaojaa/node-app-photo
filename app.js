@@ -1,5 +1,4 @@
 var config = require('./config');
-
 var express = require('express');
 var path = require('path');
 // var favicon = require('serve-favicon');
@@ -11,24 +10,39 @@ var session = require('express-session');
 var app = express();
 var cors = require('cors');
 
+var blocks={};
 var handlebars = require('express-handlebars')
   .create({
     defaultLayout: 'main',
     helpers: {
-      section: function (name, options) {
-        if (!this._sections) this._sections = {};
-        this._sections[name] = options.fn(this);
-        return null;
+      extend:function(name,context){
+         var block = blocks[name];
+          if (!block) {
+              block = blocks[name] = [];
+          }
+          block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+
+      },
+      block:function(name){
+        var val = (blocks[name] || []).join('\n');
+          // clear the block
+          blocks[name] = [];
+          return val;
       }
     }
   });
+
+
+
 // view engine setup
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
+
 //app.use(function(req,res,next){
 //  if(!res.locals.partials) res.locals.partials = {};
 //});
+
 
 // //开启cookie
 app.use(cookieParser(config.session_secret));

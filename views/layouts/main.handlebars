@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
   <title>风影-摄影师自己的家园</title>
   <!--qq登录验证-->
   <meta property="qc:admins" content="1114473662665671517563757"/>
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="/vendor/mocha.css"> {{/if}}
   <script src="/vendor/js/jquery-2.1.4.min.js"></script>
   <script src="/js/common.js"></script>
+   {{{block "stylesheets"}}}
 </head>
 
 <body>
@@ -72,7 +74,8 @@
     </div>
   </div>
 </div>
-{{{body}}} 
+{{{body}}}
+
 <div class="navbar-gradient"></div>
 <div id="footer">
       <div class="container">
@@ -109,6 +112,10 @@
         </div>
       </div>
     </div>
+
+
+       {{{block "customerScript"}}}
+
 </body>
 
 </html>

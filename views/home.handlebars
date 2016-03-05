@@ -1,6 +1,12 @@
+{{#extend "stylesheets"}}
 <link rel="stylesheet" href="/css/index.min.css?9988">
 <link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
 <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
+{{/extend}}
+
+
+
+
 <div id="banner">
   <img src="../images/banner.jpg" alt="">
 
@@ -17,6 +23,8 @@
     {{/if}}
   </div>
 </div>
+
+
 <div class="tab_wrapper">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
@@ -56,6 +64,12 @@
   </div>
 </div>
 <div class="navbar-gradient"></div>
+
+
+{{#extend "customerScript"}}
+
+
+
 <script type="text/javascript">
 
 
@@ -192,3 +206,5 @@
   }());
 
 </script>
+
+{{/extend}}
