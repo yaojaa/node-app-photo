@@ -384,7 +384,7 @@ function DataTable(options) {
       if (options.ajax) {
         CMS.$body.prepend(CMS.$loading);
         $.ajax({
-          url: CMS.url + options.ajax.url,
+          url: options.ajax.url,
           data: options.ajax.data,
           beforeSend: function (xhr, obj) {
             if (obj.data) {
