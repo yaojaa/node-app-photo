@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-7">
+        <h4>用户列表</h4>
+      </div>
+      <div class="col-xs-2">
+        <input class="form-control" placeholder="昵称" type="text" id="nickname"/>
+      </div>
+      <div class="col-xs-2">
+        <input class="form-control" placeholder="邮箱" type="text" id="email"/>
+      </div>
+      <div class="col-xs-1">
+        <button type="button" class="btn btn-default" onclick="search();"><i class="fa fa-search"></i> 查询
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table id="datatable" class="table table-bordered table-responsive "
+             style="margin-bottom: 0px !important;border-bottom: none!important">
+      </table>
+    </div>
+  </div>
+</div>
+
+{{#extend "customerScript"}}
+
+<script>
+
+  $(function(){
+    search();
+
+  });
+
+  function search() {
+    var data = {
+      nickname : $.trim($('#nickname').val()),
+      email : $.trim($('#email').val())
+    };
+    new DataTable({
+      id: '#datatable',
+      paging: true,
+      pageSize: 10,
+      ajax: {
+        url: '/sys/uc/list',
+        data: data
+      },
+      columns: [{
+        "data": "nickname",
+        "title": "昵称"
+      },{
+        "data": "email",
+        "title": "邮箱"
+      },{
+        "data": "sex",
+        "title": "sex"
+      },{
+        "data": "create_at",
+        "title": "注册时间"
+      },{
+        "data": "source",
+        "title": "来源"
+      }]
+    });
+  }
+
+</script>
+
+{{/extend}}

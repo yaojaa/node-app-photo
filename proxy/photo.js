@@ -149,9 +149,9 @@ exports.page = function (query, keys, opt, callback) {
     },
     function (err, results) {
       var list = results.one;
-      var count = results.tow;//总记录数
+      var count = results.two;//总记录数
       var total = Math.ceil(count / pageSize);//总页数
-      callback(null, list);
+      callback(null, {list: list, count: count, total: total});
 
     });
 

@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+
+  <!-- 标题 -->
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-10 col-sm-10">
+        <h4>查看工作目标</h4>
+      </div>
+      <div class="col-md-2 col-sm-2">
+        <a href="javascript:history.back();" class="btn btn-default">返回</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主体内容 -->
+  <div class="panel-body">
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">名称 : </label>
+
+        <div class="col-sm-10 u-word">{{photoinfo.title}}</div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">描述 : </label>
+
+        <div class="col-sm-10 u-word">{{photoinfo.discrib}}</div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">图片 : </label>
+
+        <div class="col-sm-10 u-word">
+           {{#each photoinfo.pictures }}
+             <img width="200px" src="{{this}}" alt=""/>
+           {{/each}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

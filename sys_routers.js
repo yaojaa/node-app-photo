@@ -1,9 +1,11 @@
 var express = require('express');
 var main = require('./controllers/sys/main');
+var user = require('./controllers/sys/user');
+var photo = require('./controllers/sys/photo');
 
 var router = express.Router();
 
-router.use('/*', function (req, res, next) {
+router.use(function (req, res, next) {
   var user = req.session.sysUser;
   if(user){
     console.log("user name === " + user['login_name']);
@@ -43,6 +45,23 @@ router.post('/user/list', main.page);
 router.post('/user/add', main.save);
 
 router.post('/user/repwd', main.repwd);
+
+
+
+//网站用户管理
+router.get('/uc/list', function (req, res) {
+  out(req, res, 'sys/uc_list');
+});
+router.post('/uc/list', user.page);
+router.post('/uc/:id', user.detail);
+
+//网站图集管理
+router.get('/photo/list', function (req, res) {
+  out(req, res, 'sys/photo_list');
+});
+router.post('/photo/list', photo.page);
+router.get('/photo/del/:id', photo.del);
+router.get('/photo/:id', photo.detail);
 
 function out(req, res, view, data) {
   var user = req.session.sysUser;
