@@ -1,3 +1,5 @@
+{{#extend "stylesheets"}}
+
 <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
 <script>
 var PAGECONFIG = {
@@ -107,6 +109,8 @@ textarea{
 }
 </style>
 
+{{/extend}}
+
 
 <div class="darkbg">
     <div class="container">
@@ -125,9 +129,15 @@ textarea{
                         <div class="photo-header clearfix">
                             <h1 class="pull-left">{{photo.title}}</h1>
                             <p class="pull-right" id="J-picset-attention" class="picset-cmtnum">
-                                <b title="浏览量" class="w-ico-attention">点击数</b> <span id="J-picset-viewcount">2328</span>
+
+
+                                <b title="浏览量" class="w-ico-attention">浏览数</b> <span id="J-picset-viewcount">2328</span>
                                 <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
                                 <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span>
+                                 <b title="更新日期" class="w-ico-like f-ml20">更新日期</b> <span id="J-picset-likecount">{{photo.update_at}}</span>
+
+
+                                 
                             </p>
                         </div>
                         <div class="photo">
@@ -226,12 +236,14 @@ textarea{
                 </div>
             </div>
             <!---->
-            <p align="center"><i>浏览：1152次</i><i>时间：{{photo.update_at}} </i></p>
             <!--未购买-->
         </div>
     </div>
 </div>
 </div>
+
+{{#extend "customerScript"}}
+
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
 <script src="/tpl/comment_list.hbs.js"></script>
@@ -408,3 +420,4 @@ $('.btn-buy').on('click', function() {
 //关注取消关注
 
 </script>
+{{/extend}}

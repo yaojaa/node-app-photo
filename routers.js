@@ -32,6 +32,11 @@ router.get('/', function (req, res) {
   res.render('home', {user: req.session.user})
 })
 
+router.get('/ranking', function (req, res) {
+  res.render('ranking', {user: req.session.user})
+})
+
+
 //后台接口
 router.use('/sys', sysRouter);
 

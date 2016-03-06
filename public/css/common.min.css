@@ -1292,7 +1292,7 @@ html {
 }
 
 body {
-    font-family: "Microsoft JhengHei", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", tahoma, arial, simsun, "宋体";
+    font-family: "Hiragino Sans GB",  "Microsoft JhengHei","Microsoft YaHei", "微软雅黑", tahoma, arial, simsun, "宋体";
     -webkit-user-select: none;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     background: #f7f8fa;
@@ -1302,8 +1302,7 @@ body {
 #header {
     background: #222;
     background-image: linear-gradient(to bottom, #222, #111);
-    line-height: 46px;
-    font-size: 20px;
+    font-size: 16px;
     width: 100%
 }
 
@@ -1346,14 +1345,12 @@ body {
 #header .menu li a {
     display: block;
     padding: 0 0.6em;
-    height: 46px;
-    line-height: 46px
+    line-height: 50px
 }
 
 #header .menu li a:hover {
     color: #fff;
     background: #111;
-    border-bottom: 1px solid red
 }
 
 #header .menu li.on a {

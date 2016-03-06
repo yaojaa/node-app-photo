@@ -3,6 +3,9 @@ var Photo = require('../proxy/photo.js');
 var User = require('../proxy/user.js');
 var validator = require('validator');
 var EventProxy = require('eventproxy');
+var _= require('../lib/tools.js');
+
+var moment=require('moment');
 
 var list_photo_count = config.list_photo_count;
 
@@ -87,10 +90,17 @@ exports.showDetail = function(req, res) {
 
     ep.all('dataPhoto', 'isBuy', 'author', 'isFollow', function(dataPhoto, isBuy, author, isFollow) {
 
+        console.log(dataPhoto)
+        var tmpData=_.pick(dataPhoto);
+        tmpData.update_at=moment(tmpData.update_at).fromNow()
+
+
+
+
 
         res.render('photo-view', {
             title: dataPhoto.title,
-            photo: dataPhoto,
+            photo: tmpData,
             isBuy: isBuy,
             author: author,
             isFollow: isFollow
@@ -169,11 +179,11 @@ exports.showDetail = function(req, res) {
 
 
     //修改浏览次数
-    Photo.updateCountById(_id, 1, function(err) {
-        if (err) {
-            return console.error('修改图片浏览次数出错了:', err);
-        }
-    });
+    // Photo.updateCountById(_id, 1, function(err) {
+    //     if (err) {
+    //         return console.error('修改图片浏览次数出错了:', err);
+    //     }
+    // });
 
 
 }

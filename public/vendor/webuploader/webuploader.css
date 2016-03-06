@@ -114,18 +114,6 @@
     position: relative;
     overflow-x: hidden;
 }
-.wu-example::after {
-    color: #bbb;
-    content: "或本地上传";
-    font-size: 12px;
-    font-weight: bold;
-    left: 15px;
-    letter-spacing: 1px;
-    position: absolute;
-    text-transform: uppercase;
-    top: 15px;
-}
-
 #video-picker{
 	float: left;
 	margin-right: 20px
