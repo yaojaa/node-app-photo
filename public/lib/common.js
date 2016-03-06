@@ -65,11 +65,10 @@ jQuery.extend({
 var CMS = {
   $body: $('body'),
   $loading: $('<div id="loading" class="loading"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>'),
-  url: 'http://127.0.0.1:3000',
   ajax: function (obj) {
     CMS.$body.prepend(CMS.$loading);
     $.ajax({
-      url: CMS.url + obj.url,
+      url: obj.url,
       data: obj.data,
       type: "POST",
       dataType: "json",
