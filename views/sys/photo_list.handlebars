@@ -1,0 +1,120 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-7">
+        <h4>图集列表</h4>
+      </div>
+      <div class="col-xs-2">
+        <input class="form-control" placeholder="标题" type="text" id="title"/>
+      </div>
+      <div class="col-xs-2">
+        <input class="form-control" placeholder="作者" type="text" id="author"/>
+      </div>
+      <div class="col-xs-1">
+        <button type="button" class="btn btn-default" onclick="search();"><i class="fa fa-search"></i> 查询
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table id="datatable" class="table table-bordered table-responsive "
+             style="margin-bottom: 0px !important;border-bottom: none!important">
+      </table>
+    </div>
+  </div>
+</div>
+
+{{#extend "customerScript"}}
+
+  <script>
+
+    $(function () {
+      search();
+
+    });
+
+    function search() {
+      var data = {
+        title: $.trim($('#title').val()),
+        author: $.trim($('#author').val())
+      };
+      new DataTable({
+        id: '#datatable',
+        paging: true,
+        pageSize: 10,
+        ajax: {
+          url: '/sys/photo/list',
+          data: data
+        },
+        columns: [{
+          "data": "title",
+          "title": "名称"
+        }, {
+          "data": "author",
+          "title": "作者"
+        }, {
+          "data": "picture_count",
+          "title": "图片数量"
+        }, {
+          "data": "category_text",
+          "title": "类型"
+        }, {
+          "data": "price",
+          "title": "价格"
+        }, {
+          "data": "recommend",
+          "title": "是否推荐"
+        }, {
+          "data": "browse_cnt",
+          "title": "浏览次数"
+        }, {
+          "data": "like_cnt",
+          "title": "点赞次数"
+        }, {
+          "data": "comment_cnt",
+          "title": "评论次数"
+        }, {
+          "data": "trade_cnt",
+          "title": "购买次数"
+        }, {
+          "data": "create_at",
+          "title": "创建时间"
+        }, {
+          "data": null,
+          "title": "操作"
+        }],
+        columnDefs: [{
+          "width": "90px",
+          targets: 11,
+          render: function (i, j, item) {
+            return '<a href="javascript:del(\'' + item.id + '\');">删除</a>&nbsp;&nbsp;&nbsp;<a href="/sys/photo/' + item.id + '">详情</a>';
+          }
+        }
+        ]
+      });
+    }
+
+    function del(id) {
+      bootbox.confirm("您确定要删除吗？", function (result) {
+        if (result) {
+          my.ajax({
+            url : '/sys/photo/del/' + id,
+            type : "get",
+            success : function(){
+              $.success('操作成功',null,null,function(){
+                window.location.reload();
+              });
+            },
+            error : function(){
+              $.danger('网络异常，请联系管理员！');
+            }
+          });
+        }
+      });
+
+    }
+
+  </script>
+
+{{/extend}}

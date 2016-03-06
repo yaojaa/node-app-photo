@@ -1,3 +1,35 @@
+//设置一个全局变量
+var my = {
+  baseImageURL: 'http://7xobdo.com1.z0.glb.clouddn.com/'
+};
+
+//对ajax请求结果统一处理
+my.ajax = function (options) {
+  options.type = options.type || 'post';
+  options.timeout = options.timeout || 3000;
+  options.dataType = options.dataType || 'JSON';
+  var success = options.success;
+  var error = options.error;
+  options.success = function (data) {
+    if (data.errorno >= 0) {
+      success(data.data);
+    } else {
+      alert(data.msg);
+    }
+  };
+  options.error = function () {
+    if (error && typeof error === 'function') {
+      error.apply(this, arguments);
+    } else {
+      alert('网络异常');
+    }
+  };
+  $.ajax(options);
+};
+
+
+
+
 jQuery.extend({
   intiAlert: function (cnt, dom, cls, time, callback) {
     time = time || 3000;
@@ -33,11 +65,10 @@ jQuery.extend({
 var CMS = {
   $body: $('body'),
   $loading: $('<div id="loading" class="loading"><div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>'),
-  url: 'http://127.0.0.1:3000',
   ajax: function (obj) {
     CMS.$body.prepend(CMS.$loading);
     $.ajax({
-      url: CMS.url + obj.url,
+      url: obj.url,
       data: obj.data,
       type: "POST",
       dataType: "json",
@@ -353,7 +384,7 @@ function DataTable(options) {
       if (options.ajax) {
         CMS.$body.prepend(CMS.$loading);
         $.ajax({
-          url: CMS.url + options.ajax.url,
+          url: options.ajax.url,
           data: options.ajax.data,
           beforeSend: function (xhr, obj) {
             if (obj.data) {

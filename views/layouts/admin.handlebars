@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -10,7 +9,7 @@
   <meta name="author" content="">
   <link rel="icon" href="../../favicon.ico">
 
-  <title>CMS管理系统</title>
+  <title>风影网管理系统</title>
 
   <!-- Bootstrap core CSS -->
   <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
@@ -26,13 +25,14 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">CMS管理系统</a>
+      <a class="navbar-brand" href="#">风影网管理系统</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
@@ -49,10 +49,10 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">系统管理 <span class="sr-only">(current)</span></a></li>
-        <li><a href="/sys/user/list">用户列表</a></li>
-        <li><a href="#">XXX</a></li>
-        <li><a href="#">ZZZZ</a></li>
+        <!--<li id="sys_id"><a href="/sys">系统管理 <span class="sr-only">(current)</span></a></li>-->
+        <!--<li id="user_id"><a href="/sys/user/list">系统用户</a></li>-->
+        <li id="uc_id"><a href="/sys/uc/list">网站用户</a></li>
+        <li id="photo_id"><a href="/sys/photo/list">图集管理</a></li>
       </ul>
     </div>
 
@@ -69,6 +69,17 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="/lib/bootbox.js"></script>
 <script src="/lib/common.js"></script>
-{{{_sections.script}}}
+{{{block "customerScript"}}}
+<script>
+  $(function () {
+    var path_module = location.pathname.substr(5);
+    if (path_module) {
+      path_module = path_module.substring(0, path_module.indexOf('/'));
+      $('#' + path_module + '_id').addClass('active');
+    } else {
+      $('#sys_id').addClass('active');
+    }
+  });
+</script>
 </body>
 </html>

@@ -142,5 +142,52 @@ exports.unfollow = function (followID, userID, callback) {
 
     });
 
-}
+};
 
+/**
+ * 分页查询
+ * @param query 查询条件
+ * @param keys 查询的字段
+ * @param opt 排序，分页如{pageNo: 1，pageSize: 10, sort: '-create_at'}
+ * @param callback
+ */
+exports.page = function (query, keys, opt, callback) {
+  var pageNo = opt.pageNo || 1;
+  var pageSize = opt.pageSize || 10;
+  pageNo--;
+
+  async.parallel({
+      one: function (callback) {
+        var skip = pageNo * pageSize;
+        var limit = pageSize;
+
+        opt.skip = skip;
+        opt.limit = limit;
+        User.find(query, keys, opt, callback);
+      },
+      two: function (callback) {
+        User.count(query, callback);
+      }
+    },
+    function (err, results) {
+      var list = results.one;
+      var count = results.two;//总记录数
+      var total = Math.ceil(count / pageSize);//总页数
+      callback(null, {list: list, count: count, total: total});
+
+    });
+
+};
+
+/**
+ * 分页查询
+ * @param query 查询条件
+ * @param keys 查询的字段
+ * @param opt 排序，分页如{pageNo: 1，pageSize: 10, sort: '-create_at'}
+ * @param callback
+ */
+exports.find = function (query, keys, opt, callback) {
+
+  User.find(query, keys, opt, callback);
+
+};
