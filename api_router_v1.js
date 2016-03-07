@@ -45,7 +45,7 @@ router.post('/buyPhoto', auth.userRequired, photoController.buyPhoto)
 router.post('/checkIsBuy', auth.userRequired, photoController.checkIsBuy)
 
 //关注
-router.post('/follow', ucenterController.follow);
+router.post('/follow',auth.userRequired, photoController.follow);
 
 
 //开通vip

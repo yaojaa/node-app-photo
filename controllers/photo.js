@@ -77,12 +77,17 @@ exports.publish = function (req, res) {
 
 };
 
-//图片正文页
+/**
+ * 图片正文页
+
+ */
+
+//
 exports.showDetail = function (req, res) {
 
   var _id = req.params._id;
   var usermail = req.session.user ? req.session.user.email : '';
-  var user_id = req.session.user ? req.session.user._id : '';
+  var user_id = req.session.user ? req.session.user.id : '';
 
   var ep = new EventProxy();
 
@@ -95,7 +100,13 @@ exports.showDetail = function (req, res) {
 
 
 
+        //修改浏览次数
+          Photo.updateCountById(_id, 1, function (err) {
+            if (err) {
+              return console.error('修改图片浏览次数出错了:', err);
+            }
 
+          });
 
         res.render('photo-view', {
             title: dataPhoto.title,
@@ -104,6 +115,8 @@ exports.showDetail = function (req, res) {
             author: author,
             isFollow: isFollow
         })
+
+      })
 
 
   //1.判断是否购买
@@ -128,7 +141,6 @@ exports.showDetail = function (req, res) {
     })()
 
   } else {
-    console.log('usermail false');
 
     ep.emit('isBuy', false);
 
@@ -154,7 +166,15 @@ exports.showDetail = function (req, res) {
       if (err) {
         return err
       }
-      if (data.followings.indexOf(user_id) > -1) {
+      console.info('作者的fans',data.fans);
+
+       console.info('user_id',user_id);
+
+      console.info('是否作者的fans',data.fans.indexOf(user_id));
+
+
+
+      if (data.fans.indexOf(user_id) > -1) {
         ep.emit('isFollow', true);
       } else {
         ep.emit('isFollow', false);
@@ -166,21 +186,10 @@ exports.showDetail = function (req, res) {
   }
 
 
-  //4. 当前用户是否关注了作者
-
-  function checkIsFollowAuthor(user_id, author_id) {
 
 
-  }
 
 
-  //修改浏览次数
-  Photo.updateCountById(_id, 1, function (err) {
-    if (err) {
-      return console.error('修改图片浏览次数出错了:', err);
-    }
-
-  });
 
 
 }
@@ -193,6 +202,7 @@ exports.showDetail = function (req, res) {
  * @param req
  * @param res
  */
+
 exports.findList = function (req, res) {
   var type = parseInt(req.body.type);
   var pageNo = req.body.pageNo;

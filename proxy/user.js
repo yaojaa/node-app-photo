@@ -81,64 +81,53 @@ exports.update = function (id, model, callback) {
 }
 
 //关注某人
-exports.follow = function (followID, userID, callback) {
+exports.follow = function (followID, userID, callbacks) {
+
+  console.log('关注某人',followID,userID)
 
   async.parallel({
       one: function (callback) {
 
-        User.findOne({'_id': userID}, function (err, user) {
-          if (err || !user) {
-            return callback(err);
-          }
-          user.followers.addToSet(followID);
+        User.findOneAndUpdate({'_id': userID}, { $addToSet: { followings: followID }}, {new:true}, callback)
 
-          user.save(callback);
-
-        });
 
       },
       two: function (callback) {
 
-        User.findOne({'_id': followID}, function (err, user) {
-          if (err || !user) {
-            return callback(err);
-          }
-          user.followings.addToSet(userID);
+        User.findOneAndUpdate({'_id': followID}, { $addToSet: { fans: userID }}, {new:true}, callback)
 
-          user.save(callback);
-
-        });
-
-      },
-      three: function (callback) {
-
-        User.findOne({'_id': userID}, callback);
-      }
-    },
+ 
+    }
+  },
     function (err, results) {
 
+        console.log('err',err)
 
-      callback(err, results);
 
-    });
+      console.log('results',results)
 
+       callbacks(err, results);
+
+    })
 }
 
 //取消关注某人
-exports.unfollow = function (followID, userID, callback) {
+exports.unfollow = function (followID, userID, callbacks) {
   async.parallel({
       one: function (callback) {
-        User.update({_id: userID}, {$pull: {'followers': followID}}, callback);
+        User.update({_id: userID}, {$pull: {followings: followID}}, callback);
 
       },
       two: function (callback) {
-        User.update({_id: followID}, {$pull: {'followings': userID}}, callback);
+        User.update({_id: followID}, {$pull: {fans: userID}}, callback);
 
       }
     },
     function (err, results) {
 
-      callback(err, results);
+      console.log('results',results)
+
+      callbacks(err, results);
 
     });
 

@@ -11,7 +11,7 @@ var UserSchema = new Schema({
   hasBuy: {type: Array}, //已经购买的图集
   topic_count: {type: Number, default: 0}, //主题数量
   reply_count: {type: Number, default: 0}, //回复数量
-  followers:{type: Array},//关注者列表粉丝
+  fans:{type: Array},//粉丝
   followings:{type: Array},//关注
 
 
