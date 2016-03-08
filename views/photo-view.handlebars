@@ -146,7 +146,7 @@ textarea{
                                     {{#if isBuy }}
 
                                         {{#each photo.pictures}}
-                                        <a href="{{this}}"><img width="100%" class="tobeview" src="{{this}}?imageView2/1/w/1000/" alt="{{photo.title}} "/></a>
+                                        <a href="{{this}}"><img width="100%" class="tobeview" src="{{this}}?imageView2/1/" alt="{{photo.title}} "/></a>
                                          
                                         {{/each}} 
 
@@ -170,6 +170,9 @@ textarea{
                         <div class="cart-actions not-in-cart">
                             {{#if photo.price}}
                             <div class="price"> 售价：￥{{photo.price}}</div>
+
+                            {{#if authorIsNotSelf}}
+
                             {{#if isBuy }}
                              <button class="btn-buy btn btn-success btn-block btn-lg" disabled="disabled">
                                 已购买
@@ -182,6 +185,7 @@ textarea{
                             </button>
 
                             {{/if}}
+                              {{/if}}
                             <br>
                             <p>已有<i class="red">{{photo.trade_cnt}}</i>人购买</p>
                             {{/if}}
@@ -191,10 +195,15 @@ textarea{
                             <div class="clearfix">
 <div class="headpic"><img width="50" src="{{author.avatar}}?imageView2/1/w/50/"></div>
 <div class="title"><a href="/space/{{user.id}}">{{author.nickname}}</a></div>
+
+{{#if authorIsNotSelf}}
+
 {{#if isFollow}}
  <div class="flow"> <button id="{{author._id}}" title="点击取消关注" action-type="unfollow" type="button" class="btn btn-default btn-mn unflowbtn">✔ 已关注</button></div>
 {{else}}
  <div class="flow"> <button id="{{author._id}}" title="点击关注" action-type="follow"  type="button" class="btn btn-primary btn-mn flowbtn"> + 关注</button></div>
+{{/if}}
+
 {{/if}}
 </div>
 
@@ -420,10 +429,19 @@ $('.btn-buy').on('click', function() {
 //关注取消关注
 
 $('.flowbtn').on('click',function(){
-
+        console.log('ffff')
     var author_id=$(this).attr('id');
+    var $btn=$(this);
 
     $.post('/api/v1/follow',{author_id:author_id},function(data){
+
+        console.log(data);
+
+        if(data.errorno===0){
+
+            $btn.text('✔ 已关注')
+
+        }
 
 
     })

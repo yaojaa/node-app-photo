@@ -65,7 +65,7 @@ exports.publish = function (req, res) {
   var tags = validator.trim(req.body.tags);
   var pictures = req.body.pictures;
   var category = req.body.category;
-  var authorId = req.session.user.id || '000';
+  var authorId = req.session.user.id;
   var price = validator.trim(req.body.price)
   Photo.newAndSave(title, discrib, pictures, category, authorId, price, function (err) {
     if (err) {
@@ -96,7 +96,14 @@ exports.showDetail = function (req, res) {
 
 
         var tmpData=_.pick(dataPhoto);
-        tmpData.update_at=moment(tmpData.update_at).fromNow()
+        tmpData.update_at=moment(tmpData.update_at).fromNow();
+
+        //如果作者是当前登录用户
+        if(author._id!=user_id){
+
+          var authorIsNotSelf=true
+
+        }
 
 
 
@@ -111,6 +118,7 @@ exports.showDetail = function (req, res) {
         res.render('photo-view', {
             title: dataPhoto.title,
             photo: tmpData,
+            authorIsNotSelf:authorIsNotSelf,
             isBuy: isBuy,
             author: author,
             isFollow: isFollow
@@ -153,6 +161,10 @@ exports.showDetail = function (req, res) {
       return ep.emit('error', err);
     }
 
+    if(dataPhoto.author_id==user_id){
+       ep.emit('isBuy', true);
+    }
+
     ep.emit('dataPhoto', dataPhoto);
 
     getAuthorInfo(dataPhoto.author_id)
@@ -166,13 +178,6 @@ exports.showDetail = function (req, res) {
       if (err) {
         return err
       }
-      console.info('作者的fans',data.fans);
-
-       console.info('user_id',user_id);
-
-      console.info('是否作者的fans',data.fans.indexOf(user_id));
-
-
 
       if (data.fans.indexOf(user_id) > -1) {
         ep.emit('isFollow', true);
@@ -180,6 +185,7 @@ exports.showDetail = function (req, res) {
         ep.emit('isFollow', false);
 
       }
+
       ep.emit('author', data);
     })
 

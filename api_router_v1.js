@@ -46,6 +46,7 @@ router.post('/checkIsBuy', auth.userRequired, photoController.checkIsBuy)
 
 //关注
 router.post('/follow',auth.userRequired, photoController.follow);
+router.post('/unfollow',auth.userRequired, photoController.unfollow);
 
 
 //开通vip
