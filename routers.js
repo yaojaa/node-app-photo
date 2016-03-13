@@ -7,6 +7,7 @@ var video = require('./controllers/video');
 var comment = require('./controllers/comment');
 var wechat = require('./controllers/wechat');
 var qq = require('./controllers/qq');
+var wxpay = require('./controllers/wxpay');
 
 var ucenter = require('./controllers/ucenter');
 var auth = require('./middlewares/auth');
@@ -64,6 +65,9 @@ router.get('/wechat/login', wechat.login);  // 进入微信登录页面
 router.get('/wechat/callback', wechat.callback);  // 进入微信登录页面
 router.get('/qq/login', qq.login);  // 进入微信登录页面
 router.get('/qq/callback', qq.callback);  // 进入微信登录页面
+
+router.get('/pub/wxpay/callback', wxpay.callback);  // 微信支付
+
 
 //根据这两句生成uptoken
 qiniu.conf.ACCESS_KEY = config.qn_access.ACCESS_KEY;
