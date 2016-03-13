@@ -23,6 +23,8 @@ require('./score');
 require('./score_log');
 require('./comment');
 require('./money_log');
+require('./money_log');
+require('./order');
 
 // require('./topic_collect');
 // require('./message');
@@ -39,6 +41,7 @@ exports.Score = mongoose.model('Score');
 exports.ScoreLog = mongoose.model('ScoreLog');
 exports.Comment = mongoose.model('Comment');
 exports.MoneyLog = mongoose.model('MoneyLog');
+exports.Order = mongoose.model('Order');
 
 
 // exports.Reply        = mongoose.model('Reply');

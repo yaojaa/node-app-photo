@@ -9,3 +9,4 @@ exports.generate = function (baseKey) {
   md5.update(key);
   return md5.digest('hex')
 };
+
