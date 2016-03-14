@@ -66,6 +66,7 @@ router.get('/wechat/callback', wechat.callback);  // 进入微信登录页面
 router.get('/qq/login', qq.login);  // 进入微信登录页面
 router.get('/qq/callback', qq.callback);  // 进入微信登录页面
 
+router.get('/pub/wxpay/makeQRcode', wxpay.makeQRcode);  // 微信支付二维码
 router.get('/pub/wxpay/callback', wxpay.callback);  // 微信支付
 
 

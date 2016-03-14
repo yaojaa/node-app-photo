@@ -4,6 +4,7 @@ var crypto = require('crypto');
 var Photo = require('../proxy/photo.js');
 var Order = require('../proxy/order.js');
 var generator = require('../util/randomStatusGenerator');
+var qr = require('qr-image');
 
 //公众号APPID
 var appid = 'wxf849f8f6fce31880';
@@ -56,6 +57,13 @@ function generateOrderInfo(product, openid, callback) {
 
 //制作支付二维码
 exports.makeQRcode = function (req, res) {
+
+
+  var img = qr.image('https://segmentfault.com/q/1010000002452735',{size :10});
+  res.writeHead(200, {'Content-Type': 'image/png'});
+  img.pipe(res);
+
+  return;
   var product_id = req.params.productid;
 
   Photo.findPhotoById(product_id, function (err, model) {
@@ -147,5 +155,3 @@ function handleSign(params) {
   str = md5.digest('hex').toUpperCase();
   return str;
 }
-
-makeQRcode();
