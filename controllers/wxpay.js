@@ -16,12 +16,9 @@ var unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
 
 //微信支付回调处理
 exports.callback = function (req, res) {
-  //商品ID
-  var productid = req.query.productid;
-  //用户openID
-  var openid = req.params.openid;
-  console.log('------->', productid, openid);
+  console.log('------->', req.body);
   res.end('fail');
+  return;
   async.waterfall([function (callback) {
     //查询商品信息
     Photo.findPhotoById(productid, callback);
@@ -78,7 +75,7 @@ exports.makeQRcode = function (req, res) {
       var params = handleParam(qrcode);
       var sign = handleSign(params);
       var url = qrcode_url + '?' + params + '&sign=' + sign;
-      console.log('------->'+url);
+      console.log('------->' + url);
       var img = qr.image(url, {size: 10});
       res.writeHead(200, {'Content-Type': 'image/png'});
       img.pipe(res);
