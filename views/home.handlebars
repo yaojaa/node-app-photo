@@ -1,14 +1,177 @@
 {{#extend "stylesheets"}}
-<link rel="stylesheet" href="/css/index.min.css?9988">
-<link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
-<script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
+<link rel="stylesheet" href="/css/index.min.css">
+<link rel="stylesheet" href="/css/justifiedGallery.min.css">
+
+<style>
+.banner {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+
+  color: rgba(255,255,255,.6);
+  text-shadow: 0 0 1px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.3);
+
+  background: #5b4d3d;
+  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+  .banner ul {
+    list-style: none;
+    width: 300%;
+  }
+  .banner ul li {
+    display: block;
+    float: left;
+    width: 33%;
+    height: 350px;
+    overflow: hidden;
+
+    -o-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+
+    box-shadow: inset 0 -3px 6px rgba(0,0,0,.1);
+  }
+
+  .banner .inner {
+    padding: 100px 0 110px;
+  }
+
+  .banner h1, .banner h2 {
+    font-size: 60px;
+    line-height: 52px;
+
+    color: #fff;
+  }
+
+  .banner .btn {
+    display: inline-block;
+    margin: 25px 0 0;
+    padding: 9px 22px 7px;
+    clear: both;
+
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    border: 2px solid rgba(255,255,255,.4);
+    border-radius: 5px;
+  }
+    .banner .btn:hover {
+      background: rgba(255,255,255,.05);
+    }
+    .banner .btn:active {
+      -webkit-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
+      -moz-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
+      -ms-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
+      -o-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
+      filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
+    }
+
+  .banner .btn, .banner .dot {
+    -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+    -moz-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+    -ms-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+    -o-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
+  }
+
+  .banner .dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+  }
+    .banner .dots li {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 4px;
+
+      text-indent: -999em;
+
+      border: 2px solid #fff;
+      border-radius: 6px;
+
+      cursor: pointer;
+      opacity: .4;
+
+      -webkit-transition: background .5s, opacity .5s;
+      -moz-transition: background .5s, opacity .5s;
+      transition: background .5s, opacity .5s;
+    }
+      .banner .dots li.active {
+        background: #fff;
+        opacity: 1;
+      }
+
+  .banner .arrows {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: #fff;
+  }
+    .banner .arrow {
+      display: inline;
+      padding-left: 10px;
+      cursor: pointer;
+    }
+
+</style>
+
 {{/extend}}
 
-<div id="banner">
-  <img src="../images/banner.jpg" alt="">
+<div id="banner" class="banner" >
+    <ul>
 
-  <div class="cover"></div>
-  <div class="middle">
+
+    {{#if user}}
+
+        <li style="background-image: url('http://www.bootcss.com/p/unslider/img/subway.jpg')">
+       <div class="inner">
+            <h1>风影</h1>
+            <br>
+            <h4>分享精彩，实现价值</h4>
+            <br>
+
+<a href="/create-photo" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+         class="reg button button-rounded button-caution">+发布作品</a>        
+
+           </div>
+    </li>
+
+    {{else}}
+
+        <li style="background-image: url('http://www.bootcss.com/p/unslider/img/sunset.jpg')">
+
+    <div class="inner">
+            <h1>风影</h1>
+            <br>
+            <h4>分享精彩，实现价值</h4>
+            <br>
+
+<a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+         class="reg button button-rounded button-caution">立即加入</a>        
+
+           </div>
+
+    </li>
+
+      {{/if}}
+
+      
+    </ul>
+</div>
+
+
+<!--   <div class="middle">
     <h2>风影 </h2>
 
     <h3>分享精彩，实现价值</h3>
@@ -16,10 +179,11 @@
     {{#if user}}
     {{else}}
       <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-         class="button button-primary button-rounded">立即加入</a>
+         class="reg button button-rounded button-caution button-large">立即加入</a>
     {{/if}}
-  </div>
-</div>
+
+  </div> -->
+
 
 
 <div class="tab_wrapper">
@@ -42,28 +206,28 @@
 
   </div>
 </div>
+
+{{#if user}}
+
+{{else}}
 <div id="reg">
   <div class="container">
     <h2>加入会员</h2>
 
     <div class="subtit"><span>成为会员只需一步，立即体验吧</span></div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3 col-md-offset-2 col-pc-offset-2 col-lg-offset-2">
-        <input type="text" name="mini_name" placeholder="电子邮箱" class="form-control input-sm">
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-        <input type="text" name="mini_name" placeholder="设置密码" class="form-control input-sm">
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-3 col-pc-3 col-lg-3">
-        <button class="reg button button-rounded button-caution button-large">马上开始体验</button>
-      </div>
+    <div class="row" align="center" >
+        <a href="/reg" class="pull-center reg button button-rounded button-caution button-large">马上开始体验</a>
     </div>
   </div>
 </div>
+
+{{/if}}
 <div class="navbar-gradient"></div>
 
 
 {{#extend "customerScript"}}
+
+<script type="text/javascript" src="/js/jquery.justifiedGallery.min.js"></script>
 
 <script type="text/javascript">
 
@@ -200,6 +364,18 @@
     addListeners();
   }());
 
+//slider
+
+
+
+</script>
+
+<script src="//unslider.com/unslider.js"></script>
+
+<script>
+  $(function() {
+    $('.banner').unslider();
+});
 </script>
 
 {{/extend}}
