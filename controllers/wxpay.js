@@ -162,7 +162,7 @@ function parseBody(req, callback) {
   var bufferArr = [];
   req.on("data", function (data) {
     bufferArr.push(data);
-  };
+  });
   req.on("end", function () {
     var postData = Buffer.concat(bufferArr).toString();
     if (postData) req._body = postData;
