@@ -10,7 +10,7 @@ var qr = require('qr-image');
 var appid = 'wxf849f8f6fce31880';
 var mch_id = '1320356201';
 var api_secret = '1f13b03bb6e4445b3fe100a121cc4656';
-var qrcode_url = 'weixin：//wxpay/bizpayurl';
+var qrcode_url = 'weixin://wxpay/bizpayurl';
 //统一下单
 var unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
 
