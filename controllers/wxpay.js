@@ -16,8 +16,13 @@ var unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
 
 //微信支付回调处理
 exports.callback = function (req, res) {
-  console.log('------->', req._body);
-  res.end('fail');
+
+  parseBody(req, function(){
+
+    console.log('------->', req._body);
+    res.end('fail');
+
+  });
   return;
   async.waterfall([function (callback) {
     //查询商品信息
@@ -149,4 +154,18 @@ function handleSign(params) {
   md5.update(str);
   str = md5.digest('hex').toUpperCase();
   return str;
+}
+
+
+// 解析BODY
+function parseBody(req, callback) {
+  var bufferArr = [];
+  req.on("data", function (data) {
+    bufferArr.push(data);
+  };
+  req.on("end", function () {
+    var postData = Buffer.concat(bufferArr).toString();
+    if (postData) req._body = postData;
+    callback(null, postData);
+  });
 }
