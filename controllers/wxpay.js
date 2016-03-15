@@ -20,7 +20,8 @@ exports.callback = function (req, res) {
   var productid = req.query.productid;
   //用户openID
   var openid = req.params.openid;
-
+  console.log('------->', productid, openid);
+  res.end('fail');
   async.waterfall([function (callback) {
     //查询商品信息
     Photo.findPhotoById(productid, callback);
@@ -58,12 +59,6 @@ function generateOrderInfo(product, openid, callback) {
 //制作支付二维码
 exports.makeQRcode = function (req, res) {
 
-
-  var img = qr.image('https://segmentfault.com/q/1010000002452735',{size :10});
-  res.writeHead(200, {'Content-Type': 'image/png'});
-  img.pipe(res);
-
-  return;
   var product_id = req.params.productid;
 
   Photo.findPhotoById(product_id, function (err, model) {
@@ -83,7 +78,10 @@ exports.makeQRcode = function (req, res) {
       var params = handleParam(qrcode);
       var sign = handleSign(params);
       var url = qrcode_url + '?' + params + '&sign=' + sign;
-      res.end(url);
+
+      var img = qr.image(url, {size: 10});
+      res.writeHead(200, {'Content-Type': 'image/png'});
+      img.pipe(res);
     }
 
   });
@@ -113,19 +111,19 @@ function unifiedOrder(order, openid, callback) {
 
 //请求统一下单
 function requestUnifiedOrder(sign, order, callback) {
-  var data = '<xml>'+
-    '<appid>wx2421b1c4370ec43b</appid>'+
-    '<attach>支付测试</attach>'+
-    '<body>JSAPI支付测试</body>'+
-    '<mch_id>10000100</mch_id>'+
-    '<nonce_str>1add1a30ac87aa2db72f57a2375d8fec</nonce_str>'+
-    '<notify_url>http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php</notify_url>'+
-    '<openid>oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</openid>'+
-    '<out_trade_no>1415659990</out_trade_no>'+
-    '<spbill_create_ip>14.23.150.211</spbill_create_ip>'+
-    '<total_fee>1</total_fee>'+
-    '<trade_type>JSAPI</trade_type>'+
-    '<sign>0CB01533B8C1EF103065174F50BCA001</sign>'+
+  var data = '<xml>' +
+    '<appid>wx2421b1c4370ec43b</appid>' +
+    '<attach>支付测试</attach>' +
+    '<body>JSAPI支付测试</body>' +
+    '<mch_id>10000100</mch_id>' +
+    '<nonce_str>1add1a30ac87aa2db72f57a2375d8fec</nonce_str>' +
+    '<notify_url>http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php</notify_url>' +
+    '<openid>oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</openid>' +
+    '<out_trade_no>1415659990</out_trade_no>' +
+    '<spbill_create_ip>14.23.150.211</spbill_create_ip>' +
+    '<total_fee>1</total_fee>' +
+    '<trade_type>JSAPI</trade_type>' +
+    '<sign>0CB01533B8C1EF103065174F50BCA001</sign>' +
     '</xml>';
 
   request({url: unifiedorder_url}, function (error, response, body) {
