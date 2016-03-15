@@ -78,7 +78,7 @@ exports.makeQRcode = function (req, res) {
       var params = handleParam(qrcode);
       var sign = handleSign(params);
       var url = qrcode_url + '?' + params + '&sign=' + sign;
-
+      console.log('------->'+url);
       var img = qr.image(url, {size: 10});
       res.writeHead(200, {'Content-Type': 'image/png'});
       img.pipe(res);
