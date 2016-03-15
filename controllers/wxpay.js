@@ -169,3 +169,13 @@ function parseBody(req, callback) {
     callback(null, postData);
   });
 }
+/*
+<xml><appid><![CDATA[wxf849f8f6fce31880]]></appid>
+<openid><![CDATA[on_LUvtWknLq5PgC2hLD-Tf3UeiY]]></openid>
+<mch_id><![CDATA[1320356201]]></mch_id>
+<is_subscribe><![CDATA[Y]]></is_subscribe>
+<nonce_str><![CDATA[SLZTjWA4czLXXNxi]]></nonce_str>
+<product_id><![CDATA[56c9c130c90fa88011f61e01]]></product_id>
+<sign><![CDATA[B9F8CF711BACEDDD484C2DCAA90CBCED]]></sign>
+</xml>
+  */
