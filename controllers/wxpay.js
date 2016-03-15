@@ -16,7 +16,7 @@ var unifiedorder_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
 
 //微信支付回调处理
 exports.callback = function (req, res) {
-  console.log('------->', req.body);
+  console.log('------->', req._body);
   res.end('fail');
   return;
   async.waterfall([function (callback) {
