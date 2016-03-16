@@ -64,7 +64,7 @@ var config = {
 
 
     // admin 可删除话题，编辑标签，设某人为达人
-    admins: { 'yaojaa@vip.qq.com': true },
+    admins: {'yaojaa@vip.qq.com': true},
     avatar: 'http://7xrf0p.com1.z0.glb.clouddn.com/avatar.png', //默认头像地址
     baseImageURL: 'http://7xobdo.com1.z0.glb.clouddn.com/', //头像地址
     // github 登陆的配置
@@ -114,21 +114,21 @@ var config = {
 
     //分类
     category: [
-        { name: 'art', text: '风光' },
-        { name: 'street', text: '街拍' },
-        { name: 'travel', text: '人像' },
-        { name: 'fashion', text: '时尚' }
+        {name: 'art', text: '风光'},
+        {name: 'street', text: '街拍'},
+        {name: 'travel', text: '人像'},
+        {name: 'fashion', text: '时尚'}
     ],
 
     //视频分类
 
     video_category: [
-        { name: 'street', text: '电影' },
-        { name: 'travel', text: '电视剧' },
-        { name: 'fashion', text: '娱乐节目' },
-        { name: 'food', text: '美食' },
-        { name: 'animals', text: '动物' },
-        { name: 'art', text: '搞笑' }
+        {name: 'street', text: '电影'},
+        {name: 'travel', text: '电视剧'},
+        {name: 'fashion', text: '娱乐节目'},
+        {name: 'food', text: '美食'},
+        {name: 'animals', text: '动物'},
+        {name: 'art', text: '搞笑'}
     ],
 
     // 极光推送
@@ -173,12 +173,12 @@ var config = {
     create_reply_per_day: 1000, // 每个用户一天可以发的评论数
     visit_per_day: 1000, // 每个 ip 每天能访问的次数
     nav_list: [ //导航
-        { name: '首页', url: '/' },
-        { name: '街拍', url: '/street' },
-        { name: '旅行', url: '/travel' },
-        { name: '时尚', url: '/fashion' },
-        { name: '美食', url: '/food' },
-        { name: '动物', url: '/animals' }
+        {name: '首页', url: '/'},
+        {name: '街拍', url: '/street'},
+        {name: '旅行', url: '/travel'},
+        {name: '时尚', url: '/fashion'},
+        {name: '美食', url: '/food'},
+        {name: '动物', url: '/animals'}
     ],
     qq: {
         appid: '101294710',
@@ -198,7 +198,15 @@ var config = {
         getUserInfoURL: 'https://api.weixin.qq.com/sns/userinfo',
         accessTokenURL: 'https://api.weixin.qq.com/sns/oauth2/access_token',
         qrconnectURL: 'https://open.weixin.qq.com/connect/qrconnect'
-    }
+    },
+    wxpay: {
+        appid: 'wxf849f8f6fce31880',
+        mch_id: '1320356201',
+        api_secret: '1f13b03bb6e4445b3fe100a121cc4656',
+        qrcode_url: 'weixin://wxpay/bizpayurl',
+        unifiedorder_url: 'https://api.mch.weixin.qq.com/pay/unifiedorder'
+    },
+    alipay: {}
 };
 
 module.exports = config;
