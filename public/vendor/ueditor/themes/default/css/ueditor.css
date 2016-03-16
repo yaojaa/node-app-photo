@@ -129,7 +129,7 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-splitbutton,
 .edui-default .edui-toolbar .edui-menubutton,
 .edui-default .edui-toolbar .edui-combox {
-    margin: 1px;
+    margin: 5px;
 }
 /*UI工具栏、编辑区域、底部*/
 .edui-default .edui-editor {
@@ -158,21 +158,13 @@ div.edui-box {
 .edui-default .edui-editor-toolbarboxouter {
     border-bottom: 1px solid #d4d4d4;
     background-color: #fafafa;
-    background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
-    background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
-    background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
-    background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
-    background-repeat: repeat-x;
+  
     /*border: 1px solid #d4d4d4;*/
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
     border-radius: 4px 4px 0 0;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);
     *zoom: 1;
-    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+
 }
 
 .edui-default .edui-editor-toolbarboxinner {
@@ -1747,7 +1739,7 @@ div.edui-box {
 .edui-default .edui-toolbar .edui-separator {
     width: 2px;
     height: 20px;
-    margin: 2px 4px 2px 3px;
+    margin: 7px 4px 2px 3px;
     background: url(../images/icons.png) -181px 0;
     background: url(../images/icons.gif) -181px 0 \9;
 }

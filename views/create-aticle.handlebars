@@ -1,9 +1,15 @@
+  
+<script>
+      var URL ='/vendor/ueditor/';
+
+</script>
 
 <div class="container">
-  <h1>发文字</h1>
-
+<br>
+  <h1 align="center">发布图片故事</h1>
+<hr>
 <form method="post" action="/create-aticle" class="form">
-  <p><input class="form-control" type="text" name="title" placeholder="标题" /></p>
+  <p><input class="form-control" type="text" name="title" placeholder="标题" value="无标题文章" /></p>
   <p>
 
   <div style="margin:20px auto 40px;">
@@ -32,7 +38,7 @@
  <!-- 配置文件 -->
     <script type="text/javascript" src="/vendor/ueditor/ueditor.config.js"></script>
     <!-- 编辑器源码文件 -->
-    <script type="text/javascript" src="/vendor/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/vendor/ueditor/ueditor.all.min.js"></script>
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
         var ue = UE.getEditor('editor');
