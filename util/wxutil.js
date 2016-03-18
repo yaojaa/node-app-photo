@@ -1,3 +1,4 @@
+var os = require('os');
 var parseString = require('xml2js').parseString;
 var Builder = require('xml2js').Builder;
 var crypto = require('crypto');
@@ -15,7 +16,7 @@ exports.parseBody = function (req, callback) {
         if (postData) req._body = postData;
         callback(postData);
     });
-}
+};
 
 // 将原生的XML 转json对象
 exports.parseString = function (xml, callback) {
@@ -32,11 +33,10 @@ exports.parseString = function (xml, callback) {
         }
         callback(null, item);
     });
-}
+};
 
 //返回消息json转xml
 exports.parseXml = function (ret) {
-
     var builder = new Builder();
     return builder.buildObject({xml: ret});
 };
@@ -52,7 +52,7 @@ exports.handleParam = function (params) {
         str += key + '=' + params[key];
     });
     return str;
-}
+};
 
 //生成签名
 exports.handleSign = function (params) {
@@ -61,7 +61,7 @@ exports.handleSign = function (params) {
     md5.update(str);
     str = md5.digest('hex').toUpperCase();
     return str;
-}
+};
 
 //验证ID是否合法
 exports.validObjectId = function (id) {
@@ -75,37 +75,20 @@ exports.validSign = function (ret) {
     return this.handleSign(this.handleParam(ret)) === sign;
 };
 
-var data = '<xml><appid><![CDATA[wxf849f8f6fce31880]]></appid>' +
-    '<openid><![CDATA[on_LUvtWknLq5PgC2hLD-Tf3UeiY]]></openid>' +
-    '<mch_id><![CDATA[1320356201]]></mch_id>' +
-    '<is_subscribe><![CDATA[Y]]></is_subscribe>' +
-    '<nonce_str><![CDATA[SLZTjWA4czLXXNxi]]></nonce_str>' +
-    '<product_id><![CDATA[56c9c130c90fa88011f61e01]]></product_id>' +
-    '<sign><![CDATA[B9F8CF711BACEDDD484C2DCAA90CBCED]]></sign>' +
-    '</xml>';
 
-var config = require('../config').wxpay;
-//处理统一下单处理
-function unifiedOrder(orderId, openid, callback) {
-    try {
-        var nonce_str = 'sfgdfgerggdgfdgdgdfggdfgagh';
-        var order = {
-            appid: config.appid,
-            openid: openid,
-            mch_id: config.mch_id,
-            is_subscribe: 'Y',
-            nonce_str: nonce_str,
-            product_id: orderId
-        };
-        var params = exports.handleParam(order);
-        var sign = exports.handleSign(params);
-        order.sign = sign;
-        callback(null, order);
-    } catch (e) {
-        callback(e);
+//微信支付业务失败封装
+exports.fail = function (msg, res) {
+    var ret = {
+        return_code: 'SUCCESS',
+        result_code: 'FAIL',
+        err_code_des: msg
+    };
+    var params = this.handleParam(ret);
+    var sign = this.handleSign(params);
+    ret.sign = sign;
+    if (res) {
+        res.end(this.parseXml(ret));
+    } else {
+        return this.parseXml(ret);
     }
-}
-
-unifiedOrder('324235353gvdf', 'dgdsgs', function (err, order) {
-    console.log(exports.parseXml(order));
-});
+};

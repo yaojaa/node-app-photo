@@ -14,7 +14,7 @@ exports.callback = function (req, res) {
     var openid, product_id;
     var userid = req.session.user.id;
     if (userid) {
-        return res.fail('用户没有登录');
+        return wxutil.fail('用户没有登录', res);
     }
 
     async.waterfall([function (callback) {
@@ -54,17 +54,16 @@ exports.callback = function (req, res) {
             generateOrderInfo(product, userid, openid, callback);
         }
     }, function (order, callback) {
-        //调用统一下单API，获取交易会话标示（prepay_id）
-        unifiedOrder(order._id, openid, callback);
-    }, function (sign, order, callback) {
-        requestUnifiedOrder(sign, order, callback);
-    }, function (prepay_id, callback) {
-        //返回（prepay_id）并让用户完成支付
-    }], function (err, user) {
+        //处理统一下单
+        unifiedOrder(order._id, openid, product_id, callback);
+    }], function (err, ret) {
         if (err) {
             console.error('[controller][wxpay][callback]', err.stack);
-            return res.fail(err.message);
+            return wxutil.fail(err.message, res);
         }
+        var retXml = wxutil.parseXml(ret);
+        console.log('返回给微信的信息-----> ' + retXml);
+        res.end(retXml);
     });
 };
 
@@ -108,6 +107,41 @@ exports.makeQRcode = function (req, res) {
 
 exports.notify = function (req, res) {
 
+    var prepay_id;
+
+    async.waterfall([function (callback) {
+        wxutil.parseBody(req, function () {
+            console.log('微信回调信息------->', req._body);
+            if (req._body) {
+                wxutil.parseString(req._body, callback);
+            } else {
+                callback(new Error('无法接收微信的回复信息'));
+            }
+        });
+    }, function (ret, callback) {
+        //验证返回信息是否合法
+        var boo = wxutil.validSign(ret);
+        if (boo) {
+            callback(null, ret);
+        } else {
+            callback(new Error('微信返回信息签名验证失败'));
+        }
+    }, function (ret, callback) {
+        prepay_id = ret.prepay_id;
+        if (prepay_id) {
+            callback(null, prepay_id);
+        } else {
+            callback(new Error('无法获取prepay_id'));
+        }
+    }], function (err, ret) {
+        if (err) {
+            console.error('[controller][wxpay][notify]', err.stack);
+            return wxutil.fail(err.message, res);
+        }
+        var retXml = wxutil.parseXml(ret);
+        console.log('返回给微信的信息-----> ' + retXml);
+        res.end(retXml);
+    });
 };
 
 
@@ -126,55 +160,30 @@ function generateOrderInfo(product, userid, openid, callback) {
 }
 
 //处理统一下单处理
-function unifiedOrder(orderId, openid, callback) {
+function unifiedOrder(orderId, openid, product_id, callback) {
     try {
         var nonce_str = generator.generate();
         var order = {
-            appid: appid,
-            openid: openid,
-            mch_id: mch_id,
+            return_code: 'SUCCESS',
+            result_code: 'SUCCESS',
+            appid: config.appid,
+            openid: config.openid,
+            mch_id: config.mch_id,
             is_subscribe: 'N',
             nonce_str: nonce_str,
-            product_id: orderId
+            product_id: product_id,
+            out_trade_no: orderId,
+            body: '风影图文',
+            total_fee: 1,
+            spbill_create_ip: '123.56.230.118',
+            trade_type: 'NATIVE',
+            notify_url: 'http://www.fengimage.com/pub/wxpay/notify'
         };
         var params = wxutil.handleParam(order);
         var sign = wxutil.handleSign(params);
-        callback(null, sign, order);
+        order.sign = sign;
+        callback(null, order);
     } catch (e) {
         callback(e);
     }
 }
-
-//请求统一下单
-function requestUnifiedOrder(sign, order, callback) {
-    var data = '<xml>' +
-        '<appid>wx2421b1c4370ec43b</appid>' +
-        '<attach>支付测试</attach>' +
-        '<body>JSAPI支付测试</body>' +
-        '<mch_id>10000100</mch_id>' +
-        '<nonce_str>1add1a30ac87aa2db72f57a2375d8fec</nonce_str>' +
-        '<notify_url>http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php</notify_url>' +
-        '<openid>oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</openid>' +
-        '<out_trade_no>1415659990</out_trade_no>' +
-        '<spbill_create_ip>14.23.150.211</spbill_create_ip>' +
-        '<total_fee>1</total_fee>' +
-        '<trade_type>JSAPI</trade_type>' +
-        '<sign>0CB01533B8C1EF103065174F50BCA001</sign>' +
-        '</xml>';
-
-    request({url: unifiedorder_url}, function (error, response, body) {
-        callback(error, response, body);
-    });
-
-}
-
-/*
- <xml><appid><![CDATA[wxf849f8f6fce31880]]></appid>
- <openid><![CDATA[on_LUvtWknLq5PgC2hLD-Tf3UeiY]]></openid>
- <mch_id><![CDATA[1320356201]]></mch_id>
- <is_subscribe><![CDATA[Y]]></is_subscribe>
- <nonce_str><![CDATA[SLZTjWA4czLXXNxi]]></nonce_str>
- <product_id><![CDATA[56c9c130c90fa88011f61e01]]></product_id>
- <sign><![CDATA[B9F8CF711BACEDDD484C2DCAA90CBCED]]></sign>
- </xml>
- */
