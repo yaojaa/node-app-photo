@@ -11,7 +11,7 @@ exports.parseBody = function (req, callback) {
         bufferArr.push(chunk);
     });
     req.on("end", function (chunk) {
-        if(chunk){
+        if (chunk) {
             bufferArr.push(chunk);
         }
         var postData = Buffer.concat(bufferArr).toString();
@@ -94,3 +94,24 @@ exports.fail = function (msg, res) {
         return this.parseXml(ret);
     }
 };
+
+var data = {
+    "return_code": "SUCCESS",
+    "result_code": "SUCCESS",
+    "appid": "wxf849f8f6fce31880",
+    "openid": "on_LUvtWknLq5PgC2hLD-Tf3UeiY",
+    "mch_id": "1320356201",
+    "is_subscribe": "N",
+    "nonce_str": "ecc2887babd6f8bcb6ea072b8cb4a1dc",
+    "product_id": "56c526da8cbde1dc0dca4227",
+    "out_trade_no": "56ec30c19f8a7b6d0d0722e0",
+    "body": "风影图文",
+    "total_fee": 1,
+    "spbill_create_ip": "123.56.230.118",
+    "trade_type": "NATIVE",
+    "notify_url": "http://www.fengimage.com/pub/wxpay/notify",
+    "sign": "B99DF02F632014EC13DB21ECA09D3DC0"
+};
+
+console.log(exports.parseXml(data));
+
