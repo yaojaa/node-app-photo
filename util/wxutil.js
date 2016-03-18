@@ -11,7 +11,9 @@ exports.parseBody = function (req, callback) {
         bufferArr.push(chunk);
     });
     req.on("end", function (chunk) {
-        bufferArr.push(chunk);
+        if(chunk){
+            bufferArr.push(chunk);
+        }
         var postData = Buffer.concat(bufferArr).toString();
         if (postData) req._body = postData;
         callback(postData);
