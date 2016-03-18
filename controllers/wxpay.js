@@ -10,13 +10,19 @@ var qr = require('qr-image');
 //微信支付回调处理
 exports.callback = function (req, res) {
 
+    //获取参数
+    var openid, product_id;
+    var userid = req.session.user.id;
+    if (userid) {
+        return res.fail('用户没有登录');
+    }
+
     async.waterfall([function (callback) {
         wxutil.parseBody(req, function () {
             console.log('微信回调信息------->', req._body);
             if (req._body) {
                 wxutil.parseString(req._body, callback);
             } else {
-                console.error('[controller][wxpay][callback]', '无法接收微信的回复信息');
                 callback(new Error('无法接收微信的回复信息'));
             }
         });
@@ -26,52 +32,41 @@ exports.callback = function (req, res) {
         if (boo) {
             callback(null, ret);
         } else {
-            console.error('[controller][wxpay][callback]', '微信返回信息签名验证失败');
-            callback(new Error('微信返回信息失败'));
+            callback(new Error('微信返回信息签名验证失败'));
         }
     }, function (ret, callback) {
-        //验证返回信息是否合法
-        var boo = wxutil.validSign(ret);
-        if (boo) {
+        //获取opendid和product_id
+        openid = ret.openid;
+        product_id = ret.product_id;
+        if (openid && product_id) {
             callback(null, ret);
         } else {
-            console.error('[controller][wxpay][callback]', '微信返回信息签名验证失败');
-            callback(new Error('微信返回信息失败'));
+            callback(new Error('获取openid和product_id失败'));
         }
     }, function (ret, callback) {
-        ret.openid
         //查询商品信息
         Photo.findPhotoById(ret.product_id, callback);
     }, function (product, callback) {
         //生成订单信息，获取订单编号
         if (product == null) {
-            callback(new Error('产品不存在'));
+            callback(new Error('商品不存在'));
         } else {
-            generateOrderInfo(product, openid, callback);
+            generateOrderInfo(product, userid, openid, callback);
         }
     }, function (order, callback) {
         //调用统一下单API，获取交易会话标示（prepay_id）
-        unifiedOrder(order, openid, callback);
+        unifiedOrder(order._id, openid, callback);
     }, function (sign, order, callback) {
         requestUnifiedOrder(sign, order, callback);
     }, function (prepay_id, callback) {
         //返回（prepay_id）并让用户完成支付
     }], function (err, user) {
-
+        if (err) {
+            console.error('[controller][wxpay][callback]', err.stack);
+            return res.fail(err.message);
+        }
     });
 };
-
-//生成订单信息
-function generateOrderInfo(product, openid, callback) {
-    var order = {
-        product_id: product._id,
-        openid: openid,
-        type: 1,
-        price: product.price,
-        status: 3
-    };
-    Order.add(order, callback);
-}
 
 //制作支付二维码
 exports.makeQRcode = function (req, res) {
@@ -111,21 +106,39 @@ exports.makeQRcode = function (req, res) {
 
 };
 
+exports.notify = function (req, res) {
+
+};
+
+
+//生成订单信息
+function generateOrderInfo(product, userid, openid, callback) {
+    var order = {
+        product_id: product._id,
+        buy_id: userid,
+        sale_id: product.author_id,
+        openid: openid,
+        type: 1,
+        price: product.price,
+        status: 3
+    };
+    Order.add(order, callback);
+}
 
 //处理统一下单处理
-function unifiedOrder(order, openid, callback) {
+function unifiedOrder(orderId, openid, callback) {
     try {
         var nonce_str = generator.generate();
         var order = {
             appid: appid,
             openid: openid,
             mch_id: mch_id,
-            is_subscribe: 'Y',
+            is_subscribe: 'N',
             nonce_str: nonce_str,
-            product_id: order._id
+            product_id: orderId
         };
-        var params = handleParam(order);
-        var sign = handleSign(params);
+        var params = wxutil.handleParam(order);
+        var sign = wxutil.handleSign(params);
         callback(null, sign, order);
     } catch (e) {
         callback(e);

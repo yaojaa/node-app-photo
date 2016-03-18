@@ -1,4 +1,5 @@
 var parseString = require('xml2js').parseString;
+var Builder = require('xml2js').Builder;
 var crypto = require('crypto');
 var config = require('../config').wxpay;
 
@@ -32,6 +33,13 @@ exports.parseString = function (xml, callback) {
         callback(null, item);
     });
 }
+
+//返回消息json转xml
+exports.parseXml = function (ret) {
+
+    var builder = new Builder();
+    return builder.buildObject({xml: ret});
+};
 
 //处理参数
 exports.handleParam = function (params) {
@@ -75,3 +83,29 @@ var data = '<xml><appid><![CDATA[wxf849f8f6fce31880]]></appid>' +
     '<product_id><![CDATA[56c9c130c90fa88011f61e01]]></product_id>' +
     '<sign><![CDATA[B9F8CF711BACEDDD484C2DCAA90CBCED]]></sign>' +
     '</xml>';
+
+var config = require('../config').wxpay;
+//处理统一下单处理
+function unifiedOrder(orderId, openid, callback) {
+    try {
+        var nonce_str = 'sfgdfgerggdgfdgdgdfggdfgagh';
+        var order = {
+            appid: config.appid,
+            openid: openid,
+            mch_id: config.mch_id,
+            is_subscribe: 'Y',
+            nonce_str: nonce_str,
+            product_id: orderId
+        };
+        var params = exports.handleParam(order);
+        var sign = exports.handleSign(params);
+        order.sign = sign;
+        callback(null, order);
+    } catch (e) {
+        callback(e);
+    }
+}
+
+unifiedOrder('324235353gvdf', 'dgdsgs', function (err, order) {
+    console.log(exports.parseXml(order));
+});
