@@ -9,7 +9,7 @@ var qr = require('qr-image');
 
 //微信支付回调处理
 exports.callback = function (req, res) {
-
+    console.log('---------------->callback');
     //获取参数
     var openid, product_id;
     var userid = req.session.user.id;
@@ -106,7 +106,7 @@ exports.makeQRcode = function (req, res) {
 };
 
 exports.notify = function (req, res) {
-
+    console.log('---------------->notify');
     var prepay_id;
 
     async.waterfall([function (callback) {
