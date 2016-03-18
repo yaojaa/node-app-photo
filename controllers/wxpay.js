@@ -10,13 +10,9 @@ var qr = require('qr-image');
 //微信支付回调处理
 exports.callback = function (req, res) {
     console.log('---------------->callback');
-    console.log('用户信息', req.session.user);
     //获取参数
     var openid, product_id;
-    var userid = req.session.user.id;
-    if (!userid) {
-        return wxutil.fail('用户没有登录', res);
-    }
+    var userid = 'FY0001';
 
     async.waterfall([function (callback) {
         wxutil.parseBody(req, function () {
