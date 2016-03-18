@@ -58,8 +58,9 @@ exports.callback = function (req, res) {
             console.error('[controller][wxpay][callback]', err.stack);
             return wxutil.fail(err.message, res);
         }
+        console.log('BEFORE:返回给微信的信息-----> ' + ret);
         var retXml = wxutil.parseXml(ret);
-        console.log('返回给微信的信息-----> ' + retXml);
+        console.log('AFTER:返回给微信的信息-----> ' + retXml);
         res.end(retXml);
     });
 };
