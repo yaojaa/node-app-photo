@@ -58,9 +58,9 @@ exports.callback = function (req, res) {
             console.error('[controller][wxpay][callback]', err.stack);
             return wxutil.fail(err.message, res);
         }
-        console.log('BEFORE:返回给微信的信息-----> ' + ret);
+        console.log('BEFORE:返回给微信的信息-----> ', JSON.stringify(ret));
         var retXml = wxutil.parseXml(ret);
-        console.log('AFTER:返回给微信的信息-----> ' + retXml);
+        console.log('AFTER:返回给微信的信息-----> ', retXml);
         res.end(retXml);
     });
 };
@@ -165,7 +165,7 @@ function unifiedOrder(orderId, openid, product_id, callback) {
             return_code: 'SUCCESS',
             result_code: 'SUCCESS',
             appid: config.appid,
-            openid: config.openid,
+            openid: openid,
             mch_id: config.mch_id,
             is_subscribe: 'N',
             nonce_str: nonce_str,
