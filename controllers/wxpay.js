@@ -71,7 +71,7 @@ exports.callback = function (req, res) {
 exports.makeQRcode = function (req, res) {
 
     var product_id = req.params.productid;
-    if (wxutil.validObjectId(product_id)) {
+    if (!wxutil.validObjectId(product_id)) {
         return res.fail('商品ID无效');
     }
 
