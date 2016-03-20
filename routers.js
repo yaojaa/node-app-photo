@@ -30,11 +30,11 @@ router.use(response);
 router.use(local);
 
 router.get('/', function (req, res) {
-  res.render('home', {user: req.session.user})
+    res.render('home', {user: req.session.user})
 })
 
 router.get('/ranking', function (req, res) {
-  res.render('ranking', {user: req.session.user})
+    res.render('ranking', {user: req.session.user})
 })
 
 
@@ -69,6 +69,7 @@ router.get('/qq/callback', qq.callback);  // 进入微信登录页面
 router.get('/pub/wxpay/makeQRcode/:productid', wxpay.makeQRcode);  // 微信支付二维码
 router.post('/pub/wxpay/callback', wxpay.callback);  // 微信支付
 router.post('/pub/wxpay/notify', wxpay.notify);  // 微信支付
+router.get('/pub/wxpay/order/:productid-:t1-:t2', wxpay.order);  // 微信支付
 
 
 //根据这两句生成uptoken
@@ -78,10 +79,10 @@ qiniu.conf.SECRET_KEY = config.qn_access.SECRET_KEY;
 var uptoken = new qiniu.rs.PutPolicy(config.qn_access.Bucket_Name);
 
 router.get('/uptoken', function (req, res) {
-  var token = uptoken.token();
-  res.json({
-    uptoken: token
-  });
+    var token = uptoken.token();
+    res.json({
+        uptoken: token
+    });
 })
 
 
@@ -109,12 +110,12 @@ router.post('/tovip', auth.validateLogin, ucenter.openvip);  // 开通vip
 router.use('/uc', auth.validateLogin);
 //账户安全
 router.get('/uc/account', function (req, res) {
-  res.render('uc_account');
+    res.render('uc_account');
 });
 
 //账户充值页
 router.get('/uc/recharge', auth.validateLogin, function (req, res) {
-  res.render('uc_recharge');
+    res.render('uc_recharge');
 });
 
 //账户充值
@@ -124,14 +125,14 @@ router.get('/uc/recharge/list', auth.ajaxValidateLogin, ucenter.rechargeList);
 
 //个人资料
 router.get('/uc/view', function (req, res) {
-  console.log(req.session.user)
-  res.render('uc_view',
-    {
-      user: req.session.user,
-      Domain: config.qn_access.Domain,
-      Uptoken_Url: config.qn_access.Uptoken_Url
-    }
-  );
+    console.log(req.session.user)
+    res.render('uc_view',
+        {
+            user: req.session.user,
+            Domain: config.qn_access.Domain,
+            Uptoken_Url: config.qn_access.Uptoken_Url
+        }
+    );
 });
 
 
