@@ -97,6 +97,7 @@ exports.order = function (req, res) {
 };
 
 //异步接受微信的支付结果
+//todo:更新商品所有者的账户金额
 exports.notify = function (req, res) {
     console.log('---------------->notify');
 
