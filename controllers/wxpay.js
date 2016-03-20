@@ -184,7 +184,9 @@ function unifiedOrder(orderId, openid, product_id, callback) {
             notify_url: 'http://www.fengimage.com/pub/wxpay/notify'
         };
         var params = wxutil.handleParam(order);
+        console.log('#1.生成字符串：<\d>', params);
         var sign = wxutil.handleSign(params);
+        console.log('#2.生成的sign：<\d>', sign);
         order.sign = sign;
         callback(null, order);
     } catch (e) {

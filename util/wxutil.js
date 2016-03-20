@@ -103,25 +103,27 @@ var data = {
     "openid": "on_LUvtWknLq5PgC2hLD-Tf3UeiY",
     "mch_id": "1320356201",
     "is_subscribe": "N",
-    "nonce_str": "ecc2887babd6f8bcb6ea072b8cb4a1dc",
-    "product_id": "56c526da8cbde1dc0dca4227",
-    "out_trade_no": "56ec30c19f8a7b6d0d0722e0",
+    "nonce_str": "2367a992faf12a392ea9092305b10012",
+    "product_id": "56c527678cbde1dc0dca422c",
+    "out_trade_no": "56ee549fa433bf0c154a732d",
     "body": "风影图文",
     "total_fee": 1,
     "spbill_create_ip": "123.56.230.118",
     "trade_type": "NATIVE",
     "notify_url": "http://www.fengimage.com/pub/wxpay/notify",
-    "sign": "B99DF02F632014EC13DB21ECA09D3DC0"
+    "sign": "E49C5E8E5525B9AEB8AB3AE888EA1D06"
 };
 
 function parseXml(ret) {
+    var keys = Object.keys(ret).sort();
     var xmls = [];
     xmls.push('<xml>');
-    for (var key in ret) {
-        xmls.push('<'+key+'>'+ret[key]+'</'+key+'>');
-    }
+    keys.forEach(function (key, index) {
+        xmls.push('<' + key + '>' + ret[key] + '</' + key + '>');
+    });
     xmls.push('</xml>');
-    return xmls.join('');
+    return xmls.join(os.EOL);
 }
 
 
+//console.log(parseXml(data));
