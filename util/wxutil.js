@@ -61,7 +61,7 @@ exports.handleParam = function (params) {
 exports.handleSign = function (params) {
     var str = params + '&key=' + config.api_secret;
     var md5 = crypto.createHash('md5');
-    md5.update(str);
+    md5.update(str, 'utf-8');
     str = md5.digest('hex').toUpperCase();
     return str;
 };
@@ -96,24 +96,6 @@ exports.fail = function (msg, res) {
     }
 };
 
-var data = {
-    "return_code": "SUCCESS",
-    "result_code": "SUCCESS",
-    "appid": "wxf849f8f6fce31880",
-    "openid": "on_LUvtWknLq5PgC2hLD-Tf3UeiY",
-    "mch_id": "1320356201",
-    "is_subscribe": "N",
-    "nonce_str": "2367a992faf12a392ea9092305b10012",
-    "product_id": "56c527678cbde1dc0dca422c",
-    "out_trade_no": "56ee549fa433bf0c154a732d",
-    "body": "风影图文",
-    "total_fee": 1,
-    "spbill_create_ip": "123.56.230.118",
-    "trade_type": "NATIVE",
-    "notify_url": "http://www.fengimage.com/pub/wxpay/notify",
-    "sign": "E49C5E8E5525B9AEB8AB3AE888EA1D06"
-};
-
 function parseXml(ret) {
     var keys = Object.keys(ret).sort();
     var xmls = [];
@@ -126,4 +108,4 @@ function parseXml(ret) {
 }
 
 
-//console.log(parseXml(data));
+

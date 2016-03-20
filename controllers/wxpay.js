@@ -157,7 +157,7 @@ function generateOrderInfo(product, userid, openid, callback) {
         sale_id: product.author_id,
         openid: openid,
         type: 1,
-        price: product.price,
+        price: product.price || 0,
         status: 3
     };
     Order.add(order, callback);
@@ -184,9 +184,9 @@ function unifiedOrder(orderId, openid, product_id, callback) {
             notify_url: 'http://www.fengimage.com/pub/wxpay/notify'
         };
         var params = wxutil.handleParam(order);
-        console.log('#1.生成字符串：<\d>', params);
+        console.log('#1.生成字符串：\n', params);
         var sign = wxutil.handleSign(params);
-        console.log('#2.生成的sign：<\d>', sign);
+        console.log('#2.生成的sign：\n', sign);
         order.sign = sign;
         callback(null, order);
     } catch (e) {
