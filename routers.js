@@ -67,7 +67,7 @@ router.get('/qq/login', qq.login);  // 进入微信登录页面
 router.get('/qq/callback', qq.callback);  // 进入微信登录页面
 
 router.get('/pub/wxpay/makeQRcode/:productid', wxpay.makeQRcode);  // 微信支付二维码
-router.post('/pub/wxpay/callback', wxpay.callback);  // 微信支付
+//router.post('/pub/wxpay/callback', wxpay.callback);  // 微信支付
 router.post('/pub/wxpay/notify', wxpay.notify);  // 微信支付
 router.get('/pub/wxpay/order/:productid-:t1-:t2', wxpay.order);  // 微信支付
 
