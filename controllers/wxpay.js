@@ -7,10 +7,11 @@ var wxutil = require('../util/wxutil');
 var config = require('../config').wxpay;
 var qr = require('qr-image');
 
-//微信支付回调处理
+//调用同意下单接口
 exports.order = function (req, res) {
     console.log('---------------->order');
     //获取参数
+    console.log('请求参数：', req.params);
     //商品ID
     var productid = req.params.productid;
     if (!wxutil.validObjectId(productid)) {
@@ -18,12 +19,12 @@ exports.order = function (req, res) {
     }
     //订单类型1：图片，2：视频
     var t1 = req.params.t1;
-    if (t1 != 1 || t1 != 2) {
+    if (t1 != 1 && t1 != 2) {
         return res.fail('订单类型不匹配');
     }
     //交易类型1：购买，2：打赏
     var t2 = req.params.t2;
-    if (t2 != 1 || t2 != 2) {
+    if (t2 != 1 && t2 != 2) {
         return res.fail('交易类型不匹配');
     }
 
@@ -56,57 +57,41 @@ exports.order = function (req, res) {
         } catch (e) {
             callback(e);
         }
+    }, function (ret, callback) {
+        if (ret.return_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
+        if (ret.result_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
+        //验证返回信息是否合法
+        var boo = wxutil.validSign(ret);
+        if (boo) {
+            callback(null, ret);
+        } else {
+            callback(new Error('微信返回信息签名验证失败'));
+        }
     }], function (err, ret) {
         try {
             if (err) {
                 console.error('[controller][wxpay][callback]', err.stack);
-                return wxutil.fail(err.message, res);
+                return res.fail(err.message, res);
             }
-        } catch (e) {
-            console.log(e.stack);
-            wxutil.fail('系统错误', res);
-        }
-
-    });
-};
-
-//制作支付二维码
-exports.makeQRcode = function (req, res) {
-
-    var product_id = req.params.productid;
-    if (!wxutil.validObjectId(product_id)) {
-        return res.fail('商品ID无效');
-    }
-
-    //todo: step1 验证用户是否登录
-    //todo: step2 验证该商品是够存在
-    //todo: step3 验证用户是否已经购买过该商品
-    Photo.findPhotoById(product_id, function (err, model) {
-        if (err || model == null) {
-            res.fail('商品不存在');
-        } else {
-            var time_stamp = Date.now();
-            var nonce_str = generator.generate();
-            var qrcode = {
-                time_stamp: time_stamp,
-                product_id: product_id,
-                nonce_str: nonce_str,
-                appid: config.appid,
-                mch_id: config.mch_id
-            };
-
-            var params = wxutil.handleParam(qrcode);
-            var sign = wxutil.handleSign(params);
-            var url = config.qrcode_url + '?' + params + '&sign=' + sign;
-            var img = qr.image(url, {size: 10});
+            console.log('预支付ID(prepay_id):', ret.prepay_id);
+            console.log('二维码链接(code_url):', ret.code_url);
+            var img = qr.image(ret.code_url, {size: 10});
             res.writeHead(200, {'Content-Type': 'image/png'});
             img.pipe(res);
+
+        } catch (e) {
+            console.log(e.stack);
+            res.fail('系统错误', res);
         }
 
     });
-
 };
 
+//异步接受微信的支付结果
 exports.notify = function (req, res) {
     console.log('---------------->notify');
     var prepay_id;
@@ -121,6 +106,12 @@ exports.notify = function (req, res) {
             }
         });
     }, function (ret, callback) {
+        if (ret.return_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
+        if (ret.result_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
         //验证返回信息是否合法
         var boo = wxutil.validSign(ret);
         if (boo) {
@@ -128,21 +119,12 @@ exports.notify = function (req, res) {
         } else {
             callback(new Error('微信返回信息签名验证失败'));
         }
-    }, function (ret, callback) {
-        prepay_id = ret.prepay_id;
-        if (prepay_id) {
-            callback(null, prepay_id);
-        } else {
-            callback(new Error('无法获取prepay_id'));
-        }
     }], function (err, ret) {
         if (err) {
             console.error('[controller][wxpay][notify]', err.stack);
             return wxutil.fail(err.message, res);
         }
-        var retXml = wxutil.parseXml(ret);
-        console.log('返回给微信的信息-----> ' + retXml);
-        res.end(retXml);
+        wxutil.ok({}, res);
     });
 };
 
@@ -165,8 +147,6 @@ function unifiedOrder(orderId, product_id, callback) {
     try {
         var nonce_str = generator.generate();
         var order = {
-            return_code: 'SUCCESS',
-            result_code: 'SUCCESS',
             appid: config.appid,
             mch_id: config.mch_id,
             is_subscribe: 'N',

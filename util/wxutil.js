@@ -96,6 +96,25 @@ exports.fail = function (msg, res) {
     }
 };
 
+//微信支付业务成功封装
+exports.ok = function (item, res) {
+    var ret = {
+        return_code: 'SUCCESS',
+        result_code: 'SUCCESS'
+    };
+    for (var key in item) {
+        ret[key] = item[key];
+    }
+    var params = this.handleParam(ret);
+    var sign = this.handleSign(params);
+    ret.sign = sign;
+    if (res) {
+        res.end(this.parseXml(ret));
+    } else {
+        return this.parseXml(ret);
+    }
+};
+
 function parseXml(ret) {
     var keys = Object.keys(ret).sort();
     var xmls = [];

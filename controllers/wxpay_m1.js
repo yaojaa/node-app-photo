@@ -7,6 +7,14 @@ var wxutil = require('../util/wxutil');
 var config = require('../config').wxpay;
 var qr = require('qr-image');
 
+
+/**
+ * 微信支付方式一，
+ * 暂未调通
+ */
+
+
+
 //微信支付回调处理
 exports.callback = function (req, res) {
     console.log('---------------->callback');
