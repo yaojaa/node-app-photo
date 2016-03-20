@@ -28,6 +28,11 @@ exports.order = function (req, res) {
         return res.fail('交易类型不匹配');
     }
 
+    var user = req.session.user;
+    if (!user) {
+        return res.fail('用户未登录');
+    }
+
     async.waterfall([function (callback) {
         //查询商品信息
         Photo.findPhotoById(productid, callback);
@@ -36,7 +41,7 @@ exports.order = function (req, res) {
         if (product == null) {
             callback(new Error('商品不存在'));
         } else {
-            generateOrderInfo(product, t1, t2, callback);
+            generateOrderInfo(product, t1, t2, user, callback);
         }
     }, function (order, callback) {
         //处理统一下单
@@ -94,7 +99,6 @@ exports.order = function (req, res) {
 //异步接受微信的支付结果
 exports.notify = function (req, res) {
     console.log('---------------->notify');
-    var prepay_id;
 
     async.waterfall([function (callback) {
         wxutil.parseBody(req, function () {
@@ -119,19 +123,29 @@ exports.notify = function (req, res) {
         } else {
             callback(new Error('微信返回信息签名验证失败'));
         }
+    }, function (ret, callback) {
+        //更新订单状态
+        var model = {
+            status: 1,
+            price: ret.total_fee,
+            openid: ret.openid
+        };
+        Order.update(ret.out_trade_no, model, callback);
     }], function (err, ret) {
         if (err) {
             console.error('[controller][wxpay][notify]', err.stack);
             return wxutil.fail(err.message, res);
         }
+        console.log('提醒微信支付成功');
         wxutil.ok({}, res);
     });
 };
 
 
 //生成订单信息
-function generateOrderInfo(product, type, trading_type, callback) {
+function generateOrderInfo(product, type, trading_type, user, callback) {
     var order = {
+        buy_id: user.id,
         product_id: product._id,
         sale_id: product.author_id,
         type: type,
