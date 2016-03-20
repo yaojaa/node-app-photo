@@ -39,8 +39,9 @@ exports.parseString = function (xml, callback) {
 
 //返回消息json转xml
 exports.parseXml = function (ret) {
-    var builder = new Builder();
-    return builder.buildObject({xml: ret});
+    //var builder = new Builder();
+    //return builder.buildObject({xml: ret});
+    return parseXml(ret);
 };
 
 //处理参数
@@ -113,5 +114,14 @@ var data = {
     "sign": "B99DF02F632014EC13DB21ECA09D3DC0"
 };
 
-console.log(exports.parseXml(data));
+function parseXml(ret) {
+    var xmls = [];
+    xmls.push('<xml>');
+    for (var key in ret) {
+        xmls.push('<'+key+'>'+ret[key]+'</'+key+'>');
+    }
+    xmls.push('</xml>');
+    return xmls.join('');
+}
+
 
