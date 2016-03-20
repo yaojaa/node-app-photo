@@ -54,31 +54,20 @@ exports.callback = function (req, res) {
         //处理统一下单
         unifiedOrder(order._id, openid, product_id, callback);
     }], function (err, ret) {
-        if (err) {
-            console.error('[controller][wxpay][callback]', err.stack);
-            return wxutil.fail(err.message, res);
+        try {
+            if (err) {
+                console.error('[controller][wxpay][callback]', err.stack);
+                return wxutil.fail(err.message, res);
+            }
+            console.log('BEFORE:返回给微信的信息-----> ', JSON.stringify(ret));
+            var retXml = wxutil.parseXml(ret);
+            console.log('AFTER:返回给微信的信息-----> ', retXml);
+            res.end(retXml);
+        } catch (e) {
+            console.log(e.stack);
+            wxutil.fail('系统错误', res);
         }
-        console.log('BEFORE:返回给微信的信息-----> ', JSON.stringify(ret));
-        //var retXml = wxutil.parseXml(ret);
-        var retXml = '<xml>'+
-        '<return_code>SUCCESS</return_code>'+
-        '<result_code>SUCCESS</result_code>'+
-        '<appid>wxf849f8f6fce31880</appid>'+
-        '<openid>on_LUvtWknLq5PgC2hLD-Tf3UeiY</openid>'+
-        '<mch_id>1320356201</mch_id>'+
-        '<is_subscribe>N</is_subscribe>'+
-        '<nonce_str>ecc2887babd6f8bcb6ea072b8cb4a1dc</nonce_str>'+
-        '<product_id>56c526da8cbde1dc0dca4227</product_id>'+
-        '<out_trade_no>56ec30c19f8a7b6d0d0722e0</out_trade_no>'+
-        '<body>风影图文</body>'+
-        '<total_fee>1</total_fee>'+
-        '<spbill_create_ip>123.56.230.118</spbill_create_ip>'+
-        '<trade_type>NATIVE</trade_type>'+
-        '<notify_url>http://www.fengimage.com/pub/wxpay/notify</notify_url>'+
-        '<sign>B99DF02F632014EC13DB21ECA09D3DC0</sign>'+
-        '</xml>';
-        console.log('AFTER:返回给微信的信息-----> ', retXml);
-        res.end(retXml);
+
     });
 };
 
