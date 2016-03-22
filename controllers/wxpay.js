@@ -45,7 +45,7 @@ exports.order = function (req, res) {
         }
     }, function (order, callback) {
         //处理统一下单
-        unifiedOrder(order._id, productid, callback);
+        unifiedOrder(order, productid, callback);
     }, function (ret, callback) {
         //请求处理统一下单
         try {
@@ -151,6 +151,7 @@ function generateOrderInfo(product, type, trading_type, user, callback) {
         sale_id: product.author_id,
         type: type,
         trading_type: trading_type,
+        trading_channel: 1,
         price: product.price || 0,
         status: 3
     };
@@ -158,7 +159,7 @@ function generateOrderInfo(product, type, trading_type, user, callback) {
 }
 
 //处理统一下单处理
-function unifiedOrder(orderId, product_id, callback) {
+function unifiedOrder(order, product_id, callback) {
     try {
         var nonce_str = generator.generate();
         var order = {
@@ -167,9 +168,9 @@ function unifiedOrder(orderId, product_id, callback) {
             is_subscribe: 'N',
             nonce_str: nonce_str,
             product_id: product_id,
-            out_trade_no: orderId,
+            out_trade_no: order._id,
             body: '风影图文',
-            total_fee: 1,
+            total_fee: order.price * 10,
             spbill_create_ip: '123.56.230.118',
             trade_type: 'NATIVE',
             notify_url: 'http://www.fengimage.com/pub/wxpay/notify'

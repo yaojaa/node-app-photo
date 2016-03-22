@@ -1,0 +1,98 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-7">
+        <h4>订单列表</h4>
+      </div>
+      <div class="col-xs-2">
+        <select class="form-control" name="status" id="status">
+          <option value="">订单状态</option>
+          <option value="1">成功</option>
+          <option value="2">失败</option>
+          <option value="3">交易中</option>
+        </select>
+      </div>
+      <div class="col-xs-1">
+        <button type="button" class="btn btn-default" onclick="search();"><i class="fa fa-search"></i> 查询
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+      <table id="datatable" class="table table-bordered table-responsive "
+             style="margin-bottom: 0px !important;border-bottom: none!important">
+      </table>
+    </div>
+  </div>
+</div>
+
+{{#extend "customerScript"}}
+
+  <script>
+
+    $(function () {
+      search();
+
+    });
+
+    function search() {
+      var data = {
+        status: $('#status').val()
+      };
+      new DataTable({
+        id: '#datatable',
+        paging: true,
+        pageSize: 10,
+        ajax: {
+          url: '/sys/order/list',
+          data: data
+        },
+        columns: [{
+          "data": "id",
+          "title": "订单号"
+        }, {
+          "data": "product_id",
+          "title": "商品号"
+        }, {
+          "data": "price",
+          "title": "交易金额（分）"
+        }, {
+          "data": "status",
+          "title": "交易状态"
+        }, {
+          "data": "create_at",
+          "title": "交易时间"
+        }, {
+          "data": "trading_channel",
+          "title": "交易渠道"
+        }],
+        columnDefs: [{
+          targets: 3,
+          render: function (i, j, item) {
+            if (item.status == 1) {
+              return '成功'
+            } else if (item.status == 2) {
+              return '失败'
+            } else if (item.status == 3) {
+              return '交易中'
+            }
+          }
+        },{
+          targets: 5,
+          render: function (i, j, item) {
+            if (item.trading_channel == 1) {
+              return '风影钱包'
+            } else if (item.trading_channel == 2) {
+              return '微信'
+            } else if (item.trading_channel == 3) {
+              return '支付宝'
+            }
+          }
+        }]
+      });
+    }
+
+  </script>
+
+{{/extend}}
