@@ -89,7 +89,7 @@ var config = {
         // domain: 'http://your qiniu domain',
         // // 如果vps在国外，请使用 http://up.qiniug.com/ ，这是七牛的国际节点
         // // 如果在国内，此项请留空
-        // uploadURL: 'http://xxxxxxxx',
+         'uploadURL': 'http://upload.qiniu.com',
         'ACCESS_KEY': 'dgJKO74XfcnDumOtIaKqJmNZNB9iBLXOLbC2sNTo',
         'SECRET_KEY': 'ITVzXH5yOQhtSLEjeF4uc4SkX4DhCfEYQVKBpXgT',
         'Bucket_Name': 'nodeyuese',

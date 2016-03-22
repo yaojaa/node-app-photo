@@ -125,7 +125,6 @@ router.get('/uc/recharge/list', auth.ajaxValidateLogin, ucenter.rechargeList);
 
 //个人资料
 router.get('/uc/view', function (req, res) {
-    console.log(req.session.user)
     res.render('uc_view',
         {
             user: req.session.user,

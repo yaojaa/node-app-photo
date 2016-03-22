@@ -101,7 +101,7 @@
             if (state == "SUCCESS") {
                 //显示图片计数+1
                 Upload.showCount++;
-                var $img = $("<img src='" + editor.options.imagePath + url + "' class='edui-image-pic' />"),
+                var $img = $("<img src='" + editor.options.imagePath +'/'+ url + "' class='edui-image-pic' />"),
                     $item = $("<div class='edui-image-item edui-image-upload-item'><div class='edui-image-close'></div></div>").append($img);
 
                 if ($(".edui-image-upload2", $w).length < 1) {
@@ -136,6 +136,7 @@
     /*
      * 本地上传
      * */
+
     var Upload = {
         showCount: 0,
         uploadTpl: '<div class="edui-image-upload%%">' +
@@ -143,7 +144,7 @@
             '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">' +
             '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
             '</form>' +
-
+            '<div id="progressbar"><div class="progress-label"></div></div>'+
             '</div>',
         init: function (editor, $w) {
             var me = this;
@@ -153,7 +154,7 @@
             me.render(".edui-image-local", 1);
             me.config(".edui-image-upload1");
             me.submit();
-            me.drag();
+            //me.drag();
 
             $(".edui-image-upload1").hover(function () {
                 $(".edui-image-icon", this).toggleClass("hover");
@@ -165,6 +166,13 @@
 
 
             return me;
+        },
+        getToken:function(callback){
+            var token=''
+            $.get('/uptoken',function(res){
+               token = res.uptoken;
+               callback.call(null,token)
+            })
         },
         render: function (sel, t) {
             var me = this;
@@ -183,11 +191,57 @@
 
             return me;
         },
+
+         //ajax上传到七牛
+        Qiniu_upload :function(f, token, key) {
+            var me=this;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', me.editor.getOpt('imageUrl'), true);
+            var formData, startDate;
+            formData = new FormData();
+            if (key !== null && key !== undefined) formData.append('key', key);
+            formData.append('token', token);
+            formData.append('file', f);
+            var taking;
+            xhr.upload.addEventListener("progress", function(evt) {
+                if (evt.lengthComputable) {
+                    var nowDate = new Date().getTime();
+                    taking = nowDate - startDate;
+                    var x = (evt.loaded) / 1024;
+                    var y = taking / 1000;
+                    var uploadSpeed = (x / y);
+                    var formatSpeed;
+                    if (uploadSpeed > 1024) {
+                        formatSpeed = (uploadSpeed / 1024).toFixed(2) + "Mb\/s";
+                    } else {
+                        formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
+                    }
+                    var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                        me.toggleMask(percentComplete+'%');
+                     console && console.log(percentComplete, ",", formatSpeed);
+                }
+            }, false);
+
+            xhr.onreadystatechange = function(response) {
+                if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText != "") {
+                    var blkRet = JSON.parse(xhr.responseText);
+                    console && console.log(blkRet);
+                    $("#dialog").html(xhr.responseText);
+                    me.uploadComplete(blkRet)
+                } else if (xhr.status != 200 && xhr.responseText) {
+
+                }
+            };
+            startDate = new Date().getTime();
+            $("#progressbar").show();
+            xhr.send(formData);
+        },
+
         uploadComplete: function(r){
             var me = this;
             try{
-                var json = eval('('+r+')');
-                Base.callback(me.editor, me.dialog, json.url, json.state);
+                var json = r;
+                Base.callback(me.editor, me.dialog, json.hash, 'SUCCESS');
             }catch (e){
                 var lang = me.editor.getLang('image');
                 Base.callback(me.editor, me.dialog, '', (lang && lang.uploadError) || 'Error!');
@@ -195,29 +249,18 @@
         },
         submit: function (callback) {
 
-            var me = this,
-                input = $( '<input style="filter: alpha(opacity=0);" class="edui-image-file" type="file" hidefocus="" name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp">'),
-                input = input[0];
+            var me = this;
 
             $(me.dialog).delegate( ".edui-image-file", "change", function ( e ) {
 
-                if ( !this.parentNode ) {
-                    return;
-                }
-
-                $('<iframe name="up"  style="display: none"></iframe>').insertBefore(me.dialog).on('load', function(){
-                    var r = this.contentWindow.document.body.innerHTML;
-                    if(r == '')return;
-                    me.uploadComplete(r);
-                    $(this).unbind('load');
-                    $(this).remove();
-
-                });
-
-                $(this).parent()[0].submit();
-                Upload.updateInput( input );
+                
+                var file=this.files[0];
+                console.log(file)
                 me.toggleMask("Loading....");
-                callback && callback();
+                me.getToken(function(token){
+                   me.Qiniu_upload(file,token)
+                })
+
 
             });
 
@@ -377,7 +420,7 @@
             "<div class=\"edui-image-local edui-tab-pane edui-active\">" +
             "<div class=\"edui-image-content\"></div>" +
             "<div class=\"edui-image-mask\"></div>" +
-            "<div class=\"edui-image-dragTip\"><%=lang_input_dragTip%></div>" +
+            "<div class=\"edui-image-dragTip\">点击这里选择图片</div>" +
             "</div>" +
             "<div class=\"edui-image-JimgSearch edui-tab-pane\">" +
             "<div class=\"edui-image-searchBar\">" +

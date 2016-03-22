@@ -1,9 +1,17 @@
-  
+  {{#extend "stylesheets"}}
+
 <script>
 
  var URL ='/vendor/ueditor/';
 
+ var GLOBAL={
+  Domain:'{{Domain}}',
+  uploadURL:'{{uploadURL}}'
+ }
+
 </script>
+
+{{/extend}}
 
     <link href="/vendor/umeditor1_2_2-utf8-php/themes/default/css/umeditor.min.css" type="text/css" rel="stylesheet">
 <div class="container">
@@ -45,10 +53,9 @@
     <script type="text/javascript" src="/vendor/umeditor1_2_2-utf8-php/umeditor.min.js"></script>
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
-  var serverPath = '/server/umeditor/',
-        um = UM.getEditor('editor', {
-            imageUrl:'http://7xobdo.com1.z0.glb.clouddn.com',
-            imagePath:serverPath,
+  var um = UM.getEditor('editor', {
+            imageUrl:GLOBAL.uploadURL,
+            imagePath:GLOBAL.Domain,
             lang:/^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
             langPath:UMEDITOR_CONFIG.UMEDITOR_HOME_URL + "lang/",
             focus: true
