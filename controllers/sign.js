@@ -9,7 +9,9 @@ var session = require('express-session');
 
 //sign up
 exports.showSignup = function (req, res) {
-  res.render('user/signup')
+  res.render('user/signup',{
+    layout:null
+  })
 };
 
 
@@ -87,6 +89,7 @@ exports.signup = function (req, res, next) {
 exports.showLogin = function (req, res) {
   req.session._loginReferer = req.headers.referer;
   res.render('user/login', {
+     layout:null,
     service: req.query.service || ''
   });
 }
