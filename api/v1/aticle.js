@@ -52,7 +52,32 @@ var delAticle=function(req,res,next){
 
 }
 
+
+var createAticle=function(req,res,next){
+
+
+
+  var title = validator.trim(req.body.title);
+   var content = validator.trim(req.body.content);
+   var authorId=req.session.user._id ;
+
+
+   AticleProxy.newAndSave(title, content, authorId, function(err){
+
+       if (err) {
+        return next(err);
+              }
+
+    res.json({errorno:0,msg:'发布成功！'});
+
+   })
+
+
+}
+
 exports.delAticle=delAticle
+exports.createAticle=createAticle
+
 
 exports.index=index;
 

@@ -36,6 +36,7 @@ router.get('/videolist', videoController.videolist);
 
 
 
+router.post('/createAticle', auth.userRequired,aticleController.createAticle)
 
 router.post('/delAticle',aticleController.delAticle)
 router.post('/delPhoto', auth.adminRequired, photoController.delPhoto)
