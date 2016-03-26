@@ -1,4 +1,5 @@
 var config        = require('../../config');
+var validator    = require('validator');
 
 var models        = require('../../models');
 var AticleModel   = models.Aticle;
@@ -57,9 +58,12 @@ var createAticle=function(req,res,next){
 
 
 
+
   var title = validator.trim(req.body.title);
    var content = validator.trim(req.body.content);
-   var authorId=req.session.user._id ;
+   var authorId=req.session.user.id ;
+
+
 
 
    AticleProxy.newAndSave(title, content, authorId, function(err){
@@ -75,8 +79,8 @@ var createAticle=function(req,res,next){
 
 }
 
-exports.delAticle=delAticle
-exports.createAticle=createAticle
+exports.delAticle=delAticle;
+exports.createAticle=createAticle;
 
 
 exports.index=index;
@@ -102,7 +106,6 @@ exports.index=index;
 // var _            = require('lodash');
 // var at           = require('../../common/at');
 // var renderHelper = require('../../common/render_helper');
-// var validator    = require('validator');
 
 
 // var index = function (req, res, next) {
