@@ -62,6 +62,15 @@ var config = {
         }
     },
 
+    //随机背景图片
+
+    random_bg_arr:[
+        'https://drscdn.500px.org/photo/144702359/m%3D2048/139f0f1fc44f5d81fb235834a121fe68',
+        'https://drscdn.500px.org/photo/146425097/q%3D80_m%3D2000/ce971fa31c530790a4c5d8c54581483d',
+        'https://drscdn.500px.org/photo/146345077/q%3D80_m%3D2000/c827e3cfec775a113e289cb48013709a'
+
+    ],
+
 
     // admin 可删除话题，编辑标签，设某人为达人
     admins: {'yaojaa@vip.qq.com': true},
