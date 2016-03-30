@@ -1,3 +1,18 @@
+
+<script>
+
+var config={
+    uploadurl:'{{uploadURL}}',
+    token:(function() {
+      return (function(){
+        $.get('/uptoken',function(res){
+            config.token= res.uptoken
+        })
+      })()
+    })()
+}
+</script>
+
 <link rel="stylesheet" type="text/css" href="/vendor/webuploader/webuploader.css">
 <style>
 
@@ -385,7 +400,8 @@
 
   <div class="row postContainer" style="background:#fff">
     <div class="col-lg-8">
-
+    <h2 align="center">发布作品</h2>
+<hr>
     <form method="post" action="/create-photo" class="form-horizontal"  >
      <input type="hidden" id="domain" value="{{Domain}}">
         <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">

@@ -53,7 +53,8 @@ exports.showCreate = function (req, res) {
   res.render('create-photo', {
     category: config.category,
     Domain: config.qn_access.Domain,
-    Uptoken_Url: config.qn_access.Uptoken_Url
+    Uptoken_Url: config.qn_access.Uptoken_Url,
+    uploadURL:config.qn_access.uploadURL
   })
 
 }
