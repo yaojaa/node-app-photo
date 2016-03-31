@@ -15,9 +15,11 @@
 
             url=url.replace(/\?[\s\S]*$/,"");
 
-            if (!/(.gif|.jpg|.jpeg|.png)$/i.test(url)) {
-                return false;
-            }
+            //有的地址不一定是扩展名结尾
+
+            // if (!/(.gif|.jpg|.jpeg|.png)$/i.test(url)) {
+            //     return false;
+            // }
             return url;
         },
         getAllPic: function (sel, $w, editor) {
@@ -101,7 +103,8 @@
             if (state == "SUCCESS") {
                 //显示图片计数+1
                 Upload.showCount++;
-                var $img = $("<img src='" + editor.options.imagePath +'/'+ url + "' class='edui-image-pic' />"),
+                console.log('Upload.showCount',Upload.showCount)
+                var $img = $("<img src='" + editor.options.imagePath +'/'+ url + "' class='edui-image-pic'  />"),
                     $item = $("<div class='edui-image-item edui-image-upload-item'><div class='edui-image-close'></div></div>").append($img);
 
                 if ($(".edui-image-upload2", $w).length < 1) {
@@ -142,7 +145,7 @@
         uploadTpl: '<div class="edui-image-upload%%">' +
             '<span class="edui-image-icon"></span>' +
             '<form class="edui-image-form" method="post" enctype="multipart/form-data" target="up">' +
-            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="upfile" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
+            '<input style=\"filter: alpha(opacity=0);\" class="edui-image-file" type="file" hidefocus name="upfile" multiple="multiple" accept="image/gif,image/jpeg,image/png,image/jpg,image/bmp"/>' +
             '</form>' +
             '<div id="progressbar"><div class="progress-label"></div></div>'+
             '</div>',
@@ -167,13 +170,13 @@
 
             return me;
         },
-        getToken:function(callback){
+        getToken:!function(callback){
+            var me=this;
             var token=''
             $.get('/uptoken',function(res){
-               token = res.uptoken;
-               callback.call(null,token)
+               Upload.getToken = res.uptoken;
             })
-        },
+        }(),
         render: function (sel, t) {
             var me = this;
 
@@ -227,6 +230,7 @@
                     var blkRet = JSON.parse(xhr.responseText);
                     console && console.log(blkRet);
                     $("#dialog").html(xhr.responseText);
+                    console.info('xhr',blkRet);
                     me.uploadComplete(blkRet)
                 } else if (xhr.status != 200 && xhr.responseText) {
 
@@ -238,6 +242,7 @@
         },
 
         uploadComplete: function(r){
+            console.info('uploadComplete')
             var me = this;
             try{
                 var json = r;
@@ -253,13 +258,14 @@
 
             $(me.dialog).delegate( ".edui-image-file", "change", function ( e ) {
 
+                console.log('change',e);
+
                 
                 var file=this.files[0];
-                console.log(file)
+                console.log(me.getToken)
+                // console.log(file)
                 me.toggleMask("Loading....");
-                me.getToken(function(token){
-                   me.Qiniu_upload(file,token)
-                })
+                   me.Qiniu_upload(file,me.getToken)
 
 
             });
@@ -315,6 +321,7 @@
                             xhr.addEventListener('load', function (e) {
                                 var r = e.target.response, json;
                                 me.uploadComplete(r);
+
                                 if (i == fileList.length - 1) {
                                     $(img).remove()
                                 }
@@ -407,7 +414,8 @@
     };
 
     var $tab = null,
-        currentDialog = null;
+        currentDialog = null,
+        hasIntEvt=false;
 
     UM.registerWidget('image', {
         tpl: "<link rel=\"stylesheet\" type=\"text/css\" href=\"<%=image_url%>image.css\">" +
@@ -439,28 +447,37 @@
 
             Upload.showCount = 0;
 
+         
+
             if (lang) {
                 var html = $.parseTmpl(this.tpl, opt);
             }
 
             currentDialog = $dialog.edui();
+                this.root().html(html);
 
-            this.root().html(html);
+
+
 
         },
         initEvent: function (editor, $w) {
+
+           
             $tab = $.eduitab({selector: ".edui-image-wrapper"})
                 .edui().on("beforeshow", function (e) {
                     e.stopPropagation();
                 });
 
+         
             Upload.init(editor, $w);
 
             NetWork.init(editor, $w);
+
         },
         buttons: {
             'ok': {
                 exec: function (editor, $w) {
+                    console.log(UM.registerWidget);
                     var sel = "",
                         index = $tab.activate();
 
@@ -475,6 +492,7 @@
                     if (index != -1) {
                         editor.execCommand('insertimage', list);
                     }
+
                 }
             },
             'cancel': {}
