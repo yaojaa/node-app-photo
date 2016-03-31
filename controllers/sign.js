@@ -87,7 +87,7 @@ exports.signup = function (req, res, next) {
 exports.showLogin = function (req, res) {
   req.session._loginReferer = req.headers.referer;
   res.render('user/login', {
-    
+
     service: req.query.service || ''
   });
 }
@@ -108,6 +108,7 @@ function makeSession(req, user, res) {
     signature: user.signature,
     nickname: user.nickname,
     cell_phone: user.cell_phone,
+    hasBuy: user.hasBuy,
     wx: user.wx,
     QQ: user.QQ
   };

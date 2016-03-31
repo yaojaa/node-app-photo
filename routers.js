@@ -8,6 +8,7 @@ var comment = require('./controllers/comment');
 var wechat = require('./controllers/wechat');
 var qq = require('./controllers/qq');
 var wxpay = require('./controllers/wxpay');
+var deal = require('./controllers/deal');
 
 var ucenter = require('./controllers/ucenter');
 var auth = require('./middlewares/auth');
@@ -126,11 +127,11 @@ router.get('/uc/recharge/list', auth.ajaxValidateLogin, ucenter.rechargeList);
 //个人资料
 router.get('/uc/view', function (req, res) {
     res.render('uc_view',
-        {
-            user: req.session.user,
-            Domain: config.qn_access.Domain,
-            Uptoken_Url: config.qn_access.Uptoken_Url
-        }
+      {
+          user: req.session.user,
+          Domain: config.qn_access.Domain,
+          Uptoken_Url: config.qn_access.Uptoken_Url
+      }
     );
 });
 
@@ -158,4 +159,9 @@ router.post('/home/photo/list', photo.findList);
 router.get('/photo/list/classify', photo.classify);
 //推荐或取消
 router.get('/photo/list/recommend', photo.recommend);
+
+
+//商品购买
+router.get('/deal/photo/buy/:id', deal.buy);
+
 module.exports = router;

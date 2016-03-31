@@ -1,0 +1,40 @@
+<style>
+  .mgtb-100 {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+
+  .mgtb-10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+</style>
+
+<div class="container mgtb-100">
+
+  <div class="row mgtb-10">
+    <h1>订单信息</h1>
+  </div>
+  <div class="row mgtb-10">
+    <p>描述信息</p>
+  </div>
+  <div class="row mgtb-10">
+    金额 : ￥{{price}}
+  </div>
+  <div class="row mgtb-10">
+    <h3>支付方式</h3>
+  </div>
+  <div class="row mgtb-10">
+    <h4>
+      微信扫描支付>>
+      <img src="/pub/wxpay/order/{{photoId}}-1-1" width="200px" height="200px" alt="微信支付"/>
+    </h4>
+  </div>
+  <div class="row mgtb-10">
+    <h4>支付宝>></h4>
+  </div>
+  <div class="row mgtb-10">
+    <h4>账户余额（￥{{money}}）>></h4>
+  </div>
+</div><!-- /.container -->
