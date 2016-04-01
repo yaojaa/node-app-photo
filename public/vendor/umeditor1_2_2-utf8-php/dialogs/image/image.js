@@ -256,7 +256,9 @@
 
             var me = this;
 
-            $(me.dialog).delegate( ".edui-image-file", "change", function ( e ) {
+            $(me.dialog).undelegate( ".edui-image-file", "change.a");
+
+            $(me.dialog).delegate( ".edui-image-file", "change.a", function ( e ) {
 
                 console.log('change',e);
 
@@ -470,14 +472,12 @@
 
          
             Upload.init(editor, $w);
-
             NetWork.init(editor, $w);
 
         },
         buttons: {
             'ok': {
                 exec: function (editor, $w) {
-                    console.log(UM.registerWidget);
                     var sel = "",
                         index = $tab.activate();
 
