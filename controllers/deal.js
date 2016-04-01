@@ -38,3 +38,49 @@ exports.buy = function (req, res) {
     });
 
 };
+
+
+/**
+ * 处理交易流程
+ * @param req
+ *  req.params.t1 交易方式
+ *      1：个人钱包
+ *      2：微信
+ *      3：支付宝
+ *      4：个人钱包+微信
+ *      5：个人钱包+支付宝
+ *
+ *  req.params.t2 交易类型
+ *      1：购买
+ *      2：打赏
+ *
+ *  req.params.productid 商品ID
+ *      可能是图集的ID
+ *      或打赏用户的ID
+ *
+ *  req.query.money 打赏的金额（元）
+ * @param res
+ */
+exports.handle = function (req, res) {
+    var t1 = req.params.t1;
+    var t2 = req.params.t2;
+    var productid = req.params.productid;
+    var money = req.query.money;
+
+    //参数验证
+    var pass = ['1', '2'].indexOf(t2) > -1;
+    if (!pass) {
+        return res.fail('参数错误');
+    }
+
+    pass = ['1', '2', '3', '4', '5'].indexOf(t1) > -1;
+    if (!pass) {
+        return res.fail('参数错误');
+    }
+
+    //id不合法，返回首页
+    if (!wxutil.validObjectId(productid)) {
+        console.log('id不合法...');
+        return res.fail('参数错误');
+    }
+};
