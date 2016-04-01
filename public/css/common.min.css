@@ -2773,3 +2773,31 @@ body {
     border-bottom:2px solid #0099e5 !important;
     margin-bottom: -2px;
 }
+
+.btn-pay {
+    background: #f57e42 none repeat scroll 0 0;
+    border-color: #f57e42;
+    color: white;
+}
+.btn-pay:hover, .btn-pay:focus {
+    background-color: #f5ad6e;
+    border-color: #f5ad6e;
+    color: white;
+}
+.btn-pay.active, .btn-pay:active {
+    background: #e67613 none repeat scroll 0 0;
+    border-color: #e67613;
+    box-shadow: none;
+    color: white;
+    outline: medium none;
+}
+.btn-pay.disabled, .btn-pay.disabled:hover, .btn-pay.disabled:focus, .btn-pay.disabled:active, .btn-pay.disabled.active, .btn-pay[disabled], .btn-pay[disabled]:hover, .btn-pay[disabled]:focus, .btn-pay[disabled]:active, .btn-pay.active[disabled] {
+    background: #f6b881 none repeat scroll 0 0;
+    border-color: #f6b881;
+    cursor: not-allowed;
+}
+.btn-pay.disabled {
+    background: #f57e42 none repeat scroll 0 0;
+    border-color: #f57e42;
+    color: white;
+}

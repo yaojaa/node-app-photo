@@ -11,13 +11,67 @@
 }
 
 #aticleContent p{
-	margin: 1.2em;
-	line-height: 1.6
+	line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 16px
 }
 
 #aticleContent img{
-    max-width:100%
+    max-width:100%;
+    margin:10px 0;
 }
+
+#aticleContent .author-info {
+    border-bottom: 1px solid #eeeeee;
+    color: #999999;
+    font-size: 12px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    padding: 15px 0;
+}
+#aticleContent .author-info .follow, #aticleContent .author-info .following {
+    float: right;
+    margin-top: 10px;
+}
+#aticleContent .author-info .follow > span, #aticleContent .author-info .following > span {
+    display: inline-block;
+    line-height: 13px;
+}
+#aticleContent .author-info .avatar {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+    width: 40px;
+}
+#aticleContent .author-info .label {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #e78170;
+    color: #e78170;
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 1;
+    text-shadow: none;
+}
+#aticleContent .author-info .author-name {
+    margin: 0 5px;
+}
+#aticleContent .author-info > div {
+    margin-top: 3px;
+}
+
+h1.heading{
+    font-family: Georgia,"Times New Roman",Times,"Kai","Kaiti SC","KaiTi","BiauKai","楷体","楷体_GB2312",serif;
+       font-size: 32px;
+    font-weight: bold;
+    line-height: 1.5;
+    word-break: break-all;
+    text-align: center;
+}
+
+.author-copyright{
+    color: #d5d5d5
+}
+
 </style>
 
 <div class="container">
@@ -29,9 +83,32 @@
       </ol>
 
     <div id="aticleContent">
-    	    <h1 class="list-group-item-heading">{{aticle.title}} </h1>
+    <div class="author-info">
+            
+            <a href="/users/c21kdr" class="avatar">
+              <img alt="100" src="http://upload.jianshu.io/users/upload_avatars/6164/44e4f91123e3?imageMogr/thumbnail/90x90/quality/100">
+</a>            <span class="label">
+                作者
+            </span>
+            <a href="/users/c21kdr" class="author-name blue-link">
+              <span>红叶舞秋山</span>
+</a>              <span>2016.03.31 18:10</span>
+            <div>
+              <span>写了2368字</span>，<span>被0人关注</span>，<span>获得了0个喜欢</span>
+            </div>
+          </div>
+
+
+
+
+    	    <h1 class="heading">{{aticle.title}} </h1>
 <hr>
-    	{{{aticle.content}}}</div>
+    	{{{aticle.content}}}
+        <hr>
+        <div title="" data-html="true" data-toggle="tooltip" class="author-copyright" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+            <i class="fa fa-copyright"></i> 著作权归作者所有
+          </div>
+    </div>
 
 </div>
 
