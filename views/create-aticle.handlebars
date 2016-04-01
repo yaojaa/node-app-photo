@@ -1,4 +1,5 @@
   {{#extend "stylesheets"}}
+<link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
 
 
 <style>
@@ -17,7 +18,7 @@
   .edui-dialog-image .edui-image-upload1{
     cursor:pointer
   }
-  
+
 </style>
 
 <script>
@@ -37,12 +38,14 @@
 <div class="container">
 
 <div class="aticle_post_container">
-   <h1 align="center">发布图片故事</h1>
+   <h1 align="center">发布套餐</h1>
 <hr>
-  <p><input class="form-control input-lg" type="text" id="title" name="title" placeholder="标题" value="请输入文章标题" /></p>
+  <p class="form-group"><input class="form-control input-lg" type="text" id="title" name="title" placeholder="标题" value="请输入文章标题" /></p>
 
-    <p><textarea class="form-control input-lg" type="text" id="title" name="title" placeholder="标题" value="简介" /></textarea>
-  <p><input class="form-control input-lg" type="text" id="title" name="title" placeholder="标题图" value="" /></p>
+    <p  class="form-group"><textarea class="form-control input-lg" type="text" id="title" name="title" placeholder="输入简介"  /></textarea>
+  <!--
+  <p  class="form-group" ><input class="form-control input-lg" type="text" id="title" name="title" placeholder="标题图" value="" /></p>
+  --> 
 
 
 
@@ -68,6 +71,7 @@
 
 
   {{#extend "customerScript"}}
+<script src="/vendor/sweetalert/sweetalert.min.js"></script>
 
 
 
@@ -101,13 +105,42 @@ var postAticle=function(){
       content:um.getContent(),
     }
 
-    if(postdata.title=='' || postdata.content.length<10){
-      alert('标题不能为空，或内容字数太少')
+    if(postdata.title=='' ){
+
+         swal({
+                title: '标题不能为空',
+                type: "warning",
+                showCancelButton: false
+              })
+      return 
+    }
+
+     if(postdata.content.length<10){
+
+         swal({
+                title: '内容字数不足',
+                type: "warning",
+                showCancelButton: false
+              })
       return 
     }
 
     $.post('/api/v1/createAticle',postdata,function(res) {
-      if(res.error==0){
+      if(res.errorno==-1){
+          swal({
+                title: '请先登录',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "登录",
+                cancelButtonText: "取消",
+                closeOnConfirm: false
+            }, function() {
+                location.href = "/login"
+            });
+
+      }
+      else if(res.error==0){
           alert('发布成功')
       }else{
         alert(res.msg)
