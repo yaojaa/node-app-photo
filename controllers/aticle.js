@@ -2,6 +2,7 @@ var config = require('../config');
 var Aticle = require('../proxy/aticle.js');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
+var xss = require('xss');
 
 
 //findOnePage
@@ -41,11 +42,11 @@ exports.showCreate=function(req, res){
 
 exports.create = function(req, res) {
 
-   var title = validator.trim(req.body.title);
-   var content = validator.trim(req.body.content);
+   var title = xss(validator.trim(req.body.title));
+   var content = xss(validator.trim(req.body.content));
    var authorId=req.session.user._id || '000';
 
-   console.log(content);
+   console.log(title,authorId,content);
 
    Aticle.newAndSave(title, content, authorId, function(err){
 
