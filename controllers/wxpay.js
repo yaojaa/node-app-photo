@@ -7,6 +7,63 @@ var wxutil = require('../util/wxutil');
 var config = require('../config').wxpay;
 var qr = require('qr-image');
 
+
+//异步接受微信的支付结果
+//todo:更新商品所有者的账户金额
+exports.notify = function (req, res) {
+    console.log('---------------->notify');
+
+    async.waterfall([function (callback) {
+        wxutil.parseBody(req, function () {
+            console.log('微信回调信息------->', req._body);
+            if (req._body) {
+                wxutil.parseString(req._body, callback);
+            } else {
+                callback(new Error('无法接收微信的回复信息'));
+            }
+        });
+    }, function (ret, callback) {
+        if (ret.return_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
+        if (ret.result_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
+        //验证返回信息是否合法
+        var boo = wxutil.validSign(ret);
+        if (boo) {
+            callback(null, ret);
+        } else {
+            callback(new Error('微信返回信息签名验证失败'));
+        }
+    }, function (ret, callback) {
+        //更新订单状态
+        var model = {
+            status: 1,
+            price: ret.total_fee,
+            openid: ret.openid
+        };
+        Order.update(ret.out_trade_no, model, callback);
+    }, function (ret, callback) {
+        //更新商品所有者的账户金额
+        Order.getOrderById(ret._id, function (err, order) {
+            if (err) {
+                callback(err);
+            } else {
+                User.update(order._id, {'$inc': {'money': order.price}}, callback);
+            }
+        });
+    }], function (err, ret) {
+        if (err) {
+            console.error('[controller][wxpay][notify]', err.stack);
+            return wxutil.fail(err.message, res);
+        }
+        console.log('提醒微信支付成功');
+        wxutil.ok({}, res);
+    });
+};
+
+
 //调用同意下单接口
 exports.order = function (req, res) {
     console.log('---------------->order');
@@ -95,53 +152,6 @@ exports.order = function (req, res) {
 
     });
 };
-
-//异步接受微信的支付结果
-//todo:更新商品所有者的账户金额
-exports.notify = function (req, res) {
-    console.log('---------------->notify');
-
-    async.waterfall([function (callback) {
-        wxutil.parseBody(req, function () {
-            console.log('微信回调信息------->', req._body);
-            if (req._body) {
-                wxutil.parseString(req._body, callback);
-            } else {
-                callback(new Error('无法接收微信的回复信息'));
-            }
-        });
-    }, function (ret, callback) {
-        if (ret.return_code !== 'SUCCESS') {
-            return callback(new Error(ret.return_msg));
-        }
-        if (ret.result_code !== 'SUCCESS') {
-            return callback(new Error(ret.return_msg));
-        }
-        //验证返回信息是否合法
-        var boo = wxutil.validSign(ret);
-        if (boo) {
-            callback(null, ret);
-        } else {
-            callback(new Error('微信返回信息签名验证失败'));
-        }
-    }, function (ret, callback) {
-        //更新订单状态
-        var model = {
-            status: 1,
-            price: ret.total_fee,
-            openid: ret.openid
-        };
-        Order.update(ret.out_trade_no, model, callback);
-    }], function (err, ret) {
-        if (err) {
-            console.error('[controller][wxpay][notify]', err.stack);
-            return wxutil.fail(err.message, res);
-        }
-        console.log('提醒微信支付成功');
-        wxutil.ok({}, res);
-    });
-};
-
 
 //生成订单信息
 function generateOrderInfo(product, type, trading_type, user, callback) {
