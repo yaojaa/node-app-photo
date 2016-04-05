@@ -181,12 +181,14 @@ exports.unfollow = function (req, res, next) {
     var user = req.session.user.id;
     var author = req.body.author_id;
 
+    UserProxy.unfollow(author, user, function (err) {
 
     if (err) {
         return res.json({errorno: -1, msg: "取消关注失败！"});
     }
     res.json({errorno: 0, msg: "取消关注成功！"});
 
+    })
 
 };
 

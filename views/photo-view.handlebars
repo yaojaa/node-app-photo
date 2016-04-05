@@ -259,12 +259,12 @@ textarea{
                             <div id="author">
                             <div class="clearfix">
 <div class="headpic"><img width="50" src="{{author.avatar}}?imageView2/1/w/50/"></div>
-<div class="title"><a href="/space/{{user.id}}">{{author.nickname}}</a></div>
+<div class="title"><a href="/userspace/{{user.id}}">{{author.nickname}}</a></div>
 
 {{#if authorIsNotSelf}}
 
 {{#if isFollow}}
- <div class="flow"> <button id="{{author._id}}" title="点击取消关注" action-type="unfollow" type="button" class="btn btn-default btn-mn unflowbtn">✔ 已关注</button></div>
+ <div class="flow"> <button id="{{author._id}}" title="点击取消关注" action-type="follow" type="button" class="btn btn-default btn-mn flowbtn unflowbtn">✔ 已关注</button></div>
 {{else}}
  <div class="flow"> <button id="{{author._id}}" title="点击关注" action-type="follow"  type="button" class="btn btn-primary btn-mn flowbtn"> + 关注</button></div>
 {{/if}}
@@ -480,17 +480,10 @@ $('#commentBtn').on('click',function(){
 //     }
 // })
 
-
-$('.Jbtn-buy').on('click', function() {
-
-
-    // $(this).attr('disabled',true).text('loading..')
-
-    $.post('/api/v1/buyPhoto', postdata, function(data) {
-
-        if (data.errorno == -1) {
-            swal({
-                title: data.msg,
+//提示登录
+function showLoginTips(){
+     swal({
+                title: '登录提示',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -500,6 +493,17 @@ $('.Jbtn-buy').on('click', function() {
             }, function() {
                 location.href = "/login"
             });
+}
+
+$('.Jbtn-buy').on('click', function() {
+
+
+    // $(this).attr('disabled',true).text('loading..')
+
+    $.post('/api/v1/buyPhoto', postdata, function(data) {
+
+        if (data.errorno == -1) {
+           showLoginTips()
         } else if (data.errorno == -2) {
 
             swal({
@@ -539,48 +543,57 @@ $('.Jbtn-buy').on('click', function() {
 
 //关注取消关注
 
-$('.flowbtn').on('click',function(){
-        console.log('ffff')
+$('[action-type="follow"]').on('click',function(){
     var author_id=$(this).attr('id');
     var $btn=$(this);
 
-    $.post('/api/v1/follow',{author_id:author_id},function(data){
+    console.log($btn)
 
-        console.log(data);
+    if($btn.hasClass('unflowbtn')){
 
-        if(data.errorno===0){
+     $.post('/api/v1/unfollow',{author_id:author_id},function(data){
 
-            $btn.text('✔ 已关注')
+     if(data.errorno===0){
 
+            $btn.text('+ 关注');
+            $btn.removeClass('unflowbtn').attr('title','加关注')
+
+        }
+
+         else if(data.errorno==-1){
+             showLoginTips()
         }
 
 
     })
 
 
+    }else{
 
-})
+    $.post('/api/v1/follow',{author_id:author_id},function(data){
 
+        if(data.errorno===0){
 
-$('.unflowbtn').on('click',function(){
+            $btn.text('✔ 已关注');
+            $btn.addClass('unflowbtn').attr('title','取消关注')
 
-    var author_id=$(this).attr('id');
+        }
+        else if(data.errorno==-1){
 
-    $.post('/api/v1/unfollow',{author_id:author_id},function(data){
+             showLoginTips()
+
+        }
 
 
     })
 
-
-//支付窗口
-
-
-
-//end
+    }
 
 
 
 })
+
+
 
 </script>
 {{/extend}}
