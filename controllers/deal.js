@@ -2,6 +2,8 @@ var Eventproxy = require('eventproxy');
 var wxutil = require('../util/wxutil');
 var PhotoProxy = require('../proxy').Photo;
 var User = require('../proxy/user');
+var dealService = require('../proxy/deal');
+var Order = require('../proxy/order');
 
 //进入商品购买页
 exports.buy = function (req, res) {
@@ -40,6 +42,21 @@ exports.buy = function (req, res) {
 
 };
 
+//查询订单状态
+exports.get = function (req, res) {
+    var orderId = req.params.orderId;
+    //id不合法
+    if (!wxutil.validObjectId(orderId)) {
+        console.log('id不合法...');
+        return res.fail('参数错误');
+    }
+    Order.getOrderById(orderId, function (err, ret) {
+        if (err) {
+            return res.fail('获取订单信息失败');
+        }
+        return res.ok({id: ret._id, status: ret.status});
+    });
+};
 
 /**
  * 处理交易流程
@@ -109,13 +126,8 @@ exports.handle = function (req, res) {
                 }
             }
 
-            dispatchPay(t1, photo.price, user.money, user.id, photo.author_id, function (err, ret) {
-                if (err) {
-                    console.log('[deal][handle][dispatchPay]', err.stack);
-                    return res.fail('系统出错');
-                }
-                res.ok();
-            });
+            //生成订单信息
+            generateOrderInfo(t1, t2, req, res, user.id, photo.author_id, productid, photo.price);
 
         });
 
@@ -130,19 +142,87 @@ exports.handle = function (req, res) {
             }
         }
 
-        dispatchPay(t1, fen, user.money, user.id, productid, function (err, ret) {
-            if (err) {
-                console.log('[deal][handle][dispatchPay]', err.stack);
-                return res.fail('系统出错');
-            }
-            res.ok();
-        });
+
+        //生成订单信息
+        generateOrderInfo(t1, t2, req, res, user.id, productid, productid, fen);
+
     }
 };
 
 /**
+ * 生成预订单信息
+ * 将订单ID返回，
+ * 根据订单状态查询订单是否完成
+ * @param t1
+ * @param t2
+ * @param req
+ * @param res
+ * @param buyId
+ * @param sellId
+ * @param productId
+ * @param money
+ */
+function generateOrderInfo(t1, t2, req, res, buyId, sellId, productId, money) {
+    //生成订单信息
+    dealService.generateOrderInfo(buyId, sellId, productId, t2, t1, money, function (err, ret) {
+        if (err) {
+            return res.fail('生成订单信息出错');
+        }
+
+        res.ok({id: ret._id});
+
+    });
+};
+
+/**
+ * 完成支付
+ * @param req
+ * @param res
+ */
+exports.pay = function (req, res) {
+    var orderId = req.params.orderId;
+    var user = req.session.user;
+    //用户没有登录
+    if (!user) {
+        console.log('用户未登录...');
+        return res.fail('获取用户信息失败');
+    }
+    //id不合法
+    if (!wxutil.validObjectId(orderId)) {
+        console.log('id不合法...');
+        return res.fail('参数错误');
+    }
+    Order.getOrderById(orderId, function (err, ret) {
+        if (err) {
+            return res.fail('获取订单信息失败');
+        }
+        if (ret.status !== 3) {
+            return res.fail('订单已经无法支付');
+        }
+
+        var createAt = new Date(ret.create_at);
+        if (Date.now() - createAt > 1000 * 60 * 60 * 2) {//订单失效时间2个小时
+            dealService.updateOrderInfo(orderId, {status: 4}, function (err) {
+                if (err) {
+                    console.log('更新订单失效出错：' + err.stack);
+                }
+            });
+            return res.fail('订单已经失效');
+        }
+
+        //分发支付方式
+        dispatchPay(ret, user, req, res, function (err) {
+            if (err) {
+                console.log('[deal][pay][dispatchPay]', err.stack);
+            }
+        });
+    });
+};
+
+
+/**
  * 分发支付方式
- * @param t
+ * @param trading_channel 支付方式
  *      1：个人钱包
  *      2：微信
  *      3：支付宝
@@ -156,28 +236,77 @@ exports.handle = function (req, res) {
  *      购买者或打赏者的ID
  * @param sellId
  *      收益者ID
+ *  @param orderId
+ *      订单ID
  *
  * @api public
  */
-function dispatchPay(t, money, balance, buyId, sellId, callback) {
-    t = parseInt(t);
-    switch (t) {
+function dispatchPay(order, user, req, res, callback) {
+    //用户的余额
+    var balance = user.money;
+    switch (order.trading_channel) {
         case 1:
-            //buyId -money
-            //sellId +money
+            dealService.personalWallet(order.price, order.buy_id, order.author_id, function (err) {
+                if (!err) {
+                    dealService.updateOrderInfo(order._id, {status: 1}, function (err) {
+                        if (err) {
+                            console.log('交易成功，但更新订单信息失败');
+                            res.fail('交易成功，但更新订单信息失败');
+                        } else {
+                            console.log('交易成功，更新订单信息成功');
+                            res.ok('交易成功，更新订单信息成功');
+                        }
+                    });
+                    req.session.user.money = balance - money;
+                } else {
+                    dealService.updateOrderInfo(order._id, {status: 2}, function (err) {
+                        if (err) {
+                            console.log('交易失败，且更新订单信息失败');
+                            res.fail('交易失败，且更新订单信息失败');
+                        } else {
+                            console.log('交易失败，但更新订单信息失败');
+                            res.fail('交易失败，但更新订单信息失败');
+                        }
+                    });
+                }
+                callback(err);
+            });
             break;
         case 2:
             //调用微信支付接口
-            //sellId +money
+            dealService.wxpay(order.price, order.buy_id, order.author_id, order._id, function (err, img) {
+                if (!err) {
+                    res.writeHead(200, {'Content-Type': 'image/png'});
+                    img.pipe(res);
+                } else {
+                    res.fail('生成二维码失败');
+                }
+            });
             break;
         case 3:
             //调用支付宝支付接口
             //sellId +money
             break;
         case 4:
-            //buyId -balance
-            //调用微信支付接口 money-balance
-            //sellId +money
+            //调用个人钱包支付
+            //调用微信支付接口
+            dealService.personalWallet(balance, order.buy_id, order.author_id, function (err) {
+                if (err) {
+                    res.fail('交易失败');
+                } else {
+                    req.session.user.money = 0;
+                    dealService.wxpay(order.price - balance, order.buy_id, order.author_id, order._id, function (err, img) {
+                        if (!err) {
+                            res.writeHead(200, {'Content-Type': 'image/png'});
+                            img.pipe(res);
+                        } else {
+                            res.fail('生成二维码失败');
+                        }
+                    });
+                }
+                callback(err);
+            });
+
             break;
         case 5:
             //buyId -balance

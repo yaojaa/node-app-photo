@@ -70,7 +70,7 @@ router.get('/qq/callback', qq.callback);  // 进入微信登录页面
 //router.get('/pub/wxpay/makeQRcode/:productid', wxpay.makeQRcode);  // 微信支付二维码
 //router.post('/pub/wxpay/callback', wxpay.callback);  // 微信支付
 router.post('/pub/wxpay/notify', wxpay.notify);  // 微信支付
-router.get('/pub/wxpay/order/:productid-:t1-:t2', wxpay.order);  // 微信支付
+//router.get('/pub/wxpay/order/:productid-:t1-:t2', wxpay.order);  // 微信支付
 
 
 //根据这两句生成uptoken
@@ -163,5 +163,11 @@ router.get('/photo/list/recommend', photo.recommend);
 
 //商品购买
 router.get('/deal/photo/buy/:id', deal.buy);
+//查看订单状态
+router.get('/deal/order/:orderId', deal.get);
+//生成订单信息
+router.get('/deal/order/action/:productid-:t1-:t2', deal.handle);
+//完成支付
+router.get('/deal/order/pay/:orderId', deal.pay);
 
 module.exports = router;
