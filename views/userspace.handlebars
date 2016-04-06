@@ -19,28 +19,18 @@
 {{/if}}
 <div class="u_details">
   <h1>
-    Alessandro Di Cicco
+    {{userInfo.signature}}
   </h1>
 
-  <div class="short_bio" style="word-wrap: break-word;">
-    <p><a href="#" rel="nofollow">FACEBOOK</a> | <a href="#" rel="nofollow">INSTAGRAM</a> | <a href="#" rel="nofollow">500px</a>
-      | <a href="#" rel="nofollow">FLICKR</a></p>
-  </div>
   <ul class="u_details_list">
     <li>
-      <span>276,943</span> Affection
+      <span>{{totalBrowseCount}}</span> 次照片浏览
     </li>
     <li>
-      <span>2,585,625</span> 次照片浏览
+      <span>{{userInfo.fans.length}}</span> 名粉丝
     </li>
     <li>
-      <span>12,979</span> 名粉丝
-    </li>
-    <li>
-      <span>313</span> 次关注
-    </li>
-    <li>
-      CASTELFORTE, Latina, Italia
+      <span>{{userInfo.followings.length}}</span> 次关注
     </li>
   </ul>
 </div>
@@ -49,7 +39,7 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#new_pic" aria-controls="new_pic" role="tab" data-toggle="tab">图片
       {{totalPicturesCount}}</a></li>
-    <li role="presentation"><a href="#hot_pic" aria-controls="hot_pic" role="tab" data-toggle="tab">关于</a></li>
+    <!--<li role="presentation"><a href="#hot_pic" aria-controls="hot_pic" role="tab" data-toggle="tab">关于</a></li>-->
   </ul>
   <!-- Tab panes -->
   <div class="tab-content">
