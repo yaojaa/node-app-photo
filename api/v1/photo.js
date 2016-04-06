@@ -193,6 +193,28 @@ exports.unfollow = function (req, res, next) {
 };
 
 
+
+exports.publish = function (req, res) {
+
+  var title = validator.trim(req.body.title);
+  var discrib = validator.trim(req.body.discrib);
+  // var tags = validator.trim(req.body.tags);
+  var pictures = req.body.pictures;
+  var category = req.body.category;
+  var authorId = req.session.user.id;
+  var price = 0 ;//validator.trim(req.body.price);
+
+  Photo.newAndSave(title, discrib, pictures, category, authorId, price, function (err,data) {
+    if (err) {
+      return next(err);
+    }
+    res.json({errorno:0,msg: '发布成功！',data:data});
+
+  })
+
+};
+
+
 exports.buyPhoto = buyPhoto;
 
 exports.delPhoto = delPhoto;

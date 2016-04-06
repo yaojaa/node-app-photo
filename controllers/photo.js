@@ -67,7 +67,7 @@ exports.publish = function (req, res) {
   var pictures = req.body.pictures;
   var category = req.body.category;
   var authorId = req.session.user.id;
-  var price = validator.trim(req.body.price)
+  var price = validator.trim(req.body.price);
   Photo.newAndSave(title, discrib, pictures, category, authorId, price, function (err) {
     if (err) {
       return next(err);

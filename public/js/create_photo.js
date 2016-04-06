@@ -441,4 +441,17 @@ jQuery(function() {
 
     $upload.addClass( 'state-' + state );
     updateTotalProgress();
+
+
+//发布
+  var   postPicture=function(){
+    $.post('api/v1/publish',{},function(){
+
+
+    })
+  }
+
+  $('#Jpost').on('click',postPicture)
+
+
 });
