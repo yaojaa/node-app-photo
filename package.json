@@ -29,7 +29,8 @@
     "uuid": "^2.0.1",
     "validator": "^4.2.1",
     "xml2js": "0.4.16",
-    "xss": "^0.2.10"
+    "xss": "^0.2.10",
+    "nodemailer":"2.3.0"
   },
   "devDependencies": {
     "coveralls": "2.11.2",
