@@ -1,5 +1,3 @@
-
-
 <style>
   .login-sns {
     text-align: center;
@@ -40,76 +38,120 @@
     background-color: #15a7f0;
     color: #fff;
   }
-  .wechat  a:hover {
+
+  .wechat a:hover {
     background-color: #49be38;
     color: #fff;
   }
 
-  #footer,.navbar-gradient{
+  #footer, .navbar-gradient {
     display: none;
   }
 
-  body{
+  body {
     background: url(https://drscdn.500px.org/photo/144702359/m%3D2048/139f0f1fc44f5d81fb235834a121fe68) center top no-repeat;
     background-size: cover;
-}
+  }
 
-  
+  .none {
+    display: none;
+  }
 </style>
 
 
-<div class="container" >
-	<br><br>
-<div class="row">
-    <div class="col-md-12 col-lg-4 col-lg-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">注册新用户</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form name="loginform" action="/signup" method="post" role="form">
-                            <fieldset>
-                            	 <div class="form-group">
-                                <input type="text" autofocus="" required="" name="nickname" placeholder="昵称" class="form-control input-lg">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" autofocus="" required="" name="email" placeholder="邮箱" class="form-control input-lg">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" value="" name="password" placeholder="密码" class="form-control input-lg">
-                                </div>
+<div class="container">
+  <br><br>
 
-								<input type="submit" value="注 册" name="login" class="btn btn-lg btn-success btn-block">
-                            </fieldset>
-                        </form>
-						
-						
-						
-                    </div>
-
-                              <div class="login-sns">
-            <p>您还可以通过以下方式直接登录</p>
-            <ul class="login-list">
-              <!--<li class="weibo">
-                <a href="/users/auth/weibo"><i class="fa fa-weibo"></i></a>
-              </li>-->
-              <li class="qq">
-                <a href="/qq/login"><i class="fa fa-qq"></i></a> 
-              </li>
-              <li class="wechat">
-                <a href="/wechat/login"><i class="fa fa-wechat"></i></a> 
-              </li>
-            </ul>
-          </div>
-
-
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-12 col-lg-4">
+      <div class="login-panel panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">注册新用户</h3>
         </div>
+        <div class="panel-body">
+          <form name="loginform" action="/signup" method="post" role="form">
+            <fieldset>
+              <div class="form-group">
+                <input type="text" autofocus="" required="" name="nickname" placeholder="昵称"
+                       class="form-control input-lg">
+              </div>
+              <div class="form-group">
+                <input type="text" autofocus="" required="" name="email" placeholder="邮箱" class="form-control input-lg">
+              </div>
+              <div class="form-group">
+                <input type="password" value="" name="password" placeholder="密码" class="form-control input-lg">
+              </div>
+              <div class="form-group">
+                <input type="text" name="code" placeholder="6位验证码" class="form-control input-lg" id="code">
+              </div>
+              <button type="button" class="btn btn-lg btn-success btn-block" id="email_code">获取验证码</button>
+              <input type="submit" value="注 册" name="login" class="btn btn-lg btn-success btn-block none" id="submit">
+            </fieldset>
+          </form>
+
+
+        </div>
+
+        <div class="login-sns">
+          <p>您还可以通过以下方式直接登录</p>
+          <ul class="login-list">
+            <!--<li class="weibo">
+              <a href="/users/auth/weibo"><i class="fa fa-weibo"></i></a>
+            </li>-->
+            <li class="qq">
+              <a href="/qq/login"><i class="fa fa-qq"></i></a>
+            </li>
+            <li class="wechat">
+              <a href="/wechat/login"><i class="fa fa-wechat"></i></a>
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
 
 </div>
 
+<script>
+  my.$email_code = $('#email_code');
+  my.$submit = $('#submit');
 
+  function handleButton(val) {
+    if (/^\w{6}$/.test(val)) {
+      my.$submit.show();
+      my.$email_code.hide();
+    } else {
+      my.$submit.hide();
+      my.$email_code.show();
+    }
+  }
+  $('#code').keyup(function () {
+    handleButton(this.value);
+  }).change(function () {
+    handleButton(this.value);
+  });
+
+  my.$email_code.click(function () {
+    my.$email_code[0].disabled = true;
+    setTimeout(function () {
+      my.$email_code[0].disabled = false;
+    }, 30000);
+    my.ajax({
+      url: 'getMailCode',
+      type: 'get',
+      data: {email: $('input[name="email"]').val()},
+      success:function(){
+
+      },
+      error:function(){
+        //1554684195@qq.com
+        my.$email_code[0].disabled = false;
+      }
+    });
+  });
+</script>
 
 
 

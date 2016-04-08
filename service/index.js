@@ -1,0 +1,1 @@
+exports.emailService = require('./email');

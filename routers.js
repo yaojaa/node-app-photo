@@ -55,6 +55,8 @@ router.get('/signup', sign.showSignup);  // 跳转到注册页面
 
 router.post('/signup', sign.signup);  // 提交注册信息
 
+router.get('/getMailCode', sign.getMailCode);  // 获取邮件验证码
+
 router.get('/logout', sign.logout);  // 登出
 
 router.get('/login', sign.showLogin);  // 进入登录页面
