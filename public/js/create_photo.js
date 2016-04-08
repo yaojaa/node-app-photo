@@ -97,6 +97,11 @@ jQuery(function() {
         label: '继续添加'
     });
 
+    uploader.on('uploadSuccess',function(file,res){
+       var pval= $('#pictures').val();
+       $('#pictures').val(pval+'|'+res.hash)
+    });
+
     // 当有文件添加进来时执行，负责view的创建
     function addFile( file ) {
         var $li = $( '<li id="' + file.id + '">' +
@@ -170,7 +175,11 @@ jQuery(function() {
             } else if ( cur === 'progress' ) {
                 $info.remove();
                 $prgress.css('display', 'block');
+
             } else if ( cur === 'complete' ) {
+
+                console.log('complete')
+
                 $li.append( '<span class="success"></span>' );
             }
 
@@ -444,14 +453,52 @@ jQuery(function() {
 
 
 //发布
-  var   postPicture=function(){
-    $.post('api/v1/publish',{},function(){
+  var   postPicture=function(data){
+    $.post('api/v1/createPhoto',data,function(){
 
 
     })
   }
 
-  $('#Jpost').on('click',postPicture)
+
+
+$('#createForm').validate({
+
+    submitHandler:function(form){
+
+            postPicture($(form).serialize());
+            //form.submit();
+        } ,   
+
+    rules: {
+      title: "required",
+      pictures:"required",
+      category: "required",
+      discrib: {
+        required: true,
+        minlength: 5
+      },
+   },
+    messages: {
+      title: "请输入标题",
+      pictures:"请上传图片",
+      category: "请选择发布类别",
+      discrib: {
+        required: "请输入作品简介",
+        minlength: "至少五个字"
+      }
+    
+    }
+
+    })
+
+
+
+
+
+
+
+  // $('#Jpost').on('click',postPicture)
 
 
 });

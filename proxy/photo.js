@@ -148,6 +148,9 @@ exports.page = function (query, keys, opt, callback) {
       }
     },
     function (err, results) {
+
+      console.log('查询结果',results);
+
       var list = results.one;
       var count = results.two;//总记录数
       var total = Math.ceil(count / pageSize);//总页数

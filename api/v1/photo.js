@@ -1,5 +1,6 @@
 var config = require('../../config');
 var Eventproxy = require('eventproxy');
+var validator=require('validator');
 // var models        = require('../../models');
 // var PhotoModel   = models.photo;
 var PhotoProxy = require('../../proxy').Photo;
@@ -194,7 +195,7 @@ exports.unfollow = function (req, res, next) {
 
 
 
-exports.publish = function (req, res) {
+exports.createPhoto = function (req, res) {
 
   var title = validator.trim(req.body.title);
   var discrib = validator.trim(req.body.discrib);
@@ -204,13 +205,18 @@ exports.publish = function (req, res) {
   var authorId = req.session.user.id;
   var price = 0 ;//validator.trim(req.body.price);
 
-  Photo.newAndSave(title, discrib, pictures, category, authorId, price, function (err,data) {
+  //字符串转数组 '|picturename|picturename|picturename'
+  pictures=pictures.split('|').slice(1);
+
+  PhotoProxy.newAndSave(title, discrib, pictures, category, authorId, price, function (err,data) {
     if (err) {
       return next(err);
     }
     res.json({errorno:0,msg: '发布成功！',data:data});
 
   })
+
+
 
 };
 

@@ -54,17 +54,25 @@ exports.editInfo = function (req, res) {
 exports.showPhotos = function (req, res, next) {
     var q = {};
     var user = req.session.user;
+
     q.author_id = user.id;
     var pageNo = req.query.p ? parseInt(req.query.p) : 1;
+
     var list_photo_count = config.list_photo_count;
+
     var currentCategory = req.query.category;
     if (currentCategory && currentCategory !== 'all') {
         q.category = currentCategory;
     } else {
         currentCategory = 'all';
     }
+
     Photo.page(q, {pageNo: pageNo, sort: '-update_at'}, function (err, page) {
+
+        console.log(page)
+        
         if (err)return next(err);
+
         res.render('uc_photos', {
             category: config.category,
             currentCategory: currentCategory,

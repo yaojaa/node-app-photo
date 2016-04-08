@@ -386,6 +386,12 @@ var config={
     opacity: 0.6;
 }
 
+label.error{
+    color: #ff4200 ;
+    font-weight: bold;
+    display: block;
+    margin: 3px
+}
 
 </style>
 
@@ -399,10 +405,12 @@ var config={
       </ol>
 
   <div class="row postContainer" style="background:#fff">
+
+        <form method="post" id="createForm" class="form-horizontal"  >
+
     <div class="col-lg-8">
     <h2 align="center">发布作品</h2>
 <hr>
-    <form method="post" action="/create-photo" class="form-horizontal"  >
      <input type="hidden" id="domain" value="{{Domain}}">
         <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">
 
@@ -425,6 +433,8 @@ var config={
      <div class="form-group">
     <label for="title" class="col-sm-2 control-label">图片：</label>
     <div class="col-sm-10">
+
+        <input type="text" id="pictures" name="pictures" autocomplete="off" />
 
 
 <div id="uploader" class="wu-example">
@@ -450,12 +460,11 @@ var config={
 
 
 
-  <p align="center"><button class="pull-center btn btn-success btn-lg" type="button" id="Jpost">发布</button> </p>
+  <p align="center"><button class="pull-center btn btn-success btn-lg" type="submit" id="Jpost">发布</button> </p>
 
 
 </div>
 
-</form>
 
 
 <div class="col-lg-4">
@@ -464,7 +473,7 @@ var config={
 <div class="form-group">
     <div class="col-sm-12">
 <select class="form-control" name="category">
-   <option value="0"  >请选择一个类别</option>
+   <option value=""  >请选择一个类别</option>
 
   {{#each category}}
    <option value="{{name}}" >{{text}}</option>
@@ -483,11 +492,9 @@ var config={
     <input class="form-control" type="text" name="price" placeholder="0" />    </div>
     </div> -->
 
-
     <div class="form-group">
     <div class="col-sm-12">
-    作品简介：<br/>
-    <textarea class="form-control" type="text" name="discrib" placeholder="" />  </textarea>  </div>
+    <textarea class="form-control" type="text" name="discrib" placeholder="输入一段作品简介吧" /></textarea>  </div>
     </div>
 </div>
  
@@ -496,6 +503,9 @@ var config={
 
   </div>
 
+  </form>
+
+
 
 
 
@@ -503,5 +513,6 @@ var config={
 
 
 <!--引入JS-->
+<script src="/vendor/jquery.validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="/vendor/webuploader/webuploader.min.js"></script>
 <script type="text/javascript" src="/js/create_photo.js"></script>

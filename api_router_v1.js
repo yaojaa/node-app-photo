@@ -36,14 +36,18 @@ router.get('/videolist', videoController.videolist);
 
 
 
-router.post('/createAticle', auth.userRequired,aticleController.createAticle)
+router.post('/createAticle', auth.userRequired,aticleController.createAticle);
 
-router.post('/delAticle',aticleController.delAticle)
-router.post('/delPhoto', auth.adminRequired, photoController.delPhoto)
-router.post('/delVideo', auth.adminRequired, videoController.delVideo)
-router.post('/buyPhoto', auth.userRequired, photoController.buyPhoto)
+router.post('/delAticle',aticleController.delAticle);
 
-router.post('/checkIsBuy', auth.userRequired, photoController.checkIsBuy)
+
+router.post('/createPhoto',auth.userRequired, photoController.createPhoto);
+
+router.post('/delPhoto', auth.adminRequired, photoController.delPhoto);
+router.post('/delVideo', auth.adminRequired, videoController.delVideo);
+router.post('/buyPhoto', auth.userRequired, photoController.buyPhoto);
+
+router.post('/checkIsBuy', auth.userRequired, photoController.checkIsBuy);
 
 //关注
 router.post('/follow',auth.userRequired, photoController.follow);
