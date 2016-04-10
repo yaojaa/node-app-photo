@@ -14,18 +14,29 @@
   <link rel="stylesheet" href="/css/buttons.css">
   <link rel="stylesheet" href="/css/userspace.css?9988">
   <link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
-  <style>
-
-    body {
-      background-image: url(/images/userspace_bg.jpg);
-      -webkit-background-size: cover;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-  </style>
 </head>
-
+<div class="g-head">
+  <ul class="nav navbar-nav navbar-right">
+    {{#if isLogin}}
+      {{#if isSelf}}
+      {{else}}
+        <li>
+          <a href="/follow/{{userInfo.id}}" title="关注" class="start-btn"><span class="glyphicon glyphicon-plus"></span>关注</a>
+        </li>
+      {{/if}}
+    {{else}}
+      <li>
+        <a href="/login" title="登录" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a>
+      </li>
+      <li>
+        <a href="/signup" title="注册" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a>
+      </li>
+    {{/if}}
+    <li>
+      <a href="/" title="首页" class="start-btn"><span class="glyphicon glyphicon-camera"></span>风影网</a>
+    </li>
+  </ul>
+</div>
 <div class="u_banner">
   <div class="u_logo">
     <img src="{{userInfo.avatar}}" alt="">
@@ -34,14 +45,6 @@
     {{userInfo.nickname}}
   </div>
 </div>
-{{#if isSelf}}
-  <div style="height: 50px;padding: 10px;">
-  </div>
-{{else}}
-  <div class="ptb10 text-right">
-    <button type="button" class="btn btn-info min100">关注</button>
-  </div>
-{{/if}}
 <div class="u_details">
   <h1>
     {{userInfo.signature}}
@@ -64,6 +67,9 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#new_pic" aria-controls="new_pic" role="tab" data-toggle="tab">图片
       {{totalPicturesCount}}</a></li>
+    {{#if isSelf}}
+      <li role="presentation"><a href="/uc/view">个人设置</a></li>
+    {{/if}}
     <li role="presentation"><a href="#hot_pic" aria-controls="hot_pic" role="tab" data-toggle="tab">关于</a></li>
   </ul>
   <!-- Tab panes -->
@@ -71,9 +77,9 @@
     <div role="tabpanel" class="tab-pane active" id="new_pic">
       <div class="basicExample">
         {{#each photos}}
-            <a href="{{pictures}}" target="_blank">
-              <img alt="{{title}}" src="{{pictures}}"/>
-            </a>
+          <a href="/photo/{{_id}}" target="_blank">
+            <img alt="{{title}}[{{piccnt}}张]" src="{{pictures}}"/>
+          </a>
         {{/each}}
       </div>
     </div>
@@ -92,7 +98,8 @@
             <h3>装备</h3>
 
             <div class="equipment_group">
-              <h3 class="light"><span class="translation_missing" title="translation missing: zh-CN.common.camera">Camera</span>
+              <h3 class="light"><span class="translation_missing"
+                                      title="translation missing: zh-CN.common.camera">相机</span>
               </h3>
               <ul class="camera">
                 <li>Canon 5d mark III</li>
@@ -100,7 +107,7 @@
             </div>
             <div class="equipment_group">
               <h3 class="light"><span class="translation_missing"
-                                      title="translation missing: zh-CN.common.lens">Lens</span></h3>
+                                      title="translation missing: zh-CN.common.lens">镜头</span></h3>
               <ul class="lens">
                 <li>Canon 24-105 L</li>
                 <li>Canon 85mm 1.2 L</li>
@@ -111,7 +118,7 @@
             </div>
           </section>
           <section class="stats">
-            <h3>Stats</h3>
+            <h3>统计</h3>
 
             <div class="stat_block">
               <h3 class="light">热度</h3><span class="number">277.0K</span></div>
@@ -122,7 +129,8 @@
             <div class="stat_block">
               <h3 class="light">喜欢</h3><span class="number">274.7K</span></div>
             <div class="stat_block">
-              <h3 class="light"><span class="translation_missing" title="translation missing: zh-CN.common.comments">Comments</span>
+              <h3 class="light"><span class="translation_missing"
+                                      title="translation missing: zh-CN.common.comments">评论</span>
               </h3><span class="number">8,762</span></div>
           </section>
           <section class="member_for">
@@ -136,8 +144,10 @@
     </div>
   </div>
 </div>
-<div class="navbar-gradient"></div>
 
+<div class="g-foot container">
+  被访问{{userInfo.userspace_count}}次 | © {{userInfo.nickname}} | Powered by 风影网
+</div>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

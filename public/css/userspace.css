@@ -5,8 +5,17 @@
  * @title --
  * @authors goodliang
  * @date 2016-01-20 21:37:36
- * 
+ *
  */
+
+body {
+  background-image: url(/images/userspace_bg.jpg);
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .min100 {
   min-width: 100px;
 }
@@ -64,6 +73,7 @@ h3.light {
 .u_details {
   text-align: center;
   padding: 20px 0 50px;
+  margin-top: 50px;
 }
 
 .u_details h1 {
@@ -76,7 +86,7 @@ h3.light {
 }
 
 .u_details_list li {
-  color: #999;
+  color: #ddd;
   display: inline-block;
   padding: 0 10px;
 }
@@ -110,11 +120,25 @@ h3.light {
   margin-bottom: 0;
 }
 
-.nav-tabs > li:hover, .nav-tabs > li:hover a {
+.nav-tabs > li:hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
-.nav-tabs>li.active a, .nav-tabs>li.active a:hover, .nav-tabs>li.active a:focus {
+.nav-tabs > li.active:hover {
+  background-color: transparent;
+}
+
+.nav-tabs > li:hover > a {
   color: #fff;
+  background-color: transparent;
+}
+
+.nav-tabs > li.active a, .nav-tabs > li.active a:hover, .nav-tabs > li.active a:focus {
+  color: #fff;
+}
+
+.nav-tabs > li.active a {
+  border-bottom-color: #fff !important;
 }
 
 .tab-content {
@@ -229,4 +253,35 @@ h3.light {
 .about_body #user_map {
   height: 500px;
   width: 100%
+}
+
+.g-head {
+  position: absolute;
+  right: 15px;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .g-head {
+    position: static;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+.g-head > .nav a {
+  color: #fff;
+}
+
+.g-head > .nav a:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.g-foot {
+  line-height: 50px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.member_for, .about_body h3 {
+  color: #fff;;
 }

@@ -188,6 +188,7 @@ exports.openvip = function (req, res) {
  */
 exports.userspace = function (req, res, next) {
     var userid = req.params.id;
+    var isLogin = !!req.session.user;
     var isSelf = false;
     var user = null;
     if (!userid) {//不存在，查询当前用户的个人主页
@@ -229,20 +230,30 @@ exports.userspace = function (req, res, next) {
         photos.forEach(function (item) {
             totalPicturesCount += item.pictures.length;
             totalBrowseCount += item.browse_cnt;
+            item.piccnt = item.pictures.length;
             item.pictures = item.pictures[0];
         });
 
         var regTime = new Date(user.create_at);
+        user.userspace_count = user.userspace_count || 0;
 
         res.render('userspace', {
             layout: null,
-            userInfo: result[0],
+            userInfo: user,
             photos: photos,
+            isLogin: isLogin,
             isSelf: isSelf,
+            isShowFollow: isLogin && !isSelf,
             totalPicturesCount: totalPicturesCount,
             totalBrowseCount: totalBrowseCount,
             regTime: regTime.getFullYear() + '年' + (regTime.getMonth() + 1) + '月' + regTime.getDate() + '日'
         });
+
+        if (!isSelf) {
+            User.update(userid, {'$inc': {userspace_count: 1}}, function (err) {
+                console.log('更新个人空间的浏览次数', err);
+            });
+        }
     });
 
 };
