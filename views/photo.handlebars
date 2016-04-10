@@ -1,68 +1,69 @@
-<link rel="stylesheet" href="css/index.min.css"/>
-<link rel="stylesheet" href="css/list.min.css"/>
-<link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
-<script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
-<style>
-  .album-wrapper {
-    position: relative;
-  }
+{{#extend "stylesheets"}}
+  <link rel="stylesheet" href="css/index.min.css"/>
+  <link rel="stylesheet" href="css/list.min.css"/>
+  <link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
+  <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
+  <style>
+    .album-wrapper {
+      position: relative;
+    }
 
-  .album-number {
-    position: absolute;
-    color: #fff;
-    top: 10px;
-    right: 10px;
-    z-index: 2;
+    .album-number {
+      position: absolute;
+      color: #fff;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
 
-  }
+    }
 
-  .album-description {
-    position: absolute;
-    width: 100%;
-    bottom: 5px;
-    vertical-align: middle;
-  }
+    .album-description {
+      position: absolute;
+      width: 100%;
+      bottom: 5px;
+      vertical-align: middle;
+    }
 
-  .album-description a {
-    float: left;
-    display: block;
-    text-decoration: none;
-    color: #fff;
-  }
+    .album-description a {
+      float: left;
+      display: block;
+      text-decoration: none;
+      color: #fff;
+    }
 
-  .album-description .a-txt {
-    line-height: 30px;
-  }
+    .album-description .a-txt {
+      line-height: 30px;
+    }
 
-  .album-description .belong-name {
-    margin-left: 5px;
-  }
+    .album-description .belong-name {
+      margin-left: 5px;
+    }
 
-  .album-description .tuijian {
-    float: right;
-    margin-right: 5px;
-  }
+    .album-description .tuijian {
+      float: right;
+      margin-right: 5px;
+    }
 
-  .album-description a {
-    text-decoration: none;
-    color: #fff;
-  }
+    .album-description a {
+      text-decoration: none;
+      color: #fff;
+    }
 
-  .album-description .belong-icon {
-    height: 28px;
-    width: 28px;
-    border-radius: 50%;
-  }
+    .album-description .belong-icon {
+      height: 28px;
+      width: 28px;
+      border-radius: 50%;
+    }
 
-  .album-description .belong-icon-wrapper {
-    margin-left: 5px;
-  }
+    .album-description .belong-icon-wrapper {
+      margin-left: 5px;
+    }
 
-  .bg-w {
-    background: #fff
-  }
-</style>
-
+    .bg-w {
+      background: #fff
+    }
+  </style>
+{{/extend}}
 
 <div class="container" id="{{currentCategory}}">
 
@@ -90,7 +91,8 @@
     <div id="basicExample">
     </div>
   </div>
-
+</div>
+{{#extend "customerScript"}}
   <script type="text/javascript">
     my.showRecommend = {{showRecommend}} ;
     my.classify = null;
@@ -102,6 +104,8 @@
     //是否继续加载数据
     my.gono = true;
 
+    $('#pic-container').css('min-height',$(window).height());
+
     $(function () {
       //下拉加载图片
       pullDownToLoadMore(function () {
@@ -110,6 +114,8 @@
         }
       });
 
+      //展示图片
+      showPicture();
       $('.dropdown-menu li').click(function () {
         my.$showTitle.text($(this).text());
       });
@@ -217,9 +223,6 @@
       });
     }
 
-    //展示图片
-    showPicture();
-
     function pullDownToLoadMore(callback) {
       var $win = $(window);
       var $doc = $(document);
@@ -239,3 +242,4 @@
     }
 
   </script>
+{{/extend}}
