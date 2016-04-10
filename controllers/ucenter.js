@@ -70,7 +70,7 @@ exports.showPhotos = function (req, res, next) {
     Photo.page(q, {pageNo: pageNo, sort: '-update_at'}, function (err, page) {
 
         console.log(page)
-        
+
         if (err)return next(err);
 
         res.render('uc_photos', {
@@ -229,13 +229,19 @@ exports.userspace = function (req, res, next) {
         photos.forEach(function (item) {
             totalPicturesCount += item.pictures.length;
             totalBrowseCount += item.browse_cnt;
+            item.pictures = item.pictures[0];
         });
+
+        var regTime = new Date(user.create_at);
+
         res.render('userspace', {
+            layout: null,
             userInfo: result[0],
             photos: photos,
             isSelf: isSelf,
             totalPicturesCount: totalPicturesCount,
-            totalBrowseCount: totalBrowseCount
+            totalBrowseCount: totalBrowseCount,
+            regTime: regTime.getFullYear() + '年' + (regTime.getMonth() + 1) + '月' + regTime.getDate() + '日'
         });
     });
 

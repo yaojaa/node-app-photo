@@ -7,209 +7,226 @@
  * @date 2016-01-20 21:37:36
  * 
  */
-.min100{
-	min-width: 100px;
+.min100 {
+  min-width: 100px;
 }
-.ptb10{
-	padding: 10px 0;
+
+.ptb10 {
+  padding: 10px 0;
 }
-h3.light{
-	color:#b9c1c7;
+
+h3.light {
+  color: #b9c1c7;
 }
+
 .u_banner {
-    position: relative;
-    height: 600px;
-    text-align: center;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+  position: relative;
+  height: 100px;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .u_logo {
-    width: 104px;
-    height: 104px;
-    position: absolute;
-    left: 50%;
-    margin-left: -52px;
-    bottom: -52px;
+  width: 104px;
+  height: 104px;
+  position: absolute;
+  left: 50%;
+  margin-left: -52px;
+  bottom: -52px;
 }
 
 .u_logo img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-    border: 2px solid #fff;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  border: 2px solid #fff;
 }
 
 .u_badge {
-    text-align: center;
-    overflow: hidden;
-    border: 1px solid #fff;
-    border-radius: 3px;
-    min-width: 70px;
-    height: 20px;
-    cursor: default;
-    color:#fff;
-    position: absolute;
-    left: 50%;
-    margin-left: -35px;
-    bottom: -52px;
-    background: #32CD32;
+  text-align: center;
+  overflow: hidden;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  min-width: 70px;
+  height: 20px;
+  cursor: default;
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  bottom: -52px;
+  background: #32CD32;
 
 }
-.u_details{
-	text-align: center;
-	padding: 20px 0 50px;
-}
-.u_details h1{
-	font-size: 30px;
-	color: #444;
-}
-.u_details_list li{
-	color: #999;
-	display: inline-block;
-	padding: 0 10px;
-}
-.short_bio{
-	padding: 15px 0;
-	color:#c1c1c1;
-}
-.short_bio a{
-	color:#999;
+
+.u_details {
+  text-align: center;
+  padding: 20px 0 50px;
 }
 
+.u_details h1 {
+  font-size: 30px;
+  color: #fff;
+}
 
-.nav-tabs>li.active>a,
-.nav-tabs>li.active>a:focus,
-.nav-tabs>li.active>a:hover {
-    background: none;
-    border: 0;
+.u_details_list {
+  margin-top: 10px;
+}
+
+.u_details_list li {
+  color: #999;
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.short_bio {
+  padding: 15px 0;
+  color: #c1c1c1;
+}
+
+.short_bio a {
+  color: #999;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  background: none;
+  border: 0;
 }
 
 .nav-tabs {
-    text-align: center;
-    margin:0 auto 30px;
-    border-top: 1px solid #ddd;
-    background:#eef4f7;
+  text-align: center;
+  margin: 0 auto 30px;
+  border: none;
+  background: transparent;
 }
 
-.nav-tabs>li {
-    float: none;
-    display: inline-block;
-    margin-bottom: 0;
+.nav-tabs > li {
+  float: none;
+  display: inline-block;
+  margin-bottom: 0;
 }
-.nav-tabs>li:hover,.nav-tabs>li:hover a{
-	background:#fff !important;
-	border-color: #fff;
+
+.nav-tabs > li:hover, .nav-tabs > li:hover a {
 }
-.tab-content{
-	padding:  0 50px;
+
+.nav-tabs>li.active a, .nav-tabs>li.active a:hover, .nav-tabs>li.active a:focus {
+  color: #fff;
+}
+
+.tab-content {
+  padding: 0 50px;
 }
 
 .about_body {
-    width: 100%
+  width: 100%
 }
-.about_body h3{
-	font-size: 14px;
+
+.about_body h3 {
+  font-size: 14px;
 }
+
 .about_body .small_wrapper {
-    max-width: 540px;
-    margin: auto
+  max-width: 540px;
+  margin: auto
 }
 
 .about_body section {
-    margin-top: 40px;
-    overflow: hidden
+  margin-top: 40px;
+  overflow: hidden
 }
 
 .about_body section .light {
-    text-transform: none;
-    font-weight: normal;
-    margin-bottom: 0
+  text-transform: none;
+  font-weight: normal;
+  margin-bottom: 0
 }
 
 .about_body .bio a {
-    color: #b9c1c7;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s
+  color: #b9c1c7;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s
 }
 
 .about_body .bio a:hover {
-    color: #c7ced2
+  color: #c7ced2
 }
 
 .about_body .equipment_group {
-    width: -webkit-calc(100% / 3);
-    width: -moz-calc(100% / 3);
-    width: calc(100% / 3);
-    display: inline-block;
-    float: left;
-    margin: 0;
-    padding-right: 10px
+  width: -webkit-calc(100% / 3);
+  width: -moz-calc(100% / 3);
+  width: calc(100% / 3);
+  display: inline-block;
+  float: left;
+  margin: 0;
+  padding-right: 10px
 }
 
 .about_body .equipment_group h3,
 .about_body .equipment_group ul {
-    line-height: 1.4em
+  line-height: 1.4em
 }
 
 .about_body .equipment_group li {
-    color: #525558;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%
+  color: #525558;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%
 }
 
 .about_body .stat_block {
-    width: -webkit-calc(100% / 5);
-    width: -moz-calc(100% / 5);
-    width: calc(100% / 5);
-    display: inline-block;
-    float: left;
-    margin: 0;
-    padding-right: 10px
+  width: -webkit-calc(100% / 5);
+  width: -moz-calc(100% / 5);
+  width: calc(100% / 5);
+  display: inline-block;
+  float: left;
+  margin: 0;
+  padding-right: 10px
 }
 
 .about_body .stat_block .number {
-    font-size: 20px;
-    color: #71767a
+  font-size: 20px;
+  color: #71767a
 }
 
 .about_body .links,
 .about_body .member_for {
-    text-align: center
+  text-align: center
 }
 
 .about_body .member_for {
-    margin-top: 20px
+  margin-top: 20px
 }
 
 .about_body .links .contact_link {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 2px;
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    transition: all 0.2s
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 2px;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s
 }
 
 .about_body .links .contact_link:hover {
-    opacity: 0.7
+  opacity: 0.7
 }
 
 .about_body .map {
-    width: 100%;
-    margin-bottom: -20px;
-    display: none
+  width: 100%;
+  margin-bottom: -20px;
+  display: none
 }
 
 .about_body .map.show {
-    display: block
+  display: block
 }
 
 .about_body #user_map {
-    height: 500px;
-    width: 100%
+  height: 500px;
+  width: 100%
 }
