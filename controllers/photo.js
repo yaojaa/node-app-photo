@@ -319,28 +319,40 @@ exports.recommend = function (req, res) {
   })
 };
 
-
+/**
+ *  编辑图集
+ * @param req
+ *  req.query.id
+ *    图集ID
+ * @param res
+ */
 
 exports.showEdit = function (req, res, next) {
-  var topic_id = req.params.tid;
+  var photo_id = req.params.tid;
 
-  Topic.getTopicById(topic_id, function (err, topic, tags) {
-    if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+  Photo.findPhotoById(photo_id, function (err, photo) {
+    if (!photo) {
+  res.render('notify', { error: '此图集不存在或已被删除。' });
       return;
     }
 
-    if (String(topic.author_id) === String(req.session.user._id) || req.session.user.is_admin) {
-      res.render('topic/edit', {
-        action: 'edit',
-        topic_id: topic._id,
-        title: topic.title,
-        content: topic.content,
-        tab: topic.tab,
-        tabs: config.tabs
+     console.log(photo)
+
+    if (photo.author_id) {
+
+
+    // if (String(photo.author_id) === String(req.session.user._id) || req.session.user.is_admin) {
+      res.render('create-photo', {
+        edit: true,
+        photo_id: photo._id,
+        title: photo.title,
+        pictures: photo.pictures,
+        category:photo.category,
+        discrib:photo.discrib
+
       });
     } else {
-      res.renderError('对不起，你不能编辑此话题。', 403);
+  res.render('notify', { error: '此图集不存在或已被删除。' });
     }
   });
 };
@@ -353,7 +365,7 @@ exports.update = function (req, res, next) {
 
   Topic.getTopicById(topic_id, function (err, topic, tags) {
     if (!topic) {
-      res.render404('此话题不存在或已被删除。');
+  res.status(404).render('notify', { error: '此图集不存在或已被删除。' });
       return;
     }
 

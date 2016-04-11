@@ -416,7 +416,11 @@ label.error{
         <form method="post" id="createForm" class="form-horizontal"  >
 
     <div class="col-lg-8">
-    <h2 align="center">发布作品</h2>
+    <h2 align="center">
+      {{#if edit}}编辑{{/if}}发布作品 
+
+
+    </h2>
 <hr>
      <input type="hidden" id="domain" value="{{Domain}}">
         <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">
@@ -426,7 +430,9 @@ label.error{
 <div class="form-group">
     <label for="title" class="col-sm-2 control-label">标题：</label>
     <div class="col-sm-10">
-<input class="form-control input-lg" type="text" name="title" placeholder="标题" />    </div>
+<input class="form-control input-lg" type="text" name="title" {{#if edit}} value="{{title}}" {{/if}} placeholder="标题" />    
+
+</div>
   </div>
 
 
@@ -441,7 +447,7 @@ label.error{
     <label for="title" class="col-sm-2 control-label">图片：</label>
     <div class="col-sm-10">
 
-        <input type="text" id="pictures" name="pictures" autocomplete="off" />
+        <input type="text" id="pictures" name="pictures" autocomplete="off" value="{{#if edit}}{{pictures}}{{/if}}" />
 
 
 <div id="uploader" class="wu-example">
@@ -501,7 +507,7 @@ label.error{
 
     <div class="form-group">
     <div class="col-sm-12">
-    <textarea class="form-control" type="text" name="discrib" placeholder="输入一段作品简介吧" /></textarea>  </div>
+    <textarea class="form-control" type="text" name="discrib" placeholder="输入一段作品简介吧" />{{#if edit}}{{discrib}}{{/if}}</textarea>  </div>
     </div>
 </div>
  

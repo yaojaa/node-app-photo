@@ -101,7 +101,7 @@ router.get('/photo', photo.showPhotoList) //图片列表
 router.get('/photo/:_id', photo.showDetail) //图片正文
 router.get('/create-photo', photo.showCreate)
 router.post('/create-photo', photo.publish)
-// router.get('/topic/:tid/edit', auth.userRequired, topic.showEdit);  // 编辑图片
+router.get('/photo/:tid/edit',  photo.showEdit);  // 编辑图片
 // router.post('/topic/:tid/edit', auth.userRequired, topic.update);  //提交编辑
 
 
