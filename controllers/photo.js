@@ -318,3 +318,118 @@ exports.recommend = function (req, res) {
     res.ok(ret);
   })
 };
+
+
+
+exports.showEdit = function (req, res, next) {
+  var topic_id = req.params.tid;
+
+  Topic.getTopicById(topic_id, function (err, topic, tags) {
+    if (!topic) {
+      res.render404('此话题不存在或已被删除。');
+      return;
+    }
+
+    if (String(topic.author_id) === String(req.session.user._id) || req.session.user.is_admin) {
+      res.render('topic/edit', {
+        action: 'edit',
+        topic_id: topic._id,
+        title: topic.title,
+        content: topic.content,
+        tab: topic.tab,
+        tabs: config.tabs
+      });
+    } else {
+      res.renderError('对不起，你不能编辑此话题。', 403);
+    }
+  });
+};
+
+exports.update = function (req, res, next) {
+  var topic_id = req.params.tid;
+  var title    = req.body.title;
+  var tab      = req.body.tab;
+  var content  = req.body.t_content;
+
+  Topic.getTopicById(topic_id, function (err, topic, tags) {
+    if (!topic) {
+      res.render404('此话题不存在或已被删除。');
+      return;
+    }
+
+    if (topic.author_id.equals(req.session.user._id) || req.session.user.is_admin) {
+      title   = validator.trim(title);
+      tab     = validator.trim(tab);
+      content = validator.trim(content);
+
+      // 验证
+      var editError;
+      if (title === '') {
+        editError = '标题不能是空的。';
+      } else if (title.length < 5 || title.length > 100) {
+        editError = '标题字数太多或太少。';
+      } else if (!tab) {
+        editError = '必须选择一个版块。';
+      }
+      // END 验证
+
+      if (editError) {
+        return res.render('topic/edit', {
+          action: 'edit',
+          edit_error: editError,
+          topic_id: topic._id,
+          content: content,
+          tabs: config.tabs
+        });
+      }
+
+      //保存话题
+      topic.title     = title;
+      topic.content   = content;
+      topic.tab       = tab;
+      topic.update_at = new Date();
+
+      topic.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+        //发送at消息
+        at.sendMessageToMentionUsers(content, topic._id, req.session.user._id);
+
+        res.redirect('/topic/' + topic._id);
+
+      });
+    } else {
+      res.renderError('对不起，你不能编辑此话题。', 403);
+    }
+  });
+};
+
+exports.delete = function (req, res, next) {
+  //删除话题, 话题作者topic_count减1
+  //删除回复，回复作者reply_count减1
+  //删除topic_collect，用户collect_topic_count减1
+
+  var topic_id = req.params.tid;
+
+  Topic.getTopic(topic_id, function (err, topic) {
+    if (err) {
+      return res.send({ success: false, message: err.message });
+    }
+    if (!req.session.user.is_admin && !(topic.author_id.equals(req.session.user._id))) {
+      res.status(403);
+      return res.send({success: false, message: '无权限'});
+    }
+    if (!topic) {
+      res.status(422);
+      return res.send({ success: false, message: '此话题不存在或已被删除。' });
+    }
+    topic.deleted = true;
+    topic.save(function (err) {
+      if (err) {
+        return res.send({ success: false, message: err.message });
+      }
+      res.send({ success: true, message: '话题已被删除。' });
+    });
+  });
+};

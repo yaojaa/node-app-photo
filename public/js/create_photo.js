@@ -474,7 +474,7 @@ jQuery(function() {
 
             } else if (res.errorno== 0) {
 
-                var photoId=data._id;
+                var photoId=res.data._id;
                    swal({
                     title: '发布成功',
                     type: "success",

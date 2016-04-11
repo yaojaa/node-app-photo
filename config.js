@@ -12,7 +12,7 @@ var config = {
         return !this.debug;
     }, // 是否启用静态文件的合并压缩，详见视图中的Loader
 
-    name: '漫影', // 社区名字
+    name: '风影', // 社区名字
     description: 'CNode：Node.js专业中文社区', // 社区的描述
     keywords: 'nodejs, node, express, connect, socket.io',
 
@@ -68,7 +68,6 @@ var config = {
         'https://drscdn.500px.org/photo/144702359/m%3D2048/139f0f1fc44f5d81fb235834a121fe68',
         'https://drscdn.500px.org/photo/146425097/q%3D80_m%3D2000/ce971fa31c530790a4c5d8c54581483d',
         'https://drscdn.500px.org/photo/146345077/q%3D80_m%3D2000/c827e3cfec775a113e289cb48013709a'
-
     ],
 
 
