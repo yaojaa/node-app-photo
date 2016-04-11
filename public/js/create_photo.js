@@ -455,6 +455,8 @@ jQuery(function() {
 
     //发布
     var postPicture = function(data) {
+
+        $('#Jpost').removeClass('btn-success').text('loading...').attr('disabled',true);
         $.post('api/v1/createPhoto', data, function(res) {
 
             if (res.errorno == -1) {
@@ -470,10 +472,25 @@ jQuery(function() {
                     location.href = "/login"
                 });
 
-            } else if (res.error == 0) {
-                alert('发布成功')
+            } else if (res.errorno== 0) {
+
+                var photoId=data._id;
+                   swal({
+                    title: '发布成功',
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "立即查看",
+                    cancelButtonText: "取消",
+                    closeOnConfirm: false
+                }, function() {
+                    location.href = "/photo/"+photoId
+                });
+
             } else {
-                alert(res.msg)
+                alert(res.msg);
+        $('#Jpost').addClass('btn-success').text('发布').attr('disabled',false);
+
             }
 
 
@@ -485,7 +502,10 @@ jQuery(function() {
     $('#createForm').validate({
 
         submitHandler: function(form) {
-            postPicture($(form).serialize());
+
+           var btn= $(form).find(":submit");
+
+           postPicture($(form).serialize());
         },
 
         rules: {

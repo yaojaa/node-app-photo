@@ -63,10 +63,12 @@
         {{#if user}}
           <li><a href="/ucenter">{{user.nickname}} {{user.money}}</a></li>
           <li><a href="/logout">退出</a></li>
-          <li><a href="/create-aticle">发文字</a></li>
-          <li><a href="/create-photo">发图片</a></li>
-          <li><a href="/create-video">发视频</a></li>
-          <li><a href="/score">充值</a></li>  {{else}}
+          <li><a href="/create-aticle">发图文</a></li>
+          <li><a href="/create-photo">发图集</a></li>
+          <!-- <li><a href="/create-video">发视频</a></li>
+          <li><a href="/score">充值</a></li>   -->
+
+          {{else}}
           <li><a href="/login" title="View login page" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a>
           </li>
           <li><a href="/signup" title="View login page" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a>
@@ -113,6 +115,22 @@
         </div>
       </div>
     </div>
+
+
+    <script>
+    //设置AJAX的全局默认选项
+    $.ajaxSetup( {
+    error: function(jqXHR, textStatus, errorMsg){ // 出错时默认的处理函数
+        // jqXHR 是经过jQuery封装的XMLHttpRequest对象
+        // textStatus 可能为： null、"timeout"、"error"、"abort"或"parsererror"
+        // errorMsg 可能为： "Not Found"、"Internal Server Error"等
+        // 提示形如：发送AJAX请求到"/index.html"时出错[404]：Not Found
+        alert( '发送AJAX请求到"' + this.url + '"时出错[' + jqXHR.status + ']：' + errorMsg );         
+    }
+} );
+
+
+</script>
 
 
        {{{block "customerScript"}}}

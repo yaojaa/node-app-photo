@@ -94,11 +94,18 @@ router.get('/a/:_id', aticle.showDetail) //文章正文
 router.get('/create-aticle', aticle.showCreate)
 router.post('/create-aticle', aticle.create)
 
-
+/**
+*图集部分router
+*/
 router.get('/photo', photo.showPhotoList) //图片列表
 router.get('/photo/:_id', photo.showDetail) //图片正文
 router.get('/create-photo', photo.showCreate)
 router.post('/create-photo', photo.publish)
+// router.get('/topic/:tid/edit', auth.userRequired, topic.showEdit);  // 编辑图片
+// router.post('/topic/:tid/edit', auth.userRequired, topic.update);  //提交编辑
+
+
+
 
 router.get('/video', video.showVideoList) //视频列表
 router.get('/video/:_id', video.showDetail) //视频正文
