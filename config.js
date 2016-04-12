@@ -97,12 +97,12 @@ var config = {
         // domain: 'http://your qiniu domain',
         // // 如果vps在国外，请使用 http://up.qiniug.com/ ，这是七牛的国际节点
         // // 如果在国内，此项请留空
-         'uploadURL': 'http://upload.qiniu.com',
-        'ACCESS_KEY': 'dgJKO74XfcnDumOtIaKqJmNZNB9iBLXOLbC2sNTo',
-        'SECRET_KEY': 'ITVzXH5yOQhtSLEjeF4uc4SkX4DhCfEYQVKBpXgT',
-        'Bucket_Name': 'nodeyuese',
+        'uploadURL': 'http://upload.qiniu.com',
+        'ACCESS_KEY': 'QRyit6Y4od3SdD5FC1cxIQH2sCO-PCw3OByFY11X',
+        'SECRET_KEY': 'gv7AX5isj_8MrSlFRqCE8UarPeNqkvrZWJ78Kyez',
+        'Bucket_Name': 'photo',
         'Uptoken_Url': '/uptoken',
-        'Domain': 'http://7xobdo.com1.z0.glb.clouddn.com'
+        'Domain': 'http://img.fengimage.com'
     },
 
 
