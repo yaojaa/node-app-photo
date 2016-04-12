@@ -127,13 +127,11 @@ textarea{
                 <div class="col-md-9">
                     <section class="photo-details-section">
                         <div class="photo-header clearfix">
-                            <h1 class="pull-left">{{photo.title}}</h1>
+                            <h1 class="pull-left">{{photo.title}} <small><a href="#edit">编辑</a></small></h1>
                             <p class="pull-right" id="J-picset-attention" class="picset-cmtnum">
-
-
                                 <b title="浏览量" class="w-ico-attention">浏览数</b> <span id="J-picset-viewcount">2328</span>
-                                <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
-                                <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span>
+                       <!--          <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
+                                <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span> -->
                                  <b title="更新日期" class="w-ico-like f-ml20">更新日期</b> <span id="J-picset-likecount">{{photo.update_at}}</span>
 
 
@@ -143,12 +141,11 @@ textarea{
                         <div class="photo">
 
 
-                                        {{#each photo.pictures}}
-                                        <a href="{{this}}">
-                                        <img width="100%" class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
-                                        </a>
-                                         
-                                        {{/each}} 
+{{#each photo.pictures}}
+<a href="http://img.fengimage.com/{{this}}">
+<img width="100%" class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
+</a>
+{{/each}} 
 
                         </div>
                     </section>

@@ -105,7 +105,6 @@ jQuery(function() {
     // 当有文件添加进来时执行，负责view的创建
     function addFile(file) {
         var $li = $('<li id="' + file.id + '">' +
-                '<p class="title">' + file.name + '</p>' +
                 '<p class="imgWrap"></p>' +
                 '<p class="progress"><span></span></p>' +
                 '</li>'),
@@ -529,6 +528,46 @@ jQuery(function() {
         }
 
     })
+
+
+  //如果是编辑页
+
+ var  editPicture = $('#pictures').val();
+
+ editPicture=editPicture.split(',');
+
+ console.log('editPicture',editPicture)
+
+ $.each(editPicture,function(k,v){
+
+
+        addPreview('http://img.fengimage.com/'+v)
+
+
+ })
+
+ function  addPreview(src){
+
+    var $li = $('<li id="has' + src + '">' +
+            '<p class="imgWrap"></p>' +
+            '</li>'),
+
+            $btns = $('<div class="file-panel">' +
+            '<span class="cancel">删除</span>' +
+            '<span class="rotateRight">向右旋转</span>' +
+            '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+            $wrap = $li.find('p.imgWrap'),
+            $info = $('<p class="error"></p>');
+
+            $wrap.text('预览中');
+
+
+            var img = $('<img src="' + src + '">');
+            $wrap.empty().append(img);
+            $li.appendTo($queue);
+ }
+
+
 
 
 
