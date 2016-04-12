@@ -141,24 +141,15 @@ textarea{
                             </p>
                         </div>
                         <div class="photo">
-                            {{#if photo.price}}
 
-                                    {{#if isBuy }}
 
                                         {{#each photo.pictures}}
-                                        <a href="{{this}}"><img width="100%" class="tobeview" src="{{this}}?imageView2/1/" alt="{{photo.title}} "/></a>
+                                        <a href="{{this}}">
+                                        <img width="100%" class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
+                                        </a>
                                          
                                         {{/each}} 
 
-                                    {{else}}
-                                        <img width="100%" src="{{photo.pictures.[0]}}?imageView2/1/w/1180/" alt="{{photo.title}} ">
-                                        <h3>全部照片预览</h3> 
-                                        {{#each photo.pictures}}
-                                        <img width="16.666666666666666666%" src="{{this}}?imageView2/1/w/200/" alt="{{photo.title}} "> 
-                                        {{/each}} 
-
-                                     {{/if}}
-                            {{/if}}
                         </div>
                     </section>
 
