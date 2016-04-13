@@ -1,94 +1,99 @@
 {{#extend "stylesheets"}}
-<link rel="stylesheet" href="/css/index.min.css">
-<link rel="stylesheet" href="/css/justifiedGallery.min.css">
+  <link rel="stylesheet" href="/css/index.min.css">
+  <link rel="stylesheet" href="/css/justifiedGallery.min.css">
 
-<style>
-.banner {
-  position: relative;
-  width: 100%;
-  overflow: auto;
+  <style>
+    .banner {
+      position: relative;
+      width: 100%;
+      overflow: auto;
 
-  font-size: 18px;
-  line-height: 24px;
-  text-align: center;
+      font-size: 18px;
+      line-height: 24px;
+      text-align: center;
 
-  color: rgba(255,255,255,.6);
-  text-shadow: 0 0 1px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.3);
+      color: rgba(255, 255, 255, .6);
+      text-shadow: 0 0 1px rgba(0, 0, 0, .05), 0 1px 2px rgba(0, 0, 0, .3);
 
-  background: #5b4d3d;
-  box-shadow: 0 1px 2px rgba(0,0,0,.25);
-}
-  .banner ul {
-    list-style: none;
-    width: 300%;
-  }
-  .banner ul li {
-    display: block;
-    float: left;
-    width: 33%;
-    height: 350px;
-    overflow: hidden;
+      background: #5b4d3d;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+    }
 
-    -o-background-size: 100% 100%;
-    -ms-background-size: 100% 100%;
-    -moz-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
+    .banner ul {
+      list-style: none;
+      width: 300%;
+    }
 
-    box-shadow: inset 0 -3px 6px rgba(0,0,0,.1);
-  }
+    .banner ul li {
+      display: block;
+      float: left;
+      width: 33%;
+      height: 350px;
+      overflow: hidden;
 
-  .banner .inner {
-    padding: 100px 0 110px;
-  }
+      -o-background-size: 100% 100%;
+      -ms-background-size: 100% 100%;
+      -moz-background-size: 100% 100%;
+      -webkit-background-size: 100% 100%;
+      background-size: 100% 100%;
 
-  .banner h1, .banner h2 {
-    font-size: 60px;
-    line-height: 52px;
+      box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .1);
+    }
 
-    color: #fff;
-  }
+    .banner .inner {
+      padding: 100px 0 110px;
+    }
 
-  .banner .btn {
-    display: inline-block;
-    margin: 25px 0 0;
-    padding: 9px 22px 7px;
-    clear: both;
+    .banner h1, .banner h2 {
+      font-size: 60px;
+      line-height: 52px;
 
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-decoration: none;
+      color: #fff;
+    }
 
-    border: 2px solid rgba(255,255,255,.4);
-    border-radius: 5px;
-  }
+    .banner .btn {
+      display: inline-block;
+      margin: 25px 0 0;
+      padding: 9px 22px 7px;
+      clear: both;
+
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-decoration: none;
+
+      border: 2px solid rgba(255, 255, 255, .4);
+      border-radius: 5px;
+    }
+
     .banner .btn:hover {
-      background: rgba(255,255,255,.05);
+      background: rgba(255, 255, 255, .05);
     }
+
     .banner .btn:active {
-      -webkit-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
-      -moz-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
-      -ms-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
-      -o-filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
-      filter: drop-shadow(0 -1px 2px rgba(0,0,0,.5));
+      -webkit-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+      -moz-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+      -ms-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+      -o-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+      filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
     }
 
-  .banner .btn, .banner .dot {
-    -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-    -moz-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-    -ms-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-    -o-filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-    filter: drop-shadow(0 1px 2px rgba(0,0,0,.3));
-  }
+    .banner .btn, .banner .dot {
+      -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+      -moz-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+      -ms-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+      -o-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+    }
 
-  .banner .dots {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 20px;
-  }
+    .banner .dots {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 20px;
+    }
+
     .banner .dots li {
       display: inline-block;
       width: 10px;
@@ -107,67 +112,69 @@
       -moz-transition: background .5s, opacity .5s;
       transition: background .5s, opacity .5s;
     }
-      .banner .dots li.active {
-        background: #fff;
-        opacity: 1;
-      }
 
-  .banner .arrows {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    color: #fff;
-  }
+    .banner .dots li.active {
+      background: #fff;
+      opacity: 1;
+    }
+
+    .banner .arrows {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      color: #fff;
+    }
+
     .banner .arrow {
       display: inline;
       padding-left: 10px;
       cursor: pointer;
     }
 
-</style>
+  </style>
 
 {{/extend}}
 
-<div id="banner" class="banner" >
-    <ul>
+<div id="banner" class="banner">
+  <ul>
 
 
     {{#if user}}
 
-        <li style="background-image: url('http://www.bootcss.com/p/unslider/img/subway.jpg')">
-       <div class="inner">
-            <h1>风影</h1>
-            <br>
-            <h4>分享精彩，实现价值</h4>
-            <br>
+      <li style="background-image: url('http://www.bootcss.com/p/unslider/img/subway.jpg')">
+        <div class="inner">
+          <h1>风影</h1>
+          <br>
+          <h4>分享精彩，实现价值</h4>
+          <br>
 
-<a href="/create-photo" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-         class="reg button button-rounded button-caution">+发布作品</a>        
+          <a href="/create-photo" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+             class="reg button button-rounded button-caution">+发布作品</a>
 
-           </div>
-    </li>
+        </div>
+      </li>
 
     {{else}}
 
-        <li style="background-image: url('http://www.bootcss.com/p/unslider/img/sunset.jpg')">
+      <li style="background-image: url('http://www.bootcss.com/p/unslider/img/sunset.jpg')">
 
-    <div class="inner">
-            <h1>风影</h1>
-            <br>
-            <h4>分享精彩，实现价值</h4>
-            <br>
+        <div class="inner">
+          <h1>风影</h1>
+          <br>
+          <h4>分享精彩，实现价值</h4>
+          <br>
 
-<a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-         class="reg button button-rounded button-caution">立即加入</a>        
+          <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+             class="reg button button-rounded button-caution">立即加入</a>
 
-           </div>
+        </div>
 
-    </li>
+      </li>
 
-      {{/if}}
+    {{/if}}
 
-      
-    </ul>
+
+  </ul>
 </div>
 
 
@@ -177,13 +184,12 @@
     <h3>分享精彩，实现价值</h3>
     <br>
     {{#if user}}
-    {{else}}
+{{else}}
       <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
          class="reg button button-rounded button-caution button-large">立即加入</a>
     {{/if}}
 
   </div> -->
-
 
 
 <div class="tab_wrapper">
@@ -210,16 +216,16 @@
 {{#if user}}
 
 {{else}}
-<div id="reg">
-  <div class="container">
-    <h2>加入会员</h2>
+  <div id="reg">
+    <div class="container">
+      <h2>加入会员</h2>
 
-    <div class="subtit"><span>成为会员只需一步，立即体验吧</span></div>
-    <div class="row" align="center" >
+      <div class="subtit"><span>成为会员只需一步，立即体验吧</span></div>
+      <div class="row" align="center">
         <a href="/reg" class="pull-center reg button button-rounded button-caution button-large">马上开始体验</a>
+      </div>
     </div>
   </div>
-</div>
 
 {{/if}}
 <div class="navbar-gradient"></div>
@@ -227,155 +233,150 @@
 
 {{#extend "customerScript"}}
 
-<script type="text/javascript" src="/js/jquery.justifiedGallery.min.js"></script>
+  <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js"></script>
 
-<script type="text/javascript">
+  <script type="text/javascript">
+
+    var $picContainer = $('#pic-container');
+    function showPicture(type) {
 
 
-  function showPicture(type) {
+      my.ajax({
+        url: "/home/photo/list",
+        data: {type: type, pageNo: 1},
+        success: function (list) {
+          var html = '';
+          html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
+          for (var i = 0, length = list.length; i < length; i++) {
+            var item = list[i];
+            var randomWidth = parseInt(Math.random() * 400 + 300);
+            html += '<a href="/photo/' + item._id + '"><img src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
+          }
+          html += '</div></div>';
+          $picContainer.html(html);
 
+          $('.basicExample').justifiedGallery({
+            rowHeight: 350,
+            lastRow: 'nojustify',
+            margins: 10
+          });
+        }
+      });
 
-    my.ajax({
-      url: "/home/photo/list",
-      data: {type: type, pageNo: 1},
-      success: function (list) {
-        var html = '';
-        html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
-        for (var i = 0, length = list.length; i < length; i++) {
-          var item = list[i];
-          var randomWidth = parseInt(Math.random() * 400 + 300);
-          var pictures = item.pictures
-          for (var j = 0, size = pictures.length; j < size; j++) {
-            var pic = pictures[j];
-            html += '<a href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/></a>';
+    }
+    showPicture(1);
+  </script>
+
+  <script>
+    (function () {
+      var width, height, canvas, ctx, circles;
+
+      function initHeader() {
+        try {
+          canvas = document.getElementById('bubbleCanvas');
+          if ($("#bubbleCanvas").length > 0) {
+            width = window.innerWidth * 0.25 > 300 ? window.innerWidth * 0.25 : 300;
+            //height = window.innerHeight;
+            height = 255;
+            canvas.width = width;
+            canvas.height = height;
+            ctx = canvas.getContext('2d');
+            circles = [];
+            for (var x = 0; x < width * 0.5; x++) {
+              var c = new Circle();
+              circles.push(c);
+            }
+            animate();
+          }
+        } catch (ex) {
+          if (window.cosole && window.cosole.log) {
+            cosole.log(ex)
           }
         }
-        html += '</div></div>';
-        $('#pic-container').html(html);
-
-        $('.basicExample').justifiedGallery({
-          rowHeight: 350,
-          lastRow: 'nojustify',
-          margins: 10
-        });
       }
-    });
 
-  }
-  showPicture(1);
-</script>
-
-<script>
-  (function () {
-    var width, height, canvas, ctx, circles;
-
-    function initHeader() {
-      try {
-        canvas = document.getElementById('bubbleCanvas');
-        if ($("#bubbleCanvas").length > 0) {
-          width = window.innerWidth * 0.25 > 300 ? window.innerWidth * 0.25 : 300;
-          //height = window.innerHeight;
-          height = 255;
-          canvas.width = width;
-          canvas.height = height;
-          ctx = canvas.getContext('2d');
-          circles = [];
-          for (var x = 0; x < width * 0.5; x++) {
-            var c = new Circle();
-            circles.push(c);
+      function addListeners() {
+        try {
+          if ($("#bubbleCanvas").length > 0) {
+            window.addEventListener('resize', resize);
           }
-          animate();
-        }
-      } catch (ex) {
-        if (window.cosole && window.cosole.log) {
-          cosole.log(ex)
-        }
-      }
-    }
-
-    function addListeners() {
-      try {
-        if ($("#bubbleCanvas").length > 0) {
-          window.addEventListener('resize', resize);
-        }
-      } catch (ex) {
-        if (window.cosole && window.cosole.log) {
-          cosole.log(ex)
+        } catch (ex) {
+          if (window.cosole && window.cosole.log) {
+            cosole.log(ex)
+          }
         }
       }
-    }
 
-    function resize() {
-      width = window.innerWidth * 0.25 > 300 ? window.innerWidth * 0.25 : 300;
-      height = window.innerHeight;
-      canvas.width = width;
-      canvas.height = height;
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      for (var i in circles) {
-        circles[i].draw();
+      function resize() {
+        width = window.innerWidth * 0.25 > 300 ? window.innerWidth * 0.25 : 300;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
       }
-      window.requestAFrame = (function () {
-        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-                                          function (callback) {
-                                            return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
-                                          };
-      })();
-      requestAFrame(animate);
-    }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        for (var i in circles) {
+          circles[i].draw();
+        }
+        window.requestAFrame = (function () {
+          return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                                            function (callback) {
+                                              return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
+                                            };
+        })();
+        requestAFrame(animate);
+      }
 
 // Canvas manipulation
-    function Circle() {
-      var _this = this;
+      function Circle() {
+        var _this = this;
 
-      // constructor
-      (function () {
-        _this.pos = {};
-        init();
-      })();
+        // constructor
+        (function () {
+          _this.pos = {};
+          init();
+        })();
 
-      function init() {
-        _this.pos.x = Math.random() * width;
-        _this.pos.y = height + Math.random() * 100;
-        _this.alpha = 0.1 + Math.random() * 0.3;
-        _this.scale = 0.1 + Math.random() * 0.3;
-        _this.velocity = Math.random();
+        function init() {
+          _this.pos.x = Math.random() * width;
+          _this.pos.y = height + Math.random() * 100;
+          _this.alpha = 0.1 + Math.random() * 0.3;
+          _this.scale = 0.1 + Math.random() * 0.3;
+          _this.velocity = Math.random();
+        }
+
+        this.draw = function () {
+          if (_this.alpha <= 0) {
+            init();
+          }
+          _this.pos.y -= _this.velocity;
+          _this.alpha -= 0.0005;
+          ctx.beginPath();
+          ctx.arc(_this.pos.x, _this.pos.y, _this.scale * 10, 0, 2 * Math.PI, false);
+          ctx.fillStyle = 'rgba(255,255,255,' + _this.alpha + ')';
+          ctx.fill();
+        };
       }
 
-      this.draw = function () {
-        if (_this.alpha <= 0) {
-          init();
-        }
-        _this.pos.y -= _this.velocity;
-        _this.alpha -= 0.0005;
-        ctx.beginPath();
-        ctx.arc(_this.pos.x, _this.pos.y, _this.scale * 10, 0, 2 * Math.PI, false);
-        ctx.fillStyle = 'rgba(255,255,255,' + _this.alpha + ')';
-        ctx.fill();
-      };
-    }
+
+      $("#banner").append("<canvas id=\"bubbleCanvas\" width=\"800\" height=\"563\"></canvas>");
+      $('.navbar').addClass('navbar-fixed-top')
+      initHeader();
+      addListeners();
+    }());
+
+    //slider
 
 
-    $("#banner").append("<canvas id=\"bubbleCanvas\" width=\"800\" height=\"563\"></canvas>");
-    $('.navbar').addClass('navbar-fixed-top')
-    initHeader();
-    addListeners();
-  }());
+  </script>
 
-//slider
+  <script src="//unslider.com/unslider.js"></script>
 
-
-
-</script>
-
-<script src="//unslider.com/unslider.js"></script>
-
-<script>
-  $(function() {
-    $('.banner').unslider();
-});
-</script>
+  <script>
+    $(function () {
+      $('.banner').unslider();
+    });
+  </script>
 
 {{/extend}}

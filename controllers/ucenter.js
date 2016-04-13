@@ -22,7 +22,7 @@ exports.pwd = function (req, res) {
 
     var user = req.session.user;
     var md5 = crypto.createHash('md5'),
-      oldword = md5.update(req.body.oldpwd).digest('hex');
+        oldword = md5.update(req.body.oldpwd).digest('hex');
     if (user.password !== oldword) {
         return res.fail('原密码错误');
     }
@@ -114,18 +114,18 @@ exports.rechargeForm = function (req, res) {
 exports.rechargeList = function (req, res) {
     var userId = req.session.user.id;
     Money.page({userId: userId, errorno: 1}, {sort: '-create_at'}, function (err, page) {
-          page.list.forEach(function (item) {
-              item.createAt = moment(item.create_at).format('YYYY-MM-DD hh:mm:ss');
-              if (item.type === 0) {
-                  item.pay = '支付宝';
-              } else if (item.type === 1) {
-                  item.pay = '微信';
-              } else {
-                  item.pay = '未知';
-              }
-          });
-          res.render('uc_recharge_list', page);
-      }
+            page.list.forEach(function (item) {
+                item.createAt = moment(item.create_at).format('YYYY-MM-DD hh:mm:ss');
+                if (item.type === 0) {
+                    item.pay = '支付宝';
+                } else if (item.type === 1) {
+                    item.pay = '微信';
+                } else {
+                    item.pay = '未知';
+                }
+            });
+            res.render('uc_recharge_list', page);
+        }
     )
     ;
 
@@ -231,7 +231,7 @@ exports.userspace = function (req, res, next) {
             totalPicturesCount += item.pictures.length;
             totalBrowseCount += item.browse_cnt;
             item.piccnt = item.pictures.length;
-            item.pictures = item.pictures[0];
+            item.pictures = item.pictures[Math.floor(Math.random() * item.piccnt)];
         });
 
         var regTime = new Date(user.create_at);

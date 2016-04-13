@@ -104,7 +104,7 @@
     //是否继续加载数据
     my.gono = true;
 
-    $('#pic-container').css('min-height',$(window).height());
+    $('#pic-container').css('min-height', $(window).height());
 
     $(function () {
       //下拉加载图片
@@ -166,11 +166,10 @@
 
             var randomWidth = parseInt(Math.random() * 400 + 300);
             var item = list[i];
-            var pic = item.pictures[0];
             var userAvatar = item.userAvatar ? item.userAvatar : '{{avatar }}';
             html += '<div class="album-wrapper jg-entry">';
-            html += '<div class="album-number">' + item.pictures.length + '张</div>';
-            html += '<a target="_blank" href="/photo/' + item._id + '"><img src="' + pic + '?imageView2/1/w/' + randomWidth + '/"/></a>';
+            html += '<div class="album-number">' + item.piccnt + '张</div>';
+            html += '<a target="_blank" href="/photo/' + item._id + '"><img src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
             html += '<div class="album-description">';
             html += '<a class="belong-icon-wrapper" href="/userspace/' + item.author_id + '">';
             html += '<img class="belong-icon" src="' + userAvatar + '" alt=""/></a>';
