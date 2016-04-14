@@ -86,9 +86,9 @@ jQuery(function() {
         chunked: true,
         // server: 'http://webuploader.duapp.com/server/fileupload.php',
         server: config.uploadurl,
-        fileNumLimit: 300,
-        fileSizeLimit: 5 * 1024 * 1024, // 200 M
-        fileSingleSizeLimit: 1 * 1024 * 1024 // 50 M
+        fileNumLimit: 30,
+        fileSizeLimit: 5000 * 1024 * 1024, // 200 M
+        fileSingleSizeLimit: 1000 * 1024 * 1024 // 50 M
     });
 
     // 添加“添加文件”的按钮，
