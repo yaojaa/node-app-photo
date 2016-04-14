@@ -1,6 +1,10 @@
 {{#extend "stylesheets"}}
 
 <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
+
+<link rel="stylesheet" type="text/css" href="/vendor/ilightbox/ilightbox.css">
+<link rel="stylesheet" type="text/css" href="/vendor/ilightbox/skin.css">
+
 <script>
 var PAGECONFIG = {
     photoId: '{{photo.id}}',
@@ -107,6 +111,14 @@ var PAGECONFIG = {
 textarea{
   overflow: hidden;
 }
+#photos{
+    margin-bottom: 40px
+}
+#photos img{
+    display: block;
+    max-width: 100%;
+    margin-top: 20px
+}
 </style>
 
 {{/extend}}
@@ -138,12 +150,12 @@ textarea{
                                  
                             </p>
                         </div>
-                        <div class="photo">
+                        <div id="photos" class="photo">
 
 
 {{#each photo.pictures}}
-<a href="http://img.fengimage.com/{{this}}">
-<img width="100%" class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
+<a href="http://img.fengimage.com/{{this}}" data-type="image">
+<img class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
 </a>
 {{/each}} 
 
@@ -202,11 +214,11 @@ textarea{
 }
 </style>
 
-<div class="support-author">
+<!-- <div class="support-author">
           <p>支持<a href="/space/{{user.id}}">{{author.nickname}}</a> ~打赏 1.66</p>
             <a href="#pay-modal" data-toggle="modal" class="btn btn-pay">¥ 打赏支持</a>
           <div class="avatar-list"></div>
-        </div>
+        </div> -->
 <!--打赏作者-->
 
                 </div>
@@ -355,7 +367,15 @@ textarea{
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
 <script src="/tpl/comment_list.hbs.js"></script>
+<script src="/vendor/ilightbox/js/jquery.mousewheel.js"></script>
+
+<script src="/vendor/ilightbox/js/ilightbox.js"></script>
+
+
+
 <script>
+
+$('#photos a').iLightBox();
 
 
 
