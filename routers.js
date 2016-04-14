@@ -51,6 +51,10 @@ router.use('/sys', sysRouter);
 // })
 
 
+router.get('/protocol', function(req,res){
+    res.render('user_protocol');
+});  // 用户注册协议
+
 router.get('/signup', sign.showSignup);  // 跳转到注册页面
 
 router.post('/signup', sign.signup);  // 提交注册信息

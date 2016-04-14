@@ -32,6 +32,12 @@ function sendEmail(mailOptions, callback) {
     });
 }
 
+/**
+ * 获取验证码
+ * @param code
+ * @param to
+ * @param callback
+ */
 exports.sendCodeMail = function (code, to, callback) {
     var d = new Date();
     var data = {
@@ -45,6 +51,24 @@ exports.sendCodeMail = function (code, to, callback) {
         from: 'admin@fengimage.com', // sender address
         to: to, // list of receivers
         subject: '风影网-用户获取验证码', // Subject line
+        html: html
+    };
+    sendEmail(mailOptions, callback);
+}
+
+exports.retrievePassword = function (code, to, callback) {
+    var d = new Date();
+    var data = {
+        ymd: d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日',
+        sf: d.getHours() + '点' + d.getMinutes() + '分',
+        link: 'www.fengimage.com',
+        code: code
+    };
+    var html = gain_validate_code_tpl(data);
+    var mailOptions = {
+        from: 'admin@fengimage.com', // sender address
+        to: to, // list of receivers
+        subject: '风影网-密码找回', // Subject line
         html: html
     };
     sendEmail(mailOptions, callback);

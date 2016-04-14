@@ -3,16 +3,68 @@ var User = require('../proxy/user.js');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
 var crypto = require('crypto');
+var uuid = require('uuid');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var emailService = require('../service').emailService;
 
+//本地缓存，用于存储
+var cache = {};
 
 //sign up
 exports.showSignup = function (req, res) {
-    res.render('user/signup')
+    res.render('user/signup', {layout: null});
 };
 
+// 找回密码
+// 规则：每帐号每天只能使用三次
+//      一个url只能修改一次密码,
+//      当同一帐号发送多封邮件,只有最后一封邮件的url有效
+//      每个url的有效性是12小时
+//      每个url使用后即失效
+exports.retrievePassword = function (req, res) {
+    var email = req.query.email;
+    if (!validator.isEmail(email)) {
+        return res.fail('邮件格式不正确');
+    }
+
+    cache.email = {
+        uuid: uuid.v4(),
+        timestamp: Date.now(),
+        count: 1
+    };
+
+    var codeInfo = req.session.code_info;
+    if (codeInfo) {
+        if (codeInfo.email && codeInfo.email === email) {
+            if (Date.now() - codeInfo.timestamp <= 1000 * 30) {
+                return res.fail('每次发邮件的间隔时间为30秒，请等待');
+            }
+        }
+    }
+
+
+    var seed = '1234567890abcdefghijkmnpqrstuvwxyz';
+    var i = 0;
+    var code = '';
+    while (i < 6) {
+        code += seed.charAt(Math.floor(Math.random() * seed.length))
+        i++;
+    }
+    req.session.code_info = {
+        email: email,
+        code: code,
+        timestamp: Date.now()
+    };
+    emailService.sendCodeMail(code, email, function (err, info) {
+        console.log('发送邮件', err, info);
+        if (err) {
+            res.fail('邮件发送失败');
+        } else {
+            res.ok();
+        }
+    });
+};
 
 //获取验证码
 exports.getMailCode = function (req, res) {
@@ -59,17 +111,20 @@ exports.signup = function (req, res, next) {
     var password = validator.trim(req.body.password);
     var nickname = validator.trim(req.body.nickname);
     var code = validator.trim(req.body.code);
+    var reg_protocol = validator.trim(req.body.reg_protocol);
 
     var ep = new eventproxy();
     ep.fail(next);
     ep.on('prop_err', function (msg) {
-        res.status(422);
-        res.render('user/signup', {error: msg, nickname: nickname, email: email});
+        res.fail(msg);
     });
 
 
-    // 验证信息的正确性
+    if (reg_protocol != 1) {
+        return ep.emit('prop_err', '请勾选用户协议');
+    }
 
+    // 验证信息的正确性
     if ([nickname, password, email].some(function (item) {
             return item === '';
         })) {
@@ -117,13 +172,11 @@ exports.signup = function (req, res, next) {
     User.getUserByMail(email, function (err, users) {
 
         if (err) {
-            return next(err);
+            console.log('[sign]注册用户失败', err.stack);
+            return ep.emit('prop_err', '注册用户失败');
         }
         if (!!users) {
-            res.render('user/signup', {
-                error: '邮箱已被使用。'
-            });
-            return next();
+            return ep.emit('prop_err', '邮箱已被使用');
         }
 
         User.newAndSave(password, email, nickname, false, function (err) {
@@ -132,14 +185,12 @@ exports.signup = function (req, res, next) {
                 return next(err);
             }
             // req.session.user = user;//用户信息存入 session
-            res.render('user/login', {
-                success: '欢迎加入,恭喜你注册成功！账号：' + email
-            });
+            res.ok('欢迎加入,恭喜你注册成功！账号：' + email);
 
-        })
+        });
 
 
-    })
+    });
 
 
 }
@@ -148,7 +199,7 @@ exports.signup = function (req, res, next) {
 exports.showLogin = function (req, res) {
     req.session._loginReferer = req.headers.referer;
     res.render('user/login', {
-
+        layout: null,
         service: req.query.service || ''
     });
 }
@@ -254,10 +305,7 @@ exports.login = function (req, res, next) {
 
 
     if (!email || !password) {
-        res.status(422);
-        return res.render('user/login', {
-            error: '信息不完整。'
-        });
+        return res.fail('用户名或密码不正确');
     }
 
     //生成密码的 md5 值
@@ -266,37 +314,30 @@ exports.login = function (req, res, next) {
 
     User.getUserByMail(email, function (err, user) {
         if (err) {
-            return res.render('user/login', {
-                error: '数据库错误'
-            });
+            console.log('[login]', err.stack);
+            return res.fail('系统错误，稍后重试');
         }
 
         if (!user) {
-            return res.render('user/login', {
-                error: '用户不存在'
-            });
-            return next();
+            return res.fail('用户不存在');
         }
 
         if (password !== user.password) {
-            return res.render('user/login', {
-                error: '密码不正确！'
-            });
-            return next();
+            return res.fail('密码不正确');
         }
 
         makeSession(req, user, res);
 
-
-        for (var i = 0, len = notJump.length; i !== len; ++i) {
-            if (refer.indexOf(notJump[i]) >= 0) {
-                refer = '/';
-                break;
-            }
-        }
-
-        res.redirect(refer);
-    })
+        res.ok('登录成功');
+        //for (var i = 0, len = notJump.length; i !== len; ++i) {
+        //    if (refer.indexOf(notJump[i]) >= 0) {
+        //        refer = '/';
+        //        break;
+        //    }
+        //}
+        //
+        //res.redirect(refer);
+    });
 
 }
 
