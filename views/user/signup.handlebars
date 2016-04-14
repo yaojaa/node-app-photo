@@ -1,158 +1,121 @@
-<style>
-  .login-sns {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
-  }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>风影</title>
 
-  .login-sns .login-list {
-    padding-top: 10px;
-  }
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/sign_up.css">
 
-  .login-sns li {
-    display: inline-block;
-  }
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
-  li {
-    line-height: 20px;
-  }
+</head>
+<body>
 
-  .login-sns li > a {
-    width: 44px;
-    height: 44px;
-    display: inline-block;
-    border-radius: 50%;
-    line-height: 44px;
-    font-size: 20px;
-    background: #eeeeee;
-    text-align: center;
-  }
+<!-- 错误提示信息 -->
+<div class="alert alert-danger" id="error-msg" role="alert">error</div>
 
-  a {
-    color: #555555;
-    text-decoration: none;
-  }
-
-  .qq a:hover {
-    background-color: #15a7f0;
-    color: #fff;
-  }
-
-  .wechat a:hover {
-    background-color: #49be38;
-    color: #fff;
-  }
-
-  #footer, .navbar-gradient {
-    display: none;
-  }
-
-  body {
-    background: url(https://drscdn.500px.org/photo/144702359/m%3D2048/139f0f1fc44f5d81fb235834a121fe68) center top no-repeat;
-    background-size: cover;
-  }
-
-  .none {
-    display: none;
-  }
-</style>
-
-
-<div class="container">
-  <br><br>
-
-  <div class="row">
-    <div class="col-md-12 col-lg-4">
-      <div class="login-panel panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">注册新用户</h3>
-        </div>
-        <div class="panel-body">
-          <form name="loginform" action="/signup" method="post" role="form">
-            <fieldset>
-              <div class="form-group">
-                <input type="text" autofocus="" required="" name="nickname" placeholder="昵称"
-                       class="form-control input-lg">
-              </div>
-              <div class="form-group">
-                <input type="text" autofocus="" required="" name="email" placeholder="邮箱" class="form-control input-lg">
-              </div>
-              <div class="form-group">
-                <input type="password" value="" name="password" placeholder="密码" class="form-control input-lg">
-              </div>
-              <div class="form-group">
-                <input type="text" name="code" placeholder="6位验证码" class="form-control input-lg" id="code">
-              </div>
-              <button type="button" class="btn btn-lg btn-success btn-block" id="email_code">获取验证码</button>
-              <input type="submit" value="注 册" name="login" class="btn btn-lg btn-success btn-block none" id="submit">
-            </fieldset>
-          </form>
-
-
-        </div>
-
-        <div class="login-sns">
-          <p>您还可以通过以下方式直接登录</p>
-          <ul class="login-list">
-            <!--<li class="weibo">
-              <a href="/users/auth/weibo"><i class="fa fa-weibo"></i></a>
-            </li>-->
-            <li class="qq">
-              <a href="/qq/login"><i class="fa fa-qq"></i></a>
-            </li>
-            <li class="wechat">
-              <a href="/wechat/login"><i class="fa fa-wechat"></i></a>
-            </li>
-          </ul>
-        </div>
-
-
-      </div>
-    </div>
-  </div>
-
+<div class="g-head">
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+      <a href="/login" title="登录" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a>
+    </li>
+    <li>
+      <a href="/signup" title="注册" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a>
+    </li>
+    <li>
+      <a href="/" title="首页" class="start-btn"><span class="glyphicon glyphicon-camera"></span>风影网</a>
+    </li>
+  </ul>
 </div>
 
-<script>
-  my.$email_code = $('#email_code');
-  my.$submit = $('#submit');
+<div class="container">
+  <div class="g-sign">
+    <h1>风影</h1>
 
-  function handleButton(val) {
-    if (/^\w{6}$/.test(val)) {
-      my.$submit.show();
-      my.$email_code.hide();
-    } else {
-      my.$submit.hide();
-      my.$email_code.show();
-    }
-  }
-  $('#code').keyup(function () {
-    handleButton(this.value);
-  }).change(function () {
-    handleButton(this.value);
-  });
+    <h3>摄影师自己的家园</h3>
 
-  my.$email_code.click(function () {
-    my.$email_code[0].disabled = true;
-    setTimeout(function () {
-      my.$email_code[0].disabled = false;
-    }, 30000);
-    my.ajax({
-      url: 'getMailCode',
-      type: 'get',
-      data: {email: $('input[name="email"]').val()},
-      success:function(){
+    <form class="form-inline">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">邮箱</div>
+          <input type="text" class="form-control u-218" name="email" placeholder="你的邮箱地址">
+        </div>
+      </div>
 
-      },
-      error:function(){
-        //1554684195@qq.com
-        my.$email_code[0].disabled = false;
-      }
-    });
-  });
-</script>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">验证码</div>
+          <input type="text" class="form-control u-110" name="code" placeholder="6位验证码">
+          <button type="button" id="emailCode" class="btn btn-primary">获取验证码</button>
+        </div>
+      </div>
 
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">昵称</div>
+          <input type="text" class="form-control u-218" name="nickname" placeholder="选择一个不一样的昵称">
+        </div>
+      </div>
 
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon">密码</div>
+          <input type="password" class="form-control u-218" name="password" placeholder="密码长度至少6位">
+        </div>
+      </div>
 
+      <div class="form-group">
+        <div class="input-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="reg_protocol" value="1" checked> 我已经认真阅读并同意接受 <a href="#">用户协议</a>
+            </label>
+          </div>
+        </div>
+      </div>
 
+      <div class="form-group">
+        <div class="input-group">
+          <button type="button" class="btn btn-success u-sign" id="signup">注册</button>
+        </div>
+      </div>
+    </form>
+
+    <div class="login-sns">
+      <p>您还可以通过以下方式直接登录</p>
+      <ul class="login-list">
+        <li class="weibo">
+          <a href="#"><i class="fa fa-weibo"></i></a>
+        </li>
+        <li class="qq">
+          <a href="/qq/login"><i class="fa fa-qq"></i></a>
+        </li>
+        <li class="wechat">
+          <a href="/wechat/login"><i class="fa fa-wechat"></i></a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  <!-- g-sign -->
+
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/lib/validator.min.js"></script>
+<script src="js/common.js"></script>
+<script src="js/sign.js"></script>
+</body>
+</html>
