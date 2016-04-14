@@ -3,16 +3,68 @@ var User = require('../proxy/user.js');
 var validator = require('validator');
 var eventproxy = require('eventproxy');
 var crypto = require('crypto');
+var uuid = require('uuid');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var emailService = require('../service').emailService;
 
+//本地缓存，用于存储
+var cache = {};
 
 //sign up
 exports.showSignup = function (req, res) {
     res.render('user/signup', {layout: null});
 };
 
+// 找回密码
+// 规则：每帐号每天只能使用三次
+//      一个url只能修改一次密码,
+//      当同一帐号发送多封邮件,只有最后一封邮件的url有效
+//      每个url的有效性是12小时
+//      每个url使用后即失效
+exports.retrievePassword = function (req, res) {
+    var email = req.query.email;
+    if (!validator.isEmail(email)) {
+        return res.fail('邮件格式不正确');
+    }
+
+    cache.email = {
+        uuid: uuid.v4(),
+        timestamp: Date.now(),
+        count: 1
+    };
+
+    var codeInfo = req.session.code_info;
+    if (codeInfo) {
+        if (codeInfo.email && codeInfo.email === email) {
+            if (Date.now() - codeInfo.timestamp <= 1000 * 30) {
+                return res.fail('每次发邮件的间隔时间为30秒，请等待');
+            }
+        }
+    }
+
+
+    var seed = '1234567890abcdefghijkmnpqrstuvwxyz';
+    var i = 0;
+    var code = '';
+    while (i < 6) {
+        code += seed.charAt(Math.floor(Math.random() * seed.length))
+        i++;
+    }
+    req.session.code_info = {
+        email: email,
+        code: code,
+        timestamp: Date.now()
+    };
+    emailService.sendCodeMail(code, email, function (err, info) {
+        console.log('发送邮件', err, info);
+        if (err) {
+            res.fail('邮件发送失败');
+        } else {
+            res.ok();
+        }
+    });
+};
 
 //获取验证码
 exports.getMailCode = function (req, res) {
