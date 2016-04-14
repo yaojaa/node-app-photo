@@ -28,9 +28,14 @@
     my.baffle = false;
     //提交挡板
     my.submitBaffle = false;
+    //发送邮件
     my.$emailCode = $('#emailCode');
+    //注册
     my.$signup = $('#signup');
+    //登录
     my.$signon = $('#signon');
+    //重置密码
+    my.$pwdedit = $('#pwdedit');
     //发送邮件验证码
     my.$emailCode.click(function () {
         if (my.baffle)return;
@@ -47,14 +52,14 @@
             self.disabled = false;
         }, 30000);
         my.ajax({
-            url: 'getMailCode',
+            url: '/' + $(self).data('url'),
             type: 'get',
             data: {email: email},
             success: function () {
-                my.error.show('验证码已经发送到邮箱');
+                my.error.show('已经发送到邮箱');
             },
-            error: function () {
-                my.error.show('验证码发送失败');
+            error: function (msg) {
+                my.error.show(msg);
                 my.baffle = false;
                 self.disabled = false;
                 clearTimeout(timeMark);
@@ -176,6 +181,44 @@
                 show(msg);
             }
         });
+    });
+
+    // 修改密码
+    my.$pwdedit.click(function () {
+
+        if (my.submitBaffle)return;
+        my.submitBaffle = true;
+        var self = this;
+        self.innerHTML = '修改中..';
+
+        var show = function (info) {
+            self.innerHTML = '修改密码';
+            my.submitBaffle = false;
+            my.error.show(info);
+            return false;
+        };
+
+        var password = $.trim($('input[name="password"]').val());
+        var repassword = $.trim($('input[name="repassword"]').val());
+        if (password.length < 6) {
+            return show('密码最少6个字符');
+        }
+        if (password != repassword) {
+            return show('两次密码不一致');
+        }
+
+
+        my.ajax({
+            url: '/password_retrieve',
+            data: {password: password},
+            success: function (ret) {
+                window.location = '/login';
+            },
+            error: function (msg) {
+                show(msg);
+            }
+        });
+
     });
 
 })();

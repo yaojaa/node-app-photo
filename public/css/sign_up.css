@@ -42,6 +42,7 @@
 
 .input-group {
   text-align: left;
+  margin: auto;
 }
 
 .u-sign {
@@ -113,4 +114,14 @@ ul, ol {
   top: -1000px;
   width: 250px;
   text-align: center;
+}
+
+/*找回密码*/
+.pwd-reset-form {
+  border: 1px solid #ddd;
+  padding: 20px 0 10px;
+  margin-top: 20px;
+}
+.pwd-reset-form .u-sign{
+  width: 218px;
 }

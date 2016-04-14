@@ -4,6 +4,8 @@ var fs = require('fs');
 
 //邮箱注册获取验证码模板
 var gain_validate_code_tpl = _.template(fs.readFileSync(__dirname + '/tpls/gain_validate_code.html'));
+//密码找回模板
+var reset_password_tpl = _.template(fs.readFileSync(__dirname + '/tpls/reset_password_tpl.html'));
 
 var smtpConfig = {
     host: 'smtp.fengimage.com',
@@ -54,17 +56,17 @@ exports.sendCodeMail = function (code, to, callback) {
         html: html
     };
     sendEmail(mailOptions, callback);
-}
+};
 
-exports.retrievePassword = function (code, to, callback) {
+exports.retrievePassword = function (url, to, callback) {
     var d = new Date();
     var data = {
         ymd: d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日',
         sf: d.getHours() + '点' + d.getMinutes() + '分',
         link: 'www.fengimage.com',
-        code: code
+        url: url
     };
-    var html = gain_validate_code_tpl(data);
+    var html = reset_password_tpl(data);
     var mailOptions = {
         from: 'admin@fengimage.com', // sender address
         to: to, // list of receivers
@@ -72,4 +74,4 @@ exports.retrievePassword = function (code, to, callback) {
         html: html
     };
     sendEmail(mailOptions, callback);
-}
+};

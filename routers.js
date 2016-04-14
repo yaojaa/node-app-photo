@@ -51,9 +51,19 @@ router.use('/sys', sysRouter);
 // })
 
 
-router.get('/protocol', function(req,res){
+router.get('/protocol', function (req, res) {
     res.render('user_protocol');
 });  // 用户注册协议
+
+router.get('/password_reset', function (req, res) {
+    res.render('user/password_retrieve', {layout: null});
+});  // 用户密码重设
+
+router.get('/password_retrieve', sign.retrievePassword);  // 用户密码重设
+
+router.post('/password_retrieve', sign.editPassword);  // 用户密码重设
+
+router.get('/password_reset/:uuid', sign.resetPassword);  // 用户密码重设
 
 router.get('/signup', sign.showSignup);  // 跳转到注册页面
 
@@ -99,16 +109,14 @@ router.get('/create-aticle', aticle.showCreate)
 router.post('/create-aticle', aticle.create)
 
 /**
-*图集部分router
-*/
+ *图集部分router
+ */
 router.get('/photo', photo.showPhotoList) //图片列表
 router.get('/photo/:_id', photo.showDetail) //图片正文
 router.get('/create-photo', photo.showCreate)
 router.post('/create-photo', photo.publish)
-router.get('/photo/:tid/edit',  photo.showEdit);  // 编辑图片
+router.get('/photo/:tid/edit', photo.showEdit);  // 编辑图片
 // router.post('/topic/:tid/edit', auth.userRequired, topic.update);  //提交编辑
-
-
 
 
 router.get('/video', video.showVideoList) //视频列表

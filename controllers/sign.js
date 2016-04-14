@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var emailService = require('../service').emailService;
 
-//本地缓存，用于存储
+//本地缓存，用于存储密码找回账号
 var cache = {};
 
 //sign up
@@ -27,43 +27,101 @@ exports.retrievePassword = function (req, res) {
     if (!validator.isEmail(email)) {
         return res.fail('邮件格式不正确');
     }
+    email = email.toLowerCase();
+    var emailCache = cache[email];
 
-    cache.email = {
-        uuid: uuid.v4(),
-        timestamp: Date.now(),
-        count: 1
-    };
-
-    var codeInfo = req.session.code_info;
-    if (codeInfo) {
-        if (codeInfo.email && codeInfo.email === email) {
-            if (Date.now() - codeInfo.timestamp <= 1000 * 30) {
-                return res.fail('每次发邮件的间隔时间为30秒，请等待');
-            }
-        }
-    }
-
-
-    var seed = '1234567890abcdefghijkmnpqrstuvwxyz';
-    var i = 0;
-    var code = '';
-    while (i < 6) {
-        code += seed.charAt(Math.floor(Math.random() * seed.length))
-        i++;
-    }
-    req.session.code_info = {
-        email: email,
-        code: code,
-        timestamp: Date.now()
-    };
-    emailService.sendCodeMail(code, email, function (err, info) {
-        console.log('发送邮件', err, info);
-        if (err) {
-            res.fail('邮件发送失败');
-        } else {
-            res.ok();
-        }
+    var ep = new eventproxy();
+    ep.fail(function () {
+        res.fail('服务失败');
     });
+    ep.on('send_email', function () {
+        cache[email] = emailCache;
+        var url = 'http://www.fengimage.com/password_reset/' + emailCache.uuid;
+        emailService.retrievePassword(url, email, function (err, info) {
+            console.log('发送邮件', err, info);
+            if (err) {
+                res.fail('邮件发送失败');
+            } else {
+                //发送次数加一
+                emailCache.count++;
+                res.ok();
+            }
+        });
+    });
+
+    if (!emailCache) {
+        User.getUserByMail(email, function (err, user) {
+            if (err) {
+                return res.fail('服务失败');
+            }
+            if (!user) {
+                return res.fail('该邮箱还未注册');
+            }
+
+            emailCache = {
+                _id: user._id,
+                uuid: uuid.v4(),
+                timestamp: Date.now(),
+                count: 1
+            };
+
+            ep.emit('send_email', emailCache);
+
+        });
+    } else {
+        if (Date.now() - emailCache.timestamp > 1000 * 60 * 60 * 12) {
+            emailCache = {
+                timestamp: Date.now(),
+                count: 1
+            };
+        }
+        if (emailCache.count > 3) {
+            return res.fail('一天只能找回3次密码');
+        }
+        emailCache.uuid = uuid.v4();
+        ep.emit('send_email', emailCache);
+    }
+
+};
+
+//重新设置密码
+exports.resetPassword = function (req, res) {
+    var uuid = req.params.uuid;
+    if (!uuid) {
+        return res.render('user/sign_error', {layout: null, message: '链接地址错误'});
+    }
+    for (var key in cache) {
+        if (cache[key].uuid === uuid) {
+            cache[key].uuid = null;
+            req.session.user_id = cache[key]['_id'];
+            return res.render('user/password_reset', {layout: null, email: key, uuid: uuid});
+        }
+    }
+
+    res.render('user/sign_error', {layout: null, message: '链接地址已经失效，请重新获取'});
+};
+
+//重新设置密码
+exports.editPassword = function (req, res) {
+    var uuid = req.body.uuid;
+    var password = req.body.password.trim();
+    var user_id = req.session.user_id;
+    console.log('重置密码', password, user_id);
+    if (!user_id) {
+        return res.fail('会话已经失效，请刷新页面');
+    }
+
+    if (password.length < 6) {
+        return res.fail('密码最少6个字符');
+    }
+
+    var newpwd = crypto.createHash('md5').update(password).digest('hex');
+    User.update(user_id, {password: newpwd}, function (err, result) {
+        if (err) return res.fail('修改密码失败');
+        req.session.user_id = null;
+        res.ok();
+    });
+
 };
 
 //获取验证码
@@ -126,8 +184,8 @@ exports.signup = function (req, res, next) {
 
     // 验证信息的正确性
     if ([nickname, password, email].some(function (item) {
-            return item === '';
-        })) {
+          return item === '';
+      })) {
         ep.emit('prop_err', '信息不完整。');
         return;
     }
@@ -168,7 +226,7 @@ exports.signup = function (req, res, next) {
 
     //生成密码的 md5 值
     var md5 = crypto.createHash('md5'),
-        password = md5.update(password).digest('hex');
+      password = md5.update(password).digest('hex');
     User.getUserByMail(email, function (err, users) {
 
         if (err) {
@@ -254,7 +312,7 @@ function checkIsLogin(req, res, next) {
         //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
         var auth = cookie.split('$$$$');
         var email = auth[0],
-            password = auth[1]; //解密后拿到username与password
+          password = auth[1]; //解密后拿到username与password
 
 
         User.getUserByMail(email, function (err, user) {
@@ -310,7 +368,7 @@ exports.login = function (req, res, next) {
 
     //生成密码的 md5 值
     var md5 = crypto.createHash('md5'),
-        password = md5.update(password).digest('hex');
+      password = md5.update(password).digest('hex');
 
     User.getUserByMail(email, function (err, user) {
         if (err) {
