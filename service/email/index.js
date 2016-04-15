@@ -50,7 +50,7 @@ exports.sendCodeMail = function (code, to, callback) {
     };
     var html = gain_validate_code_tpl(data);
     var mailOptions = {
-        from: 'admin@fengimage.com', // sender address
+        from: '"风影网"<admin@fengimage.com>', // sender address
         to: to, // list of receivers
         subject: '风影网-用户获取验证码', // Subject line
         html: html
@@ -68,7 +68,7 @@ exports.retrievePassword = function (url, to, callback) {
     };
     var html = reset_password_tpl(data);
     var mailOptions = {
-        from: 'admin@fengimage.com', // sender address
+        from: '"风影网"<admin@fengimage.com>', // sender address
         to: to, // list of receivers
         subject: '风影网-密码找回', // Subject line
         html: html
