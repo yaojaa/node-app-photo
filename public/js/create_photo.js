@@ -60,6 +60,8 @@ jQuery(function() {
         throw new Error('WebUploader does not support the browser you are using.');
     }
 
+    console.info(config.uploadurl);
+
     // 实例化
     uploader = WebUploader.create({
         pick: {
@@ -87,7 +89,7 @@ jQuery(function() {
         // server: 'http://webuploader.duapp.com/server/fileupload.php',
         server: config.uploadurl,
         fileNumLimit: 30,
-        fileSizeLimit: 5000 * 1024 * 1024, // 200 M
+        fileSizeLimit: 20 * 1024 * 1024, // 200 M
         fileSingleSizeLimit: 1000 * 1024 * 1024 // 50 M
     });
 
@@ -532,40 +534,70 @@ jQuery(function() {
 
   //如果是编辑页
 
- var  editPicture = $('#pictures').val();
+  //删除已上传的照片
+ var currval=$('#pictures').val();
 
- editPicture=editPicture.split(',');
+  $('#hasUploadList').on('click','.cancel',function(){
 
- console.log('editPicture',editPicture)
+    var curpic= $(this).closest('li').attr('data-name');
 
- $.each(editPicture,function(k,v){
+    var reg = new RegExp(curpic);
 
-
-        addPreview('http://img.fengimage.com/'+v)
-
-
- })
-
- function  addPreview(src){
-
-    var $li = $('<li id="has' + src + '">' +
-            '<p class="imgWrap"></p>' +
-            '</li>'),
-
-            $btns = $('<div class="file-panel">' +
-            '<span class="cancel">删除</span>' +
-            '<span class="rotateRight">向右旋转</span>' +
-            '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
-            $wrap = $li.find('p.imgWrap'),
-            $info = $('<p class="error"></p>');
-
-            $wrap.text('预览中');
+    console.log(reg,'reg')
 
 
-            var img = $('<img src="' + src + '">');
-            $wrap.empty().append(img);
-            $li.appendTo($queue);
- }
+   var newval=currval.replace(reg,'111111111111111111')
+
+
+           console.log(newval);
+
+     $('#pictures').val(newval);
+
+    $(this).closest('li').remove();
+
+           console.log($('#pictures').val());
+
+
+
+
+
+
+  })
+
+ // var  editPicture = $('#pictures').val();
+
+ // editPicture=editPicture.split(',');
+
+ // console.log('editPicture',editPicture)
+
+ // $.each(editPicture,function(k,v){
+
+
+ //        addPreview('http://img.fengimage.com/'+v)
+
+
+ // })
+
+ // function  addPreview(src){
+
+ //    var $li = $('<li id="has' + src + '">' +
+ //            '<p class="imgWrap"></p>' +
+ //            '</li>'),
+
+ //            $btns = $('<div class="file-panel">' +
+ //            '<span class="cancel">删除</span>' +
+ //            '<span class="rotateRight">向右旋转</span>' +
+ //            '<span class="rotateLeft">向左旋转</span></div>').appendTo($li),
+ //            $wrap = $li.find('p.imgWrap'),
+ //            $info = $('<p class="error"></p>');
+
+ //            $wrap.text('预览中');
+
+
+ //            var img = $('<img src="' + src + '">');
+ //            $wrap.empty().append(img);
+ //            $li.appendTo($queue);
+ // }
 
 
 

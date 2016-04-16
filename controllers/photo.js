@@ -11,7 +11,7 @@ var list_photo_count = config.list_photo_count;
 
 
 //显示列表
-exports.showPhotoList = function (req, res) {
+exports.showPhotoList = function(req, res) {
 
     var page = req.query.p ? parseInt(req.query.p) : 1;
     var currentCategory = req.query.category || 'all';
@@ -48,7 +48,7 @@ exports.showPhotoList = function (req, res) {
      })*/
 };
 
-exports.showCreate = function (req, res) {
+exports.showCreate = function(req, res) {
 
     res.render('create-photo', {
         category: config.category,
@@ -59,7 +59,7 @@ exports.showCreate = function (req, res) {
 
 }
 
-exports.publish = function (req, res) {
+exports.publish = function(req, res) {
 
     var title = validator.trim(req.body.title);
     var discrib = validator.trim(req.body.discrib);
@@ -68,11 +68,11 @@ exports.publish = function (req, res) {
     var category = req.body.category;
     var authorId = req.session.user.id;
     var price = validator.trim(req.body.price);
-    Photo.newAndSave(title, discrib, pictures, category, authorId, price, function (err) {
+    Photo.newAndSave(title, discrib, pictures, category, authorId, price, function(err) {
         if (err) {
             return next(err);
         }
-        res.render('create-photo', {success: '发布成功！'});
+        res.render('create-photo', { success: '发布成功！' });
 
     })
 
@@ -84,7 +84,7 @@ exports.publish = function (req, res) {
  */
 
 //
-exports.showDetail = function (req, res) {
+exports.showDetail = function(req, res) {
 
     var _id = req.params._id;
     var usermail = req.session.user ? req.session.user.email : '';
@@ -93,7 +93,7 @@ exports.showDetail = function (req, res) {
     var ep = new EventProxy();
 
 
-    ep.all('dataPhoto', 'isBuy', 'author', 'isFollow', function (dataPhoto, isBuy, author, isFollow) {
+    ep.all('dataPhoto', 'isBuy', 'author', 'isFollow', function(dataPhoto, isBuy, author, isFollow) {
 
 
         var tmpData = _.pick(dataPhoto);
@@ -108,7 +108,7 @@ exports.showDetail = function (req, res) {
 
 
         //修改浏览次数
-        Photo.updateCountById(_id, 1, function (err) {
+        Photo.updateCountById(_id, 1, function(err) {
             if (err) {
                 return console.error('修改图片浏览次数出错了:', err);
             }
@@ -130,12 +130,12 @@ exports.showDetail = function (req, res) {
     //1.判断是否购买
     if (usermail) {
 
-        var checkIsBuy = (function () {
+        var checkIsBuy = (function() {
             if (!usermail) {
                 return ep.emit('isBuy', false);
             }
 
-            User.getUserByMail(usermail, function (err, userData) {
+            User.getUserByMail(usermail, function(err, userData) {
                 if (err) {
                     return ep.emit('error', err);
                 }
@@ -156,7 +156,7 @@ exports.showDetail = function (req, res) {
 
 
     //2.获取图片信息
-    Photo.findPhotoById(_id, function (err, dataPhoto) {
+    Photo.findPhotoById(_id, function(err, dataPhoto) {
         if (err) {
             return ep.emit('error', err);
         }
@@ -174,7 +174,7 @@ exports.showDetail = function (req, res) {
     //3.获取作者信息
 
     function getAuthorInfo(id) {
-        User.getUserID(id, function (err, data) {
+        User.getUserID(id, function(err, data) {
             if (err) {
                 return err
             }
@@ -203,11 +203,11 @@ exports.showDetail = function (req, res) {
  * @param res
  */
 
-exports.findList = function (req, res) {
+exports.findList = function(req, res) {
     var type = parseInt(req.body.type);
     var pageNo = req.body.pageNo;
     var where = {};
-    var options = {pageNo: pageNo, sort: '-create_at'};
+    var options = { pageNo: pageNo, sort: '-create_at' };
     switch (type) {
         case 2:
             options.sort = '-browse_cnt';
@@ -217,14 +217,14 @@ exports.findList = function (req, res) {
                 return res.fail('未登录');
             }
             var follow = req.session.user.follow;
-            where._id = {'$in': follow};
+            where._id = { '$in': follow };
             break;
     }
-    Photo.page(where, {}, options, function (err, page) {
+    Photo.page(where, {}, options, function(err, page) {
         if (err) {
             return res.fail();
         }
-        var list = page.list.map(function (item) {
+        var list = page.list.map(function(item) {
             item = item.toObject();
             var length = item.pictures.length;
             item.piccnt = length;
@@ -243,7 +243,7 @@ exports.findList = function (req, res) {
  *  req.query.categories:图片分类
  * @param res
  */
-exports.classify = function (req, res, next) {
+exports.classify = function(req, res, next) {
     var classify = req.query.classify;
     var categories = req.query.categories;
     var pageNo = req.query.pageNo;
@@ -251,7 +251,7 @@ exports.classify = function (req, res, next) {
     var keys = {
         /*pictures: {$slice: 1}*/
     };
-    var options = {pageNo: pageNo, sort: '-create_at'};
+    var options = { pageNo: pageNo, sort: '-create_at' };
     if (classify === 'popular') {
         options.sort = '-browse_cnt';
     } else if (classify === 'editors') {
@@ -261,14 +261,14 @@ exports.classify = function (req, res, next) {
         where.category = categories;
     }
 
-    Photo.page(where, keys, options, function (err, page) {
+    Photo.page(where, keys, options, function(err, page) {
         var list = page.list;
         if (err) {
             return res.fail();
         }
         if (list.length === 0) return res.ok([]);
         var userIds = [];
-        list = list.map(function (item) {
+        list = list.map(function(item) {
             item = item.toObject();
             var length = item.pictures.length;
             item.piccnt = length;
@@ -279,12 +279,12 @@ exports.classify = function (req, res, next) {
         });
 
         //查询图集所属用户
-        User.findByIds(userIds, function (err, users) {
+        User.findByIds(userIds, function(err, users) {
             if (err) {
                 console.error('查询图集所属的用户信息出错：', err.stack);
                 return res.ok(list);
             }
-            list.forEach(function (item) {
+            list.forEach(function(item) {
                 for (var i = 0, length = users.length; i < length; i++) {
                     var user = users[i];
                     if (item.author_id == user._id) {
@@ -308,7 +308,7 @@ exports.classify = function (req, res, next) {
  *    图集ID
  * @param res
  */
-exports.recommend = function (req, res) {
+exports.recommend = function(req, res) {
     var user = req.session.user;
     if (!user) {
         return res.fail('请登录');
@@ -318,7 +318,7 @@ exports.recommend = function (req, res) {
     }
     var id = req.query.id;
     if (!id) return res.fail();
-    Photo.update(id, {recommend: true}, function (err, ret) {
+    Photo.update(id, { recommend: true }, function(err, ret) {
         if (err) return res.fail();
         res.ok(ret);
     })
@@ -332,12 +332,12 @@ exports.recommend = function (req, res) {
  * @param res
  */
 
-exports.showEdit = function (req, res, next) {
+exports.showEdit = function(req, res, next) {
     var photo_id = req.params.tid;
 
-    Photo.findPhotoById(photo_id, function (err, photo) {
+    Photo.findPhotoById(photo_id, function(err, photo) {
         if (!photo) {
-            res.render('notify', {error: '此图集不存在或已被删除。'});
+            res.render('notify', { error: '此图集不存在或已被删除。' });
             return;
         }
 
@@ -352,25 +352,30 @@ exports.showEdit = function (req, res, next) {
                 photo_id: photo._id,
                 title: photo.title,
                 pictures: photo.pictures,
-                category: photo.category,
-                discrib: photo.discrib
+                curr_category: photo.category,
+                discrib: photo.discrib,
+                category: config.category,
+                Domain: config.qn_access.Domain,
+                Uptoken_Url: config.qn_access.Uptoken_Url,
+                uploadURL: config.qn_access.uploadURL
+
 
             });
         } else {
-            res.render('notify', {error: '此图集不存在或已被删除。'});
+            res.render('notify', { error: '此图集不存在或已被删除。' });
         }
     });
 };
 
-exports.update = function (req, res, next) {
+exports.update = function(req, res, next) {
     var topic_id = req.params.tid;
     var title = req.body.title;
     var tab = req.body.tab;
     var content = req.body.t_content;
 
-    Topic.getTopicById(topic_id, function (err, topic, tags) {
+    Topic.getTopicById(topic_id, function(err, topic, tags) {
         if (!topic) {
-            res.status(404).render('notify', {error: '此图集不存在或已被删除。'});
+            res.status(404).render('notify', { error: '此图集不存在或已被删除。' });
             return;
         }
 
@@ -406,7 +411,7 @@ exports.update = function (req, res, next) {
             topic.tab = tab;
             topic.update_at = new Date();
 
-            topic.save(function (err) {
+            topic.save(function(err) {
                 if (err) {
                     return next(err);
                 }
@@ -422,31 +427,31 @@ exports.update = function (req, res, next) {
     });
 };
 
-exports.delete = function (req, res, next) {
+exports.delete = function(req, res, next) {
     //删除话题, 话题作者topic_count减1
     //删除回复，回复作者reply_count减1
     //删除topic_collect，用户collect_topic_count减1
 
     var topic_id = req.params.tid;
 
-    Topic.getTopic(topic_id, function (err, topic) {
+    Topic.getTopic(topic_id, function(err, topic) {
         if (err) {
-            return res.send({success: false, message: err.message});
+            return res.send({ success: false, message: err.message });
         }
         if (!req.session.user.is_admin && !(topic.author_id.equals(req.session.user._id))) {
             res.status(403);
-            return res.send({success: false, message: '无权限'});
+            return res.send({ success: false, message: '无权限' });
         }
         if (!topic) {
             res.status(422);
-            return res.send({success: false, message: '此话题不存在或已被删除。'});
+            return res.send({ success: false, message: '此话题不存在或已被删除。' });
         }
         topic.deleted = true;
-        topic.save(function (err) {
+        topic.save(function(err) {
             if (err) {
-                return res.send({success: false, message: err.message});
+                return res.send({ success: false, message: err.message });
             }
-            res.send({success: true, message: '话题已被删除。'});
+            res.send({ success: true, message: '话题已被删除。' });
         });
     });
 };
