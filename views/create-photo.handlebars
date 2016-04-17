@@ -416,7 +416,7 @@ label.error{
 
     <div class="col-lg-8">
     <h2 align="center">
-      {{#if edit}}编辑{{/if}}发布作品 
+      {{#if edit}}编辑已{{/if}}发布照片 
 
 
     </h2>
@@ -446,16 +446,31 @@ label.error{
     <label for="title" class="col-sm-2 control-label">图片：</label>
     <div class="col-sm-10">
 
-        <input type="text" id="pictures" name="pictures" autocomplete="off" value="{{#if edit}}{{pictures}}{{/if}}" />
+        <input  style="width:1000px" type="text" id="pictures" name="pictures" autocomplete="off" value="{{#if edit}}{{#each pictures}}|{{this}}{{/each}}{{/if}}" />
 
-<div id="hasUploadList">
 
-{{#each pictures}}
-<img src="http://img.fengimage.com/{{this}}">
-{{/each}}    
-</div>
 <div id="uploader" class="wu-example">
+
+
+<!--  已上传的照片 -->
+
+{{#if edit}}
+<div id="hasUploadList">
+    <ul class="filelist">
+        {{#each pictures}}
+      <li data-name="|{{this}}">
+          <div class="file-panel" style="height:28px;"><span class="cancel">删除</span></div>
+          <img src="http://img.fengimage.com/{{this}}?imageView2/1/w/155/">
+      </li>  
+{{/each}}    
+
+    </ul>
+
+</div>
+ {{/if}}
+
     <div class="queueList">
+
         <div id="dndArea" class="placeholder">
             <div id="filePicker"></div>
             <p>或将照片拖到这里，单次最多可选30张</p>
