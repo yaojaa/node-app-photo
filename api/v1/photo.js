@@ -220,6 +220,44 @@ exports.createPhoto = function (req, res) {
 
 };
 
+exports.editPhoto = function (req, res) {
+
+        var photo_id = req.body.photo_id;
+        var title = validator.trim(req.body.title);
+        var discrib = validator.trim(req.body.discrib);
+        // var tags = validator.trim(req.body.tags);
+        var pictures = req.body.pictures;
+        var category = req.body.category;
+        var authorId = req.session.user.id;
+
+
+        //字符串转数组 '|picturename|picturename|picturename'
+        pictures=pictures.split(',').slice(1);
+
+        PhotoProxy.findPhotoById(photo_id, function (err, photo) {
+        if (err) {
+            return next()
+        }
+
+            //保存话题
+            photo.title = title;
+            photo.discrib = discrib;
+            photo.pictures = pictures;
+            photo.category = category;
+            photo.update_at = new Date();
+
+            photo.save(function(err) {
+                if (err) {
+                    return next(err);
+                }
+                //发送at消息
+                // at.sendMessageToMentionUsers(content, topic._id, req.session.user._id);
+    res.json({errorno:0,msg: '发布成功！',data:photo});
+            });
+
+        });
+}
+
 
 exports.buyPhoto = buyPhoto;
 

@@ -6,6 +6,7 @@
 <script>
 
 var config={
+
     uploadurl:'{{uploadURL}}',
     token:(function() {
       return (function(){
@@ -13,8 +14,19 @@ var config={
             config.token= res.uptoken
         })
       })()
-    })()
+    })(),
+    {{#if edit}}
+    name:'edit',
+    photo_id:'{{photo_id}}',
+    apiurl:'/api/v1/editPhoto'
+    {{else}}
+    name:'create',
+    apiurl:'/api/v1/createPhoto'
+
+    {{/if}}
 }
+
+
 </script>
 
 <link rel="stylesheet" type="text/css" href="/vendor/webuploader/webuploader.css">
@@ -423,6 +435,7 @@ label.error{
 <hr>
      <input type="hidden" id="domain" value="{{Domain}}">
         <input type="hidden" id="uptoken_url" value="{{Uptoken_Url}}">
+                <input name="photo_id" type="hidden" id="photo_id" value="{{photo_id}}">
 
 
 
@@ -446,7 +459,7 @@ label.error{
     <label for="title" class="col-sm-2 control-label">图片：</label>
     <div class="col-sm-10">
 
-        <input  style="width:1000px" type="text" id="pictures" name="pictures" autocomplete="off" value="{{#if edit}}{{#each pictures}}|{{this}}{{/each}}{{/if}}" />
+        <input  style="width:1000px" type="text" id="pictures" name="pictures" autocomplete="off" value="{{#if edit}}{{#each pictures}},{{this}}{{/each}}{{/if}}" />
 
 
 <div id="uploader" class="wu-example">
@@ -458,7 +471,7 @@ label.error{
 <div id="hasUploadList">
     <ul class="filelist">
         {{#each pictures}}
-      <li data-name="|{{this}}">
+      <li data-name=",{{this}}">
           <div class="file-panel" style="height:28px;"><span class="cancel">删除</span></div>
           <img src="http://img.fengimage.com/{{this}}?imageView2/1/w/155/">
       </li>  

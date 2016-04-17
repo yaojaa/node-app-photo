@@ -101,7 +101,7 @@ jQuery(function() {
 
     uploader.on('uploadSuccess', function(file, res) {
         var pval = $('#pictures').val();
-        $('#pictures').val(pval + '|' + res.hash)
+        $('#pictures').val(pval + ',' + res.hash)
     });
 
     // 当有文件添加进来时执行，负责view的创建
@@ -457,8 +457,10 @@ jQuery(function() {
     //发布
     var postPicture = function(data) {
 
+
+   
         $('#Jpost').removeClass('btn-success').text('loading...').attr('disabled',true);
-        $.post('api/v1/createPhoto', data, function(res) {
+        $.post(config.apiurl, data, function(res) {
 
             if (res.errorno == -1) {
                 swal({
@@ -500,13 +502,15 @@ jQuery(function() {
 
 
 
+
     $('#createForm').validate({
 
         submitHandler: function(form) {
 
-           var btn= $(form).find(":submit");
-
+           // var btn= $(form).find(":submit");
            postPicture($(form).serialize());
+           return false
+
         },
 
         rules: {
@@ -535,9 +539,9 @@ jQuery(function() {
   //如果是编辑页
 
   //删除已上传的照片
- var currval=$('#pictures').val();
 
   $('#hasUploadList').on('click','.cancel',function(){
+ var currval=$('#pictures').val();
 
     var curpic= $(this).closest('li').attr('data-name');
 
@@ -546,7 +550,7 @@ jQuery(function() {
     console.log(reg,'reg')
 
 
-   var newval=currval.replace(reg,'111111111111111111')
+   var newval=currval.replace(reg,'')
 
 
            console.log(newval);

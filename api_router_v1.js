@@ -42,6 +42,7 @@ router.post('/delAticle',aticleController.delAticle);
 
 
 router.post('/createPhoto',auth.userRequired, photoController.createPhoto);
+router.post('/editPhoto',auth.userRequired, photoController.editPhoto);
 
 router.post('/delPhoto', auth.adminRequired, photoController.delPhoto);
 router.post('/delVideo', auth.adminRequired, videoController.delVideo);
