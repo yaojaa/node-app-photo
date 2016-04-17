@@ -206,7 +206,7 @@ exports.createPhoto = function (req, res) {
   var price = 0 ;//validator.trim(req.body.price);
 
   //字符串转数组 '|picturename|picturename|picturename'
-  pictures=pictures.split('|').slice(1);
+  pictures=pictures.split(',').slice(1);
 
   PhotoProxy.newAndSave(title, discrib, pictures, category, authorId, price, function (err,data) {
     if (err) {
