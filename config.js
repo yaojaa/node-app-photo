@@ -188,6 +188,15 @@ var config = {
         {name: '美食', url: '/food'},
         {name: '动物', url: '/animals'}
     ],
+    weibo: {
+        appid: '4167160283',
+        secret: 'e554402f753bd32b1c165d65dcb8dc31',
+        redirect_uri: 'http://www.fengimage.com/weibo/callback',
+        scope: 'all',
+        getUserInfoURL: 'http://api.t.sina.com.cn/users/show.json',
+        accessTokenURL: 'https://api.weibo.com/oauth2/access_token',
+        qrconnectURL: 'https://api.weibo.com/oauth2/authorize'
+        },
     qq: {
         appid: '101294710',
         appkey: 'c732cfbb3813d9473c32522e6243b7eb',

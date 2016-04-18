@@ -7,6 +7,7 @@ var video = require('./controllers/video');
 var comment = require('./controllers/comment');
 var wechat = require('./controllers/wechat');
 var qq = require('./controllers/qq');
+var weibo = require('./controllers/weibo');
 var wxpay = require('./controllers/wxpay');
 var deal = require('./controllers/deal');
 
@@ -78,10 +79,12 @@ router.get('/login', sign.showLogin);  // 进入登录页面
 router.post('/login', sign.login);  // 提交登录信息
 
 
-router.get('/wechat/login', wechat.login);  // 进入微信登录页面
-router.get('/wechat/callback', wechat.callback);  // 进入微信登录页面
-router.get('/qq/login', qq.login);  // 进入微信登录页面
-router.get('/qq/callback', qq.callback);  // 进入微信登录页面
+router.get('/wechat/login', wechat.login);  // 微信登录
+router.get('/wechat/callback', wechat.callback);  // 微信登录回调
+router.get('/qq/login', qq.login);  // qq登录
+router.get('/qq/callback', qq.callback);  // qq登录回调
+router.get('/weibo/login', weibo.login);  // 微博登录
+router.get('/weibo/callback', weibo.callback);  // 微博登录回调
 
 //router.get('/pub/wxpay/makeQRcode/:productid', wxpay.makeQRcode);  // 微信支付二维码
 //router.post('/pub/wxpay/callback', wxpay.callback);  // 微信支付
