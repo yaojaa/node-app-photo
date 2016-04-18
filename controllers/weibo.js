@@ -54,7 +54,7 @@ exports.callback = function (req, res) {
                     user.avatar = userInfo.profile_image_url;
                     user.sex = userInfo.gender === 'm' ? 1 : userInfo.gender === 'f' ? 2 : 0;
                     user.profile = userInfo.description;
-                    user.wb_url = userInfo.url;
+                    user.wb_url = userInfo.profile_url || userInfo.url;
                     user.wb_user = body;
                     callback(null, user);
                 });
