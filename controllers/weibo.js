@@ -15,7 +15,7 @@ exports.login = function (req, res) {
 };
 
 exports.callback = function (req, res) {
-
+    console.log('--------------->进入微博登录');
     var code = req.query.code;
     var state = req.query.state;
     var access_token = '';
