@@ -99,7 +99,7 @@ function getAccessToken(code, callback) {
             redirect_uri: config.redirect_uri
         }
     }, function (err, response, body) {
-        callback(error, response, body);
+        callback(err, response, body);
     });
 }
 
