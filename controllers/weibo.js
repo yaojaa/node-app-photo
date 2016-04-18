@@ -88,7 +88,17 @@ exports.callback = function (req, res) {
  */
 function getAccessToken(code, callback) {
     var url = config.accessTokenURL + '?client_id=' + config.appid + '&client_secret=' + config.secret + '&code=' + code + '&grant_type=authorization_code&redirect_uri=' + config.redirect_uri;
-    request({url: url}, function (error, response, body) {
+
+    request.post({
+        url: url,
+        form: {
+            client_id: config.appid,
+            client_secret: config.secret,
+            code: code,
+            grant_type: 'authorization_code',
+            redirect_uri: config.redirect_uri
+        }
+    }, function (err, response, body) {
         callback(error, response, body);
     });
 }

@@ -118,7 +118,8 @@ exports.editPassword = function (req, res) {
     var newpwd = crypto.createHash('md5').update(password).digest('hex');
     User.update(user_id, {password: newpwd}, function (err, result) {
         if (err) return res.fail('修改密码失败');
-        req.session.user_id = null;
+        req.session.user_id = null;-
+
         res.ok();
     });
 
