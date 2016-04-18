@@ -108,7 +108,11 @@ function getUserInfo(access_token, openid, callback) {
     request({url: url}, function (error, response, body) {
         if (!error) {
             var result = JSON.parse(body);
-            callback(null, result, body);
+            if (result.error_code) {
+                callback(new Error(result.error));
+            } else {
+                callback(null, result, body);
+            }
         } else {
             callback(error);
         }

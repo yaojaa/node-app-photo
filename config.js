@@ -193,7 +193,7 @@ var config = {
         secret: 'e554402f753bd32b1c165d65dcb8dc31',
         redirect_uri: 'http://www.fengimage.com/weibo/callback',
         scope: 'all',
-        getUserInfoURL: 'http://api.t.sina.com.cn/users/show.json',
+        getUserInfoURL: 'https://api.weibo.com/2/users/show.json',
         accessTokenURL: 'https://api.weibo.com/oauth2/access_token',
         qrconnectURL: 'https://api.weibo.com/oauth2/authorize'
         },
