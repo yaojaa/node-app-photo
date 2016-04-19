@@ -459,7 +459,7 @@ label.error{
     <label for="title" class="col-sm-2 control-label">图片：</label>
     <div class="col-sm-10">
 
-        <input  style="width:1000px" type="text" id="pictures" name="pictures" autocomplete="off" value="{{#if edit}}{{#each pictures}},{{this}}{{/each}}{{/if}}" />
+        <input  type="hidden" id="pictures" name="pictures" autocomplete="off" value="{{#if edit}}{{#each pictures}},{{this}}{{/each}}{{/if}}" />
 
 
 <div id="uploader" class="wu-example">
