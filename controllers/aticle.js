@@ -32,7 +32,7 @@ exports.showAticleList = function(req, res) {
 
 exports.showCreate=function(req, res){
 
-  res.render('create-aticle',{
+  res.render('create-aticle-md',{
             user: req.session.user,
             Domain: config.qn_access.Domain,
             uploadURL: config.qn_access.uploadURL
