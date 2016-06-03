@@ -203,8 +203,8 @@
             "html-entities"  : "fa-copyright",
             pagebreak        : "fa-newspaper-o",
             "goto-line"      : "fa-terminal", // fa-crosshairs
-            watch            : "fa-eye-slash",
-            unwatch          : "fa-eye",
+            watch            : "fa fa-columns",
+            unwatch          : "fa fa-columns",
             preview          : "fa-desktop",
             search           : "fa-search",
             fullscreen       : "fa-arrows-alt",

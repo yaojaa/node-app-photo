@@ -31,6 +31,136 @@
 
 			cm.focus();
 
+var Upload = {
+   
+        getToken:!function(callback){
+            var me=this;
+            var token=''
+            $.get('/uptoken',function(res){
+               Upload.getToken = res.uptoken;
+            })
+        }(),
+         //ajax上传到七牛
+        Qiniu_upload :function(f, token, key) {
+            var me=this;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', settings.imageUploadURL, true);
+            var formData, startDate;
+            formData = new FormData();
+            if (key !== null && key !== undefined) formData.append('key', key);
+            formData.append('token', token);
+            formData.append('file', f);
+            var taking;
+            xhr.upload.addEventListener("progress", function(evt) {
+                if (evt.lengthComputable) {
+                    var nowDate = new Date().getTime();
+                    taking = nowDate - startDate;
+                    var x = (evt.loaded) / 1024;
+                    var y = taking / 1000;
+                    var uploadSpeed = (x / y);
+                    var formatSpeed;
+                    if (uploadSpeed > 1024) {
+                        formatSpeed = (uploadSpeed / 1024).toFixed(2) + "Mb\/s";
+                    } else {
+                        formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
+                    }
+                    var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                     console && console.log(percentComplete, ",", formatSpeed);
+                }
+            }, false);
+
+            xhr.onreadystatechange = function(response) {
+                if (xhr.readyState == 4 && xhr.status == 200 && xhr.responseText != "") {
+                    var blkRet = JSON.parse(xhr.responseText);
+                    console && console.log(blkRet);
+                    $("#dialog").html(xhr.responseText);
+                    console.info('xhr',blkRet);
+                    me.uploadComplete(blkRet)
+                } else if (xhr.status != 200 && xhr.responseText) {
+
+                }
+            };
+            startDate = new Date().getTime();
+            $("#progressbar").show();
+            xhr.send(formData);
+        },
+
+        uploadComplete: function(r){
+           
+            dialog.find("[data-url]").val(r.hash);
+            loading(false);
+
+
+
+        },
+        submit: function (callback) {
+
+            var me = this;
+
+            $(me.dialog).undelegate( ".edui-image-file", "change.a");
+
+            $(me.dialog).delegate( ".edui-image-file", "change.a", function ( e ) {
+            
+                var file=this.files[0];
+                console.log(me.getToken)
+                // console.log(file)
+                me.toggleMask("Loading....");
+                   me.Qiniu_upload(file,me.getToken)
+
+            });
+
+            return me;
+        },
+        
+        drag: function () {
+            var me = this;
+            //做拽上传的支持
+            if (!UM.browser.ie9below) {
+                me.dialog.find('.edui-image-content').on('drop',function (e) {
+
+                    //获取文件列表
+                    var fileList = e.originalEvent.dataTransfer.files;
+                    var img = document.createElement('img');
+                    var hasImg = false;
+                    $.each(fileList, function (i, f) {
+                        if (/^image/.test(f.type)) {
+                            //创建图片的base64
+                            Base.createImgBase64(img, f, me.dialog);
+
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("post", me.editor.getOpt('imageUrl') + "?type=ajax", true);
+                            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+                            //模拟数据
+                            var fd = new FormData();
+                            fd.append(me.editor.getOpt('imageFieldName'), f);
+
+                            xhr.send(fd);
+                            xhr.addEventListener('load', function (e) {
+                                var r = e.target.response, json;
+                                me.uploadComplete(r);
+
+                                if (i == fileList.length - 1) {
+                                    $(img).remove()
+                                }
+                            });
+                            hasImg = true;
+                        }
+                    });
+                    if (hasImg) {
+                        e.preventDefault();
+                        me.toggleMask("Loading....");
+                    }
+
+                }).on('dragover', function (e) {
+                        e.preventDefault();
+                    });
+            }
+        },
+
+    };
+
+
             var loading = function(show) {
                 var _loading = dialog.find("." + classPrefix + "dialog-mask");
                 _loading[(show) ? "show" : "hide"]();
@@ -47,7 +177,6 @@
                 }
 
                 var dialogContent = ( (settings.imageUpload) ? "<form action=\"" + action +"\" target=\"" + iframeName + "\" method=\"post\" enctype=\"multipart/form-data\" class=\"" + classPrefix + "form\">" : "<div class=\"" + classPrefix + "form\">" ) +
-                                        ( (settings.imageUpload) ? "<iframe name=\"" + iframeName + "\" id=\"" + iframeName + "\" guid=\"" + guid + "\"></iframe>" : "" ) +
                                         "<label>" + imageLang.url + "</label>" +
                                         "<input type=\"text\" data-url />" + (function(){
                                             return (settings.imageUpload) ? "<div class=\"" + classPrefix + "file-input\">" +
@@ -127,7 +256,13 @@
 
 				var fileInput  = dialog.find("[name=\"" + classPrefix + "image-file\"]");
 
-				fileInput.bind("change", function() {
+
+
+
+
+				fileInput.on("change", function() {
+                    var file=this.files[0];
+
 					var fileName  = fileInput.val();
 					var isImage   = new RegExp("(\\.(" + settings.imageFormats.join("|") + "))$"); // /(\.(webp|jpg|jpeg|gif|bmp|png))$/
 
@@ -147,36 +282,15 @@
 
                     loading(true);
 
-                    var submitHandler = function() {
 
-                        var uploadIframe = document.getElementById(iframeName);
+                   Upload.Qiniu_upload(file,Upload.getToken)
 
-                        uploadIframe.onload = function() {
 
-                            loading(false);
 
-                            var body = (uploadIframe.contentWindow ? uploadIframe.contentWindow : uploadIframe.contentDocument).document.body;
-                            var json = (body.innerText) ? body.innerText : ( (body.textContent) ? body.textContent : null);
 
-                            json = (typeof JSON.parse !== "undefined") ? JSON.parse(json) : eval("(" + json + ")");
+               
 
-                            if(!settings.crossDomainUpload)
-                            {
-                              if (json.success === 1)
-                              {
-                                  dialog.find("[data-url]").val(json.url);
-                              }
-                              else
-                              {
-                                  alert(json.message);
-                              }
-                            }
-
-                            return false;
-                        };
-                    };
-
-                    dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");
+                    // dialog.find("[type=\"submit\"]").bind("click", submitHandler).trigger("click");
 				});
             }
 
