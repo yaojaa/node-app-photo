@@ -88,8 +88,8 @@ router.get('/weibo/callback', weibo.callback);  // 微博登录回调
 
 //router.get('/pub/wxpay/makeQRcode/:productid', wxpay.makeQRcode);  // 微信支付二维码
 //router.post('/pub/wxpay/callback', wxpay.callback);  // 微信支付
-router.post('/pub/wxpay/notify', wxpay.notify);  // 微信支付
-//router.get('/pub/wxpay/order/:productid-:t1-:t2', wxpay.order);  // 微信支付
+//router.post('/pub/wxpay/notify', wxpay.notify);  // 微信支付
+//router.get('/pub/wxpay/order/:productid-:t1-:t2', wxpay.order);  // 微信购买接口（暂时不做）
 
 
 //根据这两句生成uptoken
@@ -184,7 +184,7 @@ router.get('/photo/list/classify', photo.classify);
 //推荐或取消
 router.get('/photo/list/recommend', photo.recommend);
 
-
+//========支付有关接口==============
 //商品购买
 router.get('/deal/photo/buy/:id', deal.buy);
 //查看订单状态
@@ -193,5 +193,7 @@ router.get('/deal/order/:orderId', deal.get);
 router.get('/deal/order/action/:productid-:t1-:t2', deal.handle);
 //完成支付
 router.get('/deal/order/pay/:orderId', deal.pay);
+//微信异步通知支付结果
+router.post('/pub/wxpay/notify', deal.notify);
 
 module.exports = router;

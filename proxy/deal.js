@@ -18,7 +18,7 @@ var qr = require('qr-image');
  * @param sellId
  * @param req
  * @param callback
- * @todo 因为mongodb没有事务不推荐使用，建议使用
+ * @todo 因为mongodb没有事务不推荐使用，建议使用MySql
  */
 exports.personalWallet = function (money, buyId, sellId, callback) {
 
@@ -31,7 +31,7 @@ exports.personalWallet = function (money, buyId, sellId, callback) {
     }], callback);
 };
 
-
+//生成微信支付二维码
 exports.wxpay = function (money, buyId, productId, orderId, callback) {
 
 
@@ -109,7 +109,7 @@ exports.generateOrderInfo = function (buyId, sellId, productId, trading_type, tr
         price: price || 0
     };
     Order.add(order, callback);
-}
+};
 
 /**
  * 更新订单信息
@@ -125,7 +125,7 @@ exports.updateOrderInfo = function (id, model, callback) {
         order.openid = model.openid;
     }
     Order.update(id, order, callback);
-}
+};
 
 
 //处理统一下单处理

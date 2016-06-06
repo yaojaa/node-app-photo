@@ -1,3 +1,8 @@
+
+//该文件已经过时，不建议使用了！！！！！
+//统一支付接口在deal文件中
+
+
 var async = require('async');
 var request = require('request');
 var Photo = require('../proxy/photo.js');
@@ -50,7 +55,7 @@ exports.notify = function (req, res) {
             if (err) {
                 callback(err);
             } else {
-                User.update(order._id, {'$inc': {'money': order.price}}, callback);
+                User.update(order.buy_id, {'$inc': {'money': order.price}}, callback);
             }
         });
     }], function (err, ret) {
@@ -64,7 +69,8 @@ exports.notify = function (req, res) {
 };
 
 
-//调用同意下单接口
+//调用统一下单接口
+//@warn 方法已经不能使用
 exports.order = function (req, res) {
     console.log('---------------->order');
     //获取参数
@@ -98,7 +104,13 @@ exports.order = function (req, res) {
         if (product == null) {
             callback(new Error('商品不存在'));
         } else {
-            generateOrderInfo(product, t1, t2, user, callback);
+            product.price = parseFloat(product.price) * 10;
+            console.log('------>商品价格：' + product.price);
+            if (!product.price) {
+                callback(new Error('商品价格为0或不规范'));
+            } else {
+                generateOrderInfo(product, t1, t2, user, callback);
+            }
         }
     }, function (order, callback) {
         //处理统一下单
@@ -137,7 +149,7 @@ exports.order = function (req, res) {
         try {
             if (err) {
                 console.error('[controller][wxpay][callback]', err.stack);
-                return res.fail(err.message, res);
+                return res.fail(err.message);
             }
             console.log('预支付ID(prepay_id):', ret.prepay_id);
             console.log('二维码链接(code_url):', ret.code_url);
@@ -180,7 +192,7 @@ function unifiedOrder(order, product_id, callback) {
             product_id: product_id,
             out_trade_no: order._id,
             body: '风影图文',
-            total_fee: order.price * 10,
+            total_fee: order.price,
             spbill_create_ip: '123.56.230.118',
             trade_type: 'NATIVE',
             notify_url: 'http://www.fengimage.com/pub/wxpay/notify'

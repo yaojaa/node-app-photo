@@ -1,3 +1,12 @@
+/**
+ * @Desc: 该文件统一处理交易接口，交易分为购买和打赏，
+ * 大致过程：
+ *  1：用户调用统一下单接口（handle），系统会自动生成一个订单信息，返回用户一个订单id
+ *  2：用户根据订单ID调用支付接口（pay），根据支付流程完成支付
+ *  3：用户调用订单状态接口（get），实时查看订单状态，当状态为1时，完成订单支付！
+ */
+
+
 var Eventproxy = require('eventproxy');
 var wxutil = require('../util/wxutil');
 var PhotoProxy = require('../proxy').Photo;
@@ -135,13 +144,12 @@ exports.handle = function (req, res) {
         if (!moneyReg.test(money)) {
             return res.fail('钱的格式不对');
         }
-        var fen = parseFloat('12.11') * 100;
+        var fen = parseFloat(money) * 100;
         if (t1 === '1') {//个人钱包支付
             if (fen > user.money) {
                 return res.fail('余额不足');
             }
         }
-
 
         //生成订单信息
         generateOrderInfo(t1, t2, req, res, user.id, productid, productid, fen);
@@ -172,7 +180,7 @@ function generateOrderInfo(t1, t2, req, res, buyId, sellId, productId, money) {
         res.ok({id: ret._id});
 
     });
-};
+}
 
 /**
  * 完成支付
@@ -315,3 +323,58 @@ function dispatchPay(order, user, req, res, callback) {
             break;
     }
 }
+
+
+//异步接受微信的支付结果
+exports.notify = function (req, res) {
+    console.log('---------------->notify');
+
+    async.waterfall([function (callback) {
+        wxutil.parseBody(req, function () {
+            console.log('微信回调信息------->', req._body);
+            if (req._body) {
+                wxutil.parseString(req._body, callback);
+            } else {
+                callback(new Error('无法接收微信的回复信息'));
+            }
+        });
+    }, function (ret, callback) {
+        if (ret.return_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
+        if (ret.result_code !== 'SUCCESS') {
+            return callback(new Error(ret.return_msg));
+        }
+        //验证返回信息是否合法
+        var boo = wxutil.validSign(ret);
+        if (boo) {
+            callback(null, ret);
+        } else {
+            callback(new Error('微信返回信息签名验证失败'));
+        }
+    }, function (ret, callback) {
+        //更新订单状态
+        var model = {
+            status: 1,
+            price: ret.total_fee,
+            openid: ret.openid
+        };
+        Order.update(ret.out_trade_no, model, callback);
+    }, function (ret, callback) {
+        //更新商品所有者的账户金额
+        Order.getOrderById(ret._id, function (err, order) {
+            if (err) {
+                callback(err);
+            } else {
+                User.update(order.buy_id, {'$inc': {'money': order.price}}, callback);
+            }
+        });
+    }], function (err, ret) {
+        if (err) {
+            console.error('[controller][wxpay][notify]', err.stack);
+            return wxutil.fail(err.message, res);
+        }
+        console.log('提醒微信支付成功');
+        wxutil.ok({}, res);
+    });
+};
