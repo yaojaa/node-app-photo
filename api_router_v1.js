@@ -40,6 +40,9 @@ router.post('/createAticle', auth.userRequired,aticleController.createAticle);
 
 router.post('/delAticle',aticleController.delAticle);
 
+// router.del('/delAticle',aticleController.delAticle);
+
+
 
 router.post('/createPhoto',auth.userRequired, photoController.createPhoto);
 router.post('/editPhoto',auth.userRequired, photoController.editPhoto);
