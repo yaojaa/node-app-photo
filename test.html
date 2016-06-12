@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh_CN">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      height: 3000px;
+    }
+
+    .g-layer-box, .g-layer-box * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    .g-layer-box {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      margin-top: -250px;
+      margin-left: -150px;
+      height: 500px;
+      width: 300px;
+      background-color: #dddddd;
+    }
+
+    .g-layer-box .g-layer-footer {
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+<div class="g-layer-box">
+  <div class="g-layer-footer">
+  </div>
+</div>
+</body>
+</html>
