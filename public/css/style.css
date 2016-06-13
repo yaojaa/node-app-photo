@@ -34,8 +34,6 @@ dd{
   padding-top: 20px;
 }
 .header{
-  position: fixed;
-  z-index: 99;
   height:48px;
   width: 100%;
   background-color: #000A00;

@@ -1,39 +1,154 @@
 <!DOCTYPE html>
 <html>
 <head lang="zh_CN">
-  <meta charset="UTF-8">
-  <title></title>
-  <style>
-    body {
-      height: 3000px;
-    }
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            height: 3000px;
+        }
 
-    .g-layer-box, .g-layer-box * {
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-    }
+        .g-layer-wrap, .g-layer-box div {
+            font-family: "Microsoft Yahei" !important;
+            color: #444;
+            font-size: 13px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
 
-    .g-layer-box {
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      margin-top: -250px;
-      margin-left: -150px;
-      height: 500px;
-      width: 300px;
-      background-color: #dddddd;
-    }
+        .g-layer-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
 
-    .g-layer-box .g-layer-footer {
-      height: 100px;
-    }
-  </style>
+        .g-layer-box {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            margin-top: -250px;
+            margin-left: -150px;
+            height: 400px;
+            width: 300px;
+            background-color: #fff;
+            padding: 10px;
+        }
+        .g-layer-box h1 {
+            font-size: 18px;
+            font-weight: normal;
+            text-align: center;
+        }
+        .g-layer-box h2 {
+            font-size: 14px;
+            font-weight: normal;
+        }
+        .g-layer-box .u-money,.g-layer-box .u-pay-pwd {
+            margin: 20px;
+        }
+        .g-layer-box .u-money input,.g-layer-box .u-pay-pwd input{
+            width: 200px;
+            height: 20px;
+            padding: 2px 5px;
+        }
+        .g-layer-box .u-pay-pwd input{
+            width: 180px;
+        }
+        .g-layer-box .u-pay-type {
+            margin: 40px 20px;
+        }
+        .g-layer-box .u-pay-type ul{
+            list-style: none;
+            padding:0;
+        }
+        .g-layer-box .u-pay-type li{
+            float: left;
+            margin-left: 10px;
+        }
+        .g-layer-box .g-layer-footer {
+            text-align: center;
+        }
+        .g-layer-box .u-pay-type:after{
+            content: " ";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .u-btn {
+            display: inline-block;
+            padding: 6px 20px;
+            background: transparent;
+            cursor: pointer;
+            outline: none;
+            color: #027cff;
+            font-size: 14px;
+            border: 1px solid #027cff;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -ms-border-radius: 3px;
+            border-radius: 3px;
+        }
+        .u-btn:hover {
+            background-color: #027cff;
+            color: #fff;
+        }
+        .g-layer-box .u-mark {
+            text-align: right;
+            margin-top: 10px;
+            color: #999;
+        }
+
+        .g-layer-box .u-err-msg {
+            margin: 40px 20px;
+            padding: 5px;
+            background-color: #dd6574;
+            color: #fff;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-<div class="g-layer-box">
-  <div class="g-layer-footer">
-  </div>
+<!--<div class="g-layer-wrap">-->
+    <!--<div class="g-layer-box">-->
+        <!--<h1>个人钱包</h1>-->
+        <!--<div class="u-money">-->
+            <!--<label>支付金额 : ¥5.0</label>-->
+        <!--</div>-->
+        <!--<div class="u-pay-pwd">-->
+            <!--<label>支付密码 : </label>-->
+            <!--<input type="password" placeholder="登录密码">-->
+        <!--</div>-->
+        <!--<div class="g-layer-footer">-->
+            <!--<button class="u-btn">确定支付</button>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="g-layer-wrap">
+    <div class="g-layer-box">
+        <h1>谢谢您的鼓励</h1>
+        <div class="u-money">
+            <label>金额 : </label>
+            <input type="text" placeholder="单位元">
+        </div>
+        <div class="u-pay-type">
+            <h2>支付方式</h2>
+            <ul>
+                <li><label>个人钱包<input name="pay-type" value="1" type="radio"></label></li>
+                <li><label>微信<input name="pay-type" value="2" type="radio"></label></li>
+                <li><label>支付宝<input name="pay-type" value="3" type="radio"></label></li>
+            </ul>
+        </div>
+        <div class="g-layer-footer">
+            <button class="u-btn">下一步</button>
+        </div>
+        <div class="u-mark"><small>注 : 账户余额(5元)</small></div>
+        <div class="u-err-msg">个人账户不足</div>
+    </div>
 </div>
 </body>
 </html>
