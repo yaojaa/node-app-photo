@@ -99,7 +99,7 @@ exports.handle = function (req, res) {
     //用户没有登录
     if (!user) {
         console.log('用户未登录...');
-        return res.fail('获取用户信息失败');
+        return res.fail(-2,'获取用户信息失败');
     }
 
     //参数验证

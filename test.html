@@ -109,46 +109,68 @@
             color: #fff;
             font-size: 12px;
         }
+        .g-layer-box .u-wxcode {
+            margin-left: 10px;
+            width: 280px;
+            height: 280px;
+        }
+        .g-layer-box .u-close {
+            float: right;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <!--<div class="g-layer-wrap">-->
     <!--<div class="g-layer-box">-->
-        <!--<h1>个人钱包</h1>-->
+        <!--<h1>微信支付</h1>-->
         <!--<div class="u-money">-->
             <!--<label>支付金额 : ¥5.0</label>-->
         <!--</div>-->
-        <!--<div class="u-pay-pwd">-->
-            <!--<label>支付密码 : </label>-->
-            <!--<input type="password" placeholder="登录密码">-->
-        <!--</div>-->
-        <!--<div class="g-layer-footer">-->
-            <!--<button class="u-btn">确定支付</button>-->
-        <!--</div>-->
+        <!--<img class="u-wxcode" src="http://qr.api.cli.im/qr?data=http%253A%252F%252Fcli.im%252F&level=H&transparent=false&bgcolor=%23ffffff&forecolor=%23000000&blockpixel=12&marginblock=1&logourl=&size=280&kid=cliim&key=5fd292079590e7b6fc75dcc833b951d6" alt="">-->
+        <!--<div class="u-mark"><small>注 : 微信扫码支付</small></div>-->
     <!--</div>-->
 <!--</div>-->
 
 <div class="g-layer-wrap">
     <div class="g-layer-box">
-        <h1>谢谢您的鼓励</h1>
+        <h1>个人钱包</h1>
         <div class="u-money">
-            <label>金额 : </label>
-            <input type="text" placeholder="单位元">
+            <label>支付金额 : ¥5.0</label>
         </div>
-        <div class="u-pay-type">
-            <h2>支付方式</h2>
-            <ul>
-                <li><label>个人钱包<input name="pay-type" value="1" type="radio"></label></li>
-                <li><label>微信<input name="pay-type" value="2" type="radio"></label></li>
-                <li><label>支付宝<input name="pay-type" value="3" type="radio"></label></li>
-            </ul>
+        <div class="u-pay-pwd">
+            <label>支付密码 : </label>
+            <input type="password" placeholder="登录密码">
         </div>
         <div class="g-layer-footer">
-            <button class="u-btn">下一步</button>
+            <button class="u-btn">确定支付</button>
         </div>
-        <div class="u-mark"><small>注 : 账户余额(5元)</small></div>
         <div class="u-err-msg">个人账户不足</div>
     </div>
 </div>
+
+<!--<div class="g-layer-wrap">-->
+    <!--<div class="g-layer-box">-->
+        <!--<span class="u-close">X</span>-->
+        <!--<h1>谢谢您的鼓励</h1>-->
+        <!--<div class="u-money">-->
+            <!--<label>金额 : </label>-->
+            <!--<input type="text" id="money" placeholder="单位元">-->
+        <!--</div>-->
+        <!--<div class="u-pay-type">-->
+            <!--<h2>支付方式</h2>-->
+            <!--<ul>-->
+                <!--<li><label>个人钱包<input name="pay-type" value="1" type="radio"></label></li>-->
+                <!--<li><label>微信<input name="pay-type" value="2" type="radio"></label></li>-->
+                <!--<li><label>支付宝<input name="pay-type" value="3" type="radio"></label></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="g-layer-footer">-->
+            <!--<button class="u-btn">下一步</button>-->
+        <!--</div>-->
+        <!--<div class="u-mark"><small>注 : 账户余额(5元)</small></div>-->
+        <!--<div class="u-err-msg">个人账户不足</div>-->
+    <!--</div>-->
+<!--</div>-->
 </body>
 </html>
