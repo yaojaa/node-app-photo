@@ -20,7 +20,7 @@
   <![endif]-->
 
 </head>
-<body>
+<body class="bk-bg">
 
 <!-- 错误提示信息 -->
 <div class="alert alert-danger" id="error-msg" role="alert">error</div>
@@ -30,48 +30,47 @@
     <li>
       <a href="/login" title="登录" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a>
     </li>
-    <li>
+<!--     <li>
       <a href="/signup" title="注册" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a>
     </li>
     <li>
       <a href="/" title="首页" class="start-btn"><span class="glyphicon glyphicon-camera"></span>风影网</a>
-    </li>
+    </li> -->
   </ul>
 </div>
 
 <div class="container">
   <div class="g-sign">
-    <h1>风影</h1>
-
-    <h3>摄影师自己的家园</h3>
+    <h1>加入风影网</h1>
+    <br>
 
     <form class="form-inline">
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">邮箱</div>
-          <input type="text" class="form-control u-218" name="email" placeholder="你的邮箱地址">
+          <input type="text" class="form-control " name="email" placeholder="你的邮箱地址">
         </div>
       </div>
 
-      <div class="form-group">
+ <!--      <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">验证码</div>
           <input type="text" class="form-control u-110" name="code" placeholder="6位验证码">
           <button type="button" id="emailCode" data-url="getMailCode" class="btn btn-primary">获取验证码</button>
         </div>
-      </div>
+      </div> -->
 
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">昵称</div>
-          <input type="text" class="form-control u-218" name="nickname" placeholder="选择一个不一样的昵称">
+          <input type="text" class="form-control " name="nickname" placeholder="选择一个不一样的昵称">
         </div>
       </div>
 
       <div class="form-group">
         <div class="input-group">
           <div class="input-group-addon">密码</div>
-          <input type="password" class="form-control u-218" name="password" placeholder="密码长度至少6位">
+          <input type="password" class="form-control " name="password" placeholder="密码长度至少6位">
         </div>
       </div>
 
@@ -79,7 +78,7 @@
         <div class="input-group">
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="reg_protocol" value="1" checked> 我已经认真阅读并同意接受 <a href="/protocol">用户协议</a>
+              <input type="checkbox" name="reg_protocol" value="1" checked > 我已经认真阅读并同意接受 <a href="/protocol">用户协议</a>
             </label>
           </div>
         </div>
@@ -87,11 +86,10 @@
 
       <div class="form-group">
         <div class="input-group">
-          <button type="button" class="btn btn-success u-sign" id="signup">注册</button>
+          <button type="button" class="btn btn-success btn-lg u-sign" id="signup">注 册</button>
         </div>
       </div>
     </form>
-
     <div class="login-sns">
       <p>您还可以通过以下方式直接登录</p>
       <ul class="login-list">
