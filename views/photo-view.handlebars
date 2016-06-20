@@ -32,7 +32,6 @@
     }
 
     .photo-header {
-      background: #222;
       padding: 10px 20px;
       color: #ccc;
       margin-top: 20px;
@@ -230,11 +229,15 @@
             }
           </style>
 
-          <!-- <div class="support-author">
-          <p>支持<a href="/space/{{user.id}}">{{author.nickname}}</a> ~打赏 1.66</p>
-            <a href="#pay-modal" data-toggle="modal" class="btn btn-pay">¥ 打赏支持</a>
-          <div class="avatar-list"></div>
-        </div> -->
+          <div class="support-author">
+          <p>如果觉得我的照片对您有用，请随意打赏。您的支持将鼓励我继续创作！<a href="/space/{{user.id}}">{{author.nickname}}</a> </p>
+            <p> <a href="#pay-modal" data-toggle="modal" class="btn btn-pay">¥ 打赏支持</a> </p>
+          <div class="avatar-list">
+            <a class="headpic"><img width="50" src="http://7xobdo.com1.z0.glb.clouddn.com/FlLmsEK_D8N0k2aqmWbrEilxhUng?imageView2/1/w/50/"></a>
+            <a class="headpic"><img width="50" src="http://7xobdo.com1.z0.glb.clouddn.com/FlLmsEK_D8N0k2aqmWbrEilxhUng?imageView2/1/w/50/"></a>
+            <a class="headpic"><img width="50" src="http://7xobdo.com1.z0.glb.clouddn.com/FlLmsEK_D8N0k2aqmWbrEilxhUng?imageView2/1/w/50/"></a>
+          </div>
+        </div>
           <!--打赏作者-->
 
         </div>
@@ -349,50 +352,7 @@
 </div>
 
 
-<script type="text" id="buyWindowTpl">
 
-<div id="pay-modal" class="modal pay-modal text-center hide fade in" style="display: block;" aria-hidden="false">
-  <div class="modal-header clearfix">
-    <button aria-hidden="true" data-dismiss="modal" class="close" type="button"> × </button>
-  </div>
-  <form method="post" accept-charset="UTF-8" action="/notes/3326229/rewards" target="_blank" class="new_reward" id="new_reward"><input type="hidden" value="✓" name="utf8"><input type="hidden" value="k7AiCBJguxPmY3amUqOcqyWNYjgtjfUy8JuJ1olxZxXGJZy/U950sC139QbuoiFedq8fLGjtzsURmBiiADCBuQ==" name="authenticity_token">
-    <div class="modal-body">
-      <a href="/users/yZq3ZV">
-        <div class="avatar"><img alt="100" src="http://upload.jianshu.io/users/upload_avatars/259/38c1de65b408.jpg?imageMogr/thumbnail/90x90/quality/100"></div>
-</a>      <p><i class="fa fa-quote-left pull-left"></i>您的鼓励是我们前进的动力！<i class="fa fa-quote-right pull-right"></i></p>
-      <div class="main-inputs text-left">
-        <div class="control-group">
-          <label for="reward_amount">打賞金額</label><i class="fa fa-yen"></i>
-          <input type="text" id="reward_amount_in_yuan" name="reward[amount_in_yuan]" value="2.00">
-        </div>
-        <div class="control-group message">
-          <textarea id="reward_message" name="reward[message]" placeholder="給Ta留言"></textarea>
-        </div>
-      </div>
-      <div class="choose-pay text-left">
-        <h5>選擇支付方式：</h5>
-        <div>
-          <label for="reward_channel_alipay">
-            <div class="iradio_minimal" style="position: relative;"><input type="radio" id="reward_channel_alipay" name="reward[channel]" checked="checked" value="alipay" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
-            <span class="alipay-bg"></span>
-</label>
-          <label for="reward_channel_balance" class="">
-            <div class="iradio_minimal" style="position: relative;"><input type="radio" id="reward_channel_balance" name="reward[channel]" value="balance" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
-            簡書餘額（ 餘額：¥ 0.00 ）
-</label>
-          <label for="reward_channel_wx_pub_qr">
-            <div class="iradio_minimal checked" style="position: relative;"><input type="radio" id="reward_channel_wx_pub_qr" name="reward[channel]" value="wx_pub_qr" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
-            微信支付
-</label>        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-large btn-pay" type="submit" name="button">立即支付</button>
-    </div>
-</form></div>
-
-
-</script>
 
 {{#extend "customerScript"}}
 
