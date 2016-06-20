@@ -116,12 +116,15 @@ exports.showDetail = function(req, res) {
         });
 
         res.render('photo-view', {
+            layout: null,
             title: dataPhoto.title,
             photo: tmpData,
+            headImg: tmpData.pictures[0],
             authorIsNotSelf: authorIsNotSelf,
             isBuy: isBuy,
             author: author,
-            isFollow: isFollow
+            isFollow: isFollow,
+            loginUser: req.session.user
         })
 
     })
