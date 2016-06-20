@@ -13,6 +13,7 @@ var PhotoProxy = require('../proxy').Photo;
 var User = require('../proxy/user');
 var dealService = require('../proxy/deal');
 var Order = require('../proxy/order');
+var crypto = require('crypto');
 
 //进入商品购买页
 exports.buy = function (req, res) {
@@ -189,6 +190,11 @@ function generateOrderInfo(t1, t2, req, res, buyId, sellId, productId, money) {
  */
 exports.pay = function (req, res) {
     var orderId = req.params.orderId;
+    var pwd = req.query.pwd;
+    if(pwd) {
+        var md5 = crypto.createHash('md5');
+        pwd = md5.update(pwd).digest('hex');
+    }
     var user = req.session.user;
     //用户没有登录
     if (!user) {
@@ -216,6 +222,10 @@ exports.pay = function (req, res) {
                 }
             });
             return res.fail('订单已经失效');
+        }
+
+        if(ret.trading_channel == 1 && pwd != user.password) {
+            return res.fail('支付密码错误');
         }
 
         //分发支付方式
@@ -253,7 +263,7 @@ function dispatchPay(order, user, req, res, callback) {
     //用户的余额
     var balance = user.money;
     switch (order.trading_channel) {
-        case 1:
+        case 1: 
             dealService.personalWallet(order.price, order.buy_id, order.author_id, function (err) {
                 if (!err) {
                     dealService.updateOrderInfo(order._id, {status: 1}, function (err) {

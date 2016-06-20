@@ -1,0 +1,349 @@
+html,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+li,
+pre,
+fieldset,
+legend,
+button,
+input,
+textarea,
+form,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Microsoft YaHei", "微软雅黑";
+  color: #333;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 14px;
+  font-weight: normal;
+}
+.clearfix:after {
+  content: " ";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.nowrap {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.btn {
+  display: inline-block;
+  padding: 6px 20px;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  color: #000;
+  font-size: 14px;
+  border: 1px solid #000;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+}
+.btn:hover {
+  background-color: #000;
+  color: #fff;
+}
+.btn.btn-primary {
+  background-color: #000;
+  color: #fff;
+}
+.btn.btn-primary:hover {
+  background-color: #005ee4;
+}
+.ipt {
+  border: 1px solid #ddd;
+  font-size: 14px;
+  padding-left: 5px;
+  min-height: 40px;
+}
+.pannel {
+  width: 800px;
+  height: 300px;
+  border: 1px solid #ced7e1;
+  background-color: #fff;
+}
+.process li {
+  float: left;
+  background-color: #eee;
+}
+.process li.active {
+  background-color: #000;
+}
+.process li.active:after {
+  color: #000;
+}
+.process .desc {
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  color: #fff;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  text-align: center;
+}
+.process .desc:after {
+  position: absolute;
+  content: attr(data-desc);
+  font-size: 14px;
+  color: #999;
+  margin-top: 30px;
+}
+.process .line {
+  height: 5px;
+  margin-top: 7px;
+}
+.process .line-177 {
+  width: 177px;
+}
+.process .line-290 {
+  width: 290px;
+}
+.process .offset-4:after {
+  margin-left: -32px;
+}
+.process .offset-5:after {
+  margin-left: -36px;
+}
+.process .offset-6:after {
+  margin-left: -43px;
+}
+.process .offset-7:after {
+  margin-left: -50px;
+}
+.tip-single {
+  position: relative;
+}
+.tip-single:after {
+  content: attr(data-msg);
+  position: absolute;
+  top: -50px;
+  left: 0;
+  border: 1px solid #000;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  padding: 10px;
+  white-space: nowrap;
+}
+.tip-single:before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  margin-left: -12px;
+  border: 12px solid transparent;
+  border-top-color: #000;
+}
+.tip-wrap {
+  position: relative;
+}
+.tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1px solid #000;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  white-space: nowrap;
+  padding: 10px;
+  background-color: #b3b3b3;
+}
+.tip:before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -12px;
+  border: 12px solid transparent;
+  border-top-color: #000;
+}
+.test {
+  color: #00718d;
+}
+.g-container {
+  width: 980px;
+  margin: 20px auto;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.g-left-cnt,
+.g-right-cnt {
+  float: left;
+}
+.g-left-cnt {
+  width: 700px;
+}
+.g-left-cnt .g-left-wrapper {
+  border: 1px solid #ddd;
+}
+.g-left-cnt .g-img-box {
+  padding: 5px 10px;
+}
+.g-left-cnt .g-img-box .u-header {
+  height: 30px;
+  line-height: 30px;
+}
+.g-left-cnt .g-img-box .u-header h2 {
+  float: left;
+}
+.g-left-cnt .g-img-box .u-header ul {
+  float: right;
+}
+.g-left-cnt .g-img-box .u-header li {
+  float: left;
+  margin-left: 10px;
+}
+.g-left-cnt .g-img-box .u-img-wrapper {
+  margin-top: 10px;
+}
+.g-left-cnt .g-img-box .u-img-wrapper img {
+  width: 100%;
+}
+.g-left-cnt .g-img-box .u-footer {
+  line-height: 30px;
+}
+.g-left-cnt .g-img-box .u-footer label {
+  font-size: 13px;
+  color: #999;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  padding: 3px 5px;
+}
+.g-left-cnt .g-img-box .u-footer label.u-edit {
+  cursor: pointer;
+}
+.g-left-cnt .g-img-box .u-footer label.u-edit:hover {
+  background-color: #e0e0e0;
+}
+.g-left-cnt .m-comment {
+  padding: 10px;
+}
+.load-comment-more {
+  line-height: 25px;
+  margin-top: 20px;
+  background-color: #ddd;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
+}
+.g-left-cnt .m-comment .m-cmt-item {
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  overflow: hidden;
+}
+.g-left-cnt .m-comment .m-cmt-item .icon,
+.g-left-cnt .m-comment .m-cmt-item .cmt-cnt {
+  float: left;
+}
+.g-left-cnt .m-comment .m-cmt-item .icon {
+  width: 50px;
+}
+.g-left-cnt .m-comment .m-cmt-item .icon img {
+  border-radius: 50%;
+}
+.g-left-cnt .m-comment .m-cmt-item .cmt-cnt {
+  width: 630px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+.g-left-cnt .m-comment .m-cmt-item .cmt-cnt .top {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.g-left-cnt .m-comment .m-cmt-item .cmt-cnt .top .time {
+  float: right;
+}
+.g-left-cnt .m-comment textarea {
+  width: 100%;
+  height: 100px;
+  padding: 5px;
+  margin-top: 25px;
+}
+.g-right-cnt {
+  border: 1px solid #ddd;
+  margin-left: 16px;
+  width: 260px;
+  padding: 10px 5px;
+}
+.g-right-cnt .headpic {
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+.g-right-cnt .headpic img {
+  border-radius: 50%;
+}
+.g-right-cnt .name {
+  line-height: 50px;
+  padding-left: 10px;
+  color: #948c8c;
+}
+.g-right-cnt .m-flow {
+  margin-top: 10px;
+}
+.g-right-cnt .m-flow label {
+  padding: 3px 10px;
+  border: 1px solid #ddd;
+  background-color: #eee;
+  cursor: pointer;
+  font-size: 13px;
+  color: #999;
+}
+.g-right-cnt .m-flow label:hover {
+  background-color: #e0e0e0;
+}
+.g-right-cnt .m-img-collection {
+  height: 500px;
+  margin-top: 10px;
+  overflow-y: auto;
+}
+.g-right-cnt .m-img-collection img {
+  width: 120px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+.g-right-cnt .m-img-collection img:hover {
+  opacity: 1;
+}
