@@ -62,8 +62,8 @@
             req_url += userId + '-' + type + '-2?money=' + money;
 
             $.get(req_url, function (data) {
-                if (data.errorno === 1) {
-                    orderId = data.id;
+                if (data.errorno === 0) {
+                    orderId = data.data.id;
 
                     $html1.remove();
                     if (type == 1) {
@@ -107,7 +107,7 @@
                         $dom.remove();
                     } else if (data.errorno === -2) {
                         //提示登录
-                        showLoginTips();
+                        alert('未登录');
                     } else {
                         $err.html(data.msg);
                     }

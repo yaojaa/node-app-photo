@@ -29,10 +29,19 @@
             </ul>
         </div>
         <div class="g-sign">
-            <ul>
-                <li><a href="/login">登录</a></li>
-                <li><a href="/signup">注册</a></li>
-            </ul>
+            {{#if loginUser}}
+                <ul>
+                    <li><a href="/userspace"><img
+                            src="{{loginUser.avatar}}" alt="">{{loginUser.nickname}}</a></li>
+                    <li><a href="/create-photo">发照片</a></li>
+                    <li><a href="/create-aticle">发图文</a></li>
+                </ul>
+            {{else}}
+                <ul>
+                    <li><a href="/login">登录</a></li>
+                    <li><a href="/signup">注册</a></li>
+                </ul>
+            {{/if}}
         </div>
     </div>
 </div>
