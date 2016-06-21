@@ -207,6 +207,7 @@ exports.pay = function (req, res) {
         return res.fail('参数错误');
     }
     Order.getOrderById(orderId, function (err, ret) {
+        console.log('Controller----->',err,ret);
         if (err) {
             return res.fail('获取订单信息失败');
         }
@@ -263,8 +264,10 @@ function dispatchPay(order, user, req, res, callback) {
     //用户的余额
     var balance = user.money;
     switch (order.trading_channel) {
-        case 1: 
+        case 1:
+            console.log('个人钱包支付');
             dealService.personalWallet(order.price, order.buy_id, order.author_id, function (err) {
+                console.log('[dispatchPay]',err);
                 if (!err) {
                     dealService.updateOrderInfo(order._id, {status: 1}, function (err) {
                         if (err) {
@@ -275,7 +278,7 @@ function dispatchPay(order, user, req, res, callback) {
                             res.ok('交易成功，更新订单信息成功');
                         }
                     });
-                    req.session.user.money = balance - money;
+                    req.session.user.money = balance - order.price;
                 } else {
                     dealService.updateOrderInfo(order._id, {status: 2}, function (err) {
                         if (err) {
@@ -292,6 +295,7 @@ function dispatchPay(order, user, req, res, callback) {
             break;
         case 2:
             //调用微信支付接口
+            console.log('微信支付');
             dealService.wxpay(order.price, order.buy_id, order.author_id, order._id, function (err, img) {
                 if (!err) {
                     res.writeHead(200, {'Content-Type': 'image/png'});

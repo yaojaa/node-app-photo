@@ -22,12 +22,12 @@ var qr = require('qr-image');
  */
 exports.personalWallet = function (money, buyId, sellId, callback) {
 
-    async.series([function (ret) {
+    async.series([function (cb) {
         //购买者减少
-        User.update(buyId, {'$inc': {'money': -money}});
-    }, function (ret) {
+        User.update(buyId, {'$inc': {'money': -money}},cb);
+    }, function (cb) {
         //销售者增加
-        User.update(sellId, {'$inc': {'money': money}});
+        User.update(sellId, {'$inc': {'money': money}},cb);
     }], callback);
 };
 
@@ -103,7 +103,7 @@ exports.generateOrderInfo = function (buyId, sellId, productId, trading_type, tr
     var order = {
         buy_id: buyId,
         product_id: productId,
-        sale_id: sellId,
+        author_id: sellId,
         trading_type: trading_type,
         trading_channel: trading_channel,
         price: price || 0

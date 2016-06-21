@@ -12,7 +12,7 @@
         var PAGECONFIG = {
             photoId: '{{photo.id}}',
             authorId: '{{photo.author_id}}',
-            money: '{{loginUser.money}}' || '0'
+            money: (Number({{loginUser.money}}) || 0)/100
         }
     </script>
 </head>

@@ -19,7 +19,7 @@ exports.update = function (id, model, callback) {
 };
 
 exports.getOrderById = function (id, callback) {
-    Order.findOne({'_id': id}, callback);
+    Order.findOne({_id: id}, callback);
 };
 
 /**
