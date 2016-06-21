@@ -20,8 +20,11 @@
 /** 登录注册具体部分  */
 .g-sign {
   width: 380px;
-  margin: 80px auto;
+  margin: 40px auto;
   text-align: center;
+  background: #111;
+  opacity: 0.8;
+  padding: 15px 0
 }
 
 .g-sign .form-control.u-110 {
@@ -57,9 +60,8 @@
 /** 第三方登录  */
 .login-sns {
   text-align: center;
-  margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid #ddd;
+  color: #ccc
 }
 
 .login-sns .login-list {
@@ -83,6 +85,7 @@ li {
   font-size: 20px;
   background: #eeeeee;
   text-align: center;
+  margin: 0 10px
 }
 
 a {
@@ -90,17 +93,17 @@ a {
   text-decoration: none;
 }
 
-.qq a:hover {
+.qq a:link {
   background-color: #15a7f0;
   color: #fff;
 }
 
-.wechat a:hover {
+.wechat a:link {
   background-color: #49be38;
   color: #fff;
 }
 
-.weibo a:hover {
+.weibo a:link {
   background-color: #f57e42;
   color: #fff;
 }
@@ -124,4 +127,19 @@ ul, ol {
 }
 .pwd-reset-form .u-sign{
   width: 218px;
+}
+
+.bk-bg{
+  background: url('/img/loginbg.jpg');
+  background-size: cover
+}
+
+h1{
+  color: #fff;
+  font-size: 48px
+}
+
+h3 {
+  color: #fff;
+  font-size: 22px
 }

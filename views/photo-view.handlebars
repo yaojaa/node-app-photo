@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,204 +46,598 @@
         </div>
     </div>
 </div>
+=======
+{{#extend "stylesheets"}}
+>>>>>>> bb99ff434ac274c0cd3c55d6ea43cfb578d4d333
+
+  <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
+
+  <link rel="stylesheet" type="text/css" href="/vendor/ilightbox/ilightbox.css">
+  <link rel="stylesheet" type="text/css" href="/vendor/ilightbox/skin.css">
+
+  <script>
+    var PAGECONFIG = {
+      photoId: '{{photo.id}}',
+      authorId: '{{photo.author_id}}'
+    }
+  </script>
+  <style>
+    .g-mainwraper {
+      letter-spacing: -4px;
+      margin: 0 auto;
+      width: 100%;
+      word-spacing: -0.43em;
+    }
+
+    .darkbg {
+      background: #111
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 36px;
+      color: #d6d6d6;
+      vertical-align: middle;
+    }
+
+    .photo-header {
+      padding: 10px 20px;
+      color: #ccc;
+      margin-top: 20px;
+    }
+
+    .photo-header h1 {
+      font-size: 20px;
+      font-weight: bold;
+      text-shadow: 1px 1px 1px #000;
+    }
+
+    .photo-actions-section {
+      background: #222;
+      padding: 10px 20px;
+      margin-top: 20px;
+      color: #777
+    }
+
+    #author {
+      overflow: hidden;
+      zoom: 1;
+      padding: 20px 0;
+    }
+
+    #author .headpic {
+      float: left;
+      width: 50px;
+      height: 50px;
+    }
+
+    #author .headpic img {
+      border-radius: 100%;
+    }
+
+    #author .title {
+      margin-left: 60px;
+      font-size: 14px;
+    }
+
+    #author > .clearfix > .flow {
+      margin-left: 60px;
+      text-align: left;
+    }
+
+    #author .btn {
+      margin-top: 5px;
+      padding: 2px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+
+    #comment {
+      padding-top: 20px;
+      font-size: 14px !important;
+    }
+
+    #comment .info {
+      white-space: normal;
+      word-break: break-all;
+    }
+
+    #comment .info strong {
+      font-weight: bold;
+      padding-right: 5px;
+      color: #999;
+    }
+
+    #comment .date {
+      padding-top: 5px;
+      color: #666;
+      font-size: 11px;
+    }
+
+    #commentBtn {
+      cursor: pointer;
+    }
+
+    textarea {
+      overflow: hidden;
+    }
+
+    #photos {
+      margin-bottom: 40px
+    }
+
+    #photos img {
+      display: block;
+      max-width: 100%;
+      margin-top: 20px
+    }
+  </style>
+
+{{/extend}}
 
 
-<div class="g-container">
-    <div class="g-left-cnt">
-        <div class="g-left-wrapper">
-            <div class="g-img-box">
-                <div class="u-header">
-                    <h2>{{photo.title}}</h2>
-                    <ul>
-                        <li>分享</li>
-                        <li>微博</li>
-                        <li>QQ空间</li>
-                        <li>朋友圈</li>
-                    </ul>
-                </div>
-                <div class="u-img-wrapper">
-                    <img id="showImg" src="http://img.fengimage.com/{{headImg}}?imageView2/1/">
-                </div>
-                <div class="u-footer">
-                    <label>浏览 199</label>
-                    <label class="u-edit">喜欢 199</label>
-                    <label>{{photo.update_at}}</label>
-                    <label>© 来自 @{{author.nickname}} 的版权作品</label>
-                </div>
+<div class="darkbg">
+  <div class="container">
+    <!-- <ol class="breadcrumb">
+    <li><a href="/">主页</a><span class="divider"></span></li>
+    <li><a href="/">图集</a><span class="divider"></span></li>
+
+    <li class="active">详情</li>
+
+  </ol> -->
+    <!---->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <section class="photo-details-section">
+            <div class="photo-header clearfix">
+              <h1 class="pull-left">{{photo.title}}
+                <small><a href="/photo/{{photo._id}}/edit">编辑</a></small>
+              </h1>
+              <p class="pull-right" id="J-picset-attention" class="picset-cmtnum">
+                <b title="浏览量" class="w-ico-attention">浏览数</b> <span id="J-picset-viewcount">2328</span>
+                <!--          <b title="评论" class="w-ico-cmt f-ml20">评论数</b> <span id="J-picset-cmtcount">164</span>
+                         <b title="喜欢" class="w-ico-like f-ml20">喜欢数</b> <span id="J-picset-likecount">80</span> -->
+                <b title="更新日期" class="w-ico-like f-ml20">更新日期</b> <span
+                  id="J-picset-likecount">{{photo.update_at}}</span>
+
+
+              </p>
             </div>
+            <div id="photos" class="photo">
+
+
+              {{#each photo.pictures}}
+                <a href="http://img.fengimage.com/{{this}}" data-type="image">
+                  <img class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
+                </a>
+              {{/each}}
+
+            </div>
+          </section>
+
+          <!--打赏作者-->
+
+
+          <style>
+            .support-author {
+              background-color: whitesmoke;
+              border-left: 4px solid #f57e42;
+              box-shadow: 0 0 1px #d9d9d9;
+              box-sizing: border-box;
+              margin-bottom: 40px;
+              padding: 25px;
+            }
+
+            .support-author .btn-pay {
+              margin: 10px 15px 10px 0;
+            }
+
+            .support-author span {
+              margin-right: 10px;
+              vertical-align: middle;
+            }
+
+            .support-author span a {
+              color: #f57e42;
+              font-weight: bold;
+              margin: 0 5px;
+            }
+
+            .support-author p {
+              font-size: 17px;
+              font-weight: bold;
+              margin: 0 auto 10px;
+            }
+
+            .support-author .avatar-list {
+              display: inline-block;
+            }
+
+            .support-author .avatar {
+              border: 1px solid #d9d9d9;
+              display: inline-block;
+              height: 30px;
+              margin: 3px;
+              text-align: center;
+              vertical-align: middle;
+              width: 30px;
+            }
+
+            .support-author .avatar img {
+              border: medium none;
+            }
+
+            .support-author .avatar .fa {
+              line-height: 30px;
+            }
+
+            .support-author .payment-list {
+              font-size: 14px;
+            }
+          </style>
+
+          <div class="support-author">
+          <p>如果觉得我的照片对您有用，请随意打赏。您的支持将鼓励我继续创作！<a href="/space/{{user.id}}">{{author.nickname}}</a> </p>
+            <p> <a href="#pay-modal" data-toggle="modal" class="btn btn-pay">¥ 打赏支持</a> </p>
+          <div class="avatar-list">
+            <a class="headpic"><img width="50" src="http://7xobdo.com1.z0.glb.clouddn.com/FlLmsEK_D8N0k2aqmWbrEilxhUng?imageView2/1/w/50/"></a>
+            <a class="headpic"><img width="50" src="http://7xobdo.com1.z0.glb.clouddn.com/FlLmsEK_D8N0k2aqmWbrEilxhUng?imageView2/1/w/50/"></a>
+            <a class="headpic"><img width="50" src="http://7xobdo.com1.z0.glb.clouddn.com/FlLmsEK_D8N0k2aqmWbrEilxhUng?imageView2/1/w/50/"></a>
+          </div>
         </div>
-        <div class="m-comment">
-            <h2>用户评论 (<span id="comment-count"></span>条评论)</h2>
-            <textarea id="commentContent"></textarea>
-            <div style="text-align: right">
-                <button class="btn" id="submit-comment">提交评论</button>
-            </div>
-            <div class="m-comment-list">
+          <!--打赏作者-->
 
-            </div>
-            <div class="load-comment-more">加载更多</div>
         </div>
-    </div>
+        <div class="col-md-3">
+          <div class="photo-actions-section">
+            <h4>作品简介</h4>
 
-    <div class="g-right-cnt">
-        <div class="u-header">
-            <div class="headpic">
-                <img width="50" src="{{author.avatar}}?imageView2/1/w/50/">
-            </div>
-            <div class="name nowrap">{{author.nickname}}</div>
-            <div class="m-flow">
+            <div>{{photo.discrib}} [{{photo.pictures.length}}张]</div>
+            <div class="cart-actions not-in-cart">
+              {{#if photo.price}}
+                <div class="price"> 售价：￥{{photo.price}}</div>
+
                 {{#if authorIsNotSelf}}
 
+                  {{#if isBuy }}
+                    <button class="btn-buy btn btn-success btn-block btn-lg " disabled="disabled">
+                      已购买
+                    </button>
+
+
+                  {{else}}
+                    <!--                            <a href="/deal/photo/buy/{{photo._id}}" class="btn btn-primary btn-block btn-lg ">
+                                立即购买
+                            </a>
+ -->
+                    <button class="btn btn-primary btn-block btn-lg Jbtn-buy">
+                      立即购买
+                    </button>
+
+
+                  {{/if}}
+                {{/if}}
+                <br>
+
+                <p>已有<i class="red">{{photo.trade_cnt}}</i>人购买</p>
+              {{/if}}
+              <h4>作者信息</h4>
+
+              <div id="author">
+                <div class="clearfix">
+                  <div class="headpic"><img width="50" src="{{author.avatar}}?imageView2/1/w/50/"></div>
+                  <div class="title"><a href="/userspace/{{user.id}}">{{author.nickname}}</a></div>
+
+                  {{#if authorIsNotSelf}}
+
                     {{#if isFollow}}
-                        <label id="follow" data-type="1">✔ 已关注</label>
+                      <div class="flow">
+                        <button id="{{author._id}}" title="点击取消关注" action-type="follow" type="button"
+                                class="btn btn-default btn-mn flowbtn unflowbtn">✔ 已关注
+                        </button>
+                      </div>
                     {{else}}
-                        <label id="follow" data-type="2">+ 关注</label>
+                      <div class="flow">
+                        <button id="{{author._id}}" title="点击关注" action-type="follow" type="button"
+                                class="btn btn-primary btn-mn flowbtn"> + 关注
+                        </button>
+                      </div>
                     {{/if}}
 
-                {{/if}}
-                <label id="reward">打赏</label>
+                  {{/if}}
+
+                  <div class="flow">
+                    <button id="reward" title="打赏"  type="button" class="btn btn-primary btn-mn flowbtn">
+                      打赏
+                    </button>
+                  </div>
+                </div>
+
+
+              </div>
+              <h4>评论</h4>
+
+              <div>
+                <div class="media">
+                  <div class="media-left media-top">
+                    <img width="30" height="30" src="
+
+                                        {{#if user}}
+                      {{user.avatar}}?imageView2/1/w/30/
+                                        {{else}}
+
+                      {{default_avatar}}
+
+                    {{/if}}
+                                        "/>
+
+
+                  </div>
+                  <div class="media-body">
+                    <div style="padding-bottom: 10px;">
+                      <textarea row="2" autoHeight="true" id="commentContent" class="form-control" type="text"
+                                name="content"></textarea>
+
+                    </div>
+                    <button class="btn btn-sm" id="commentBtn">评论</button>
+
+                  </div>
+                </div>
+                <div id="comment">
+
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="m-img-collection">
-            {{#each photo.pictures}}
-                <img class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
-            {{/each}}
-        </div>
+      </div>
+      <!---->
+      <!--未购买-->
     </div>
+  </div>
+</div>
 </div>
 
 
-<div class="g-footer">
-    <div class="g-container">
-        <ul>
-            <li><a href=""><h1>用户协议</h1></a></li>
-            <li><a href="">如何充值</a></li>
-            <li><a href="">升级VIP</a></li>
-        </ul>
-        <ul>
-            <li><a href=""><h1>招聘信息</h1></a></li>
-            <li><a href="">招聘兼职模特</a></li>
-            <li><a href="">招聘摄影师</a></li>
-            <li><a href="">给我们投稿</a></li>
-        </ul>
-        <ul>
-            <li><a href=""><h1>联系我们</h1></a></li>
-            <li><a href="">QQ : 100001</a></li>
-            <li><a href="">意见反馈</a></li>
-        </ul>
-        <ul>
-            <li><a href=""><h1>关于我们</h1></a></li>
-            <li><a href="">风影网fengimage@新浪微博</a></li>
-            <li><a href="">微信公众号：fengyingtuwen；风影图文</a></li>
-        </ul>
-    </div>
-</div>
-
-<script src="/js/lib/jquery-1.11.1.min.js"></script>
-<script src="/js/reward.js"></script>
-<script>
 
 
-    var _showImg = document.getElementById('showImg');
-    $('.m-img-collection img').click(function () {
-        _showImg.src = this.src;
-    });
+{{#extend "customerScript"}}
 
-    var pageNo = 1;
-    var isLoadComment = true;
-    function loadComment(_pageNo) {
-        pageNo = _pageNo || pageNo;
-        $.get('/comment/page', {belongId: PAGECONFIG.photoId, pageNo: pageNo}, function (json) {
+  <script src="/vendor/sweetalert/sweetalert.min.js"></script>
+  <script src="/vendor/handlebars/handlebars.runtime-v4.0.5.js"></script>
+  <script src="/tpl/comment_list.hbs.js"></script>
+  <script src="/vendor/ilightbox/js/jquery.mousewheel.js"></script>
 
-            if (json.errorno == 0) {
-                var html = '';
-                $('#comment-count').html(json.data.count);
-                if (json.data.list.length < 10) {
-                    isLoadComment = false;
-                }
-                for (var i = 0; i < json.data.list.length; i++) {
-                    var item = json.data.list[i];
-                    html += commentRender(item);
-                }
-            }
-            $('.m-comment-list').append(html);
-        });
+  <script src="/vendor/ilightbox/js/ilightbox.js"></script>
+  <script src="/js/reward.js"></script>
+
+
+  <script>
+
+    $('#photos a').iLightBox();
+
+
+    var postdata = {
+      photoId: PAGECONFIG.photoId
     }
-    function commentRender(item) {
-        return '<div class="m-cmt-item">' +
-                '<div class="icon">' +
-                '<a href=""><img width="50" height="50"' +
-                'src="' + item.userAvatar + '"></a>' +
-                '</div>' +
-                '<div class="cmt-cnt">' +
-                '<div class="top"><a href="">' + item.nickname + '</a>' +
-                '<div class="time">' + item.createAt + '</div>' +
-                '</div>' +
-                '<p>' + item.content +
-                '</p>' +
-                '</div>' +
-                '</div>'
-    }
-    loadComment();
-    $('.load-comment-more').click(function () {
-        pageNo++;
-        if (isLoadComment) {
-            loadComment();
-        } else {
-            this.innerHTML = '没有数据了';
+
+    //评论
+    var getCommentList = function () {
+
+      $.get('/comment/page', {belongId: postdata.photoId}, function (json) {
+
+        if (json.errorno == 0) {
+          var html = Handlebars.templates.comment_list(json.data);
+          $('#comment').html(html)
         }
-    });
 
-    $('#submit-comment').click(function () {
-        var commentContent = $('#commentContent').val();
-        $.post('/comment/add', {
-            replyId: '', //回复人ID (对某个人回复对应的这个人ID,可省略)
-            belongId: PAGECONFIG.photoId, //评论所属ID（图集的ID）
-            content: commentContent //回复内容},function(data){
-        }, function (data) {
-            if (data.errorno == -2) {
-                alert('请先登录');
+      })
+    }
 
-            } else if (data.errorno == 0) {
-                $('#commentContent').val('');
-                $('.m-comment-list').html('');
-                loadComment(1);
-            }
+    getCommentList()
+
+
+    function commentAdd(btn) {
+
+
+      var commentContent = $('#commentContent').val();
+
+      if (commentContent == '' || commentContent.length > 200) {
+        return
+      }
+      $(btn).text('提交中...')
+
+      $.post('/comment/add', {
+        replyId: '', //回复人ID (对某个人回复对应的这个人ID,可省略)
+        belongId: postdata.photoId, //评论所属ID（图集的ID）
+        content: commentContent //回复内容},function(data){
+      }, function (data) {
+        if (data.errorno == -2) {
+          swal({
+            title: '请先登录',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "登录",
+            cancelButtonText: "取消",
+            closeOnConfirm: false
+          }, function () {
+            location.href = "/login"
+          });
+          $(btn).text('评论')
+
+        }
+        else if (data.errorno == 0) {
+          $('#commentContent').val('');
+          $(btn).text('评论')
+          getCommentList()
+
+
+        }
+      })
+    }
+
+    $('#commentBtn').on('click', function () {
+      commentAdd(this)
+    })
+
+
+    $.fn.autoHeight = function () {
+
+      function autoHeight(elem) {
+        var len = elem.value.length;
+        if (len > 200) {
+          return elem.value = elem.value.substring(0, 200)
+        }
+        elem.style.height = '22px';
+        elem.scrollTop = 0; //防抖动
+        elem.style.height = elem.scrollHeight + 'px';
+      }
+
+      this.each(function () {
+        autoHeight(this);
+        $(this).on('keyup', function () {
+          autoHeight(this);
         });
-    });
+      });
+
+    }
+
+
+    $('textarea[autoHeight]').autoHeight();
+
+
+    // $.post('/api/v1/getUserInfoById', {
+    //     id: PAGECONFIG.authorId
+    // }, function(json) {
+
+
+    //     var html = Handlebars.templates.author(json.data);
+    //     $('#author').html(html);
+
+    // })
+
+    // $.post('/api/v1/checkIsBuy', postdata, function(data) {
+    //     if (data.errorno === 0) {
+    //         $('.btn-buy').addClass('btn-success').text('已购买').attr('disabled', true)
+    //     }
+    // })
+
+    //提示登录
+    function showLoginTips() {
+      swal({
+        title: '登录提示',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "立即登陆",
+        cancelButtonText: "下次再说",
+        closeOnConfirm: false
+      }, function () {
+        location.href = "/login"
+      });
+    }
+
+    $('.Jbtn-buy').on('click', function () {
+
+
+      // $(this).attr('disabled',true).text('loading..')
+
+      $.post('/api/v1/buyPhoto', postdata, function (data) {
+
+        if (data.errorno == -1) {
+          showLoginTips()
+        } else if (data.errorno == -2) {
+
+          swal({
+            title: data.msg,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "立即充值",
+            cancelButtonText: "下次再说",
+            closeOnConfirm: false
+          }, function () {
+            location.href = "/score"
+          });
+
+        } else if (data.errorno == -3) {
+
+          alert(data.msg);
+
+        } else if (data.errorno == 0) {
+
+          swal({
+            title: data.msg + '账户余额（199）',
+            type: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "确定",
+            closeOnConfirm: false
+          }, function () {
+            location.href = location.href
+          });
+
+        }
+
+      })
+
+    })
 
     //关注取消关注
-    $('#follow').on('click', function () {
-        var author_id = '{{author._id}}';
-        var $btn = $(this);
 
-        if ($btn.data('type') == 1) {//已经关注
+    $('[action-type="follow"]').on('click', function () {
+      var author_id = $(this).attr('id');
+      var $btn = $(this);
 
-            $.post('/api/v1/unfollow', {author_id: author_id}, function (data) {
+      console.log($btn)
 
-                if (data.errorno === 0) {
-                    $btn.text('+ 关注');
-                } else if (data.errorno == -1) {
-                    alert('先登录');
-                }
-            });
+      if ($btn.hasClass('unflowbtn')) {
 
-        } else {
+        $.post('/api/v1/unfollow', {author_id: author_id}, function (data) {
 
-            $.post('/api/v1/follow', {author_id: author_id}, function (data) {
+          if (data.errorno === 0) {
 
-                if (data.errorno === 0) {
-                    $btn.text('✔ 已关注');
-                } else if (data.errorno == -1) {
-                    alert('先登录')
-                }
+            $btn.text('+ 关注');
+            $btn.removeClass('unflowbtn').attr('title', '加关注')
 
-            });
+          }
 
-        }
+          else if (data.errorno == -1) {
+            showLoginTips()
+          }
 
 
-    });
-</script>
-</body>
-</html>
+        })
+
+
+      } else {
+
+        $.post('/api/v1/follow', {author_id: author_id}, function (data) {
+
+          if (data.errorno === 0) {
+
+            $btn.text('✔ 已关注');
+            $btn.addClass('unflowbtn').attr('title', '取消关注')
+
+          }
+          else if (data.errorno == -1) {
+
+            showLoginTips()
+
+          }
+
+
+        })
+
+      }
+
+
+    })
+
+
+  </script>
+{{/extend}}

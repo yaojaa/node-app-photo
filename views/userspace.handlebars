@@ -46,9 +46,9 @@
   </div>
 </div>
 <div class="u_details">
-  <h1>
+  <h3 style="color:#fff">
     {{userInfo.signature}}
-  </h1>
+  </h3>
 
   <ul class="u_details_list">
     <li>
@@ -67,13 +67,14 @@
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#new_pic" aria-controls="new_pic" role="tab" data-toggle="tab">图片
       {{totalPicturesCount}}</a></li>
-    {{#if isSelf}}
-      <li role="presentation"><a href="/uc/view">个人设置</a></li>
-    {{/if}}
+
     <li role="presentation"><a href="#hot_pic" aria-controls="hot_pic" role="tab" data-toggle="tab">关于</a></li>
+        {{#if isSelf}}
+      <li role="presentation"><a href="/uc/view">设置</a></li>
+    {{/if}}
   </ul>
   <!-- Tab panes -->
-  <div class="tab-content">
+  <div class="tab-content" style="max-width:900px; margin:0 auto">
     <div role="tabpanel" class="tab-pane active" id="new_pic">
       <div class="basicExample">
         {{#each photos}}
@@ -87,65 +88,39 @@
       <div class="about_body">
         <div class="small_wrapper">
           <section class="bio">
-            <h3>个人网址</h3>
+            <h3>个人网址:
 
-            <p>
-              <a target="_blank" href="http://www.fengimage.com/userspace/{{userInfo._id}}">风影</a>|
-              <a target="_blank" href="http://weibo.com/">微博</a>
-            </p>
+              <a target="_blank" href="http://www.fengimage.com/userspace/{{userInfo._id}}">http://www.fengimage.com/userspace/{{userInfo._id}}</a> </h3>
           </section>
-          <section class="gear">
-            <h3>装备</h3>
 
-            <div class="equipment_group">
-              <h3 class="light"><span class="translation_missing"
-                                      title="translation missing: zh-CN.common.camera">相机</span>
-              </h3>
-              <ul class="camera">
-                <li>Canon 5d mark III</li>
-              </ul>
-            </div>
-            <div class="equipment_group">
-              <h3 class="light"><span class="translation_missing"
-                                      title="translation missing: zh-CN.common.lens">镜头</span></h3>
-              <ul class="lens">
-                <li>Canon 24-105 L</li>
-                <li>Canon 85mm 1.2 L</li>
-                <li>Tokina 11-16</li>
-                <li>sigma 35 1.4 art</li>
-                <li>Canon 70-200 2.8 L</li>
-              </ul>
-            </div>
-          </section>
-          <section class="stats">
-            <h3>统计</h3>
+           <section class="bio">
+            <h3>微信：
 
-            <div class="stat_block">
-              <h3 class="light">热度</h3><span class="number">277.0K</span></div>
-            <div class="stat_block">
-              <h3 class="light">浏览</h3><span class="number">2.6M</span></div>
-            <div class="stat_block">
-              <h3 class="light">收藏</h3><span class="number">103.4K</span></div>
-            <div class="stat_block">
-              <h3 class="light">喜欢</h3><span class="number">274.7K</span></div>
-            <div class="stat_block">
-              <h3 class="light"><span class="translation_missing"
-                                      title="translation missing: zh-CN.common.comments">评论</span>
-              </h3><span class="number">8,762</span></div>
+              {{userInfo.wx}} </h3>
           </section>
-          <section class="member_for">
-            <p>{{regTime}}起成为会员</p>
+
+
+ <section class="bio">
+            <h3>QQ:
+
+              {{userInfo.QQ}}
+</h3>          </section>
+           <section class="bio">
+            <h3>个人签名: {{userInfo.signature}}</h3>
+
           </section>
+
+
+
+
         </div>
-        <section class="map show">
-          <div id="user_map"></div>
-        </section>
+
       </div>
     </div>
   </div>
 </div>
 
-<div class="g-foot container">
+<div class="g-foot container" align="center"> 
   被访问{{userInfo.userspace_count}}次 | © {{userInfo.nickname}} | Powered by 风影网
 </div>
 
