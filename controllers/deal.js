@@ -377,11 +377,11 @@ exports.notify = function (req, res) {
         Order.update(ret.out_trade_no, model, callback);
     }, function (ret, callback) {
         //更新商品所有者的账户金额
-        Order.getOrderById(ret._id, function (err, order) {
+        Order.getOrderById(ret.out_trade_no, function (err, order) {
             if (err) {
                 callback(err);
             } else {
-                User.update(order.buy_id, {'$inc': {'money': order.price}}, callback);
+                User.update(order.author_id, {'$inc': {'money': order.price}}, callback);
             }
         });
     }], function (err, ret) {

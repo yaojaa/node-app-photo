@@ -125,14 +125,14 @@
 
     //微信支付
     function wxpay($dom) {
-        var _interval = setInterval(function(){
-            getOrderStatus(function(){
+        var _interval = setInterval(function () {
+            getOrderStatus($dom, function () {
                 clearInterval(_interval);
             });
         }, 1000);
     }
 
-    function getOrderStatus(cb) {
+    function getOrderStatus($dom, cb) {
         //查看订单状态
         $.get('/deal/order/' + orderId, function (data) {
             if (data.errorno === 0) {
