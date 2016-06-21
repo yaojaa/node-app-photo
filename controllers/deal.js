@@ -14,6 +14,7 @@ var User = require('../proxy/user');
 var dealService = require('../proxy/deal');
 var Order = require('../proxy/order');
 var crypto = require('crypto');
+var async = require('async');
 
 //进入商品购买页
 exports.buy = function (req, res) {
