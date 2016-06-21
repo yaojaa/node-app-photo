@@ -374,7 +374,9 @@ exports.notify = function (req, res) {
             price: ret.total_fee,
             openid: ret.openid
         };
-        Order.update(ret.out_trade_no, model, callback);
+        Order.update(ret.out_trade_no, model, function (err) {
+            callback(err, ret);
+        });
     }, function (ret, callback) {
         //更新商品所有者的账户金额
         Order.getOrderById(ret.out_trade_no, function (err, order) {

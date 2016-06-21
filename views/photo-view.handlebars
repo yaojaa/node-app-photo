@@ -53,19 +53,19 @@
             <div class="g-img-box">
                 <div class="u-header">
                     <h2>{{photo.title}}</h2>
-                    <ul>
-                        <li>分享</li>
-                        <li>微博</li>
-                        <li>QQ空间</li>
-                        <li>朋友圈</li>
-                    </ul>
+                    <!--<ul>-->
+                        <!--<li>分享</li>-->
+                        <!--<li>微博</li>-->
+                        <!--<li>QQ空间</li>-->
+                        <!--<li>朋友圈</li>-->
+                    <!--</ul>-->
                 </div>
                 <div class="u-img-wrapper">
                     <img id="showImg" src="http://img.fengimage.com/{{headImg}}?imageView2/1/">
                 </div>
                 <div class="u-footer">
-                    <label>浏览 199</label>
-                    <label class="u-edit">喜欢 199</label>
+                    <label>浏览 {{photo.browse_cnt}}</label>
+                    <label class="u-edit">喜欢 {{photo.like_cnt}}</label>
                     <label>{{photo.update_at}}</label>
                     <label>© 来自 @{{author.nickname}} 的版权作品</label>
                 </div>
@@ -87,7 +87,7 @@
     <div class="g-right-cnt">
         <div class="u-header">
             <div class="headpic">
-                <img width="50" src="{{author.avatar}}?imageView2/1/w/50/">
+                <a href="/userspace/{{author.id}}"><img width="50" src="{{author.avatar}}?imageView2/1/w/50/"></a>
             </div>
             <div class="name nowrap">{{author.nickname}}</div>
             <div class="m-flow">
@@ -171,11 +171,11 @@
     function commentRender(item) {
         return '<div class="m-cmt-item">' +
                 '<div class="icon">' +
-                '<a href=""><img width="50" height="50"' +
+                '<a href="/userspace/'+item.id+'"><img width="50" height="50"' +
                 'src="' + item.userAvatar + '"></a>' +
                 '</div>' +
                 '<div class="cmt-cnt">' +
-                '<div class="top"><a href="">' + item.nickname + '</a>' +
+                '<div class="top"><a href="/userspace/'+item.id+'">' + item.nickname + '</a>' +
                 '<div class="time">' + item.createAt + '</div>' +
                 '</div>' +
                 '<p>' + item.content +
