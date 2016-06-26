@@ -135,6 +135,104 @@
       min-height: 768px
     }
 
+    /**图文样式**/
+
+    .pagelist-wrapper {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    padding: 10px
+}
+
+.vision-item {
+    border: 1px solid #eaeaea;
+    font-size: 0;
+    float: left;
+    width: 48%;
+    margin: 10px 1%;
+    padding: 10px 0;
+    position: relative;
+    background: #fff;
+}
+.vision-item .item-cover {
+    display: inline-block;
+    height: 150px;
+    position: relative;
+    width: 150px;
+    padding: 10px;
+    position: absolute;
+    left: 0;
+    top: 0
+}
+.vision-item .item-cover img {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.vision-item .item-info {
+    font-size: 14px;
+    overflow: hidden;
+    vertical-align: top;
+    padding-left: 170px;
+    padding-right: 10px;
+}
+.vision-item .item-info .item-title {
+    color: #259;
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    margin-bottom: 6px
+}
+.vision-item .item-info .item-owner {
+    color: #999;
+    display: block;
+    line-height: 1;
+    margin-top: 10px;
+}
+.item-author{
+  color: #999;
+  font-size: 12px
+}
+
+.vision-item .item-info .item-desc {
+    margin: 6px 0 0;
+    max-height: 100px;
+    padding: 0;
+    color: #999
+}
+.vision-item .item-related {
+    display: block;
+    font-size: 12px;
+    margin: 10px 0 0;
+    position: relative;
+}
+.vision-item .item-related .item-tags {
+    font-size: 0;
+    height: 22px;
+    overflow: hidden;
+    padding-right: 100px;
+}
+.vision-item .item-related .item-tags a {
+    background-color: #f5f6f8;
+    border: 1px solid #e3e4e6;
+    border-radius: 11px;
+    color: #808388;
+    display: inline-block;
+    font-size: 12px;
+    height: 22px;
+    line-height: 22px;
+    margin-left: 10px;
+    padding: 0 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
   </style>
 
 {{/extend}}
@@ -182,40 +280,110 @@
 </div>
 
 
-<!--   <div class="middle">
-    <h2>风影 </h2>
-
-    <h3>分享精彩，实现价值</h3>
-    <br>
-    {{#if user}}
-{{else}}
-      <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-         class="reg button button-rounded button-caution button-large">立即加入</a>
-    {{/if}}
-
-  </div> -->
 
 
 <div class="tab_wrapper">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
+      {{#if user}}
+      <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"
+                                 data-toggle="tab">我关注的图片</a>
+      </li>
+    {{/if}}
     <li role="presentation" class="active">
       <a href="#new_pic" onclick="showPicture(1)" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
     </li>
     <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab"
                                data-toggle="tab">热门图片</a>
     </li>
-    {{#if user}}
-      <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"
-                                 data-toggle="tab">我关注的图片</a>
-      </li>
-    {{/if}}
+
   </ul>
   <!-- Tab panes -->
   <div class="tab-content" id="pic-container">
 
   </div>
 </div>
+
+
+  <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"
+                                 data-toggle="tab">最新图文故事</a>
+      </li>
+   
+<!--     <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab"
+                               data-toggle="tab">热门图文故事</a>
+    </li> -->
+
+  </ul>
+
+  <div class="tab-content" id="aticle-container">
+  <ul class="pagelist-wrapper">
+
+  
+  <li class="vision-item ">
+  
+    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
+      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
+    </a>
+    <div class="item-info">
+      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
+      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
+      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
+    </div>
+    
+</li>
+
+
+  <li class="vision-item ">
+  
+    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
+      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
+    </a>
+    <div class="item-info">
+      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
+      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
+      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
+    </div>
+    
+</li>
+
+
+  <li class="vision-item ">
+  
+    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
+      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
+    </a>
+    <div class="item-info">
+      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
+      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
+      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
+    </div>
+    
+</li>
+
+
+  <li class="vision-item ">
+  
+    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
+      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
+    </a>
+    <div class="item-info">
+      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
+      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
+      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
+    </div>
+    
+</li>
+
+      
+  </ul>
+
+  </div>
+
+
+
+
+
 
 {{#if user}}
 
