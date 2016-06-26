@@ -22,9 +22,13 @@ exports.showAticleList = function (req, res) {
                 _id : item._id,
                 update_at : moment(item.update_at).format('YYYY-mm-DD'),
                 title : item.title,
-                content : item.content
+                content : item.content,
+                author:item.author
             };
         });
+
+        console.log(lists);
+
         res.render('aticle', {
             page: page,
             aticles: lists,
@@ -39,7 +43,7 @@ exports.showAticleList = function (req, res) {
 
 exports.showCreate = function (req, res) {
 
-    res.render('create-aticle-md', {
+    res.render('create-aticle', {
         user: req.session.user,
         Domain: config.qn_access.Domain,
         uploadURL: config.qn_access.uploadURL
@@ -51,9 +55,15 @@ exports.create = function (req, res) {
 
     var title = xss(validator.trim(req.body.title));
     var content = xss(validator.trim(req.body.content));
-    var authorId = req.session.user._id || '000';
+    var authorId = req.session.user._id ;
 
-    console.log(title, authorId, content);
+    if(!authorId){
+
+                res.render('create-aticle', {success: '请先登录'});
+                return
+
+    }
+
 
     Aticle.newAndSave(title, content, authorId, function (err) {
 
