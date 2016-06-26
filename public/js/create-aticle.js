@@ -9,6 +9,19 @@
         });
 
 
+/*限制字数*/
+
+$('#des').limitTextarea({  
+    maxNumber:150,     //最大字数  
+    position:'bottom', //提示文字的位置，top：文本框上方，bottom：文本框下方  
+    onOk:function(){  
+      $('#des').css('background-color','white');      
+    },                 //输入后，字数未超出时调用的函数  
+    onOver:function(){  
+      $('#des').css('background-color','lightpink');      
+    }                  //输入后，字数超出时调用的函数，这里把文本区域的背景变为粉红色     
+  });      
+
 
 
 
@@ -70,8 +83,6 @@ var postAticle=function(){
                 }, function() {
                     location.href = "/a/"+aticleId
                 });
-
-
 
       }else{
         alert(res.msg)
