@@ -2801,3 +2801,13 @@ body {
     border-color: #f57e42;
     color: white;
 }
+
+.title,a.title{
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #555;
+word-break:break-all;
+    white-space:normal;
+    word-wrap:break-word
+}

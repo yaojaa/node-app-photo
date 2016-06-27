@@ -1,23 +1,29 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-11 col-center">
-            <div style="font-size: 50px; margin: 80px 0 30px 0;">图文故事</div>
+        <div class="col-md-9 col-lg-9 col-sm-12 col-center">
+            <div style="font-size: 30px; margin: 80px 0 30px 0;">图文故事</div>
             <div class="storyList">
                 {{#each aticles}}
                 <div class="storyItem">
                
                     <div class="row">
-                        <div class="col-xs-3">
-                            <img src="http://img.fengimage.com/FrxdApvta4GKa77KjTqIF-xl2ZMk" width="100%">
-                        </div>
-                        <div class="col-xs-9">
-                             <h2><a style="color:#000;" href="/a/{{_id}}">{{title}}</a></h2>
+                      
+                        <div class="col-xs-8 col-md-10">
+                           <p class="list-top">
+        <a href="/users/83f33485a278" target="_blank" class="author-name blue-link">{{author}}</a>
+        <em>·</em>
+        <span data-shared-at="2016-06-26T08:01:51+08:00" class="time">{{update_at}} </span>
+      </p>
+                             <h2><a class="title" href="/a/{{_id}}">{{title}}</a></h2>
                             
-                            <a href="/a/{{_id}}" style="padding:1px 3px;border-radius: 1px;background-color:#000000; font-size: 12px;color: #ffffff;">阅读更多>></a>
-                            <div style="font-size: 14px;margin-top: 5px;">{{author}} <span style="color: #D3D3D3">/</span>
-                                {{update_at}}
-                            </div>
+                            <p>{{des}} 
+                                
+                            </p>
                         </div>
+                          <div class="col-xs-4 col-md-2">
+                            <img src="{{thumb}}?imageView2/1/w/150/h/150" width="100%" class="img-rounded" >
+                        </div>
+
                     </div>
                 </div>
                 {{/each}}

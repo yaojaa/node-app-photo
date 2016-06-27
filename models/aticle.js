@@ -6,6 +6,7 @@ var AticleSchema = new Schema({
   title: { type: String },
   author_id: { type: String},
   content:{type:String},
+  des:{type:String},
   create_at: { type: Date, default: Date.now },
   update_at: { type: Date, default: Date.now },
 

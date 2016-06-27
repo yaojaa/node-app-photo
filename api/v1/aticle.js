@@ -56,15 +56,9 @@ var delAticle=function(req,res,next){
 
 var createAticle=function(req,res,next){
 
-
-
-
   var title = validator.trim(req.body.title);
    var content = validator.trim(req.body.content);
    var authorId=req.session.user.id ;
-
-
-
 
    AticleProxy.newAndSave(title, content, authorId, function(err){
 
@@ -76,8 +70,9 @@ var createAticle=function(req,res,next){
 
    })
 
-
 }
+
+
 
 exports.delAticle=delAticle;
 exports.createAticle=createAticle;
