@@ -60,13 +60,13 @@ var createAticle=function(req,res,next){
    var content = validator.trim(req.body.content);
    var authorId=req.session.user.id ;
 
-   AticleProxy.newAndSave(title, content, authorId, function(err){
+   AticleProxy.newAndSave(title, content, authorId, function(err,data){
 
        if (err) {
         return next(err);
               }
 
-    res.json({errorno:0,msg:'发布成功！'});
+    res.json({errorno:0,msg:'发布成功！',data:data});
 
    })
 

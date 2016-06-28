@@ -491,7 +491,6 @@ jQuery(function() {
                 });
 
             } else {
-                alert(res.msg);
         $('#Jpost').addClass('btn-success').text('发布').attr('disabled',false);
 
             }
