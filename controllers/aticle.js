@@ -4,6 +4,7 @@ var validator = require('validator');
 var eventproxy = require('eventproxy');
 var moment = require('moment');
 var xss = require('xss');
+var _=require('../lib/tools.js')
 
 
 //findOnePage
@@ -37,19 +38,19 @@ exports.showAticleList = function (req, res) {
 
         }
 
-
-
         lists = lists.map(function(item){
             return {
                 _id : item._id,
-                update_at : moment(item.update_at).format('YYYY-mm-DD'),
+                update_at : moment(item.update_at).format('YYYY-MM-DD'),
                 title : item.title,
                 content : item.content,
                 thumb:getImgSrc(item.content),
                 author:item.author,
-                
+                des:item.des
             };
         });
+
+        console.log(lists)
 
 
         res.render('aticle', {
@@ -104,8 +105,12 @@ exports.showDetail = function (req, res) {
     var _id = req.params._id;
     Aticle.findOneAticle(_id, function (err, doc) {
 
+
+        var aticle=_.pick(doc,['_id','update_at','title','content','author'])
+
+
         res.render('aticle-view', {
-            aticle: doc
+            aticle: aticle
         })
 
 

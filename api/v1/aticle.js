@@ -1,9 +1,9 @@
-var config        = require('../../config');
-var validator    = require('validator');
+var config = require('../../config');
+var validator = require('validator');
 
-var models        = require('../../models');
-var AticleModel   = models.Aticle;
-var AticleProxy   = require('../../proxy').Aticle;
+var models = require('../../models');
+var AticleModel = models.Aticle;
+var AticleProxy = require('../../proxy').Aticle;
 
 
 
@@ -12,81 +12,86 @@ limit 限制数量
 page 第几页
 */
 
-var index=function(req,res,next){
- var limit  = Number(req.query.limit) || config.list_topic_count;    
- var page     = parseInt(req.query.page, 10) || 1;
- var query={};
- 
-    AticleModel.find({}).limit(limit)
+var index = function(req, res, next) {
+  var limit = Number(req.query.limit) || config.list_topic_count;
+  var page = parseInt(req.query.page, 10) || 1;
+  var query = {};
+
+  AticleModel.find({}).limit(limit)
     .skip((page - 1) * limit)
-    .sort({time:1}).exec(function(err,topics){
+    .sort({
+      time: 1
+    }).exec(function(err, topics) {
 
-      var datas=topics.map(function(item){
+      var datas = topics.map(function(item) {
 
-        return newdata={
-          id:item._id,
-          title:item.title,
-          content:item.content,
-          time:item.update_at
+        return newdata = {
+          id: item._id,
+          title: item.title,
+          content: item.content,
+          des: item.discrib,
+          time: item.update_at
         }
 
       })
 
-    res.send({data: datas});
+      res.send({
+        data: datas
+      });
 
     })
 
 
 }
 
-var delAticle=function(req,res,next){
+var delAticle = function(req, res, next) {
   console.log(req.body.id);
-  var id=req.body.id;
+  var id = req.body.id;
   console.log(AticleModel);
-  AticleProxy.delAticleById(id,function(err){
+  AticleProxy.delAticleById(id, function(err) {
 
     if (err) {
-        return next(err);
-      }
-      res.json({errorno:0,msg:"删除成功"});
+      return next(err);
+    }
+    res.json({
+      errorno: 0,
+      msg: "删除成功"
+    });
   })
 
 }
 
 
-var createAticle=function(req,res,next){
+var createAticle = function(req, res, next) {
 
   var title = validator.trim(req.body.title);
-   var content = validator.trim(req.body.content);
-   var authorId=req.session.user.id ;
+  var content = validator.trim(req.body.content);
+  var des = validator.trim(req.body.des);
+  var authorId = req.session.user.id;
 
-   AticleProxy.newAndSave(title, content, authorId, function(err,data){
+  AticleProxy.newAndSave(title, des, content, authorId, function(err, data) {
 
-       if (err) {
-        return next(err);
-              }
+    if (err) {
+      return next(err);
+    }
 
-    res.json({errorno:0,msg:'发布成功！',data:data});
+    res.json({
+      errorno: 0,
+      msg: '发布成功！',
+      data: data
+    });
 
-   })
+  })
 
 }
 
 
 
-exports.delAticle=delAticle;
-exports.createAticle=createAticle;
+exports.delAticle = delAticle;
+exports.createAticle = createAticle;
 
 
-exports.index=index;
-
-
-
-
-
-
-
-
+exports.index = index;
 
 
 

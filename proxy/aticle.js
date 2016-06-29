@@ -2,9 +2,10 @@ var models  = require('../models');
 var Aticle    = models.Aticle;
 
 
-exports.newAndSave = function (title, content, authorId, callback) {
+exports.newAndSave = function (title,des, content, authorId, callback) {
     var topic       = new Aticle();
     topic.title     = title;
+    topic.des       = des;
     topic.content   = content;
     topic.author_id = authorId;
     topic.save(callback);
