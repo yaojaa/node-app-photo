@@ -19,6 +19,13 @@ exports.search = function (req, res) {
 
    Search.search(keyword,1,function(err,data){
 
+    var _.picker(data,['title','des','author','create'])
+
+       res.render('search',{
+        data:
+       })
+
+
     console.log(data);
 
 
