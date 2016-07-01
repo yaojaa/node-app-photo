@@ -7,19 +7,15 @@
     //=====================
 
 
-    var css = '<style>.g-layer-wrap,.g-layer-box div{font-family:"Microsoft Yahei"!important;color:#444;font-size:13px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.g-layer-wrap{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.1)}.g-layer-box{position:fixed;left:50%;top:50%;margin-top:-250px;margin-left:-150px;height:400px;width:300px;background-color:#fff;padding:10px}.g-layer-box .u-close{float: right;cursor: pointer;}.g-layer-box h1{font-size:18px;font-weight:normal;text-align:center}.g-layer-box h2{font-size:14px;font-weight:normal}.g-layer-box .u-money,.g-layer-box .u-pay-pwd{margin:20px}.g-layer-box .u-money input,.g-layer-box .u-pay-pwd input{width:200px;height:30px;padding:2px 5px}.g-layer-box .u-pay-pwd input{width:180px}.g-layer-box .u-pay-type{margin:40px 20px}.g-layer-box .u-pay-type ul{list-style:none;padding:0;margin-top:10px;}.g-layer-box .u-pay-type li{float:left;margin-left:10px}.g-layer-box .g-layer-footer{text-align:center}.g-layer-box .u-pay-type:after{content:" ";display:block;height:0;clear:both;visibility:hidden}.u-btn{display:inline-block;padding:6px 20px;background:transparent;cursor:pointer;outline:0;color:#027cff;font-size:14px;border:1px solid #027cff;-moz-border-radius:3px;-webkit-border-radius:3px;-ms-border-radius:3px;border-radius:3px}.u-btn:hover{background-color:#027cff;color:#fff}.g-layer-box .u-mark{text-align:right;margin-top:10px;color:#999}.g-layer-box .u-err-msg{margin:40px 20px;padding:5px;color:#dd6574;font-size:12px}.g-layer-box .u-wxcode{margin-left:10px;width:280px;height:280px}</style>';
-    var html1 = '<div class="g-layer-wrap"><div class="g-layer-box"><span class="u-close">X</span><h1>谢谢您的鼓励</h1><div class="u-money"><label>金额&nbsp;:&nbsp;</label><input type="text" id="money" placeholder="单位元"></div><div class="u-pay-type"><h2>支付方式</h2><ul><li><label>个人钱包&nbsp;<input name="pay-type" value="1" type="radio"></label></li><li><label>微信&nbsp;<input name="pay-type" value="2" type="radio"></label></li><li><label>支付宝&nbsp;<input name="pay-type" value="3" type="radio"></label></li></ul></div><div class="g-layer-footer"><button class="u-btn j-reward">下一步</button></div><div class="u-mark"><small>注 : 账户余额(' + PAGECONFIG.money + '元)</small></div><div class="u-err-msg"></div></div></div>';
-    var html2 = '<div class="g-layer-wrap"><div class="g-layer-box"><span class="u-close">X</span><h1>个人钱包</h1><div class="u-money"><label>支付金额 : ¥<span class="u-money-amount">0.0</span></label></div><div class="u-pay-pwd"><label>支付密码 :</label><input type="password" placeholder="登录密码"></div><div class="g-layer-footer"><button class="u-btn j-reward-pay">确定支付</button></div><div class="u-err-msg"></div></div></div>';
-    var html3 = '<div class="g-layer-wrap"><div class="g-layer-box"><span class="u-close">X</span><h1>微信支付</h1><div class="u-money"><label>支付金额 : ¥<span class="u-money-amount">0.0</span></label></div><img class="u-wxcode" src="" alt="微信扫码支付"><div class="u-mark"><small>注 : 微信扫码支付</small></div></div></div>';
-
     var $body = $('body');
-    var $head = $('head');
-    $head.append(css);
-    var $html1 = $(html1);
-    var $html2 = $(html2);
-    var $html3 = $(html3);
+    var $html1 = $($('#template1').html());
+    var $html2 = $($('#template2').html());
+    var $html3 = $($('#template3').html());
+    var $accountMoney = $('#account-money',$html1).html(PAGECONFIG.money);
     //订单ID
     var orderId;
+    //支付金额
+    var money = 1;
 
     function colse($dom) {
         $('.u-close', $dom).click(function () {
@@ -27,21 +23,35 @@
         });
     }
 
+    //点击打赏按钮
     $('#reward').click(function () {
         $body.append($html1);
+        money = 1;
+        var $moneyList = $('.money-list li',$html1).click(function(){
+            $moneyList.removeClass('active');
+            money = $(this).addClass('active').data('money');
+            $('input',$money).hide();
+        });
+
+        var $money = $('.u-money',$html1).click(function(){
+            $moneyList.removeClass('active');
+            $('input',$money).show();
+            money = false;
+        });
         colse($html1);
         next($html1);
     });
 
     //下一步
     function next($dom) {
-        var req_url = '/deal/order/action/';
         var $err = $('.u-err-msg', $dom);
         $('.j-reward', $dom).click(function () {
             //打赏的人
             var userId = PAGECONFIG.authorId;
             //打赏金额(单位元)
-            var money = $('#money', $dom).val().trim();
+            if(!money) {
+                money = $('#money', $dom).val().trim();
+            }
             if (!money) {
                 return $err.html('请填写金额');
             }
@@ -56,10 +66,13 @@
             if (!type) {
                 return $err.html('请选择支付方式');
             }
+            if (type == 1 && !PAGECONFIG.isLogin) {
+                return $err.html('个人钱包支付,请先登录');
+            }
             if (type == 3) {
                 return $err.html('支付宝支付暂未开通,请使用其他方式');
             }
-            req_url += userId + '-' + type + '-2?money=' + money;
+            var req_url = '/deal/order/action/'+ userId + '-' + type + '-2?money=' + money;
 
             $.get(req_url, function (data) {
                 if (data.errorno === 0) {

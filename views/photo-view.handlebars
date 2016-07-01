@@ -8,11 +8,13 @@
     <meta name="keywords" content="摄影,图片库,摄影社区,作品,器材,照片,专业,图片,上传,分享,拍照,照相,相册,Web2.0,博客">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/photo-detail.css">
+    <link rel="stylesheet" href="/css/reward.css">
     <script>
         var PAGECONFIG = {
             photoId: '{{photo.id}}',
             authorId: '{{photo.author_id}}',
-            money: (Number({{loginUser.money}}) || 0)/100
+            money: (Number({{loginUser.money}}) || 0) / 100,
+            isLogin: !!'{{loginUser.id}}'
         }
     </script>
 </head>
@@ -54,10 +56,10 @@
                 <div class="u-header">
                     <h2>{{photo.title}}</h2>
                     <!--<ul>-->
-                        <!--<li>分享</li>-->
-                        <!--<li>微博</li>-->
-                        <!--<li>QQ空间</li>-->
-                        <!--<li>朋友圈</li>-->
+                    <!--<li>分享</li>-->
+                    <!--<li>微博</li>-->
+                    <!--<li>QQ空间</li>-->
+                    <!--<li>朋友圈</li>-->
                     <!--</ul>-->
                 </div>
                 <div class="u-img-wrapper">
@@ -137,7 +139,81 @@
         </ul>
     </div>
 </div>
-
+<!-- 模版 -->
+<script type="text/template" id="template1">
+    <div class="g-layer-wrap">
+        <div class="g-layer-box">
+            <span class="u-close">X</span>
+            <h1>作品打赏</h1>
+            <ul class="money-list">
+                <li class="active" data-money="1">¥ 1.00</li>
+                <li data-money="5">¥ 5.00</li>
+                <li data-money="10">¥ 10.00</li>
+                <li data-money="25">¥ 25.00</li>
+                <li data-money="50">¥ 50.00</li>
+                <li data-money="100">¥ 100.00</li>
+            </ul>
+            <div class="u-money">
+                <label>其他金额&nbsp;:&nbsp;</label>
+                <input type="text" id="money" style="display: none;" placeholder="单位元"></div>
+            <div class="u-pay-type">
+                <h2>支付方式</h2>
+                <ul>
+                    <li>
+                        <label>个人钱包&nbsp;
+                            <input name="pay-type" value="1" type="radio"></label></li>
+                    <li>
+                        <label>微信&nbsp;
+                            <input name="pay-type" value="2" type="radio"></label></li>
+                    <li>
+                        <label>支付宝&nbsp;
+                            <input name="pay-type" value="3" type="radio"></label></li>
+                </ul>
+            </div>
+            <div class="g-layer-footer">
+                <button class="u-btn j-reward">下一步</button>
+            </div>
+            <div class="u-mark">
+                <small>注 : 账户余额(<span id="account-money">0</span>元)</small>
+            </div>
+            <div class="u-err-msg"></div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="template2">
+    <div class="g-layer-wrap">
+        <div class="g-layer-box g-layer-personal">
+            <span class="u-close">X</span>
+            <h1>个人钱包</h1>
+            <div class="u-money">
+                <label>支付金额 : ¥
+                    <span class="u-money-amount">0.0</span></label>
+            </div>
+            <div class="u-pay-pwd">
+                <label>支付密码 :</label>
+                <input type="password" placeholder="登录密码"></div>
+            <div class="g-layer-footer">
+                <button class="u-btn j-reward-pay">确定支付</button>
+            </div>
+            <div class="u-err-msg"></div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="template3">
+    <div class="g-layer-wrap">
+        <div class="g-layer-box">
+            <span class="u-close">X</span>
+            <h1>微信支付</h1>
+            <div class="u-money">
+                <label>支付金额 : ¥
+                    <span class="u-money-amount">0.0</span></label>
+            </div>
+            <img class="u-wxcode" src="" alt="微信扫码支付">
+            <div class="u-mark">
+                <small>注 : 微信扫码支付</small></div>
+        </div>
+    </div>
+</script>
 <script src="/js/lib/jquery-1.11.1.min.js"></script>
 <script src="/js/reward.js"></script>
 <script>
@@ -171,11 +247,11 @@
     function commentRender(item) {
         return '<div class="m-cmt-item">' +
                 '<div class="icon">' +
-                '<a href="/userspace/'+item.id+'"><img width="50" height="50"' +
+                '<a href="/userspace/' + item.id + '"><img width="50" height="50"' +
                 'src="' + item.userAvatar + '"></a>' +
                 '</div>' +
                 '<div class="cmt-cnt">' +
-                '<div class="top"><a href="/userspace/'+item.id+'">' + item.nickname + '</a>' +
+                '<div class="top"><a href="/userspace/' + item.id + '">' + item.nickname + '</a>' +
                 '<div class="time">' + item.createAt + '</div>' +
                 '</div>' +
                 '<p>' + item.content +
