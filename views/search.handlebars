@@ -19,17 +19,26 @@
 </div>
 <br><br>
 </form>
-<div class="list-group hide" >
-  <h2 class="list-group-item active">
-   搜索结果：
-  </h2>
-  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item">Morbi leo risus</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Vestibulum at eros</a>
+
+{{#if has_result}}
+<div class="list-group " >
+  <h6class="list-group-item active">
+   搜索 {{keyword}} 结果：
+  </h6>
+
+  {{#each data}}
+  <a href="#" class="list-group-item">{{{title}}}  {{update_at}}</a>
+
+
+  {{/each}}
+  
 </div>
 
-<nav class="hide">
+
+
+
+
+<nav>
   <ul class="pagination">
     <li>
       <a href="#" aria-label="Previous">
@@ -48,5 +57,16 @@
     </li>
   </ul>
 </nav>
+
+{{/if}}
+
+
+
+
+
+
+
+
+
   </div>
 </div>

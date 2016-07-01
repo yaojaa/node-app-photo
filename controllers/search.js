@@ -1,5 +1,6 @@
 var config = require('../config');
 var Search = require('../proxy/search.js');
+var _= require('../lib/tools');
 
 
 //添加评论
@@ -15,18 +16,29 @@ exports.search = function (req, res) {
  
    var keyword= req.query.keyword;
 
-   console.log(keyword);
 
    Search.search(keyword,1,function(err,data){
 
-    var _.picker(data,['title','des','author','create'])
+
+    var aticle_data = data.map(function(item){
+
+      return  {
+                _id : item._id,
+                update_at : item.update_at,
+                title : item.title.replace(keyword,'<strong class="bg-primary">'+keyword+'</strong>'),
+                author:item.author_id,
+                des:item.des
+            };
+
+    })
 
        res.render('search',{
-        data:
+        has_result:true,
+        keyword:keyword,
+        data:aticle_data
        })
 
-
-    console.log(data);
+         console.log(aticle_data);
 
 
    })
