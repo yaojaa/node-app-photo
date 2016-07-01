@@ -5,8 +5,8 @@
             imagePath:GLOBAL.Domain,
             lang:/^zh/.test(navigator.language || navigator.browserLanguage || navigator.userLanguage) ? 'zh-cn' : 'en',
             langPath:UMEDITOR_CONFIG.UMEDITOR_HOME_URL + "lang/",
-            focus: true
-        });
+            autoFloatEnabled :false
+            });
 
 
 /*限制字数*/
@@ -30,6 +30,7 @@ var postAticle=function(){
 
     var postdata={
       title:$('#title').val(),
+      des:$('#des').val(),
       content:um.getContent(),
     }
 
@@ -69,13 +70,12 @@ var postAticle=function(){
             });
 
       }
-      else if(res.error==0){
-
+      else if(res.errorno==0){
        var aticleId=res.data._id;
                    swal({
                     title: '发布成功',
                     type: "success",
-                    showCancelButton: true,
+                    showCancelButton: false,
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "立即查看",
                     cancelButtonText: "取消",

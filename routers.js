@@ -10,6 +10,8 @@ var qq = require('./controllers/qq');
 var weibo = require('./controllers/weibo');
 var wxpay = require('./controllers/wxpay');
 var deal = require('./controllers/deal');
+var search = require('./controllers/search');
+
 
 var ucenter = require('./controllers/ucenter');
 var auth = require('./middlewares/auth');
@@ -126,6 +128,15 @@ router.get('/video', video.showVideoList) //视频列表
 router.get('/video/:_id', video.showDetail) //视频正文
 router.get('/create-video', video.showCreate)
 router.post('/create-video', video.publish)
+
+
+//搜索
+
+router.get('/search', search.show)
+router.get('/searchdb', search.search)
+
+
+
 
 //用户中心
 router.get('/ucenter', auth.validateLogin, ucenter.show);  // 用户中心
