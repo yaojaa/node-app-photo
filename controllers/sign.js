@@ -205,6 +205,7 @@ exports.signup = function (req, res, next) {
     }
 
     //验证邮箱
+    /*
     var codeInfo = req.session.code_info;
     console.log(codeInfo);
     if (codeInfo) {
@@ -223,6 +224,7 @@ exports.signup = function (req, res, next) {
     } else {
         return ep.emit('prop_err', '请发送验证码。');
     }
+    */
 
 
     //生成密码的 md5 值

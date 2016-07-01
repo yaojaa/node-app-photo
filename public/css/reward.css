@@ -1,0 +1,164 @@
+.g-layer-wrap, .g-layer-box div {
+    font-family: "Microsoft Yahei" !important;
+    color: #444;
+    font-size: 13px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.g-layer-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
+.g-layer-box {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-top: -250px;
+    margin-left: -150px;
+    height: 350px;
+    width: 300px;
+    background-color: #fff;
+    padding: 10px
+}
+.g-layer-box.g-layer-personal {
+    height: 229px;
+}
+.g-layer-box .u-close {
+    float: right;
+    cursor: pointer;
+}
+
+.g-layer-box h1 {
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center
+}
+
+.g-layer-box h2 {
+    font-size: 14px;
+    font-weight: normal
+}
+
+.g-layer-box .money-list{
+    overflow: hidden;
+}
+
+.g-layer-box .money-list li{
+    float: left;
+    width: 30%;
+    text-align: center;
+    border: 1px solid rgba(221, 221, 221, 0.64);;
+    margin-left: 3%;
+    margin-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+    color: #FF6500;
+    background-color: rgba(221, 221, 221, 0.28);
+    cursor: pointer;
+}
+
+.g-layer-box .money-list li.active {
+    position: relative;
+    border-color: #FF6500;
+}
+
+.g-layer-box .money-list li.active:before {
+    content: '';
+    position: absolute;
+    border: 5px solid #FF6500;
+    border-bottom-right-radius: 100%;
+    left: 0;
+    top: 0;
+}
+
+.g-layer-box .u-money, .g-layer-box .u-pay-pwd {
+    margin: 20px
+}
+
+.g-layer-box .u-money label {
+    cursor: pointer;
+}
+
+.g-layer-box .u-money input, .g-layer-box .u-pay-pwd input {
+    width: 120px;
+    height: 30px;
+    padding: 2px 5px
+}
+
+.g-layer-box .u-pay-pwd input {
+    width: 160px
+}
+
+.g-layer-box .u-pay-type {
+    margin: 15px 20px
+}
+
+.g-layer-box .u-pay-type ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.g-layer-box .u-pay-type li {
+    float: left;
+    margin-left: 10px
+}
+
+.g-layer-box .g-layer-footer {
+    text-align: center
+}
+
+.g-layer-box .u-pay-type:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden
+}
+
+.u-btn {
+    display: inline-block;
+    padding: 6px 20px;
+    background: transparent;
+    cursor: pointer;
+    outline: 0;
+    color: #027cff;
+    font-size: 14px;
+    border: 1px solid #027cff;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px
+}
+
+.u-btn:hover {
+    background-color: #027cff;
+    color: #fff
+}
+
+.g-layer-box .u-mark {
+    text-align: right;
+    margin-top: 10px;
+    color: #999
+}
+
+.g-layer-box .u-err-msg {
+    margin: 12px 20px;
+    padding: 5px;
+    color: #dd6574;
+    font-size: 12px
+}
+
+.g-layer-box .u-wxcode {
+    margin-left: 10px;
+    width: 200px;
+    height: 200px
+}

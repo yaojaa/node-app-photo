@@ -101,7 +101,11 @@ exports.handle = function (req, res) {
     //用户没有登录
     if (!user) {
         console.log('用户未登录...');
-        return res.fail(-2,'获取用户信息失败');
+        if (t1 === '1') {
+            return res.fail(-2, '获取用户信息失败');
+        } else {
+            user = {};
+        }
     }
 
     //参数验证
@@ -192,23 +196,19 @@ function generateOrderInfo(t1, t2, req, res, buyId, sellId, productId, money) {
 exports.pay = function (req, res) {
     var orderId = req.params.orderId;
     var pwd = req.query.pwd;
-    if(pwd) {
+    if (pwd) {
         var md5 = crypto.createHash('md5');
         pwd = md5.update(pwd).digest('hex');
     }
     var user = req.session.user;
-    //用户没有登录
-    if (!user) {
-        console.log('用户未登录...');
-        return res.fail('获取用户信息失败');
-    }
+
     //id不合法
     if (!wxutil.validObjectId(orderId)) {
         console.log('id不合法...');
         return res.fail('参数错误');
     }
     Order.getOrderById(orderId, function (err, ret) {
-        console.log('Controller----->',err,ret);
+        console.log('Controller----->', err, ret);
         if (err) {
             return res.fail('获取订单信息失败');
         }
@@ -226,7 +226,17 @@ exports.pay = function (req, res) {
             return res.fail('订单已经失效');
         }
 
-        if(ret.trading_channel == 1 && pwd != user.password) {
+        //用户没有登录
+        if (!user) {
+            console.log('用户未登录...');
+            if (ret.trading_channel == 1) {
+                return res.fail(-2, '获取用户信息失败');
+            } else {
+                user = {};
+            }
+        }
+
+        if (ret.trading_channel == 1 && pwd != user.password) {
             return res.fail('支付密码错误');
         }
 
@@ -262,13 +272,13 @@ exports.pay = function (req, res) {
  * @api public
  */
 function dispatchPay(order, user, req, res, callback) {
-    //用户的余额
-    var balance = user.money;
     switch (order.trading_channel) {
         case 1:
             console.log('个人钱包支付');
+            //用户的余额
+            var balance = user.money;
             dealService.personalWallet(order.price, order.buy_id, order.author_id, function (err) {
-                console.log('[dispatchPay]',err);
+                console.log('[dispatchPay]', err);
                 if (!err) {
                     dealService.updateOrderInfo(order._id, {status: 1}, function (err) {
                         if (err) {
