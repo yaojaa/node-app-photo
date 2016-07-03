@@ -24,7 +24,7 @@
     }
 
     //点击打赏按钮
-    $('#reward').click(function () {
+    $('.btn-reward').click(function () {
         $body.append($html1);
         money = 1;
         var $moneyList = $('.money-list li',$html1).click(function(){

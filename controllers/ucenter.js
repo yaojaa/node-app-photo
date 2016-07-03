@@ -257,3 +257,8 @@ exports.userspace = function (req, res, next) {
     });
 
 };
+
+//显示个人钱包
+exports.showMoney = function (req, res) {
+    res.render('uc_money');
+};

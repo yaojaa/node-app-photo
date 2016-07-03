@@ -180,6 +180,7 @@ router.post('/uc/account/pwd', ucenter.pwd);
 //修改个人资料
 router.post('/uc/account/edit', ucenter.editInfo);
 router.get('/uc/photo', ucenter.showPhotos);
+router.get('/uc/money', ucenter.showMoney);
 
 //评论
 //添加

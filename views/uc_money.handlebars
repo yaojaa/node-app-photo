@@ -1,0 +1,34 @@
+{{#extend "stylesheets"}}
+    <style>
+        .m-container {
+            min-height: 600px;
+        }
+    </style>
+{{/extend}}
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/">主页</a><span class="divider"></span></li>
+        <li class="active">个人中心</li>
+    </ol>
+    <div class="row">
+        {{>uc_menu}}
+        <div class="col-lg-10">
+            <div class="m-container">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h3>个人钱包</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        账户余额: {{user.money}} <br>
+                        提现暂不支持,请联系客服。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

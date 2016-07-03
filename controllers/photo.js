@@ -116,7 +116,7 @@ exports.showDetail = function(req, res) {
         });
 
         res.render('photo-view', {
-            layout: null,
+            //layout: null,
             title: dataPhoto.title,
             photo: tmpData,
             headImg: tmpData.pictures[0],

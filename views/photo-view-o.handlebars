@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{{photo.title}} 摄影:{{author.nickname}}</title>
+    <meta name="description" content="风影网,摄影师自己的家园">
+    <meta name="keywords" content="摄影,图片库,摄影社区,作品,器材,照片,专业,图片,上传,分享,拍照,照相,相册,Web2.0,博客">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/photo-detail.css">
+    <link rel="stylesheet" href="/css/reward.css">
+    <script>
+        var PAGECONFIG = {
+            photoId: '{{photo.id}}',
+            authorId: '{{photo.author_id}}',
+            money: (Number({{loginUser.money}}) || 0) / 100,
+            isLogin: !!'{{loginUser.id}}'
+        }
+    </script>
+</head>
+<body>
+
+<div class="g-header">
+    <div class="g-container">
+        <div class="g-navbar">
+            <h1><a href="/">风影</a></h1>
+            <ul>
+                <li><a href="/">首页</a></li>
+                <li><a href="/photo">图集</a></li>
+                <li><a href="/aticle">图文故事</a></li>
+            </ul>
+        </div>
+        <div class="g-sign">
+            {{#if loginUser}}
+                <ul>
+                    <li><a href="/userspace"><img
+                            src="{{loginUser.avatar}}" alt="">{{loginUser.nickname}}</a></li>
+                    <li><a href="/create-photo">发照片</a></li>
+                    <li><a href="/create-aticle">发图文</a></li>
+                </ul>
+            {{else}}
+                <ul>
+                    <li><a href="/login">登录</a></li>
+                    <li><a href="/signup">注册</a></li>
+                </ul>
+            {{/if}}
+        </div>
+    </div>
+</div>
+
+
+<div class="g-container">
+    <div class="g-left-cnt">
+        <div class="g-left-wrapper">
+            <div class="g-img-box">
+                <div class="u-header">
+                    <h2>{{photo.title}}</h2>
+                    <!--<ul>-->
+                    <!--<li>分享</li>-->
+                    <!--<li>微博</li>-->
+                    <!--<li>QQ空间</li>-->
+                    <!--<li>朋友圈</li>-->
+                    <!--</ul>-->
+                </div>
+                <div class="u-img-wrapper">
+                    <img id="showImg" src="http://img.fengimage.com/{{headImg}}?imageView2/1/">
+                </div>
+                <div class="u-footer">
+                    <label>浏览 {{photo.browse_cnt}}</label>
+                    <label class="u-edit">喜欢 {{photo.like_cnt}}</label>
+                    <label>{{photo.update_at}}</label>
+                    <label>© 来自 @{{author.nickname}} 的版权作品</label>
+                </div>
+            </div>
+        </div>
+        <div class="m-comment">
+            <h2>用户评论 (<span id="comment-count"></span>条评论)</h2>
+            <textarea id="commentContent"></textarea>
+            <div style="text-align: right">
+                <button class="btn" id="submit-comment">提交评论</button>
+            </div>
+            <div class="m-comment-list">
+
+            </div>
+            <div class="load-comment-more">加载更多</div>
+        </div>
+    </div>
+
+    <div class="g-right-cnt">
+        <div class="u-header">
+            <div class="headpic">
+                <a href="/userspace/{{author.id}}"><img width="50" src="{{author.avatar}}?imageView2/1/w/50/"></a>
+            </div>
+            <div class="name nowrap">{{author.nickname}}</div>
+            <div class="m-flow">
+                {{#if authorIsNotSelf}}
+
+                    {{#if isFollow}}
+                        <label id="follow" data-type="1">✔ 已关注</label>
+                    {{else}}
+                        <label id="follow" data-type="2">+ 关注</label>
+                    {{/if}}
+
+                {{/if}}
+                <label id="reward">打赏</label>
+            </div>
+        </div>
+        <div class="m-img-collection">
+            {{#each photo.pictures}}
+                <img class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt="{{photo.title}} "/>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+
+<div class="g-footer">
+    <div class="g-container">
+        <ul>
+            <li><a href=""><h1>用户协议</h1></a></li>
+            <li><a href="">如何充值</a></li>
+            <li><a href="">升级VIP</a></li>
+        </ul>
+        <ul>
+            <li><a href=""><h1>招聘信息</h1></a></li>
+            <li><a href="">招聘兼职模特</a></li>
+            <li><a href="">招聘摄影师</a></li>
+            <li><a href="">给我们投稿</a></li>
+        </ul>
+        <ul>
+            <li><a href=""><h1>联系我们</h1></a></li>
+            <li><a href="">QQ : 100001</a></li>
+            <li><a href="">意见反馈</a></li>
+        </ul>
+        <ul>
+            <li><a href=""><h1>关于我们</h1></a></li>
+            <li><a href="">风影网fengimage@新浪微博</a></li>
+            <li><a href="">微信公众号：fengyingtuwen；风影图文</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 模版 -->
+<script type="text/template" id="template1">
+    <div class="g-layer-wrap">
+        <div class="g-layer-box">
+            <span class="u-close">X</span>
+            <h1>作品打赏</h1>
+            <ul class="money-list">
+                <li class="active" data-money="1">¥ 1.00</li>
+                <li data-money="5">¥ 5.00</li>
+                <li data-money="10">¥ 10.00</li>
+                <li data-money="25">¥ 25.00</li>
+                <li data-money="50">¥ 50.00</li>
+                <li data-money="100">¥ 100.00</li>
+            </ul>
+            <div class="u-money">
+                <label>其他金额&nbsp;:&nbsp;</label>
+                <input type="text" id="money" style="display: none;" placeholder="单位元"></div>
+            <div class="u-pay-type">
+                <h2>支付方式</h2>
+                <ul>
+                    <li>
+                        <label>个人钱包&nbsp;
+                            <input name="pay-type" value="1" type="radio"></label></li>
+                    <li>
+                        <label>微信&nbsp;
+                            <input name="pay-type" value="2" type="radio"></label></li>
+                    <li>
+                        <label>支付宝&nbsp;
+                            <input name="pay-type" value="3" type="radio"></label></li>
+                </ul>
+            </div>
+            <div class="g-layer-footer">
+                <button class="u-btn j-reward">下一步</button>
+            </div>
+            <div class="u-mark">
+                <small>注 : 账户余额(<span id="account-money">0</span>元)</small>
+            </div>
+            <div class="u-err-msg"></div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="template2">
+    <div class="g-layer-wrap">
+        <div class="g-layer-box g-layer-personal">
+            <span class="u-close">X</span>
+            <h1>个人钱包</h1>
+            <div class="u-money">
+                <label>支付金额 : ¥
+                    <span class="u-money-amount">0.0</span></label>
+            </div>
+            <div class="u-pay-pwd">
+                <label>支付密码 :</label>
+                <input type="password" placeholder="登录密码"></div>
+            <div class="g-layer-footer">
+                <button class="u-btn j-reward-pay">确定支付</button>
+            </div>
+            <div class="u-err-msg"></div>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="template3">
+    <div class="g-layer-wrap">
+        <div class="g-layer-box">
+            <span class="u-close">X</span>
+            <h1>微信支付</h1>
+            <div class="u-money">
+                <label>支付金额 : ¥
+                    <span class="u-money-amount">0.0</span></label>
+            </div>
+            <img class="u-wxcode" src="" alt="微信扫码支付">
+            <div class="u-mark">
+                <small>注 : 微信扫码支付</small></div>
+        </div>
+    </div>
+</script>
+<script src="/js/lib/jquery-1.11.1.min.js"></script>
+<script src="/js/reward.js"></script>
+<script>
+
+
+    var _showImg = document.getElementById('showImg');
+    $('.m-img-collection img').click(function () {
+        _showImg.src = this.src;
+    });
+
+    var pageNo = 1;
+    var isLoadComment = true;
+    function loadComment(_pageNo) {
+        pageNo = _pageNo || pageNo;
+        $.get('/comment/page', {belongId: PAGECONFIG.photoId, pageNo: pageNo}, function (json) {
+
+            if (json.errorno == 0) {
+                var html = '';
+                $('#comment-count').html(json.data.count);
+                if (json.data.list.length < 10) {
+                    isLoadComment = false;
+                }
+                for (var i = 0; i < json.data.list.length; i++) {
+                    var item = json.data.list[i];
+                    html += commentRender(item);
+                }
+            }
+            $('.m-comment-list').append(html);
+        });
+    }
+    function commentRender(item) {
+        return '<div class="m-cmt-item">' +
+                '<div class="icon">' +
+                '<a href="/userspace/' + item.id + '"><img width="50" height="50"' +
+                'src="' + item.userAvatar + '"></a>' +
+                '</div>' +
+                '<div class="cmt-cnt">' +
+                '<div class="top"><a href="/userspace/' + item.id + '">' + item.nickname + '</a>' +
+                '<div class="time">' + item.createAt + '</div>' +
+                '</div>' +
+                '<p>' + item.content +
+                '</p>' +
+                '</div>' +
+                '</div>'
+    }
+    loadComment();
+    $('.load-comment-more').click(function () {
+        pageNo++;
+        if (isLoadComment) {
+            loadComment();
+        } else {
+            this.innerHTML = '没有数据了';
+        }
+    });
+
+    $('#submit-comment').click(function () {
+        var commentContent = $('#commentContent').val();
+        $.post('/comment/add', {
+            replyId: '', //回复人ID (对某个人回复对应的这个人ID,可省略)
+            belongId: PAGECONFIG.photoId, //评论所属ID（图集的ID）
+            content: commentContent //回复内容},function(data){
+        }, function (data) {
+            if (data.errorno == -2) {
+                alert('请先登录');
+
+            } else if (data.errorno == 0) {
+                $('#commentContent').val('');
+                $('.m-comment-list').html('');
+                loadComment(1);
+            }
+        });
+    });
+
+    //关注取消关注
+    $('#follow').on('click', function () {
+        var author_id = '{{author._id}}';
+        var $btn = $(this);
+
+        if ($btn.data('type') == 1) {//已经关注
+
+            $.post('/api/v1/unfollow', {author_id: author_id}, function (data) {
+
+                if (data.errorno === 0) {
+                    $btn.text('+ 关注');
+                } else if (data.errorno == -1) {
+                    alert('先登录');
+                }
+            });
+
+        } else {
+
+            $.post('/api/v1/follow', {author_id: author_id}, function (data) {
+
+                if (data.errorno === 0) {
+                    $btn.text('✔ 已关注');
+                } else if (data.errorno == -1) {
+                    alert('先登录')
+                }
+
+            });
+
+        }
+
+
+    });
+</script>
+</body>
+</html>
