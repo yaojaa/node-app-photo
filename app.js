@@ -10,33 +10,9 @@ var session = require('express-session');
 var app = express();
 var cors = require('cors');
 
-var blocks={};
-var handlebars = require('express-handlebars')
-  .create({
-    defaultLayout: 'main',
-    helpers: {
-      extend:function(name,context){
-         var block = blocks[name];
-          if (!block) {
-              block = blocks[name] = [];
-          }
-          block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+//启用handlebars模版引擎
+require('./hbs')(app);
 
-      },
-      block:function(name){
-        var val = (blocks[name] || []).join('\n');
-          // clear the block
-          blocks[name] = [];
-          return val;
-      }
-    }
-  });
-
-
-
-// view engine setup
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
 
 //app.use(function(req,res,next){
@@ -47,18 +23,15 @@ app.set('views', __dirname + '/views');
 // //开启cookie
 app.use(cookieParser(config.session_secret));
 app.use(session({
-  secret: config.session_secret,
-  name: 'defautsession22',
+    secret: config.session_secret,
+    name: 'defautsession22',
 
-  cookie: {
-    maxAge: 1000 * 60 * 30 *5
-  }, //session设置30分钟
-  resave: false,
-  saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 30 * 5
+    }, //session设置30分钟
+    resave: false,
+    saveUninitialized: true,
 }))
-
-
-
 
 
 // uncomment after placing your favicon in /public
@@ -71,18 +44,18 @@ app.use(session({
 // app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: false
+    extended: false
 }));
 
 
 //处理session的中间件
 app.use(function (req, res, next) {
-  req.user = res.locals.user = req.session.user;
-  app.locals.default_avatar=config.avatar
-  next();
+    req.user = res.locals.user = req.session.user;
+    app.locals.default_avatar = config.avatar
+    next();
 });
 
-app.locals.qn_access=config.qn_access
+app.locals.qn_access = config.qn_access
 
 
 //验证是否自动登录 这里会执行多次
@@ -121,13 +94,11 @@ app.use('/', router);
 // });
 
 
-
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -135,31 +106,31 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function (err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 
 var server = app.listen(config.port, function () {
-  var host = 'localhost';
-  var port = server.address().port;
+    var host = 'localhost';
+    var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+    console.log('Example app listening at http://%s:%s', host, port);
 });
 
 module.exports = app;
