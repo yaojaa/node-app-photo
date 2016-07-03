@@ -11,6 +11,32 @@ exports.newAndSave = function (title,des, content, authorId, callback) {
     topic.save(callback);
 };
 
+
+exports.findLast=function(limit,callback){
+	Aticle.find({}).limit(limit).sort({time:1}).exec(callback)
+};
+
+
+exports.findList=function(page,limit,callback){
+
+
+    Aticle.count({},function(err,total){
+	Aticle.find({})
+	.limit(limit)
+	.skip((page-1)*10)
+	.sort('-create_at')
+	.exec(function(err,docs){
+
+		callback(err,docs,total)
+
+	})
+	})
+	
+
+};
+
+
+
 exports.findAll=function(callback){
 	Aticle.find({}).limit(100).sort({time:1}).exec(callback)
 };

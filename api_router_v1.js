@@ -62,6 +62,10 @@ router.post('/unfollow',auth.userRequired, photoController.unfollow);
 
 router.post('/tovip', ucenterController.tovip);
 
+//获取文章列表
+
+router.get('/getAticleList',aticleController.getAticleList)
+
 
 
 // router.get('/topics', topicController.index);

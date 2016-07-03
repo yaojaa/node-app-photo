@@ -10,16 +10,17 @@
                       
                         <div class="col-xs-8 col-md-10">
                            <p class="list-top">
-        <a href="/users/83f33485a278" target="_blank" class="author-name blue-link">{{author}}</a>
-        <em>·</em>
-        <span data-shared-at="{{update_at}}" class="time">{{update_at}} </span>
+        <a href="/userspace/{{author._id}}" target="_blank" class="author-name blue-link">{{author.nickname}}</a>
+        
+        <span data-shared-at="{{update_at}}" class="time">发表于 {{update_at}} </span>
       </p>
                              <h2><a class="title" href="/a/{{_id}}">{{title}}</a></h2>
                             
                             <p>{{des}} 
                                 
                             </p>
-                        </div>
+<!--                             <p><a href="">删除</a> <a href="">编辑</a></p>
+ -->                        </div>
                           <div class="col-xs-4 col-md-2">
                             <img src="{{thumb}}?imageView2/1/w/150/h/150" width="100%" class="img-rounded" >
                         </div>
@@ -32,9 +33,17 @@
 
             <div class="panel-footer" id="Jnext">
 
-                <span><a  class="prepage" title="上一页" href="/aticle?{{prev}}">上一页</a></span>
-                <span ><a class="nextpage" title="上一页" href="/aticle?{{next}}">下一页</a></span>
-                共计{{count}}条
+<nav>
+  <ul class="pager">
+    <li class="previous"><a href="/aticle?{{prev}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+    <li>共计{{count}}条</li>
+    <li class="next"><a href="/aticle?{{next}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>
+
+
+
+       
 
 
             </div>

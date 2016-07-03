@@ -1,23 +1,23 @@
 var config = require('../config');
 var Aticle = require('../proxy/aticle.js');
+var User = require('../proxy/user.js');
+
 var validator = require('validator');
-var eventproxy = require('eventproxy');
+var EventProxy = require('eventproxy');
 var moment = require('moment');
 var xss = require('xss');
-var _=require('../lib/tools.js')
+var _=require('../lib/tools.js');
+
+
 
 
 //findOnePage
 exports.showAticleList = function (req, res) {
-
     var page = req.query.p ? parseInt(req.query.p) : 1;
-
     Aticle.findOnePage(page, function (err, lists, count) {
-
         if (err) {
             return (err);
         }
-
     //正则提取图片路径
     function getImgSrc(str){
         var imgReg = /<img.*?(?:>|\/>)/gi;
@@ -38,28 +38,63 @@ exports.showAticleList = function (req, res) {
 
         }
 
-        lists = lists.map(function(item){
+
+var ep = new EventProxy();
+/**辅助函数**/
+
+function getAuthorById(id){
+    User.getUserID(id,function(err,data){
+        if (err){
+            return 
+        }
+        var clear_data=_.pick(data,['nickname','avatar','_id']);
+            ep.emit('got_file', clear_data);
+            return clear_data
+
+    })
+}
+
+
+        lists = lists.map(function(item,index){
+            console.log(index);
             return {
                 _id : item._id,
                 update_at : moment(item.update_at).format('YYYY-MM-DD'),
                 title : item.title,
                 content : item.content,
                 thumb:getImgSrc(item.content),
-                author:item.author,
+                author:getAuthorById(item.author_id),
                 des:item.des
             };
         });
 
-        console.log(lists)
 
 
-        res.render('aticle', {
+ep.after('got_file', lists.length, function (list) {
+
+    var _lists=lists.map(function(item,index){
+
+        item.author=list[index];
+        return item
+
+    })
+
+    console.log(_lists)
+
+  // 在所有文件的异步执行结束后将被执行
+  // 所有文件的内容都存在list数组中()
+          res.render('aticle', {
             page: page,
-            aticles: lists,
+            aticles: _lists,
             prev: 'p=' + parseInt(page - 1),
             next: 'p=' + parseInt(page + 1),
             count: count,
         })
+
+
+});
+
+
 
 
     })
@@ -103,15 +138,26 @@ exports.create = function (req, res) {
 
 exports.showDetail = function (req, res) {
     var _id = req.params._id;
+
     Aticle.findOneAticle(_id, function (err, doc) {
 
+        var aticle=_.pick(doc,['_id','title','content','author_id']);
+            aticle.update_at=moment(doc.update_at).format('YYYY-MM-DD hh:mm:ss'),
+        User.getUserID(doc.author_id,function(err,data){
 
-        var aticle=_.pick(doc,['_id','update_at','title','content','author'])
+            aticle.author={
+                nickname:data.nickname,
+                avatar:data.avatar
+            };
 
 
         res.render('aticle-view', {
             aticle: aticle
         })
+
+        })
+
+
 
 
     })

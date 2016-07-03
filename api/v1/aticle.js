@@ -1,9 +1,10 @@
 var config = require('../../config');
 var validator = require('validator');
-
-var models = require('../../models');
-var AticleModel = models.Aticle;
 var AticleProxy = require('../../proxy').Aticle;
+var EventProxy = require('eventproxy');
+
+var moment = require('moment');
+
 
 
 
@@ -12,37 +13,95 @@ limit 限制数量
 page 第几页
 */
 
-var index = function(req, res, next) {
-  var limit = Number(req.query.limit) || config.list_topic_count;
-  var page = parseInt(req.query.page, 10) || 1;
-  var query = {};
 
-  AticleModel.find({}).limit(limit)
-    .skip((page - 1) * limit)
-    .sort({
-      time: 1
-    }).exec(function(err, topics) {
+exports.getAticleList = function (req, res) {
+      var page = req.query.page ? parseInt(req.query.page) : 1;
 
-      var datas = topics.map(function(item) {
-
-        return newdata = {
-          id: item._id,
-          title: item.title,
-          content: item.content,
-          des: item.discrib,
-          time: item.update_at
+    var number = req.query.number ? parseInt(req.query.number) : 6;
+    Aticle.findList(page,number, function (err, lists) {
+        if (err) {
+            return (err);
+        }
+    //正则提取图片路径
+    function getImgSrc(str){
+        var imgReg = /<img.*?(?:>|\/>)/gi;
+        var srcReg = /src=['"]?([^'"]*)['"]?/i;
+        var arr = str.match(imgReg);
+        if(arr==null){
+            return 'nopic'
         }
 
-      })
+        for (var i = 0; i < arr.length; i++) {
+            var src = arr[i].match(srcReg);
+            if(src[1]){
+            return (src[1])
+            }else{
+                 return 'nopic'
+            }
+        }
 
-      res.send({
-        data: datas
-      });
+        }
+
+
+var ep = new EventProxy();
+/**辅助函数**/
+
+function getAuthorById(id){
+    User.getUserID(id,function(err,data){
+        if (err){
+            return 
+        }
+        var clear_data=_.pick(data,['nickname','avatar','_id']);
+            ep.emit('got_file', clear_data);
+            return clear_data
+
+    })
+}
+
+
+        lists = lists.map(function(item,index){
+            console.log(index);
+            return {
+                _id : item._id,
+                update_at : moment(item.update_at).format('YYYY-MM-DD'),
+                title : item.title,
+                content : item.content,
+                thumb:getImgSrc(item.content),
+                author:getAuthorById(item.author_id),
+                des:item.des
+            };
+        });
+
+
+
+ep.after('got_file', lists.length, function (list) {
+
+    var _lists=lists.map(function(item,index){
+
+        item.author=list[index];
+        return item
 
     })
 
+          res.json( {
+            errorno:0,
+            msg:'OK'
+            aticles: _lists
+        })
 
-}
+
+});
+
+
+
+
+    })
+};
+
+
+
+
+
 
 var delAticle = function(req, res, next) {
   console.log(req.body.id);
