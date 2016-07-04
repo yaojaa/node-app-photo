@@ -85,7 +85,7 @@ ep.after('got_file', lists.length, function (list) {
 
           res.json( {
             errorno:0,
-            msg:'OK'
+            msg:'OK',
             aticles: _lists
         })
 
