@@ -26,6 +26,9 @@ module.exports = function (app) {
                         format = 'YYYY-MM-DD';
                     }
                     return moment(time).format(format);
+                },
+                formatMoney: function (money) {
+                    return money * 0.01;
                 }
             }
         });

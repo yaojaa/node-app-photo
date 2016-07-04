@@ -236,9 +236,10 @@ exports.pay = function (req, res) {
             }
         }
 
-        if (ret.trading_channel == 1 && pwd != user.password) {
-            return res.fail('支付密码错误');
-        }
+        //去掉密码验证
+        // if (ret.trading_channel == 1 && pwd != user.password) {
+        //     return res.fail('支付密码错误');
+        // }
 
         //分发支付方式
         dispatchPay(ret, user, req, res, function (err) {
