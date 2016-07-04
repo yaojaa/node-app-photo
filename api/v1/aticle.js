@@ -3,7 +3,9 @@ var validator = require('validator');
 var AticleProxy = require('../../proxy').Aticle;
 var User = require('../../proxy').User;
 var _ =require('../../lib/tools');
+
 var EventProxy = require('eventproxy');
+
 var moment = require('moment');
 
 
@@ -85,17 +87,14 @@ var getAticleList = function (req, res,next) {
         var a_lists=lists.map(function(item,index){
 
             item.author=list[index];
+            return item
 
-          res.json( {
-            errorno:0,
-            msg:'OK',
-            aticles: _lists
         })
 
               res.json( {
                 errorno:0,
                 msg:'OK',
-                data: a_lists
+                aticles: a_lists
             })
 
 
