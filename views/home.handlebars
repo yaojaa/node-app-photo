@@ -154,6 +154,7 @@
     padding: 10px 0;
     position: relative;
     background: #fff;
+    min-height: 150px
 }
 .vision-item .item-cover {
     display: inline-block;
@@ -237,6 +238,8 @@
 
 {{/extend}}
 
+
+
 <div id="banner" class="banner">
   <ul>
 
@@ -316,65 +319,27 @@
 
   </ul>
 
-  <div class="tab-content" id="aticle-container">
+
+
+  <div class="tab-content" id="aticleContainer">
   <ul class="pagelist-wrapper">
 
+<my-component> </my-component>
+<!--   <li class="vision-item" v-for="item in items">
   
-  <li class="vision-item ">
-  
-    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
-      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
+    <a :href="'/a/'+item._id" class="item-cover" target="_blank">
+      <img :src="thumb">
     </a>
     <div class="item-info">
-      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
-      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
-      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
+      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" target="_blank">    {{item.title}}</a>
+      <p class="item-author"><a href="">{{author.nickname}}</a> {{create_at }}</p>
+      <p class="item-desc">{{des }}</p>
     </div>
     
-</li>
+</li> -->
 
 
-  <li class="vision-item ">
   
-    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
-      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
-    </a>
-    <div class="item-info">
-      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
-      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
-      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
-    </div>
-    
-</li>
-
-
-  <li class="vision-item ">
-  
-    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
-      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
-    </a>
-    <div class="item-info">
-      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
-      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
-      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
-    </div>
-    
-</li>
-
-
-  <li class="vision-item ">
-  
-    <a href="https://tuchong.com/1119183/t/13232006/" class="item-cover" target="_blank">
-      <img src="https://photo.tuchong.com/1119183/g/28997984.jpg">
-    </a>
-    <div class="item-info">
-      <a href="https://tuchong.com/1119183/t/13232006/" class="item-title" title="" 街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……"="" target="_blank">"街拍鼻祖"比尔·坎宁安辞世，这次房东不用再撵走他了……</a>
-      <p class="item-author"><a href="">水电费</a> 大约15小时之前</p>
-      <p class="item-desc">据《纽约时报》消息，“街拍鼻祖”比尔•坎宁安（Bill.Cunningham）于6月25日（美国时间）在纽约去世，享年87岁。                                                         靠着单车，老式相机和一件蓝色制服在街头认真工作的Bill。纽约是浮华和虚伪之地，比尔却像个赤子他每天吃着3美元的早餐，穿着20美元的劳保服，雨天用胶带修补那件满是补丁的雨衣。如果认识他，会不会有好心人施舍钱财给他也说不定。但这一切都是他自己选择...</p>
-    </div>
-    
-</li>
-
       
   </ul>
 
@@ -400,12 +365,15 @@
   </div>
 
 {{/if}}
+
+
 <div class="navbar-gradient"></div>
 
 
 {{#extend "customerScript"}}
 
   <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js"></script>
+  <script type="text/javascript" src="/lib/aticle_list.component.js"></script>
 
   <script type="text/javascript">
 
@@ -437,14 +405,26 @@
 
     }
     showPicture(1);
+
+//获取最新图文
+
+// 创建根实例
+new Vue({
+  el: '#aticleContainer'
+})
+
+
+
+
   </script>
 
   <script src="//unslider.com/unslider.js"></script>
 
   <script>
     $(function () {
-      //$('.banner').unslider();
+      $('.banner').unslider();
     });
+
   </script>
 
 {{/extend}}

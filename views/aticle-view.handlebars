@@ -43,6 +43,10 @@
     margin-right: 10px;
     width: 40px;
 }
+
+#aticleContent .author-info .avatar  img{
+    margin:0
+}
 #aticleContent .author-info .label {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: 1px solid #e78170;
@@ -85,16 +89,16 @@ h1.heading{
     <div id="aticleContent">
     <div class="author-info">
             
-            <a href="/users/c21kdr" class="avatar">
-              <img alt="100" src="http://upload.jianshu.io/users/upload_avatars/6164/44e4f91123e3?imageMogr/thumbnail/90x90/quality/100">
+            <a href="/userspace/{{aticle.author_id}}" class="avatar">
+              <img width="40" height="40" src="{{aticle.author.avatar}}">
 </a>            <span class="label">
                 作者
             </span>
             <a href="/users/c21kdr" class="author-name blue-link">
-              <span>红叶舞秋山</span>
+              <span>{{aticle.author.nickname}}</span>
 </a>              
             <div>
-              <span>{{aticle.update_at}}</span>
+              <span>发表于{{aticle.update_at}}</span>
             </div>
           </div>
 
