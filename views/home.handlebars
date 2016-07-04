@@ -154,6 +154,7 @@
     padding: 10px 0;
     position: relative;
     background: #fff;
+    min-height: 150px
 }
 .vision-item .item-cover {
     display: inline-block;
@@ -323,8 +324,8 @@
   <div class="tab-content" id="aticleContainer">
   <ul class="pagelist-wrapper">
 
-  
-  <li class="vision-item" v-for="item in items">
+<my-component> </my-component>
+<!--   <li class="vision-item" v-for="item in items">
   
     <a :href="'/a/'+item._id" class="item-cover" target="_blank">
       <img :src="thumb">
@@ -335,7 +336,7 @@
       <p class="item-desc">{{des }}</p>
     </div>
     
-</li>
+</li> -->
 
 
   
@@ -372,6 +373,7 @@
 {{#extend "customerScript"}}
 
   <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js"></script>
+  <script type="text/javascript" src="/lib/aticle_list.component.js"></script>
 
   <script type="text/javascript">
 
@@ -406,18 +408,10 @@
 
 //获取最新图文
 
-
-
-
-  $.get('api/v1/getAticles',function(res){
-      var vm = new Vue({
-        el: '#aticleContainer',
-        data:{
-          items:[{"_id":"577899702e10b04034127f47","update_at":"2016-07-03","title":"专家组确认盐城6·23龙卷风为EF4级 风力超17级","thumb":"http://img.fengimage.com/FsPl9QnTNNp4020KXzOprl1CQlVP"}]
-        }
-      })
-  })
-
+// 创建根实例
+new Vue({
+  el: '#aticleContainer'
+})
 
 
 
