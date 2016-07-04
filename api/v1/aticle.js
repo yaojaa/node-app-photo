@@ -1,8 +1,9 @@
 var config = require('../../config');
 var validator = require('validator');
 var AticleProxy = require('../../proxy').Aticle;
+var User = require('../../proxy').User;
+var _ =require('../../lib/tools');
 var EventProxy = require('eventproxy');
-
 var moment = require('moment');
 
 
@@ -14,14 +15,20 @@ page 第几页
 */
 
 
-exports.getAticleList = function (req, res) {
-      var page = req.query.page ? parseInt(req.query.page) : 1;
+var getAticleList = function (req, res,next) {
 
+    var page = req.query.page ? parseInt(req.query.page,10) : 1;
+        page = page > 0 ? page : 1;
     var number = req.query.number ? parseInt(req.query.number) : 6;
-    Aticle.findList(page,number, function (err, lists) {
+
+
+    AticleProxy.findList(page,number, function (err, lists) {
+      console.log(err,lists)
         if (err) {
             return (err);
         }
+
+
     //正则提取图片路径
     function getImgSrc(str){
         var imgReg = /<img.*?(?:>|\/>)/gi;
@@ -43,20 +50,20 @@ exports.getAticleList = function (req, res) {
         }
 
 
-var ep = new EventProxy();
-/**辅助函数**/
+      var ep = new EventProxy();
+      /**辅助函数**/
 
-function getAuthorById(id){
-    User.getUserID(id,function(err,data){
-        if (err){
-            return 
-        }
-        var clear_data=_.pick(data,['nickname','avatar','_id']);
-            ep.emit('got_file', clear_data);
-            return clear_data
+      function getAuthorById(id){
+          User.getUserID(id,function(err,data){
+              if (err){
+                  return 
+              }
+              var clear_data=_.pick(data,['nickname','avatar','_id']);
+                  ep.emit('got_file', clear_data);
+                  return clear_data
 
-    })
-}
+          })
+      }
 
 
         lists = lists.map(function(item,index){
@@ -65,7 +72,6 @@ function getAuthorById(id){
                 _id : item._id,
                 update_at : moment(item.update_at).format('YYYY-MM-DD'),
                 title : item.title,
-                content : item.content,
                 thumb:getImgSrc(item.content),
                 author:getAuthorById(item.author_id),
                 des:item.des
@@ -74,23 +80,23 @@ function getAuthorById(id){
 
 
 
-ep.after('got_file', lists.length, function (list) {
+    ep.after('got_file', lists.length, function (list) {
 
-    var _lists=lists.map(function(item,index){
+        var a_lists=lists.map(function(item,index){
 
-        item.author=list[index];
-        return item
+            item.author=list[index];
+            return item
 
-    })
-
-          res.json( {
-            errorno:0,
-            msg:'OK'
-            aticles: _lists
         })
 
+              res.json( {
+                errorno:0,
+                msg:'OK',
+                data: a_lists
+            })
 
-});
+
+    });
 
 
 
@@ -148,9 +154,9 @@ var createAticle = function(req, res, next) {
 
 exports.delAticle = delAticle;
 exports.createAticle = createAticle;
+exports.getAticleList = getAticleList;
 
 
-exports.index = index;
 
 
 

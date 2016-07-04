@@ -27,10 +27,11 @@ var config            = require('./config');
 var router            = app.Router();
 
 //获取用户信息
-router.post('/getUserInfoById',ucenterController.getUserInfoById)
+router.post('/getUserInfoById',ucenterController.getUserInfoById);
 
+//获取文章列表
 
-router.get('/aticles', aticleController.index);
+router.get('/getAticles', aticleController.getAticleList);
 
 router.get('/videolist', videoController.videolist);
 
@@ -62,9 +63,7 @@ router.post('/unfollow',auth.userRequired, photoController.unfollow);
 
 router.post('/tovip', ucenterController.tovip);
 
-//获取文章列表
 
-router.get('/getAticleList',aticleController.getAticleList)
 
 
 

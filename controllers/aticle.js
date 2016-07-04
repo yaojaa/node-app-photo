@@ -6,101 +6,99 @@ var validator = require('validator');
 var EventProxy = require('eventproxy');
 var moment = require('moment');
 var xss = require('xss');
-var _=require('../lib/tools.js');
-
+var _ = require('../lib/tools.js');
 
 
 
 //findOnePage
-exports.showAticleList = function (req, res) {
+exports.showAticleList = function(req, res) {
     var page = req.query.p ? parseInt(req.query.p) : 1;
-    Aticle.findOnePage(page, function (err, lists, count) {
+    Aticle.findOnePage(page, function(err, lists, count) {
         if (err) {
             return (err);
         }
-    //正则提取图片路径
-    function getImgSrc(str){
-        var imgReg = /<img.*?(?:>|\/>)/gi;
-        var srcReg = /src=['"]?([^'"]*)['"]?/i;
-        var arr = str.match(imgReg);
-        if(arr==null){
-            return 'nopic'
-        }
-
-        for (var i = 0; i < arr.length; i++) {
-            var src = arr[i].match(srcReg);
-            if(src[1]){
-            return (src[1])
-            }else{
-                 return 'nopic'
+        //正则提取图片路径
+        function getImgSrc(str) {
+            var imgReg = /<img.*?(?:>|\/>)/gi;
+            var srcReg = /src=['"]?([^'"]*)['"]?/i;
+            var arr = str.match(imgReg);
+            if (arr == null) {
+                return 'nopic'
             }
-        }
+
+            for (var i = 0; i < arr.length; i++) {
+                var src = arr[i].match(srcReg);
+                if (src[1]) {
+                    return (src[1])
+                } else {
+                    return 'nopic'
+                }
+            }
 
         }
 
 
-var ep = new EventProxy();
-/**辅助函数**/
+        var ep = new EventProxy();
+        /**辅助函数**/
 
-function getAuthorById(id){
-    User.getUserID(id,function(err,data){
-        if (err){
-            return 
+        function getAuthorById(id) {
+            User.getUserID(id, function(err, data) {
+                if (err) {
+                    return
+                }
+                var clear_data = _.pick(data, ['nickname', 'avatar', '_id']);
+                ep.emit('got_file', clear_data);
+                return clear_data
+
+            })
         }
-        var clear_data=_.pick(data,['nickname','avatar','_id']);
-            ep.emit('got_file', clear_data);
-            return clear_data
-
-    })
-}
 
 
-        lists = lists.map(function(item,index){
+        lists = lists.map(function(item, index) {
             console.log(index);
             return {
-                _id : item._id,
-                update_at : moment(item.update_at).format('YYYY-MM-DD'),
-                title : item.title,
-                content : item.content,
-                thumb:getImgSrc(item.content),
-                author:getAuthorById(item.author_id),
-                des:item.des
+                _id: item._id,
+                update_at: moment(item.update_at).format('YYYY-MM-DD'),
+                title: item.title,
+                content: item.content,
+                thumb: getImgSrc(item.content),
+                author: getAuthorById(item.author_id),
+                des: item.des
             };
         });
 
 
 
-ep.after('got_file', lists.length, function (list) {
+        ep.after('got_file', lists.length, function(list) {
 
-    var _lists=lists.map(function(item,index){
+            var _lists = lists.map(function(item, index) {
 
-        item.author=list[index];
-        return item
+                item.author = list[index];
+                return item
 
-    })
+            })
 
-    console.log(_lists)
+            console.log(_lists)
 
-  // 在所有文件的异步执行结束后将被执行
-  // 所有文件的内容都存在list数组中()
-          res.render('aticle', {
-            page: page,
-            aticles: _lists,
-            prev: 'p=' + parseInt(page - 1),
-            next: 'p=' + parseInt(page + 1),
-            count: count,
-        })
+            // 在所有文件的异步执行结束后将被执行
+            // 所有文件的内容都存在list数组中()
+            res.render('aticle', {
+                page: page,
+                aticles: _lists,
+                prev: 'p=' + parseInt(page - 1),
+                next: 'p=' + parseInt(page + 1),
+                count: count,
+            })
 
 
-});
-
+        });
 
 
 
     })
 };
 
-exports.showCreate = function (req, res) {
+exports.showCreate = function(req, res) {
 
     res.render('create-aticle', {
         user: req.session.user,
@@ -110,53 +108,56 @@ exports.showCreate = function (req, res) {
 
 }
 
-exports.create = function (req, res) {
+exports.create = function(req, res) {
 
     var title = xss(validator.trim(req.body.title));
     var content = xss(validator.trim(req.body.content));
-    var authorId = req.session.user._id ;
+    var authorId = req.session.user._id;
 
-    if(!authorId){
+    if (!authorId) {
 
-                res.render('create-aticle', {success: '请先登录'});
-                return
+        res.render('create-aticle', {
+            success: '请先登录'
+        });
+        return
 
     }
 
 
-    Aticle.newAndSave(title, content, authorId, function (err) {
+    Aticle.newAndSave(title, content, authorId, function(err) {
 
         if (err) {
             return next(err);
         }
-        res.render('create-aticle', {success: '发布成功！'});
+        res.render('create-aticle', {
+            success: '发布成功！'
+        });
 
     })
 
 };
 
 
-exports.showDetail = function (req, res) {
+exports.showDetail = function(req, res) {
     var _id = req.params._id;
 
-    Aticle.findOneAticle(_id, function (err, doc) {
+    Aticle.findOneAticle(_id, function(err, doc) {
 
-        var aticle=_.pick(doc,['_id','title','content','author_id']);
-            aticle.update_at=moment(doc.update_at).format('YYYY-MM-DD hh:mm:ss'),
-        User.getUserID(doc.author_id,function(err,data){
+        var aticle = _.pick(doc, ['_id', 'title', 'content', 'author_id']);
+        aticle.update_at = moment(doc.update_at).format('YYYY-MM-DD hh:mm:ss'),
+        User.getUserID(doc.author_id, function(err, data) {
 
-            aticle.author={
-                nickname:data.nickname,
-                avatar:data.avatar
+            aticle.author = {
+                nickname: data.nickname,
+                avatar: data.avatar
             };
 
 
-        res.render('aticle-view', {
-            aticle: aticle
-        })
+            res.render('aticle-view', {
+                aticle: aticle
+            })
 
         })
-
 
 
 
@@ -166,11 +167,9 @@ exports.showDetail = function (req, res) {
 }
 
 
-exports.delAticleById = function (req, res) {
+exports.delAticleById = function(req, res) {
     var id = req.body.id;
-    Aticle.delAticleById(id, function () {
+    Aticle.delAticleById(id, function() {
 
     })
 }
-
-
