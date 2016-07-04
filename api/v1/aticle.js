@@ -85,8 +85,11 @@ var getAticleList = function (req, res,next) {
         var a_lists=lists.map(function(item,index){
 
             item.author=list[index];
-            return item
 
+          res.json( {
+            errorno:0,
+            msg:'OK',
+            aticles: _lists
         })
 
               res.json( {
