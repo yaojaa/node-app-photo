@@ -82,12 +82,18 @@ h1.heading{
 <ol class="breadcrumb">
         <li><a href="/">主页</a><span class="divider"></span></li>
         
-        <li class="active">正文</li>
+        <li class="active">图文故事</li>
         
       </ol>
 
     <div id="aticleContent">
     <div class="author-info">
+
+        <div class="share pull-right">
+            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","weixin","sqq"],"viewText":"分享此作品：","viewSize":"24"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+        </div>
             
             <a href="/userspace/{{aticle.author_id}}" class="avatar">
               <img width="40" height="40" src="{{aticle.author.avatar}}">
@@ -105,11 +111,11 @@ h1.heading{
 
 
 
-    	    <h1 class="heading">{{aticle.title}} </h1>
+    	    <h1 class="heading">{{aticle.title}}  {{#if is_author}} <small><a href="?edit">编辑</a></small>  {{/if}}</h1>
 <hr>
     	{{{aticle.content}}}
         <hr>
-        <div title="" data-html="true" data-toggle="tooltip" class="author-copyright" data-original-title="转载请联系作者获得授权，并标注“简书作者”。">
+        <div title="" data-html="true" data-toggle="tooltip" class="author-copyright" data-original-title="转载请联系作者获得授权，并标注“风影作者”。">
             <i class="fa fa-copyright"></i> 著作权归作者所有
           </div>
     </div>
