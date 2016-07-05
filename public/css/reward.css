@@ -158,8 +158,11 @@
 
 .g-layer-box .u-mark {
     text-align: right;
-    margin-top: -10px;
+    margin-top: 10px;
     color: #999;
+}
+.g-layer-box .u-mark.weixin{
+    margin-top: -10px;
 }
 
 .g-layer-box .u-err-msg {

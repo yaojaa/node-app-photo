@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="/vendor/ilightbox/skin.css">
     <link rel="stylesheet" href="/css/photo-detail.css">
     <link rel="stylesheet" href="/css/reward.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/sweetalert/sweetalert.css">
 
     <script>
         var PAGECONFIG = {
@@ -80,7 +81,7 @@
             <span class="u-close">X</span>
             <h1>作品打赏</h1>
             <ul class="money-list">
-                <li class="active" data-money="1">¥ 1.00</li>
+                <li class="active" data-money="2">¥ 2.00</li>
                 <li data-money="5">¥ 5.00</li>
                 <li data-money="10">¥ 10.00</li>
                 <li data-money="25">¥ 25.00</li>
@@ -143,7 +144,7 @@
                     <span class="u-money-amount">0.0</span></label>
             </div>
             <img class="u-wxcode" src="" alt="微信扫码支付">
-            <div class="u-mark">
+            <div class="u-mark weixin">
                 <small>注 : 微信扫码支付</small></div>
         </div>
     </div>
@@ -157,7 +158,7 @@
     <script src="/vendor/ilightbox/js/ilightbox.js"></script>
     <script src="/js/comment.js"></script>
     <script src="/js/reward.js"></script>
-
+    <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 
     <script>
 
@@ -177,7 +178,7 @@
                     if (data.errorno === 0) {
                         $btn.text('+ 关注');
                     } else if (data.errorno == -1) {
-                        alert('先登录');
+                        swal('请先登录');
                     }
                 });
 
@@ -188,7 +189,7 @@
                     if (data.errorno === 0) {
                         $btn.text('✔ 已关注');
                     } else if (data.errorno == -1) {
-                        alert('先登录')
+                        swal('请先登录');
                     }
 
                 });
