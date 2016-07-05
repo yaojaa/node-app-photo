@@ -272,6 +272,11 @@ textarea {
     margin-bottom: 40px
 }
 
+#photos .main-area {
+    background-color: #f8f8f8;
+    letter-spacing: -4px;
+}
+
 #photos img {
     display: block;
     max-width: 100%;

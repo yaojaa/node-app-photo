@@ -15,8 +15,8 @@ Vue.component('my-component', function(resolve, reject) {
 					 '<a href="/a/{{item._id}}" class="item-cover" target="_blank"><img :src="item.thumb"></a>' 
 					 	+ '<div class="item-info">'
 						+ '<a href="/a/{{item._id}}" class="item-title" target="_blank"> {{item.title}}</a>'
-						+ '<p class="item-author"><a href="">{{item.author.nickname}}</a> {{item.create_at }}</p>'
-						+ '<p class="item-desc">{{des}}</p>'
+						+ '<p class="item-author"><a href="/userspace/{{item.author._id}}">{{item.author.nickname}}</a> 发表于 {{item.update_at }}</p>'
+						+ '<p class="item-desc">{{item.des}}</p>'
 						+ '</div>'
 						+'</li>',
 					data: function () {
