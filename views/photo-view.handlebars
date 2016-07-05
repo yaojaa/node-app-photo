@@ -35,24 +35,24 @@
                         {{#if authorIsNotSelf}}
 
                             {{#if isFollow}}
-                                <label class="button button-rounded button-primary btn-follow" id="follow" data-type="1">✔ 已关注</label>
+                                <label class="button button-rounded button-tiny button-small btn-follow" id="follow" data-type="1">✔ 已关注</label>
                             {{else}}
-                                <label class="button button-rounded button-primary btn-follow" id="follow" data-type="2">+ 关注</label>
+                                <label class="button button-rounded button-primary button-small btn-follow" id="follow" data-type="2">+ 关注</label>
                             {{/if}}
 
                         {{/if}}
-                        <label class="button button-rounded button-caution ">打赏</label>
-                        <label class="btn btn-danger j-btn-reward">打赏</label>
+                        <label class="button button-rounded button-caution button-small  j-btn-reward">打赏</label>
                     </div>
                 </div>
             </div>
             <section class="photo-details-section">
                 <div id="photos" class="photo">
                     {{#each photo.pictures}}
-                        <a href="http://img.fengimage.com/{{this}}" data-type="image">
+                       <div class="main-area"><a href="http://img.fengimage.com/{{this}}" data-type="image">
                             <img class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/"
                                  alt="{{photo.title}} "/>
                         </a>
+                        </div> 
                     {{/each}}
                 </div>
             </section>
