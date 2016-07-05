@@ -27,9 +27,20 @@
     background-color: #fff;
     padding: 10px
 }
+
 .g-layer-box.g-layer-personal {
     height: 229px;
 }
+
+.g-layer-box.g-layer-weixin {
+    height: 320px;
+    width: 260px;
+     -webkit-box-shadow: 0 0 30px 10px #aaa;
+     -moz-box-shadow: 0 0 30px 10px #aaa;
+    box-shadow: 0 0 30px 10px #aaa;
+    text-align: center;
+}
+
 .g-layer-box .u-close {
     float: right;
     cursor: pointer;
@@ -46,11 +57,11 @@
     font-weight: normal
 }
 
-.g-layer-box .money-list{
+.g-layer-box .money-list {
     overflow: hidden;
 }
 
-.g-layer-box .money-list li{
+.g-layer-box .money-list li {
     float: left;
     width: 30%;
     text-align: center;
@@ -80,7 +91,8 @@
 }
 
 .g-layer-box .u-money, .g-layer-box .u-pay-pwd {
-    margin: 20px
+    margin: 20px;
+    position: relative;
 }
 
 .g-layer-box .u-money label {
@@ -146,8 +158,8 @@
 
 .g-layer-box .u-mark {
     text-align: right;
-    margin-top: 10px;
-    color: #999
+    margin-top: -10px;
+    color: #999;
 }
 
 .g-layer-box .u-err-msg {
@@ -158,7 +170,7 @@
 }
 
 .g-layer-box .u-wxcode {
-    margin-left: 10px;
-    width: 200px;
-    height: 200px
+    width: 240px;
+    height: 240px;
+    margin-top: -32px;
 }
