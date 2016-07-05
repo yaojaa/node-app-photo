@@ -1,7 +1,80 @@
 {{#extend "stylesheets"}}
     <style>
-        .m-container {
-            min-height: 600px;
+        .walletTitle {
+            margin: 70px 0;
+        }
+
+        .walletContent {
+            background-color: whitesmoke;
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 1px;
+            padding: 10px 15px;
+        }
+
+        .walletLeft {
+            border-right: solid 1px #9c9c9c;
+        }
+
+        .userIcon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .rightText {
+            display: inline-block;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .userName {
+            font-size: 22px;
+            position: absolute;
+            margin-top: -36px;
+        }
+
+        .colFirst {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .colFirst span {
+            font-size: 12px;
+            color: #999999;
+            padding-left: 10px;
+        }
+
+        .walletRight {
+            line-height: 28px;
+        }
+
+        .money {
+            font-size: 24px;
+        }
+
+        .walletRight a {
+            text-decoration: none;
+            font-size: 12px;
+            padding: 2px 4px;
+            color: #ffffff;
+            background-color: #00a1de;
+            border-radius: 2px;
+        }
+
+        .recharge {
+            margin: 0 5px 0 10px;
+        }
+
+        .prompt {
+            color: #9B9B9B;
+            font-size: 12px;
+            padding-left: 10px;
+        }
+        .walletContent {
+            margin-bottom:  300px;
         }
     </style>
 {{/extend}}
@@ -13,18 +86,23 @@
     <div class="row">
         {{>uc_menu}}
         <div class="col-lg-10">
-            <div class="m-container">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <h3>个人钱包</h3>
-                            </div>
+            <h2 class="text-center walletTitle">我的账户</h2>
+            <div class="walletContent col-md-8">
+                <div class="row">
+                    <div class="col-md-4 walletLeft">
+                        <a href="/userspace/{{user.id}}"><img src="{{user.avatar}}" class="userIcon"></a>
+                        <div class="rightText">
+                            <div class="userName">{{user.nickname}}</div>
+                            <!--<div style="color:#999999"><img src="img/appIcon.png" style="width:10px; vertical-align: text-bottom;margin-right: 5px;">绑定手机</div>-->
                         </div>
                     </div>
-                    <div class="panel-body">
-                        账户余额: {{user.money}} <br>
-                        提现暂不支持,请联系客服。
+                    <div class="col-md-8 walletRight">
+                        <div class="colFirst">账户余额 <span>每次提现最小额度为 ¥100.00, 每次提现收取 5% 手续费</span></div>
+                        <div>
+                            <span class="money">{{formatMoney user.money}}</span>元
+                            <a href="" class="recharge btn disabled">充值</a>
+                            <a href="" class="btn disabled">提现</a><span class="prompt">当前账户余额不足</span>
+                        </div>
                     </div>
                 </div>
             </div>

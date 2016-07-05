@@ -26,9 +26,9 @@
                 <div class="photo-base-info">
                     <h1>{{photo.title}}</h1>
                     <div class="photo-mark">
-                        <label for="">浏览{{photo.browse_cnt}}</label>
-                        <label for="">喜欢{{photo.like_cnt}}</label>
-                        <label for="">更新{{photo.update_at}}</label>
+                        <label>浏览{{photo.browse_cnt}}</label>
+                        <!--<label>喜欢{{photo.like_cnt}}</label>-->
+                        <label>更新{{photo.update_at}}</label>
                     </div>
                     <div class="photo-author">
                     <b style="vertical-align: -2px;">&copy;</b>    <a href="/userspace/{{author.id}}">{{author.nickname}}</a>
@@ -42,6 +42,7 @@
 
                         {{/if}}
                         <label class="button button-rounded button-caution ">打赏</label>
+                        <label class="btn btn-danger j-btn-reward">打赏</label>
                     </div>
                 </div>
             </div>
