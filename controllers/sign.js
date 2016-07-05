@@ -362,7 +362,6 @@ exports.login = function (req, res, next) {
     //来路
     var refer = req.session._loginReferer || '/';
 
-    console.log(req.session._loginReferer)
 
 
     if (!email || !password) {

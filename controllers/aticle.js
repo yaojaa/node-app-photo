@@ -7,6 +7,7 @@ var EventProxy = require('eventproxy');
 var moment = require('moment');
 var xss = require('xss');
 var _ = require('../lib/tools.js');
+var util = require('../util/util.js');
 
 
 
@@ -78,8 +79,6 @@ exports.showAticleList = function(req, res) {
 
             })
 
-            console.log(_lists)
-
             // 在所有文件的异步执行结束后将被执行
             // 所有文件的内容都存在list数组中()
             res.render('aticle', {
@@ -137,9 +136,48 @@ exports.create = function(req, res) {
 
 };
 
+/*********编辑文章*********/
+
+exports.showEdit = function(req, res, next) {
+    var photo_id = req.params.tid;
+
+    Photo.findPhotoById(photo_id, function(err, photo) {
+        if (!photo) {
+            res.render('notify', { error: '此图集不存在或已被删除。' });
+            return;
+        }
+
+        console.log(photo)
+
+        if (photo.author_id) {
+
+
+            // if (String(photo.author_id) === String(req.session.user._id) || req.session.user.is_admin) {
+            res.render('create-photo', {
+                edit: true,
+                photo_id: photo._id,
+                title: photo.title,
+                pictures: photo.pictures,
+                curr_category: photo.category,
+                discrib: photo.discrib,
+                category: config.category,
+                Domain: config.qn_access.Domain,
+                Uptoken_Url: config.qn_access.Uptoken_Url,
+                uploadURL: config.qn_access.uploadURL
+
+
+            });
+        } else {
+            res.render('notify', { error: '此图集不存在或已被删除。' });
+        }
+    });
+};
+
 
 exports.showDetail = function(req, res) {
     var _id = req.params._id;
+
+
 
     Aticle.findOneAticle(_id, function(err, doc) {
 
@@ -149,12 +187,20 @@ exports.showDetail = function(req, res) {
 
             aticle.author = {
                 nickname: data.nickname,
-                avatar: data.avatar
+                avatar: data.avatar,
+                _id: data._id
             };
+
+            var is_author=util.visiter_is_author(req,data._id);
+
+            console.log('is_author',is_author)
+
+
 
 
             res.render('aticle-view', {
-                aticle: aticle
+                aticle: aticle,
+                is_author:is_author
             })
 
         })
