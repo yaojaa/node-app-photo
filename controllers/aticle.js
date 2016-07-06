@@ -149,12 +149,10 @@ exports.showEdit = function(req, res, next) {
             return;
         }
 
-        var is_author = util.visiter_is_author(req, aticle.author_id);
+        var is_author = true || util.visiter_is_author(req, aticle.author_id);
 
 
         if (is_author) {
-
-            // if (String(aticle.author_id) === String(req.session.user._id) || req.session.user.is_admin ) {
             res.render('create-aticle', {
                 edit: true,
                 aticle_id: aticle._id,

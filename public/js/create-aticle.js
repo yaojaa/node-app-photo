@@ -37,14 +37,26 @@ $('#des').limitTextarea({
 
 
 
+var postUrl=(function(){
 
+    if(GLOBAL.isEditPage){
+    return '/api/v1/updateAticle'
+    }else{
+    return  '/api/v1/createAticle'
+    }
+
+
+  })()
 
 var postAticle=function(){
+
+
 
     var postdata={
       title:$('#title').val(),
       des:$('#des').val(),
       content:um.getContent(),
+      _id:GLOBAL.atilce_id
     }
 
     if(postdata.title=='' ){
@@ -67,7 +79,7 @@ var postAticle=function(){
       return 
     }
 
-    $.post('/api/v1/createAticle',postdata,function(res) {
+    $.post(postUrl,postdata,function(res) {
 
       if(res.errorno==-1){
           swal({
@@ -86,7 +98,7 @@ var postAticle=function(){
       else if(res.errorno==0){
        var aticleId=res.data._id;
                    swal({
-                    title: '发布成功',
+                    title: res.msg,
                     type: "success",
                     showCancelButton: false,
                     confirmButtonColor: "#DD6B55",
