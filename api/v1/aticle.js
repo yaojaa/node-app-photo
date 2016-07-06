@@ -69,7 +69,6 @@ var getAticleList = function (req, res,next) {
 
 
         lists = lists.map(function(item,index){
-            console.log(index);
             return {
                 _id : item._id,
                 update_at : moment(item.update_at).format('YYYY-MM-DD'),
@@ -153,10 +152,77 @@ var createAticle = function(req, res, next) {
 }
 
 
+var update = function(req, res, next) {
+    var topic_id = req.params._id;
+    var title = validator.trim(req.body.title);
+    var des = validator.trim(req.body.des);
+    var content = validator.trim(req.body.content);
+
+  AticleProxy.getAticleById(topic_id, function(err, topic) {
+        if (!topic) {
+            res.status(404).render('notify', { error: '此图集不存在或已被删除。' });
+            return;
+        }
+
+        if (topic.author_id.equals(req.session.user._id) || req.session.user.is_admin) {
+            title = validator.trim(title);
+            content = validator.trim(content);
+
+            // 验证
+            var editError;
+            if (title === '') {
+                editError = '标题不能是空的。';
+            } else if (title.length < 5 || title.length > 100) {
+                editError = '标题字数太多或太少。';
+            } 
+            // END 验证
+
+            if (editError) {
+                return res.json({
+                    action: 'edit',
+                    errorno:-1,
+                    msg: editError,
+                    topic_id: topic._id,
+                });
+            }
+
+            //保存话题
+            topic.title = title;
+            topic.content = content;
+            topic.des = des;
+            topic.update_at = new Date();
+
+            topic.save(function(err) {
+                if (err) {
+                    return next(err);
+                }
+                //发送at消息
+              //  at.sendMessageToMentionUsers(content, topic._id, req.session.user._id);
+
+              //  res.redirect('/topic/' + topic._id);
+
+              res.json({
+                errorno:0,
+                msg:'编辑成功',
+                data:{
+                  aticle_id:topic._id
+                }
+              })
+
+            });
+        } else {
+            res.renderError('对不起，你不能编辑此话题。', 403);
+        }
+    });
+};
+
+
 
 exports.delAticle = delAticle;
 exports.createAticle = createAticle;
 exports.getAticleList = getAticleList;
+exports.update = update;
+
 
 
 

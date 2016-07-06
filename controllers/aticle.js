@@ -143,29 +143,33 @@ exports.showEdit = function(req, res, next) {
 
     Aticle.findAticleById(aticle_id, function(err, aticle) {
         if (!aticle) {
-            res.render('notify', { error: '此文章不存在或已被删除。' });
+            res.render('notify', {
+                error: '此文章不存在或已被删除。'
+            });
             return;
         }
 
-        console.log(aticle);
+        var is_author = util.visiter_is_author(req, aticle.author_id);
 
 
-        if (aticle.author_id) {
+        if (is_author) {
 
-         // if (String(aticle.author_id) === String(req.session.user._id) || req.session.user.is_admin ) {
+            // if (String(aticle.author_id) === String(req.session.user._id) || req.session.user.is_admin ) {
             res.render('create-aticle', {
                 edit: true,
                 aticle_id: aticle._id,
                 title: aticle.title,
                 content: aticle.content,
                 des: aticle.des,
-                  user: req.session.user,
-                    Domain: config.qn_access.Domain,
-                    uploadURL: config.qn_access.uploadURL
+                user: req.session.user,
+                Domain: config.qn_access.Domain,
+                uploadURL: config.qn_access.uploadURL
 
             })
         } else {
-            res.render('notify', { error: '此文章不存在或已被删除。' });
+            res.render('notify', {
+                error: '此文章不存在或已被删除。'
+            });
         }
     });
 };
@@ -188,16 +192,15 @@ exports.showDetail = function(req, res) {
                 _id: data._id
             };
 
-            var is_author=util.visiter_is_author(req,data._id);
+            var is_author = util.visiter_is_author(req, data._id);
 
-            console.log('is_author',is_author)
-
+            console.log('is_author', is_author)
 
 
 
             res.render('aticle-view', {
                 aticle: aticle,
-                is_author:is_author
+                is_author: is_author
             })
 
         })
@@ -208,6 +211,7 @@ exports.showDetail = function(req, res) {
 
 
 }
+
 
 
 exports.delAticleById = function(req, res) {
