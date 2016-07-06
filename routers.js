@@ -116,7 +116,7 @@ router.get('/aticle', aticle.showAticleList) //文章列表
 router.get('/a/:_id', aticle.showDetail) //文章正文
 router.get('/create-aticle', aticle.showCreate)
 router.post('/create-aticle', aticle.create)
-router.get('/a/:_id?edit', aticle.showEdit);  // 编辑文章
+router.get('/a/:_id/edit', aticle.showEdit);  // 编辑文章
 
 
 /**

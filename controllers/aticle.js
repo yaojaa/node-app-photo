@@ -139,36 +139,33 @@ exports.create = function(req, res) {
 /*********编辑文章*********/
 
 exports.showEdit = function(req, res, next) {
-    var photo_id = req.params.tid;
+    var aticle_id = req.params._id;
 
-    Photo.findPhotoById(photo_id, function(err, photo) {
-        if (!photo) {
-            res.render('notify', { error: '此图集不存在或已被删除。' });
+    Aticle.findAticleById(aticle_id, function(err, aticle) {
+        if (!aticle) {
+            res.render('notify', { error: '此文章不存在或已被删除。' });
             return;
         }
 
-        console.log(photo)
-
-        if (photo.author_id) {
+        console.log(aticle);
 
 
-            // if (String(photo.author_id) === String(req.session.user._id) || req.session.user.is_admin) {
-            res.render('create-photo', {
+        if (aticle.author_id) {
+
+         // if (String(aticle.author_id) === String(req.session.user._id) || req.session.user.is_admin ) {
+            res.render('create-aticle', {
                 edit: true,
-                photo_id: photo._id,
-                title: photo.title,
-                pictures: photo.pictures,
-                curr_category: photo.category,
-                discrib: photo.discrib,
-                category: config.category,
-                Domain: config.qn_access.Domain,
-                Uptoken_Url: config.qn_access.Uptoken_Url,
-                uploadURL: config.qn_access.uploadURL
+                aticle_id: aticle._id,
+                title: aticle.title,
+                content: aticle.content,
+                des: aticle.des,
+                  user: req.session.user,
+                    Domain: config.qn_access.Domain,
+                    uploadURL: config.qn_access.uploadURL
 
-
-            });
+            })
         } else {
-            res.render('notify', { error: '此图集不存在或已被删除。' });
+            res.render('notify', { error: '此文章不存在或已被删除。' });
         }
     });
 };

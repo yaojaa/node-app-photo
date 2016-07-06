@@ -9,6 +9,19 @@
             });
 
 
+/*如果是编辑页面写入编辑器html*/
+if(GLOBAL.isEditPage){
+um.ready(function() {
+    um.setContent(GLOBAL.content);
+});
+
+}
+
+
+
+
+
+
 /*限制字数*/
 
 $('#des').limitTextarea({  
