@@ -59,7 +59,7 @@ exports.findOnePage=function(page,callback){
 	
 };
 
-exports.findOneAticle=function(_id,callback){
+exports.findOneAticle= exports.findAticleById=function(_id,callback){
 	Aticle.findOne({'_id':_id},callback)
 
 }

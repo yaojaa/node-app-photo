@@ -104,7 +104,7 @@
 
                 } else if (data.errorno === -2) {
                     //提示登录
-                    alert('请先登录');
+                    swal('请先登录');
                 } else {
                     $err.html(data.msg);
                 }
@@ -157,16 +157,16 @@
             dataType: 'json',
             success: function (data) {
                 if (data.errorno === 0) {
-                    alert('打赏成功');
+                    swal("打赏成功",'', "success");
                 } else if (data.errorno === -2) {
                     //提示登录
-                    alert('未登录');
+                    swal('未登录');
                 } else {
-                    alert(data.msg);
+                    swal(data.msg);
                 }
             },
             error: function () {
-                alert('网络错误');
+                swal('网络错误');
             }
         });
     }
@@ -189,12 +189,12 @@
                     case 1:
                         cb();
                         $dom.remove();
-                        alert('打赏成功');
+                        swal("打赏成功",'', "success")
                         break;
                     case 2:
                         cb();
                         $dom.remove();
-                        alert('打赏失败');
+                        swal('打赏失败');
                         break;
                     case 3:
                         console.log('支付中...');
@@ -202,7 +202,7 @@
                     case 4:
                         cb();
                         $dom.remove();
-                        alert('订单失效');
+                        swal('订单失效');
                         break;
                 }
             }

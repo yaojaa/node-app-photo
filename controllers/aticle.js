@@ -7,6 +7,7 @@ var EventProxy = require('eventproxy');
 var moment = require('moment');
 var xss = require('xss');
 var _ = require('../lib/tools.js');
+var util = require('../util/util.js');
 
 
 
@@ -78,8 +79,6 @@ exports.showAticleList = function(req, res) {
 
             })
 
-            console.log(_lists)
-
             // 在所有文件的异步执行结束后将被执行
             // 所有文件的内容都存在list数组中()
             res.render('aticle', {
@@ -137,9 +136,47 @@ exports.create = function(req, res) {
 
 };
 
+/*********编辑文章*********/
+
+exports.showEdit = function(req, res, next) {
+    var aticle_id = req.params._id;
+
+    Aticle.findAticleById(aticle_id, function(err, aticle) {
+        if (!aticle) {
+            res.render('notify', {
+                error: '此文章不存在或已被删除。'
+            });
+            return;
+        }
+
+        var is_author = true || util.visiter_is_author(req, aticle.author_id);
+
+
+        if (is_author) {
+            res.render('create-aticle', {
+                edit: true,
+                aticle_id: aticle._id,
+                title: aticle.title,
+                content: aticle.content,
+                des: aticle.des,
+                user: req.session.user,
+                Domain: config.qn_access.Domain,
+                uploadURL: config.qn_access.uploadURL
+
+            })
+        } else {
+            res.render('notify', {
+                error: '此文章不存在或已被删除。'
+            });
+        }
+    });
+};
+
 
 exports.showDetail = function(req, res) {
     var _id = req.params._id;
+
+
 
     Aticle.findOneAticle(_id, function(err, doc) {
 
@@ -149,12 +186,19 @@ exports.showDetail = function(req, res) {
 
             aticle.author = {
                 nickname: data.nickname,
-                avatar: data.avatar
+                avatar: data.avatar,
+                _id: data._id
             };
+
+            var is_author = util.visiter_is_author(req, data._id);
+
+            console.log('is_author', is_author)
+
 
 
             res.render('aticle-view', {
-                aticle: aticle
+                aticle: aticle,
+                is_author: is_author
             })
 
         })
@@ -165,6 +209,7 @@ exports.showDetail = function(req, res) {
 
 
 }
+
 
 
 exports.delAticleById = function(req, res) {

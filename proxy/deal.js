@@ -139,7 +139,7 @@ function unifiedOrder(orderId, productId, price, callback) {
             nonce_str: nonce_str,
             product_id: productId,
             out_trade_no: orderId,
-            body: '风影图文',
+            body: '款项全部支付给作者',
             total_fee: price,
             spbill_create_ip: '123.56.230.118',
             trade_type: 'NATIVE',

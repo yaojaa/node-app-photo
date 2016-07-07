@@ -10,8 +10,6 @@ var UserProxy = require('../proxy').User;
  */
 exports.adminRequired = function (req, res, next) {
 
-  console.log(req.session.user)
-
   if (!req.session.user) {
     return res.send({errorno: -1, msg: '没有登录'})
   }

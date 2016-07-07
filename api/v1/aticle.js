@@ -3,6 +3,8 @@ var validator = require('validator');
 var AticleProxy = require('../../proxy').Aticle;
 var User = require('../../proxy').User;
 var _ =require('../../lib/tools');
+var util =require('../../util/util');
+
 
 var EventProxy = require('eventproxy');
 
@@ -69,7 +71,6 @@ var getAticleList = function (req, res,next) {
 
 
         lists = lists.map(function(item,index){
-            console.log(index);
             return {
                 _id : item._id,
                 update_at : moment(item.update_at).format('YYYY-MM-DD'),
@@ -112,9 +113,7 @@ var getAticleList = function (req, res,next) {
 
 
 var delAticle = function(req, res, next) {
-  console.log(req.body.id);
   var id = req.body.id;
-  console.log(AticleModel);
   AticleProxy.delAticleById(id, function(err) {
 
     if (err) {
@@ -152,11 +151,85 @@ var createAticle = function(req, res, next) {
 
 }
 
+/***更新编辑文章***/
+
+
+var update = function(req, res, next) {
+    var topic_id = req.body._id;
+    var title = validator.trim(req.body.title);
+    var des = validator.trim(req.body.des);
+    var content = validator.trim(req.body.content);
+
+  AticleProxy.findAticleById(topic_id, function(err, topic) {
+        if (!topic) {
+            res.status(404).render('notify', { error: '此图文不存在或已被删除。' });
+            return;
+        }
+
+        var is_author = util.visiter_is_author(req, topic.author_id);
+
+        if (is_author) {
+            title = validator.trim(title);
+            content = validator.trim(content);
+
+            // 验证
+            var editError;
+            if (title === '') {
+                editError = '标题不能是空的。';
+            } else if (title.length < 5 || title.length > 100) {
+                editError = '标题字数太多或太少。';
+            } 
+            // END 验证
+
+            if (editError) {
+                return res.json({
+                    action: 'edit',
+                    errorno:-1,
+                    msg: editError,
+                    topic_id: topic._id,
+                });
+            }
+
+            //保存话题
+            topic.title = title;
+            topic.content = content;
+            topic.des = des;
+            topic.update_at = new Date();
+
+            topic.save(function(err) {
+                if (err) {
+                    return next(err);
+                }
+                //发送at消息
+              //  at.sendMessageToMentionUsers(content, topic._id, req.session.user._id);
+
+              //  res.redirect('/topic/' + topic._id);
+
+              res.json({
+                errorno:0,
+                msg:'编辑成功',
+                data:{
+                  _id:topic._id
+                }
+              })
+
+            });
+        } else {
+              res.json({
+                errorno: -1,
+                msg: '对不起，你没有权限'
+                });
+        }
+    });
+};
+
 
 
 exports.delAticle = delAticle;
 exports.createAticle = createAticle;
 exports.getAticleList = getAticleList;
+exports.update = update;
+
 
 
 
