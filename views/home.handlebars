@@ -1,333 +1,348 @@
 {{#extend "stylesheets"}}
-  <link rel="stylesheet" href="/css/index.min.css">
-  <link rel="stylesheet" href="/css/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/index.min.css">
+    <link rel="stylesheet" href="/css/justifiedGallery.min.css">
 
-  <style>
-    .banner {
-      position: relative;
-      width: 100%;
-      overflow: auto;
+    <style>
+        .banner {
+            position: relative;
+            width: 100%;
+            overflow: auto;
 
-      font-size: 18px;
-      line-height: 24px;
-      text-align: center;
+            font-size: 18px;
+            line-height: 24px;
+            text-align: center;
 
-      color: rgba(255, 255, 255, .6);
-      text-shadow: 0 0 1px rgba(0, 0, 0, .05), 0 1px 2px rgba(0, 0, 0, .3);
+            color: rgba(255, 255, 255, .6);
+            text-shadow: 0 0 1px rgba(0, 0, 0, .05), 0 1px 2px rgba(0, 0, 0, .3);
 
-      background: #5b4d3d;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
-    }
+            background: #5b4d3d;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+        }
 
-    .banner ul {
-      list-style: none;
-      width: 300%;
-    }
+        .banner ul {
+            list-style: none;
+            width: 300%;
+        }
 
-    .banner ul li {
-      display: block;
-      float: left;
-      width: 33%;
-      height: 350px;
-      overflow: hidden;
+        .banner ul li {
+            display: block;
+            float: left;
+            width: 33%;
+            height: 350px;
+            overflow: hidden;
 
-      -o-background-size: 100% 100%;
-      -ms-background-size: 100% 100%;
-      -moz-background-size: 100% 100%;
-      -webkit-background-size: 100% 100%;
-      background-size: 100% 100%;
+            -o-background-size: 100% 100%;
+            -ms-background-size: 100% 100%;
+            -moz-background-size: 100% 100%;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
 
-      box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .1);
-    }
+            box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .1);
+        }
 
-    .banner .inner {
-      padding: 100px 0 110px;
-    }
+        .banner .inner {
+            padding: 100px 0 110px;
+        }
 
-    .banner h1, .banner h2 {
-      font-size: 60px;
-      line-height: 52px;
+        .banner h1, .banner h2 {
+            font-size: 60px;
+            line-height: 52px;
 
-      color: #fff;
-    }
+            color: #fff;
+        }
 
-    .banner .btn {
-      display: inline-block;
-      margin: 25px 0 0;
-      padding: 9px 22px 7px;
-      clear: both;
+        .banner .btn {
+            display: inline-block;
+            margin: 25px 0 0;
+            padding: 9px 22px 7px;
+            clear: both;
 
-      color: #fff;
-      font-size: 12px;
-      font-weight: bold;
-      text-transform: uppercase;
-      text-decoration: none;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
 
-      border: 2px solid rgba(255, 255, 255, .4);
-      border-radius: 5px;
-    }
+            border: 2px solid rgba(255, 255, 255, .4);
+            border-radius: 5px;
+        }
 
-    .banner .btn:hover {
-      background: rgba(255, 255, 255, .05);
-    }
+        .banner .btn:hover {
+            background: rgba(255, 255, 255, .05);
+        }
 
-    .banner .btn:active {
-      -webkit-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-      -moz-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-      -ms-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-      -o-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-      filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
-    }
+        .banner .btn:active {
+            -webkit-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+            -moz-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+            -ms-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+            -o-filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+            filter: drop-shadow(0 -1px 2px rgba(0, 0, 0, .5));
+        }
 
-    .banner .btn, .banner .dot {
-      -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-      -moz-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-      -ms-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-      -o-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
-    }
+        .banner .btn, .banner .dot {
+            -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+            -moz-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+            -ms-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+            -o-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+        }
 
-    .banner .dots {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 20px;
-    }
+        .banner .dots {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 20px;
+        }
 
-    .banner .dots li {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin: 0 4px;
+        .banner .dots li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
 
-      text-indent: -999em;
+            text-indent: -999em;
 
-      border: 2px solid #fff;
-      border-radius: 6px;
+            border: 2px solid #fff;
+            border-radius: 6px;
 
-      cursor: pointer;
-      opacity: .4;
+            cursor: pointer;
+            opacity: .4;
 
-      -webkit-transition: background .5s, opacity .5s;
-      -moz-transition: background .5s, opacity .5s;
-      transition: background .5s, opacity .5s;
-    }
+            -webkit-transition: background .5s, opacity .5s;
+            -moz-transition: background .5s, opacity .5s;
+            transition: background .5s, opacity .5s;
+        }
 
-    .banner .dots li.active {
-      background: #fff;
-      opacity: 1;
-    }
+        .banner .dots li.active {
+            background: #fff;
+            opacity: 1;
+        }
 
-    .banner .arrows {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      color: #fff;
-    }
+        .banner .arrows {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: #fff;
+        }
 
-    .banner .arrow {
-      display: inline;
-      padding-left: 10px;
-      cursor: pointer;
-    }
+        .banner .arrow {
+            display: inline;
+            padding-left: 10px;
+            cursor: pointer;
+        }
 
-    #pic-container{
-      min-height: 768px
-    }
+        #pic-container {
+            min-height: 768px
+        }
 
-    /**图文样式**/
+        /**图文样式**/
 
-    .pagelist-wrapper {
-    list-style: outside none none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    padding: 10px
-}
+        .pagelist-wrapper {
+            list-style: outside none none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            padding: 10px
+        }
 
-.vision-item {
-    border: 1px solid #eaeaea;
-    font-size: 0;
-    float: left;
-    width: 48%;
-    margin: 10px 1%;
-    padding: 10px 0;
-    position: relative;
-    background: #fff;
-    min-height: 150px
-}
-.vision-item .item-cover {
-    display: inline-block;
-    height: 150px;
-    position: relative;
-    width: 150px;
-    padding: 10px;
-    position: absolute;
-    left: 0;
-    top: 0
-}
-.vision-item .item-cover img {
-    display: block;
-    height: 100%;
-    width: 100%;
-}
-.vision-item .item-info {
-    font-size: 14px;
-    overflow: hidden;
-    vertical-align: top;
-    padding-left: 170px;
-    padding-right: 10px;
-}
-.vision-item .item-info .item-title {
-    color: #259;
-    display: block;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-    margin-bottom: 6px
-}
-.vision-item .item-info .item-owner {
-    color: #999;
-    display: block;
-    line-height: 1;
-    margin-top: 10px;
-}
-.item-author{
-  color: #999;
-  font-size: 12px
-}
+        .vision-item {
+            border: 1px solid #eaeaea;
+            font-size: 0;
+            float: left;
+            width: 48%;
+            margin: 10px 1%;
+            padding: 10px 0;
+            position: relative;
+            background: #fff;
+            min-height: 150px
+        }
 
-.vision-item .item-info .item-desc {
-    margin: 6px 0 0;
-    max-height: 100px;
-    padding: 0;
-    color: #999
-}
-.vision-item .item-related {
-    display: block;
-    font-size: 12px;
-    margin: 10px 0 0;
-    position: relative;
-}
-.vision-item .item-related .item-tags {
-    font-size: 0;
-    height: 22px;
-    overflow: hidden;
-    padding-right: 100px;
-}
-.vision-item .item-related .item-tags a {
-    background-color: #f5f6f8;
-    border: 1px solid #e3e4e6;
-    border-radius: 11px;
-    color: #808388;
-    display: inline-block;
-    font-size: 12px;
-    height: 22px;
-    line-height: 22px;
-    margin-left: 10px;
-    padding: 0 12px;
-    text-align: center;
-    vertical-align: middle;
-}
+        .vision-item .item-cover {
+            display: inline-block;
+            height: 150px;
+            position: relative;
+            width: 150px;
+            padding: 10px;
+            position: absolute;
+            left: 0;
+            top: 0
+        }
 
-  </style>
+        .vision-item .item-cover img {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .vision-item .item-info {
+            font-size: 14px;
+            overflow: hidden;
+            vertical-align: top;
+            padding-left: 170px;
+            padding-right: 10px;
+        }
+
+        .vision-item .item-info .item-title {
+            color: #666;
+            display: block;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+            margin-bottom: 6px
+        }
+
+        .vision-item .item-info .item-owner {
+            color: #999;
+            display: block;
+            line-height: 1;
+            margin-top: 10px;
+        }
+
+        .item-info a {
+            text-decoration: none;
+            color:#999;
+        }
+
+        .item-info a:hover {
+            text-decoration: none;
+            color: #000;
+        }
+
+        .item-author {
+            color: #999;
+            font-size: 12px
+        }
+
+        .vision-item .item-info .item-desc {
+            margin: 6px 0 0;
+            max-height: 100px;
+            padding: 0;
+            color: #999
+        }
+
+        .vision-item .item-related {
+            display: block;
+            font-size: 12px;
+            margin: 10px 0 0;
+            position: relative;
+        }
+
+        .vision-item .item-related .item-tags {
+            font-size: 0;
+            height: 22px;
+            overflow: hidden;
+            padding-right: 100px;
+        }
+
+        .vision-item .item-related .item-tags a {
+            background-color: #f5f6f8;
+            border: 1px solid #e3e4e6;
+            border-radius: 11px;
+            color: #808388;
+            display: inline-block;
+            font-size: 12px;
+            height: 22px;
+            line-height: 22px;
+            margin-left: 10px;
+            padding: 0 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    </style>
 
 {{/extend}}
 
 
 
 <div id="banner" class="banner">
-  <ul>
+    <ul>
 
 
-    {{#if user}}
+        {{#if user}}
 
-      <li style="background-image: url('http://www.bootcss.com/p/unslider/img/subway.jpg')">
-        <div class="inner">
-          <h1>风影</h1>
-          <br>
-          <h4>分享精彩，实现价值</h4>
-          <br>
+            <li style="background-image: url('http://www.bootcss.com/p/unslider/img/subway.jpg')">
+                <div class="inner">
+                    <h1>风影</h1>
+                    <br>
+                    <h4>分享精彩，实现价值</h4>
+                    <br>
 
-          <a href="/create-photo" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-             class="reg button button-rounded button-caution">+发布作品</a>
+                    <a href="/create-photo" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+                       class="reg button button-rounded button-caution">+发布作品</a>
 
-        </div>
-      </li>
+                </div>
+            </li>
 
-    {{else}}
+        {{else}}
 
-      <li style="background-image: url('http://www.bootcss.com/p/unslider/img/sunset.jpg')">
+            <li style="background-image: url('http://www.bootcss.com/p/unslider/img/sunset.jpg')">
 
-        <div class="inner">
-          <h1>风影</h1>
-          <br>
-          <h4>分享精彩，实现价值</h4>
-          <br>
+                <div class="inner">
+                    <h1>风影</h1>
+                    <br>
+                    <h4>分享精彩，实现价值</h4>
+                    <br>
 
-          <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
-             class="reg button button-rounded button-caution">立即加入</a>
+                    <a href="/signup" data-ga-category="Homepage Masthead" data-ga-action="Click Get Started"
+                       class="reg button button-rounded button-caution">立即加入</a>
 
-        </div>
+                </div>
 
-      </li>
+            </li>
 
-    {{/if}}
+        {{/if}}
 
 
-  </ul>
+    </ul>
 </div>
-
-
 
 
 <div class="tab_wrapper">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-      {{#if user}}
-      <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"
-                                 data-toggle="tab">我关注的图片</a>
-      </li>
-    {{/if}}
-    <li role="presentation" class="active">
-      <a href="#new_pic" onclick="showPicture(1)" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
-    </li>
-    <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab"
-                               data-toggle="tab">热门图片</a>
-    </li>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        {{#if user}}
+            <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"
+                                       data-toggle="tab">我关注的图片</a>
+            </li>
+        {{/if}}
+        <li role="presentation" class="active">
+            <a href="#new_pic" onclick="showPicture(1)" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
+        </li>
+        <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab"
+                                   data-toggle="tab">热门图片</a>
+        </li>
 
-  </ul>
-  <!-- Tab panes -->
-  <div class="tab-content" id="pic-container">
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content" id="pic-container">
 
-  </div>
+    </div>
 </div>
+
 
 
   <ul class="nav nav-tabs" role="tablist">
       <li role="presentation"><h3 style="padding:15px">最新图文故事</h3>
       </li>
    
-<!--     <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab"
-                               data-toggle="tab">热门图文故事</a>
-    </li> -->
-
-  </ul>
+</ul>
 
 
+<div class="tab-content contentFirst" id="aticleContainer">
+    <ul class="pagelist-wrapper ">
 
-  <div class="tab-content" id="aticleContainer">
-  <ul class="pagelist-wrapper">
+        <my-component></my-component>
+ 
 
-     <my-component> </my-component>
 
-  </ul>
+    </ul>
 
-  </div>
+</div>
 
 
 
@@ -337,16 +352,16 @@
 {{#if user}}
 
 {{else}}
-  <div id="reg">
-    <div class="container">
-      <h2>加入风影</h2>
+    <div id="reg">
+        <div class="container">
+            <h2>加入风影</h2>
 
-      <div class="subtit"><span>成为会员只需一步，立即体验吧</span></div>
-      <div class="row" align="center">
-        <a href="/signup" class="pull-center reg button button-rounded button-caution button-large">马上开始体验</a>
-      </div>
+            <div class="subtit"><span>成为会员只需一步，立即体验吧</span></div>
+            <div class="row" align="center">
+                <a href="/signup" class="pull-center reg button button-rounded button-caution button-large">马上开始体验</a>
+            </div>
+        </div>
     </div>
-  </div>
 
 {{/if}}
 
@@ -356,58 +371,58 @@
 
 {{#extend "customerScript"}}
 
-  <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js"></script>
-  <script type="text/javascript" src="/lib/aticle_list.component.js"></script>
+    <script type="text/javascript" src="/js/jquery.justifiedGallery.min.js"></script>
+    <script type="text/javascript" src="/lib/aticle_list.component.js"></script>
 
-  <script type="text/javascript">
+    <script type="text/javascript">
 
-    var $picContainer = $('#pic-container');
-    function showPicture(type) {
+        var $picContainer = $('#pic-container');
+        function showPicture(type) {
 
 
-      my.ajax({
-        url: "/home/photo/list",
-        data: {type: type, pageNo: 1},
-        success: function (list) {
-          var html = '';
-          html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
-          for (var i = 0, length = list.length; i < length; i++) {
-            var item = list[i];
-            var randomWidth = parseInt(Math.random() * 400 + 300);
-            html += '<a href="/photo/' + item._id + '"><img src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
-          }
-          html += '</div></div>';
-          $picContainer.html(html);
+            my.ajax({
+                url: "/home/photo/list",
+                data: {type: type, pageNo: 1},
+                success: function (list) {
+                    var html = '';
+                    html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
+                    for (var i = 0, length = list.length; i < length; i++) {
+                        var item = list[i];
+                        var randomWidth = parseInt(Math.random() * 400 + 300);
+                        html += '<a href="/photo/' + item._id + '"><img src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
+                    }
+                    html += '</div></div>';
+                    $picContainer.html(html);
 
-          $('.basicExample').justifiedGallery({
-            rowHeight: 350,
-            lastRow: 'nojustify',
-            margins: 10
-          });
+                    $('.basicExample').justifiedGallery({
+                        rowHeight: 350,
+                        lastRow: 'nojustify',
+                        margins: 10
+                    });
+                }
+            });
+
         }
-      });
+        showPicture(1);
 
-    }
-    showPicture(1);
+        //获取最新图文
 
-//获取最新图文
-
-// 创建根实例
-new Vue({
-  el: '#aticleContainer'
-})
-
-
+        // 创建根实例
+        new Vue({
+            el: '#aticleContainer'
+        })
 
   </script>
 
-  <script src="//unslider.com/unslider.js"></script>
+    </script>
 
-  <script>
-    $(function () {
-      $('.banner').unslider();
-    });
+    <script src="//unslider.com/unslider.js"></script>
 
-  </script>
+    <script>
+        $(function () {
+            $('.banner').unslider();
+        });
+
+    </script>
 
 {{/extend}}

@@ -1,3 +1,19 @@
+html{
+  height: 100% !important;
+}
+body {
+  position: relative!important;
+  min-height: 100% !important;
+  height: auto;
+  font-family: "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+.panel-default{
+  box-shadow: 1px 1px 2px 1px #C0BEBF;
+}
+.contentFirst{
+  padding-bottom: 150px;
+}
+
 dt{
   color:#333333;
   font-size: 16px;
@@ -30,6 +46,9 @@ dd{
   padding:10px 0;
 }
 .footer{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
   background-color: #dedede;
   padding-top: 20px;
 }
@@ -38,3 +57,49 @@ dd{
   width: 100%;
   background-color: #000A00;
 }
+
+.nav-stacked{
+  margin-bottom: 20px;
+  border: 1px solid #dedede;
+  border-radius: 2px;
+}
+.nav-stacked > li >a  {
+  border-bottom: 1px solid #dedede;
+  color: #777;
+}
+.nav-stacked>li+li {
+  margin-top: 0px;
+  margin-left: 0;
+}
+.nav-stacked > .active > a{
+  color: #000;
+  background-color: #dedede;
+}
+.nav-stacked  > li> a:hover,
+.nav-stacked  > a:focus {
+  color: #000;
+  background-color: #dedede;
+}
+
+
+.userInfoTop {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  list-style: none;
+  margin: 40px 0 20px 0;
+  border-bottom: 1px solid gainsboro;
+}
+.userInfoTop li a{
+  color: #000;
+  text-decoration: none;
+}
+.userInfoTop>li {
+  display: inline-block;
+}
+.userInfoTop>.active {
+  color: #777;
+}
+.userInfoTop>li+li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\00a0";}

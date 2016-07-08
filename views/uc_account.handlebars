@@ -1,105 +1,92 @@
 <style>
     .m_container {
-    background: #fff;
-    padding: 20px
-  }
+        margin-bottom: 110px;
+    }
 
-  .price {
-    color: #f60;
-    font-size: 18px;
-  }
-
-  .u-width-100 {
-    min-width: 100px;
-  }
+    .u-width-100 {
+        min-width: 100px;
+    }
 </style>
-<div class="container">
-  <ol class="breadcrumb">
-    <li><a href="/">主页</a><span class="divider"></span></li>
-    <li class="active">个人中心</li>
-  </ol>
-  <div class="row">
-    {{>uc_menu}}
-    <div class="col-lg-10">
-      <div class="m_container">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <div class="row">
-              <div class="col-md-7">
-                <h3>修改密码</h3>
-              </div>
+<div class="container contentFirst">
+    <ol class="userInfoTop">
+        <li><a href="/">主页</a><span class="divider"></span></li>
+        <li class="active">个人中心</li>
+    </ol>
+    <div class="row">
+        {{>uc_menu}}
+        <div class="col-lg-6">
+            <div class="m_container">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="form-horizontal" name="dataForm">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">原密码: </label>
+
+                                <div class="col-sm-6">
+                                    <input type="password" name="oldpwd" class="form-control" id="oldPassword">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">新密码: </label>
+
+                                <div class="col-sm-6">
+                                    <input type="password" name="newpwd" class="form-control" id="password"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">确认新密码: </label>
+
+                                <div class="col-sm-6">
+                                    <input type="password" name="repwd" class="form-control" id="password1"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-3 col-sm-offset-2">
+                                    <button class="btn btn-default u-width-100" type="button" id="submit">提交</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="panel-body">
-            <form class="form-horizontal" name="dataForm">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">原密码: </label>
-
-                <div class="col-sm-6">
-                  <input type="password" name="oldpwd" class="form-control" id="oldPassword">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-sm-2 control-label">新密码: </label>
-
-                <div class="col-sm-6">
-                  <input type="password" name="newpwd" class="form-control" id="password"/>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label class="col-sm-2 control-label">确认新密码: </label>
-
-                <div class="col-sm-6">
-                  <input type="password" name="repwd" class="form-control" id="password1"/>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-sm-3 col-sm-offset-2">
-                  <button class="btn btn-success u-width-100" type="button" id="submit">提交</button>
-                </div>
-              </div>
-
-            </form>
-
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 <script>
 
-  String.prototype.isEmpty = function () {
-    if (this == null) return true;
-    //this.value.replace(/^\s+|\s+&/g, '');
-    return this.length === 0;
-  };
+    String.prototype.isEmpty = function () {
+        if (this == null) return true;
+        //this.value.replace(/^\s+|\s+&/g, '');
+        return this.length === 0;
+    };
 
-  $('#submit').on('click', function (e) {
-    var form = document.forms['dataForm'];
-    var oldpwd = $.trim(form.oldpwd.value);
-    var newpwd = $.trim(form.newpwd.value);
-    var repwd = $.trim(form.repwd.value);
+    $('#submit').on('click', function (e) {
+        var form = document.forms['dataForm'];
+        var oldpwd = $.trim(form.oldpwd.value);
+        var newpwd = $.trim(form.newpwd.value);
+        var repwd = $.trim(form.repwd.value);
 
-    if (oldpwd.isEmpty() || newpwd.isEmpty() || repwd.isEmpty()) {
-      return alert('全部必填');
-    }
+        if (oldpwd.isEmpty() || newpwd.isEmpty() || repwd.isEmpty()) {
+            return alert('全部必填');
+        }
 
-    if (newpwd !== repwd) {
-      return alert('两次密码不一致');
-    }
+        if (newpwd !== repwd) {
+            return alert('两次密码不一致');
+        }
 
-    my.ajax({
-      url: "/uc/account/pwd",
-      data: {oldpwd: oldpwd, newpwd: newpwd},
-      success: function (data) {
-        form.reset();
-      }
+        my.ajax({
+            url: "/uc/account/pwd",
+            data: {oldpwd: oldpwd, newpwd: newpwd},
+            success: function (data) {
+                form.reset();
+            }
+        });
+
     });
-
-  });
 
 </script>
