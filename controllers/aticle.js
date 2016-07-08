@@ -24,7 +24,7 @@ exports.showAticleList = function(req, res) {
             var srcReg = /src=['"]?([^'"]*)['"]?/i;
             var arr = str.match(imgReg);
             if (arr == null) {
-                return 'nopic'
+                return 'http://img.fengimage.com/FtXcOay3dQhFjvAuBXmvA2nIlLi5?imageView2/1/w/150/h/150'
             }
 
             for (var i = 0; i < arr.length; i++) {
@@ -32,7 +32,7 @@ exports.showAticleList = function(req, res) {
                 if (src[1]) {
                     return (src[1])
                 } else {
-                    return 'nopic'
+                    return 'http://img.fengimage.com/FtXcOay3dQhFjvAuBXmvA2nIlLi5?imageView2/1/w/150/h/150'
                 }
             }
 
