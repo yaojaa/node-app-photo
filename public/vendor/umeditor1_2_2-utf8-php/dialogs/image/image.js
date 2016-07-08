@@ -103,7 +103,7 @@
             if (state == "SUCCESS") {
                 //显示图片计数+1
                 Upload.showCount++;
-                console.log('Upload.showCount',Upload.showCount)
+
                 var $img = $("<img src='" + editor.options.imagePath +'/'+ url + "' class='edui-image-pic'  />"),
                     $item = $("<div class='edui-image-item edui-image-upload-item'><div class='edui-image-close'></div></div>").append($img);
 
@@ -220,7 +220,9 @@
                         formatSpeed = uploadSpeed.toFixed(2) + "Kb\/s";
                     }
                     var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-                        me.toggleMask(percentComplete+'%');
+
+
+                        me.toggleMask('正在上传'+f.name+'上传进度：'+percentComplete+'% 速度：' + formatSpeed);
                      console && console.log(percentComplete, ",", formatSpeed);
                 }
             }, false);
@@ -263,11 +265,16 @@
                 console.log('change',e);
 
                 
-                var file=this.files[0];
-                console.log(me.getToken)
+                var files=this.files;
                 // console.log(file)
                 me.toggleMask("Loading....");
+
+                $.each(files,function(k,file){
+
                    me.Qiniu_upload(file,me.getToken)
+
+
+                })
 
 
             });
@@ -424,7 +431,7 @@
             "<div class=\"edui-image-wrapper\">" +
             "<ul class=\"edui-tab-nav\">" +
             "<li class=\"edui-tab-item edui-active\"><a data-context=\".edui-image-local\" class=\"edui-tab-text\"><%=lang_tab_local%></a></li>" +
-            "<li  class=\"edui-tab-item\"><a data-context=\".edui-image-JimgSearch\" class=\"edui-tab-text\"><%=lang_tab_imgSearch%></a></li>" +
+            // "<li  class=\"edui-tab-item\"><a data-context=\".edui-image-JimgSearch\" class=\"edui-tab-text\"><%=lang_tab_imgSearch%></a></li>" +
             "</ul>" +
             "<div class=\"edui-tab-content\">" +
             "<div class=\"edui-image-local edui-tab-pane edui-active\">" +
