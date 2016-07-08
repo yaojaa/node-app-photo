@@ -42,7 +42,7 @@ router.post('/createAticle', auth.userRequired,aticleController.createAticle);
 router.post('/updateAticle',auth.userRequired, aticleController.update);  // 提交编辑文章
 
 
-router.post('/delAticle',aticleController.delAticle);
+// router.post('/delAticle',auth.userRequired,aticleController.delAticle);
 
 // router.del('/delAticle',aticleController.delAticle);
 
