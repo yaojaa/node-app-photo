@@ -74,23 +74,23 @@
 <div class="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6 hidden-xs col-sm-offset-1" style="border-right: 1px solid #888888;">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <dl>
                             <dt>用户协议</dt>
                             <dd> <a href="/web/cms/cms_page/9" target="_blank">如何充值</a></dd>
                             <dd> <a href="/web/cms/cms_page/10" target="_blank">升级VIP</a></dd>
                         </dl>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <dl>
                             <dt>招聘信息</dt>
                             <dd> <a href="/web/cms/cms_page/11" target="_blank">招聘兼职模特</a></dd>
                             <dd> <a href="/web/cms/cms_page/12" target="_blank">招聘摄影师</a></dd>
                         </dl>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <dl>
                             <dt>联系我们</dt>
                             <dd> <a href="/web/cms/cms_page/14" target="_blank">客服QQ</a></dd>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-md-offset-2" style="border-left: 1px solid #888888">
+            <div class="col-sm-4 col-sm-offset-1">
                 <dl>
                     <dt>关注我们</dt>
                     <dd> <a href="/web/cms/cms_page/16" target="_blank">风影网fengimage@新浪微博</a></dd>
@@ -116,6 +116,20 @@
   $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
 
     alert(jqxhr.status+' '+jqxhr.statusText)
+
+  });
+
+
+
+  $(function () {
+      var path_module = location.pathname.substr(4);
+      if (path_module) {
+          var index = path_module.indexOf('/');
+          if (index > -1) {
+              path_module = path_module.substring(0, index);
+          }
+          $('#' + path_module).addClass('active');
+      }
 
   });
 

@@ -1,39 +1,12 @@
 {{#extend "stylesheets"}}
     <style>
-        .walletTitle {
-            margin: 70px 0;
+        #sidebar li .active {
+            background-color: gainsboro;
         }
 
         .walletContent {
-            background-color: whitesmoke;
             float: none;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 1px;
-            padding: 10px 15px;
-        }
-
-        .walletLeft {
-            border-right: solid 1px #9c9c9c;
-        }
-
-        .userIcon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-
-        .rightText {
-            display: inline-block;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-
-        .userName {
-            font-size: 22px;
-            position: absolute;
-            margin-top: -36px;
         }
 
         .colFirst {
@@ -49,10 +22,20 @@
 
         .walletRight {
             line-height: 28px;
+            box-shadow: 1px 1px 2px 1px #C0BEBF;
+            background-color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            border-color: #ddd;
+        }
+
+        .walletRight div:last-child{
+            font-size: 12px;
+            color: #999999;
         }
 
         .money {
-            font-size: 24px;
+            font-size: 24px!important;
         }
 
         .walletRight a {
@@ -74,34 +57,26 @@
             padding-left: 10px;
         }
         .walletContent {
-            margin-bottom:  300px;
+           /* margin-bottom:  320px;*/
         }
     </style>
 {{/extend}}
-<div class="container">
-    <ol class="breadcrumb">
+<div class="container contentFirst">
+    <ol class="userInfoTop">
         <li><a href="/">主页</a><span class="divider"></span></li>
         <li class="active">个人中心</li>
     </ol>
     <div class="row">
         {{>uc_menu}}
         <div class="col-lg-10">
-            <h2 class="text-center walletTitle">我的账户</h2>
             <div class="walletContent col-md-8">
                 <div class="row">
-                    <div class="col-md-4 walletLeft">
-                        <a href="/userspace/{{user.id}}"><img src="{{user.avatar}}" class="userIcon"></a>
-                        <div class="rightText">
-                            <div class="userName">{{user.nickname}}</div>
-                            <!--<div style="color:#999999"><img src="img/appIcon.png" style="width:10px; vertical-align: text-bottom;margin-right: 5px;">绑定手机</div>-->
-                        </div>
-                    </div>
                     <div class="col-md-8 walletRight">
-                        <div class="colFirst">账户余额 <span>每次提现最小额度为 ¥100.00, 每次提现收取 5% 手续费</span></div>
-                        <div>
-                            <span class="money">{{formatMoney user.money}}</span>元
+                        <div class="colFirst">账户余额<span class="money">{{formatMoney user.money}}</span>元
                             <a href="" class="recharge btn disabled">充值</a>
-                            <a href="" class="btn disabled">提现</a><span class="prompt">当前账户余额不足</span>
+                            <a href="" class="btn disabled">提现</a><span class="prompt">当前账户余额不足</span></div>
+                        <div>
+                            每次提现最小额度为 ¥100.00, 每次提现收取 5% 手续费
                         </div>
                     </div>
                 </div>
