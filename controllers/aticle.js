@@ -10,11 +10,10 @@ var _ = require('../lib/tools.js');
 var util = require('../util/util.js');
 
 
-
 //findOnePage
-exports.showAticleList = function(req, res) {
+exports.showAticleList = function (req, res) {
     var page = req.query.p ? parseInt(req.query.p) : 1;
-    Aticle.findOnePage(page, function(err, lists, count) {
+    Aticle.findOnePage(page, function (err, lists, count) {
         if (err) {
             return (err);
         }
@@ -40,10 +39,11 @@ exports.showAticleList = function(req, res) {
 
 
         var ep = new EventProxy();
+
         /**辅助函数**/
 
         function getAuthorById(id) {
-            User.getUserID(id, function(err, data) {
+            User.getUserID(id, function (err, data) {
                 if (err) {
                     return
                 }
@@ -55,7 +55,7 @@ exports.showAticleList = function(req, res) {
         }
 
 
-        lists = lists.map(function(item, index) {
+        lists = lists.map(function (item, index) {
             console.log(index);
             return {
                 _id: item._id,
@@ -69,10 +69,9 @@ exports.showAticleList = function(req, res) {
         });
 
 
+        ep.after('got_file', lists.length, function (list) {
 
-        ep.after('got_file', lists.length, function(list) {
-
-            var _lists = lists.map(function(item, index) {
+            var _lists = lists.map(function (item, index) {
 
                 item.author = list[index];
                 return item
@@ -93,11 +92,10 @@ exports.showAticleList = function(req, res) {
         });
 
 
-
     })
 };
 
-exports.showCreate = function(req, res) {
+exports.showCreate = function (req, res) {
 
     res.render('create-aticle', {
         user: req.session.user,
@@ -107,7 +105,7 @@ exports.showCreate = function(req, res) {
 
 }
 
-exports.create = function(req, res) {
+exports.create = function (req, res) {
 
     var title = xss(validator.trim(req.body.title));
     var content = xss(validator.trim(req.body.content));
@@ -123,7 +121,7 @@ exports.create = function(req, res) {
     }
 
 
-    Aticle.newAndSave(title, content, authorId, function(err) {
+    Aticle.newAndSave(title, content, authorId, function (err) {
 
         if (err) {
             return next(err);
@@ -138,10 +136,10 @@ exports.create = function(req, res) {
 
 /*********编辑文章*********/
 
-exports.showEdit = function(req, res, next) {
+exports.showEdit = function (req, res, next) {
     var aticle_id = req.params._id;
 
-    Aticle.findAticleById(aticle_id, function(err, aticle) {
+    Aticle.findAticleById(aticle_id, function (err, aticle) {
         if (!aticle) {
             res.render('notify', {
                 error: '此文章不存在或已被删除。'
@@ -173,16 +171,22 @@ exports.showEdit = function(req, res, next) {
 };
 
 
-exports.showDetail = function(req, res) {
+exports.showDetail = function (req, res) {
     var _id = req.params._id;
 
-
-
-    Aticle.findOneAticle(_id, function(err, doc) {
+    Aticle.findOneAticle(_id, function (err, doc) {
 
         var aticle = _.pick(doc, ['_id', 'title', 'content', 'author_id']);
-        aticle.update_at = moment(doc.update_at).format('YYYY-MM-DD hh:mm:ss'),
-        User.getUserID(doc.author_id, function(err, data) {
+        aticle.update_at = moment(doc.update_at).format('YYYY-MM-DD hh:mm:ss');
+        User.getUserID(doc.author_id, function (err, data) {
+            console.log(err, data);
+            if (err || !data) {
+                return res.render('aticle-view', {
+                    aticle: aticle,
+                    is_author: false
+                });
+            }
+
 
             aticle.author = {
                 nickname: data.nickname,
@@ -192,29 +196,23 @@ exports.showDetail = function(req, res) {
 
             var is_author = util.visiter_is_author(req, data._id);
 
-            console.log('is_author', is_author)
-
-
-
             res.render('aticle-view', {
                 aticle: aticle,
                 is_author: is_author
             })
 
-        })
+        });
 
 
-
-    })
+    });
 
 
 }
 
 
-
-exports.delAticleById = function(req, res) {
+exports.delAticleById = function (req, res) {
     var id = req.body.id;
-    Aticle.delAticleById(id, function() {
+    Aticle.delAticleById(id, function () {
 
     })
 }
