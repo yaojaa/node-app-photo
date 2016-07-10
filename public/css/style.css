@@ -30,6 +30,12 @@ dt{
   text-decoration: none;
   color: #333333;
 }
+.footer .weixin-logo {
+  width: 100px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 dd{
   font-size: 14px;
   line-height: 26px;
@@ -51,6 +57,7 @@ dd{
   bottom: 0;
   background-color: #dedede;
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 .header{
   height:48px;
