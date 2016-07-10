@@ -119,8 +119,6 @@ router.post('/create-aticle', aticle.create)
 router.get('/a/:_id/edit', aticle.showEdit);  // 显示编辑文章
 
 
-
-
 /**
  *图集部分router
  */
@@ -144,8 +142,6 @@ router.post('/create-video', video.publish)
 
 router.get('/search', search.show)
 router.get('/searchdb', search.search)
-
-
 
 
 //用户中心
@@ -172,11 +168,11 @@ router.get('/uc/recharge/list', auth.ajaxValidateLogin, ucenter.rechargeList);
 //个人资料
 router.get('/uc/view', function (req, res) {
     res.render('uc_view',
-      {
-          user: req.session.user,
-          Domain: config.qn_access.Domain,
-          Uptoken_Url: config.qn_access.Uptoken_Url
-      }
+        {
+            user: req.session.user,
+            Domain: config.qn_access.Domain,
+            Uptoken_Url: config.qn_access.Uptoken_Url
+        }
     );
 });
 
@@ -218,4 +214,9 @@ router.get('/deal/order/pay/:orderId', deal.pay);
 //微信异步通知支付结果
 router.post('/pub/wxpay/notify', deal.notify);
 
+
+//底部协议
+router.use('/protocol', function (req, res) {
+    res.render('protocol' + req.path);
+});
 module.exports = router;

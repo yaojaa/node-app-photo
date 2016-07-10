@@ -7,7 +7,7 @@ var UserSchema = new Schema({
 
     is_vip: {type: Boolean, default: false}, //是否VIP
     score: {type: Number, default: 0},  //积分
-    money: {type: Number, default: 10000},  //账户余额，单位分
+    money: {type: Number, default: 0},  //账户余额，单位分
     hasBuy: {type: Array}, //已经购买的图集
     topic_count: {type: Number, default: 0}, //主题数量
     reply_count: {type: Number, default: 0}, //回复数量

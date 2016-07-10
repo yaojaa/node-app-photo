@@ -118,9 +118,10 @@ exports.editPassword = function (req, res) {
     var newpwd = crypto.createHash('md5').update(password).digest('hex');
     User.update(user_id, {password: newpwd}, function (err, result) {
         if (err) return res.fail('修改密码失败');
-        req.session.user_id = null;-
+        req.session.user_id = null;
+        -
 
-        res.ok();
+            res.ok();
     });
 
 };
@@ -185,8 +186,8 @@ exports.signup = function (req, res, next) {
 
     // 验证信息的正确性
     if ([nickname, password, email].some(function (item) {
-          return item === '';
-      })) {
+            return item === '';
+        })) {
         ep.emit('prop_err', '信息不完整。');
         return;
     }
@@ -206,38 +207,42 @@ exports.signup = function (req, res, next) {
 
     //验证邮箱
     /*
-    var codeInfo = req.session.code_info;
-    console.log(codeInfo);
-    if (codeInfo) {
-        if (codeInfo.email !== email) {
-            return ep.emit('prop_err', '请先发送验证码验证邮箱。');
-        } else {
-            if (Date.now() - codeInfo.timestamp > 1000 * 10 * 50) {
-                req.session.code_info = null;
-                return ep.emit('prop_err', '验证码已经失效请重新发送');
-            } else {
-                if (codeInfo.code !== code) {
-                    return ep.emit('prop_err', '验证码错误，请重新输入');
-                }
-            }
-        }
-    } else {
-        return ep.emit('prop_err', '请发送验证码。');
-    }
-    */
+     var codeInfo = req.session.code_info;
+     console.log(codeInfo);
+     if (codeInfo) {
+     if (codeInfo.email !== email) {
+     return ep.emit('prop_err', '请先发送验证码验证邮箱。');
+     } else {
+     if (Date.now() - codeInfo.timestamp > 1000 * 10 * 50) {
+     req.session.code_info = null;
+     return ep.emit('prop_err', '验证码已经失效请重新发送');
+     } else {
+     if (codeInfo.code !== code) {
+     return ep.emit('prop_err', '验证码错误，请重新输入');
+     }
+     }
+     }
+     } else {
+     return ep.emit('prop_err', '请发送验证码。');
+     }
+     */
 
 
     //生成密码的 md5 值
     var md5 = crypto.createHash('md5'),
-      password = md5.update(password).digest('hex');
-    User.getUserByMail(email, function (err, users) {
+        password = md5.update(password).digest('hex');
+    User.getUserByMailOrNickname(email, nickname, function (err, users) {
 
         if (err) {
             console.log('[sign]注册用户失败', err.stack);
             return ep.emit('prop_err', '注册用户失败');
         }
         if (!!users) {
-            return ep.emit('prop_err', '邮箱已被使用');
+            if (users.email === email) {
+                return ep.emit('prop_err', '邮箱已被使用');
+            } else {
+                return ep.emit('prop_err', '昵称已被使用');
+            }
         }
 
         User.newAndSave(password, email, nickname, false, function (err) {
@@ -315,7 +320,7 @@ function checkIsLogin(req, res, next) {
         //?????拿到cookie后应该到服务器端验证！！这里暂时未做验证！！！
         var auth = cookie.split('$$$$');
         var email = auth[0],
-          password = auth[1]; //解密后拿到username与password
+            password = auth[1]; //解密后拿到username与password
 
 
         User.getUserByMail(email, function (err, user) {
@@ -363,14 +368,13 @@ exports.login = function (req, res, next) {
     var refer = req.session._loginReferer || '/';
 
 
-
     if (!email || !password) {
         return res.fail('用户名或密码不正确');
     }
 
     //生成密码的 md5 值
     var md5 = crypto.createHash('md5'),
-      password = md5.update(password).digest('hex');
+        password = md5.update(password).digest('hex');
 
     User.getUserByMail(email, function (err, user) {
         if (err) {

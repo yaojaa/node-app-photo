@@ -254,6 +254,67 @@
             vertical-align: middle;
         }
 
+
+
+
+        .album-wrapper {
+            position: relative;
+        }
+
+        .album-number {
+            position: absolute;
+            color: #fff;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+
+        }
+
+        .album-description {
+            position: absolute;
+            width: 100%;
+            bottom: 5px;
+            vertical-align: middle;
+        }
+
+        .album-description a {
+            float: left;
+            display: block;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .album-description .a-txt {
+            line-height: 30px;
+        }
+
+        .album-description .belong-name {
+            margin-left: 5px;
+        }
+
+        .album-description .tuijian {
+            float: right;
+            margin-right: 5px;
+        }
+
+        .album-description a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .album-description .belong-icon {
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+        }
+
+        .album-description .belong-icon-wrapper {
+            margin-left: 5px;
+        }
+
+        .bg-w {
+            background: #fff
+        }
     </style>
 
 {{/extend}}
@@ -306,15 +367,15 @@
 <div class="tab_wrapper">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        {{#if user}}
-            <li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"
-                                       data-toggle="tab">我关注的图片</a>
-            </li>
-        {{/if}}
+        <!--{{#if user}}-->
+            <!--<li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"-->
+                                       <!--data-toggle="tab">我关注的图片</a>-->
+            <!--</li>-->
+        <!--{{/if}}-->
         <li role="presentation" class="active">
-            <a href="#new_pic" onclick="showPicture(1)" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
+            <a href="#new_pic" onclick="showPicture('fresh')" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
         </li>
-        <li role="presentation"><a href="#hot_pic" onclick="showPicture(2)" aria-controls="hot_pic" role="tab"
+        <li role="presentation"><a href="#hot_pic" onclick="showPicture('popular')" aria-controls="hot_pic" role="tab"
                                    data-toggle="tab">热门图片</a>
         </li>
 
@@ -336,11 +397,7 @@
 
 <div class="tab-content contentFirst" id="aticleContainer">
     <ul class="pagelist-wrapper ">
-
         <my-component></my-component>
- 
-
-
     </ul>
 
 </div>
@@ -378,21 +435,35 @@
     <script type="text/javascript">
 
         var $picContainer = $('#pic-container');
-        function showPicture(type) {
+        function showPicture(classify) {
 
 
             my.ajax({
-                url: "/home/photo/list",
-                data: {type: type, pageNo: 1},
+                url: "/photo/list/classify",
+                type: 'get',
+                data: {classify: classify, pageNo: 1},
                 success: function (list) {
                     var html = '';
                     html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
+
+
+
                     for (var i = 0, length = list.length; i < length; i++) {
-                        var item = list[i];
+
                         var randomWidth = parseInt(Math.random() * 400 + 300);
-                        html += '<a href="/photo/' + item._id + '"><img src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
+                        var item = list[i];
+                        var userAvatar = item.userAvatar ? item.userAvatar : '{{avatar }}';
+                        html += '<div class="album-wrapper jg-entry">';
+                        html += '<div class="album-number">' + item.piccnt + '张</div>';
+                        html += '<a target="_blank" href="/photo/' + item._id + '"><img src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
+                        html += '<div class="album-description">';
+                        html += '<a class="belong-icon-wrapper" href="/userspace/' + item.author_id + '">';
+                        html += '<img class="belong-icon" src="' + userAvatar + '" alt=""/></a>';
+                        html += '<a class="a-txt belong-name" href="/userspace/' + item.author_id + '">' + item.userName + '</a>';
+                        html += '</div>';
+                        html += '</div>';
                     }
-                    html += '</div></div>';
+
                     $picContainer.html(html);
 
                     $('.basicExample').justifiedGallery({
@@ -404,7 +475,7 @@
             });
 
         }
-        showPicture(1);
+        showPicture('fresh');
 
         //获取最新图文
 
@@ -414,8 +485,6 @@
         })
 
   </script>
-
-    </script>
 
     <script src="//unslider.com/unslider.js"></script>
 
