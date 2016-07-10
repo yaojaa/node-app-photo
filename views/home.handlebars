@@ -312,6 +312,18 @@
             margin-left: 5px;
         }
 
+        .album-title{
+            width: 80%;
+            left: 10px;
+            position: absolute;
+            z-index: 2;
+            color: #fff;
+            top: 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
         .bg-w {
             background: #fff
         }
@@ -454,6 +466,7 @@
                         var item = list[i];
                         var userAvatar = item.userAvatar ? item.userAvatar : '{{avatar }}';
                         html += '<div class="album-wrapper jg-entry">';
+                        html += '<div class="album-title">' + item.title + '</div>'
                         html += '<div class="album-number">' + item.piccnt + '张</div>';
                         html += '<a target="_blank" href="/photo/' + item._id + '"><img src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
                         html += '<div class="album-description">';
