@@ -179,6 +179,7 @@ router.get('/uc/view', function (req, res) {
 
 //个人主页
 router.get('/userspace(/:id)?', ucenter.userspace);
+router.get('/follow/:id/:type', ucenter.follow);
 
 
 //修改密码

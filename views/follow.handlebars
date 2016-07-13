@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/common.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/buttons.css">
+  <link rel="stylesheet" href="/css/userspace.css?9988">
+  <link rel="stylesheet" href="/css/justifiedGallery.min.css?9987">
+</head>
+<div class="g-head">
+  <ul class="nav navbar-nav navbar-right">
+    {{#if isLogin}}
+      {{#if isSelf}}
+      {{else}}
+        <li>
+          <a href="/follow/{{userInfo.id}}" title="关注" class="start-btn"><span class="glyphicon glyphicon-plus"></span>关注</a>
+        </li>
+      {{/if}}
+    {{else}}
+      <li>
+        <a href="/login" title="登录" class="start-btn"><span class="glyphicon glyphicon-user"></span>会员登录</a>
+      </li>
+      <li>
+        <a href="/signup" title="注册" class="start-btn"><span class="glyphicon glyphicon-edit"></span>注册</a>
+      </li>
+    {{/if}}
+    <li>
+      <a href="/" title="首页" class="start-btn"><span class="glyphicon glyphicon-camera"></span>风影网</a>
+    </li>
+  </ul>
+</div>
+<div class="u_banner">
+  <div class="u_logo">
+    <img src="{{userInfo.avatar}}" alt="">
+  </div>
+  <div class="u_badge">
+    {{userInfo.nickname}}
+  </div>
+</div>
+<div class="u_details">
+  <h3 style="color:#fff">
+    {{userInfo.signature}}
+  </h3>
+
+  <ul class="u_details_list">
+    <li>
+      <span>{{totalBrowseCount}}</span> 次照片浏览
+    </li>
+    <li>
+      <span>{{userInfo.fans.length}}</span> 名粉丝
+    </li>
+    <li>
+      <span>{{userInfo.followings.length}}</span> 次关注
+    </li>
+  </ul>
+</div>
+<div class="tab_wrapper">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#new_pic" aria-controls="new_pic" role="tab" data-toggle="tab">图片
+      {{totalPicturesCount}}</a></li>
+
+    <li role="presentation"><a href="#hot_pic" aria-controls="hot_pic" role="tab" data-toggle="tab">关于</a></li>
+        {{#if isSelf}}
+      <li role="presentation"><a href="/uc/view">设置</a></li>
+    {{/if}}
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content" style="max-width:900px; margin:0 auto">
+    <div role="tabpanel" class="tab-pane active" id="new_pic">
+      <div class="basicExample">
+        {{#each photos}}
+          <a href="/photo/{{_id}}" target="_blank">
+            <img alt="{{title}}[{{piccnt}}张]" src="http://img.fengimage.com/{{pictures}}"/>
+          </a>
+        {{/each}}
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="hot_pic">
+      <div class="about_body">
+        <div class="small_wrapper">
+          <section class="bio">
+            <h3>个人网址:
+
+              <a target="_blank" href="http://www.fengimage.com/userspace/{{userInfo._id}}">http://www.fengimage.com/userspace/{{userInfo._id}}</a> </h3>
+          </section>
+
+           <section class="bio">
+            <h3>微信：
+
+              {{userInfo.wx}} </h3>
+          </section>
+
+
+ <section class="bio">
+            <h3>QQ:
+
+              {{userInfo.QQ}}
+</h3>          </section>
+           <section class="bio">
+            <h3>个人签名: {{userInfo.signature}}</h3>
+
+          </section>
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="g-foot container" align="center"> 
+  被访问{{userInfo.userspace_count}}次 | © {{userInfo.nickname}} | Powered by 风影网
+</div>
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/js/common.js"></script>
+<script type="text/javascript" src="/js/jquery.justifiedGallery.min.js?9999"></script>
+<script type="text/javascript">
+  $('.basicExample').justifiedGallery({
+    rowHeight: 200,
+    lastRow: 'nojustify',
+    margins: 3
+  });
+</script>

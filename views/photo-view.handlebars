@@ -29,6 +29,7 @@
                     <div class="photo-mark">
                         <label>浏览{{photo.browse_cnt}}</label>
                         <!--<label>喜欢{{photo.like_cnt}}</label>-->
+                        <label>数量{{photo.pictures.length}}</label>
                         <label>更新{{photo.update_at}}</label>
                     </div>
                     <div class="photo-author">
@@ -46,6 +47,11 @@
                     </div>
                 </div>
             </div>
+
+            <div class="photo-discrib">
+                {{discrib}}
+            </div>
+
             <section class="photo-details-section">
                 <div id="photos" class="photo">
                     {{#each photo.pictures}}

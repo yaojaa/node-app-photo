@@ -118,6 +118,7 @@ exports.showDetail = function(req, res) {
         res.render('photo-view', {
             //layout: null,
             title: dataPhoto.title,
+            discrib: dataPhoto.discrib,
             photo: tmpData,
             headImg: tmpData.pictures[0],
             authorIsNotSelf: authorIsNotSelf,

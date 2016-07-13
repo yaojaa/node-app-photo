@@ -276,6 +276,7 @@ textarea {
     background-color: #fff;
     letter-spacing: -4px;
 }
+
 #photos img {
     display: block;
     max-width: 100%;
@@ -343,3 +344,10 @@ textarea {
     color: #333;
     background-color: #C5C5C5;
 }
+
+.photo-discrib {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+

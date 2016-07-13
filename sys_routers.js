@@ -2,6 +2,7 @@ var express = require('express');
 var main = require('./controllers/sys/main');
 var user = require('./controllers/sys/user');
 var photo = require('./controllers/sys/photo');
+var aticle = require('./controllers/sys/aticle');
 var order = require('./controllers/sys/order');
 
 var router = express.Router();
@@ -62,6 +63,15 @@ router.get('/photo/list', function (req, res) {
 router.post('/photo/list', photo.page);
 router.get('/photo/del/:id', photo.del);
 router.get('/photo/:id', photo.detail);
+
+
+//网站图文管理
+router.get('/aticle/list', function (req, res) {
+    out(req, res, 'sys/aticle_list');
+});
+router.post('/aticle/list', aticle.page);
+router.get('/aticle/del/:id', aticle.del);
+router.get('/aticle/:id', aticle.detail);
 
 //订单管理
 router.get('/order/list', function (req, res) {

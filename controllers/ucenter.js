@@ -262,3 +262,33 @@ exports.userspace = function (req, res, next) {
 exports.showMoney = function (req, res) {
     res.render('uc_money');
 };
+
+
+//查看用户的粉丝
+exports.follow = function (req, res, next) {
+    var id = req.params.id;
+    var type = req.params.type;
+
+    async.waterfall([function (cb) {
+        User.getUserID(id, cb);
+    }, function (user, cb) {
+        //我的粉丝
+        if (type == 0) {
+            if (user.fans || user.fans.length === 0) {
+                cb(null);
+            } else {
+                User.findByIds(user.fans, cb);
+            }
+        } else {//我关注的
+            if (user.followings || user.followings.length === 0) {
+                cb(null);
+            } else {
+                User.findByIds(user.followings, cb);
+            }
+        }
+    }], function (err, users) {
+        if (err) return next(err);
+        res.render('follow', {layout: null, users: users, userInfo: user});
+    });
+
+};

@@ -4,7 +4,7 @@
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-10 col-sm-10">
-        <h4>查看图集</h4>
+        <h4>图文详情</h4>
       </div>
       <div class="col-md-2 col-sm-2">
         <a href="javascript:history.back();" class="btn btn-default">返回</a>
@@ -18,20 +18,18 @@
       <div class="form-group">
         <label class="col-sm-2 control-label">名称 : </label>
 
-        <div class="col-sm-10 u-word">{{photoinfo.title}}</div>
+        <div class="col-sm-10 u-word">{{aticleinfo.title}}</div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">描述 : </label>
 
-        <div class="col-sm-10 u-word">{{photoinfo.discrib}}</div>
+        <div class="col-sm-10 u-word">{{aticleinfo.des}}</div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">图片 : </label>
 
         <div class="col-sm-10 u-word">
-           {{#each photoinfo.pictures }}
-             <img width="200px" src="http://img.fengimage.com/{{this}}?imageView2/1/" alt=""/>
-           {{/each}}
+           {{{aticleinfo.content}}}
         </div>
       </div>
     </form>
