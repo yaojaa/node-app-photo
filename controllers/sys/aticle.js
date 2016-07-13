@@ -112,9 +112,8 @@ exports.detail = function (req, res, next) {
     }
     Aticle.findOneAticle(id, function (err, item) {
         if (err) return next(err);
-
         var user = req.session.sysUser;
-        res.render('sys/photo_detail', {
+        res.render('sys/aticle_detail', {
             layout: 'admin',
             loginname: user['login_name'],
             aticleinfo: item 

@@ -55,10 +55,10 @@
       <span>{{totalBrowseCount}}</span> 次照片浏览
     </li>
     <li>
-      <span>{{userInfo.fans.length}}</span> 名粉丝
+        <a href="/user/follow/{{userInfo.id}}/0" style="color: #fff"><span>{{userInfo.fans.length}}</span> 名粉丝</a>
     </li>
     <li>
-      <span>{{userInfo.followings.length}}</span> 次关注
+        <a href="/user/follow/{{userInfo.id}}/1" style="color: #fff"><span>{{userInfo.followings.length}}</span> 次关注</a>
     </li>
   </ul>
 </div>

@@ -268,19 +268,26 @@ exports.showMoney = function (req, res) {
 exports.follow = function (req, res, next) {
     var id = req.params.id;
     var type = req.params.type;
+    var isLogin = !!req.session.user;
+    var isSelf = false;
+    if (isLogin && req.session.user.id === id) {
+        isSelf = true;
+    }
 
+    var user;
     async.waterfall([function (cb) {
         User.getUserID(id, cb);
-    }, function (user, cb) {
+    }, function (_user, cb) {
+        user = _user;
         //我的粉丝
         if (type == 0) {
-            if (user.fans || user.fans.length === 0) {
+            if (!user.fans || user.fans.length === 0) {
                 cb(null);
             } else {
                 User.findByIds(user.fans, cb);
             }
         } else {//我关注的
-            if (user.followings || user.followings.length === 0) {
+            if (!user.followings || user.followings.length === 0) {
                 cb(null);
             } else {
                 User.findByIds(user.followings, cb);
@@ -288,7 +295,14 @@ exports.follow = function (req, res, next) {
         }
     }], function (err, users) {
         if (err) return next(err);
-        res.render('follow', {layout: null, users: users, userInfo: user});
+        res.render('follow', {
+            layout: null,
+            isLogin: isLogin,
+            isSelf: isSelf,
+            type: type,
+            users: users,
+            userInfo: user
+        });
     });
 
 };

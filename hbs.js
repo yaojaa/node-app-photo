@@ -29,6 +29,9 @@ module.exports = function (app) {
                 },
                 formatMoney: function (money) {
                     return money * 0.01;
+                },
+                eq: function (a, b, options) {
+                    return a === b ? options.fn(this) : options.inverse(this);
                 }
             }
         });
