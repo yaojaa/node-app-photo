@@ -205,7 +205,7 @@
 
         .item-info a {
             text-decoration: none;
-            color:#999;
+            color: #999;
         }
 
         .item-info a:hover {
@@ -253,9 +253,6 @@
             text-align: center;
             vertical-align: middle;
         }
-
-
-
 
         .album-wrapper {
             position: relative;
@@ -312,7 +309,7 @@
             margin-left: 5px;
         }
 
-        .album-title{
+        .album-title {
             width: 80%;
             left: 10px;
             position: absolute;
@@ -379,13 +376,14 @@
 <div class="tab_wrapper">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <!--{{#if user}}-->
-            <!--<li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"-->
-                                       <!--data-toggle="tab">我关注的图片</a>-->
-            <!--</li>-->
-        <!--{{/if}}-->
+    <!--{{#if user}}-->
+        <!--<li role="presentation"><a href="#follow" onclick="showPicture(3)" aria-controls="follow" role="tab"-->
+        <!--data-toggle="tab">我关注的图片</a>-->
+        <!--</li>-->
+            <!--{{/if}}-->
         <li role="presentation" class="active">
-            <a href="#new_pic" onclick="showPicture('fresh')" aria-controls="new_pic" role="tab" data-toggle="tab">最新图片</a>
+            <a href="#new_pic" onclick="showPicture('fresh')" aria-controls="new_pic" role="tab"
+               data-toggle="tab">最新图片</a>
         </li>
         <li role="presentation"><a href="#hot_pic" onclick="showPicture('popular')" aria-controls="hot_pic" role="tab"
                                    data-toggle="tab">热门图片</a>
@@ -399,11 +397,10 @@
 </div>
 
 
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation"><h3 style="padding:15px">最新图文故事</h3>
+    </li>
 
-  <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation"><h3 style="padding:15px">最新图文故事</h3>
-      </li>
-   
 </ul>
 
 
@@ -453,11 +450,10 @@
             my.ajax({
                 url: "/photo/list/classify",
                 type: 'get',
-                data: {classify: classify, pageNo: 1},
+                data: {classify: classify, pageNo: 1, pageSize: 13},
                 success: function (list) {
                     var html = '';
                     html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
-
 
 
                     for (var i = 0, length = list.length; i < length; i++) {
@@ -497,7 +493,7 @@
             el: '#aticleContainer'
         })
 
-  </script>
+    </script>
 
     <script src="//unslider.com/unslider.js"></script>
 
