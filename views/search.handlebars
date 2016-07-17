@@ -4,69 +4,59 @@
 
 <div class="row">
 
+<div class="col-sm-12 col-md-8 col-md-offset-2">
+
 <h1 class="text-center">搜索</h1>
 <hr>
 
 
-<form action="/searchdb" method="get">
+<form action="/search" method="get">
 <div class="input-group input-group-lg">
 <span class="input-group-btn">
       </span>
-      <input type="text" name="keyword" class="form-control" placeholder="请输入关键字...">
+      {{#if keyword}}
+      <input type="text" name="keyword" class="form-control" value="{{keyword}}">
+      {{else}}
+      <input type="text" name="keyword" class="form-control" value="" placeholder="请输入关键字...">
+      {{/if}}
         <span class="input-group-btn">
-        <button class="btn btn-default" type="submit">搜索</button>
+        <button class="btn btn-default" type="submit" >搜索</button>
       </span>
 </div>
 <br><br>
 </form>
 
-{{#if has_result}}
-<div class="list-group " >
-  <h6class="list-group-item active">
-   搜索 {{keyword}} 结果：
-  </h6>
 
-  {{#each data}}
-  <a href="#" class="list-group-item">{{{title}}}  {{update_at}}</a>
+		{{#if has_result}}
+		<div class="list-group " >
+		  <h6class="list-group-item active">
+		   搜索 {{keyword}} 结果：
+		  </h6>
+		  <br>
+		  		  <br>
 
 
-  {{/each}}
-  
+		  {{#each data}}
+		  <a href="/{{type}}/{{_id}}" class="list-group-item">{{{title}}}   发布于：{{format update_at}}</a>
+
+		  {{/each}}
+		</div>
+		 </div>
+
+
+
+		{{else}}
+
+		<div class="alert">未找到相关内容</div>
+
+		{{/if}}
+<br><br><br>
+
+</div>
+</div>
 </div>
 
 
 
 
-
-<nav>
-  <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-
-{{/if}}
-
-
-
-
-
-
-
-
-
-  </div>
-</div>
+ 

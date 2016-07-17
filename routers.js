@@ -140,8 +140,7 @@ router.post('/create-video', video.publish)
 
 //搜索
 
-router.get('/search', search.show)
-router.get('/searchdb', search.search)
+router.get('/search', search.search)
 
 
 //用户中心
