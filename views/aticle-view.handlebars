@@ -8,7 +8,7 @@
     box-shadow: 0 0 6px #ddd;
     max-width:960px;
     margin:10px auto 40px;
-    font-size: 16px
+    font-size: 16px;
 }
 
 #aticleContent p{
@@ -83,6 +83,16 @@ h1.heading{
     color: #d5d5d5
 }
 
+@media(max-width: 768px){
+
+    .share{
+        display: none;
+    }
+    #aticleContent{
+        padding: 10px
+    }
+}
+
 </style>
 
 <div class="container contentFirst">
@@ -117,7 +127,9 @@ h1.heading{
 
 
 
-
+{{#extend "title"}}
+  {{aticle.title}}
+{{/extend}}
     	    <h1 class="heading">{{aticle.title}}  {{#if is_author}} <small><a href="/a/{{aticle._id}}/edit">编辑</a></small>  {{/if}}</h1>
 <hr>
     	{{{aticle.content}}}
