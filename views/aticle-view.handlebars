@@ -127,7 +127,9 @@ h1.heading{
 
 
 
-
+{{#extend "title"}}
+  {{aticle.title}}
+{{/extend}}
     	    <h1 class="heading">{{aticle.title}}  {{#if is_author}} <small><a href="/a/{{aticle._id}}/edit">编辑</a></small>  {{/if}}</h1>
 <hr>
     	{{{aticle.content}}}
