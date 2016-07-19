@@ -282,6 +282,7 @@ textarea {
 #photos img {
     display: block;
     float: left;
+    max-width: 100%;
 }
 
 .photo-header {
