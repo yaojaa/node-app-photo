@@ -32,6 +32,9 @@ module.exports = function (app) {
                 },
                 eq: function (a, b, options) {
                     return a === b ? options.fn(this) : options.inverse(this);
+                },
+                add: function (a, b) {
+                    return a + b;
                 }
             }
         });

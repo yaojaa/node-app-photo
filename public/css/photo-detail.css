@@ -274,13 +274,15 @@ textarea {
 
 #photos .main-area {
     background-color: #fff;
-    letter-spacing: -4px;
+    clear: both;
+    overflow: hidden;
+    margin-top: 20px;
 }
 
 #photos img {
     display: block;
+    float: left;
     max-width: 100%;
-    margin-top: 20px
 }
 
 .photo-header {
@@ -349,5 +351,16 @@ textarea {
     border-top: 1px solid #ddd;
     padding-top: 20px;
     margin-top: 20px;
+    font-size: 18px;
 }
 
+.img-desc {
+    margin-left: 20px;
+    float: left;
+    margin-top: 30px;
+}
+
+
+.img-desc h2 {
+    display: inline-block;
+}

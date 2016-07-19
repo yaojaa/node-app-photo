@@ -33,17 +33,26 @@
                         <label>更新{{photo.update_at}}</label>
                     </div>
                     <div class="photo-author">
-                    <b style="vertical-align: -2px;">&copy;</b>    <a href="/userspace/{{author.id}}">{{author.nickname}}</a>
+                        <b style="vertical-align: -2px;">&copy;</b> <a
+                            href="/userspace/{{author.id}}">{{author.nickname}}</a>
                         {{#if authorIsNotSelf}}
 
                             {{#if isFollow}}
-                                <label class="button button-rounded button-tiny button-small btn-follow" id="follow" data-type="1">✔ 已关注</label>
+                                <label class="button button-rounded button-tiny button-small btn-follow" id="unfollow"
+                                       data-type="1">✔ 已关注</label>
+                                <label style="display: none;"
+                                       class="button button-rounded button-primary button-small btn-follow" id="follow"
+                                       data-type="2">+ 关注</label>
                             {{else}}
-                                <label class="button button-rounded button-primary button-small btn-follow" id="follow" data-type="2">+ 关注</label>
+                                <label style="display: none;"
+                                       class="button button-rounded button-tiny button-small btn-follow" id="unfollow"
+                                       data-type="1">✔ 已关注</label>
+                                <label class="button button-rounded button-primary button-small btn-follow" id="follow"
+                                       data-type="2">+ 关注</label>
                             {{/if}}
 
                         {{/if}}
-                        <label class="button button-rounded button-caution button-small  j-btn-reward">打赏</label>
+                        <label class="button button-rounded button-caution button-small j-btn-reward">打赏</label>
                     </div>
                 </div>
             </div>
@@ -55,16 +64,22 @@
             <section class="photo-details-section">
                 <div id="photos" class="photo">
                     {{#each photo.pictures}}
-                       <div class="main-area"><a href="http://img.fengimage.com/{{this}}" data-type="image">
-                            <img class="tobeview" src="http://img.fengimage.com/{{this}}?imageView2/1/"
-                                 alt="{{photo.title}} "/>
-                        </a>
-                        </div> 
+                        <div class="main-area">
+                            <a class="j-img-link" href="http://img.fengimage.com/{{this}}" data-type="image">
+                                <img class="tobeview lazy"
+                                     data-original="http://img.fengimage.com/{{this}}?imageView2/1/"
+                                     alt="{{photo.title}} "/>
+                            </a>
+                            <div class="img-desc">
+                                <h2>图片{{add @index 1}}</h2>
+                                <a href="#comment" class="button button-rounded button-default button-small">评论</a>
+                            </div>
+                        </div>
                     {{/each}}
                 </div>
             </section>
             <!-- 评论 -->
-            <div class="m-comment">
+            <div class="m-comment" id="comment">
                 <h2>用户评论 (<span id="comment-count"></span>条评论)
                 </h2>
                 <textarea id="commentContent"></textarea>
@@ -151,7 +166,8 @@
             </div>
             <img class="u-wxcode" src="" alt="微信扫码支付">
             <div class="u-mark weixin">
-                <small>注 : 微信扫码支付</small></div>
+                <small>注 : 微信扫码支付</small>
+            </div>
         </div>
     </div>
 </script>
@@ -165,46 +181,48 @@
     <script src="/js/comment.js"></script>
     <script src="/js/reward.js"></script>
     <script src="/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
 
     <script>
 
+        var clientHeight = document.documentElement.clientHeight;
+
         //大屏显示图片
-        $('#photos a').iLightBox();
+        $('#photos .j-img-link').iLightBox();
 
-
-        //关注取消关注
-        $('#follow').on('click', function () {
-            var author_id = '{{author._id}}';
-            var $btn = $(this);
-
-            if ($btn.data('type') == 1) {//已经关注
-
-                $.post('/api/v1/unfollow', {author_id: author_id}, function (data) {
-
-                    if (data.errorno === 0) {
-                        $btn.text('+ 关注');
-                    } else if (data.errorno == -1) {
-                        swal('请先登录');
-                    }
-                });
-
-            } else {
-
-                $.post('/api/v1/follow', {author_id: author_id}, function (data) {
-
-                    if (data.errorno === 0) {
-                        $btn.text('✔ 已关注');
-                    } else if (data.errorno == -1) {
-                        swal('请先登录');
-                    }
-
-                });
-
-            }
-
-
+        $(function () {
+            //图片懒加载
+            $("img.lazy").lazyload().each(function () {
+                this.style.maxHeight = clientHeight + 'px';
+            });
         });
 
+        //关注取消关注
+        var _$follow = $('#follow');
+        var _$unfollow = $('#unfollow');
+        _$follow.click(function () {
+            var author_id = '{{author._id}}';
+            $.post('/api/v1/follow', {author_id: author_id}, function (data) {
+                if (data.errorno === 0) {
+                    _$unfollow.show();
+                    _$follow.hide();
+                } else if (data.errorno == -1) {
+                    swal('请先登录');
+                }
+
+            });
+        });
+        _$unfollow.click(function () {
+            var author_id = '{{author._id}}';
+            $.post('/api/v1/unfollow', {author_id: author_id}, function (data) {
+                if (data.errorno === 0) {
+                    _$unfollow.hide();
+                    _$follow.show();
+                } else if (data.errorno == -1) {
+                    swal('请先登录');
+                }
+            });
+        });
 
     </script>
 {{/extend}}

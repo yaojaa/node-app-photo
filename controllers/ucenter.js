@@ -202,10 +202,28 @@ exports.userspace = function (req, res, next) {
         isSelf = true;
     }
 
+    var isShowFollow = isLogin && !isSelf;
+
     async.parallel([function (cb) {
         User.getUserID(userid, cb);
     }, function (cb) {
         Photo.page({author_id: userid}, {}, {pageNo: 1, pageSize: 10000, sort: '-update_at'}, cb);
+    }, function (cb) {
+        if (isShowFollow) {
+            User.getUserID(userid, function (err, data) {
+                if (err) {
+                    return cb(err);
+                }
+
+                var isFollow = false;
+                if (data.fans.indexOf(req.session.user.id) > -1) {
+                    isFollow = true;
+                }
+                cb(null, isFollow);
+            });
+        } else {
+            cb(null, false);
+        }
     }], function (err, result) {
         if (err) {
             return next(err);
@@ -243,7 +261,8 @@ exports.userspace = function (req, res, next) {
             photos: photos,
             isLogin: isLogin,
             isSelf: isSelf,
-            isShowFollow: isLogin && !isSelf,
+            isShowFollow: isShowFollow,
+            isFollow: result[2],
             totalPicturesCount: totalPicturesCount,
             totalBrowseCount: totalBrowseCount,
             regTime: regTime.getFullYear() + '年' + (regTime.getMonth() + 1) + '月' + regTime.getDate() + '日'
@@ -259,8 +278,16 @@ exports.userspace = function (req, res, next) {
 };
 
 //显示个人钱包
-exports.showMoney = function (req, res) {
-    res.render('uc_money');
+exports.showMoney = function (req, res, next) {
+
+    User.getUserID(req.session.user.id, function (err, data) {
+        if (err) {
+            return next(err);
+        }
+
+        res.render('uc_money', {userInfo: data});
+    });
+
 };
 
 
