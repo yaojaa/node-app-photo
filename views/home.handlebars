@@ -158,6 +158,12 @@
             overflow: hidden;
         }
 
+        @media screen and (max-width: 1080px) {
+            .vision-item {
+                width: 100%;
+            }
+        }
+
         .vision-item .item-cover {
             display: inline-block;
             height: 123px;
@@ -456,7 +462,7 @@
                         var randomWidth = parseInt(Math.random() * 400 + 300);
                         var item = list[i];
                         var userAvatar = item.userAvatar ? item.userAvatar : '{{avatar }}';
-                        html += '<div class="album-wrapper jg-entry" width="'+randomWidth+'" >';
+                        html += '<div class="album-wrapper jg-entry" width="' + randomWidth + '" >';
                         html += '<div class="album-title">' + item.title + '</div>'
                         html += '<div class="album-number">' + item.piccnt + '张</div>';
                         html += '<a target="_blank" href="/photo/' + item._id + '"><img  src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
