@@ -264,6 +264,20 @@
             position: relative;
         }
 
+        .album-wrapper:hover .tohide{
+            opacity: 1;
+        }
+
+
+
+        .tohide{
+            opacity: 0;
+            transition: opacity .5s;
+            -moz-transition: opacity .5s; /* Firefox 4 */
+            -webkit-transition: opacity .5s; /* Safari 和 Chrome */
+            -o-transition: opacity .5s; /* Opera */        
+            }
+
         .album-number {
             position: absolute;
             color: #fff;
@@ -448,6 +462,7 @@
     <script type="text/javascript">
 
         var $picContainer = $('#pic-container');
+       
         function showPicture(classify) {
 
 
@@ -457,16 +472,16 @@
                 data: {classify: classify, pageNo: 1, pageSize: 22},
                 success: function (list) {
                     var html = '';
-                    html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample">';
+                    html += '<div role="tabpanel" class="tab-pane active" id="new_pic"><div class="basicExample" >';
                     for (var i = 0, length = list.length; i < length; i++) {
-                        var randomWidth = parseInt(Math.random() * 400 + 300);
+                        var randomWidth = parseInt(Math.random() * 1200 + 600);
                         var item = list[i];
                         var userAvatar = item.userAvatar ? item.userAvatar : '{{avatar }}';
-                        html += '<div class="album-wrapper jg-entry" width="' + randomWidth + '" >';
-                        html += '<div class="album-title">' + item.title + '</div>'
-                        html += '<div class="album-number">' + item.piccnt + '张</div>';
-                        html += '<a target="_blank" href="/photo/' + item._id + '"><img  src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/"/></a>';
-                        html += '<div class="album-description">';
+                        html += '<div class="album-wrapper jg-entry" >';
+                        html += '<div class="album-title tohide">' + item.title + '</div>'
+                        html += '<div class="album-number tohide">' + item.piccnt + '张</div>';
+                        html += '<a target="_blank" href="/photo/' + item._id + '"><img  src="http://img.fengimage.com/' + item.piccover + '?imageView2/1/w/' + randomWidth + '/h/'+randomWidth+'"/></a>';
+                        html += '<div class="album-description tohide">';
                         html += '<a class="belong-icon-wrapper" href="/userspace/' + item.author_id + '">';
                         html += '<img class="belong-icon" src="' + userAvatar + '" alt=""/></a>';
                         html += '<a class="a-txt belong-name" href="/userspace/' + item.author_id + '">' + item.userName + '</a>';
@@ -474,12 +489,13 @@
                         html += '</div>';
                     }
                     $picContainer.html(html);
-
-
                     $('.basicExample').justifiedGallery({
-                        rowHeight: 300,
-                        margins: 10
+                        rowHeight: 400,
+                        margins: 10,
+                        lastRow:'justify',
+                        maxRowHeight:"150%"
                     });
+
                 }
             });
 
