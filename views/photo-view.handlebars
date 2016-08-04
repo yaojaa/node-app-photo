@@ -54,12 +54,14 @@
                         {{/if}}
                         <label class="button button-rounded button-caution button-small j-btn-reward">打赏</label>
                     </div>
-                    <div class="reward-list">
-                        <span>已打赏人员:</span>
-                        {{#each rewardUsers}}
-                            <a href="/userspace/{{_id}}"><img src="{{avatar}}"></a>
-                        {{/each}}
-                    </div>
+                    {{#if rewardUsers}}
+                        <div class="reward-list">
+                            <span>已打赏人员:</span>
+                            {{#each rewardUsers}}
+                                <a href="/userspace/{{_id}}"><img src="{{avatar}}"></a>
+                            {{/each}}
+                        </div>
+                    {{/if}}
                 </div>
             </div>
 
