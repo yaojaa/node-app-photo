@@ -60,11 +60,13 @@ dd{
   padding-bottom: 20px;
 }
 .header{
-  height:48px;
   width: 100%;
   background-color: #000A00;
 }
 
+.navbar-toggle .icon-bar{
+  background: #CCC
+}
 .nav-stacked{
   margin-bottom: 20px;
   border: 1px solid #dedede;

@@ -37,11 +37,3 @@ Vue.component('my-component', function(resolve, reject) {
 		})
 
 	})
-
-
-
-	+ '<a :href="/a/item._id" class="item-cover" target="_blank"> <img :src="item.thumb"></a>'
-						+ '<div class="item-info">'
-						+ '<a :href="/a/item._id" class="item-cover" target="_blank"> {{item.title}}</a>'
-						+ '<p class="item-author"><a href="">{{author.nickname}}</a> {{create_at }}</p>'
-						+ '<p class="item-desc">{{des }}</p>'
