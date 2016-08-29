@@ -22,7 +22,11 @@ exports.getUserByMailOrNickname = function (email, nickname, callback) {
 };
 
 exports.getUserByName = function (username, callback) {
-    User.findOne({'user_name': username}, callback);
+    User.findOne({'nickname': username}, callback);
+};
+
+exports.getUsersByName = function (username, callback) {
+    User.find({'nickname': username}, callback);
 };
 
 exports.getUserID = function (id, callback) {

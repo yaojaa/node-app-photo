@@ -1,6 +1,7 @@
 var config = require('../config');
 var models = require('../models');
 var Order = models.Order;
+var User =require('../proxy/user');
 var async = require('async');
 
 //添加新订单
@@ -34,23 +35,42 @@ exports.page = function (query, keys, opt, callback) {
     var pageSize = opt.pageSize || 10;
     pageNo--;
     async.parallel({
-          one: function (callback) {
-              var skip = pageNo * pageSize;
-              var limit = pageSize;
+            one: function (callback) {
+                var skip = pageNo * pageSize;
+                var limit = pageSize;
 
-              opt.skip = skip;
-              opt.limit = limit;
-              Order.find(query, keys, opt, callback);
-          },
-          two: function (callback) {
-              Order.count(query, callback);
-          }
-      },
-      function (err, results) {
-          var list = results.one;
-          var count = results.two;//总记录数
-          var total = Math.ceil(count / pageSize);//总页数
-          callback(null, {list: list, count: count, total: total});
+                opt.skip = skip;
+                opt.limit = limit;
+                Order.find(query, keys, opt, callback);
+            },
+            two: function (callback) {
+                Order.count(query, callback);
+            }
+        },
+        function (err, results) {
+            var list = results.one;
+            var count = results.two;//总记录数
+            var total = Math.ceil(count / pageSize);//总页数
+            callback(null, {list: list, count: count, total: total});
 
-      });
+        });
+};
+
+
+/**
+ * 查询用户被打赏的人员列表
+ */
+exports.findRewardList = function (userId, callback) {
+    Order.find({author_id: userId, status: 1, buy_id: {'$ne': null}}, function (err, list) {
+        if (err) {
+            return callback(err);
+        }
+        var buyIds = list.map(function (usr) {
+            return usr.buy_id;
+        });
+
+        User.findByIds(buyIds, function (err, users) {
+            callback(err, users);
+        });
+    });
 };

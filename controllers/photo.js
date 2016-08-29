@@ -1,6 +1,7 @@
 var config = require('../config');
 var Photo = require('../proxy/photo.js');
 var User = require('../proxy/user.js');
+var Order = require('../proxy/order.js');
 var validator = require('validator');
 var EventProxy = require('eventproxy');
 var _ = require('../lib/tools.js');
@@ -93,7 +94,7 @@ exports.showDetail = function (req, res) {
     var ep = new EventProxy();
 
 
-    ep.all('dataPhoto', 'isBuy', 'author', 'isFollow', function (dataPhoto, isBuy, author, isFollow) {
+    ep.all('dataPhoto', 'isBuy', 'author', 'isFollow', 'rewardUsers', function (dataPhoto, isBuy, author, isFollow, rewardUsers) {
 
 
         var tmpData = _.pick(dataPhoto);
@@ -105,7 +106,6 @@ exports.showDetail = function (req, res) {
             var authorIsNotSelf = true
 
         }
-
 
         //修改浏览次数
         Photo.updateCountById(_id, 1, function (err) {
@@ -125,6 +125,7 @@ exports.showDetail = function (req, res) {
             isBuy: isBuy,
             author: author,
             isFollow: isFollow,
+            rewardUsers: rewardUsers,
             loginUser: req.session.user
         })
 
@@ -171,9 +172,10 @@ exports.showDetail = function (req, res) {
 
         ep.emit('dataPhoto', dataPhoto);
 
-        getAuthorInfo(dataPhoto.author_id)
+        getAuthorInfo(dataPhoto.author_id);
+        findRewardUsers(dataPhoto.author_id);
 
-    })
+    });
 
     //3.获取作者信息
     function getAuthorInfo(id) {
@@ -194,7 +196,15 @@ exports.showDetail = function (req, res) {
 
     }
 
-
+    //查看打赏人员
+    function findRewardUsers(id) {
+        Order.findRewardList(id, function (err, users) {
+            if (err) {
+                return ep.emit('error', err);
+            }
+            ep.emit('rewardUsers', users);
+        });
+    }
 }
 
 /**

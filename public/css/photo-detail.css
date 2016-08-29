@@ -364,3 +364,13 @@ textarea {
 .img-desc h2 {
     display: inline-block;
 }
+.reward-list {
+    margin-top: 5px;
+}
+.reward-list img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-left: 5px;
+}

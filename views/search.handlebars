@@ -37,7 +37,8 @@
 
 
 		  {{#each data}}
-		  <a href="/{{type}}/{{_id}}" class="list-group-item">{{{title}}}   发布于：{{format update_at}}</a>
+		  <h2 class="list-group-item"> <small>{{type.title}}</small>
+ <a href="/{{type.url}}/{{_id}}" >{{{title}}}</a> 		   <small>{{format update_at}}</small> <h2> 
 
 		  {{/each}}
 		</div>
