@@ -79,6 +79,7 @@ jQuery(function() {
         formData: {
             token: config.token
         },
+        auto:true,
 
         // swf文件路径
         swf: BASE_URL + '/js/Uploader.swf',

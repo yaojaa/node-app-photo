@@ -105,6 +105,8 @@ exports.showDetail = function (req, res) {
 
             var authorIsNotSelf = true
 
+        }else{
+            var authorIsSelf = true
         }
 
         //修改浏览次数
@@ -122,6 +124,7 @@ exports.showDetail = function (req, res) {
             photo: tmpData,
             headImg: tmpData.pictures[0],
             authorIsNotSelf: authorIsNotSelf,
+            authorIsSelf:authorIsSelf,
             isBuy: isBuy,
             author: author,
             isFollow: isFollow,
@@ -166,7 +169,12 @@ exports.showDetail = function (req, res) {
             return ep.emit('error', err);
         }
 
-        if (dataPhoto.author_id == user_id) {
+        if(!dataPhoto){
+            res.render('notify', {error: '此图集不存在或已被删除。'});
+            return;
+        }
+
+        if (typeof dataPhoto !=='undefined' && dataPhoto.author_id == user_id) {
             ep.emit('isBuy', true);
         }
 

@@ -68,18 +68,22 @@
 <div class="container" id="{{currentCategory}}">
 
   <ul class="subNav clearfix">
-    <li role="presentation" class="u-menu bg-w"><a href="javascript:;" onclick="reShowPicture('fresh')">最新</a></li>
-    <li class="u-menu"><a href="javascript:;" onclick="reShowPicture('popular')">本周热门</a></li>
+  <li role="presentation" class="u-menu bg-w"><a href="javascript:;" onclick="reShowPicture('fresh')">最新</a></li>
+          <li><a href="javascript:;" onclick="reShowPicture(null,'art')">风光</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'street')">街拍</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'travel')">人像</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'fashion')">时尚</a></li>
+                <li><a href="javascript:;" onclick="reShowPicture(null,'private')">私房</a></li>
+
+  
     <li class="btn-group pull-right ">
       <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false"><strong id="showTitle">所有类别</strong> <span class="caret"></span></button>
       <ul class="dropdown-menu">
-        <li><a href="javascript:;" onclick="reShowPicture(null,'all')">所有类别</a></li>
+        <li><a href="javascript:;" onclick="reShowPicture(null,'all')">热门</a></li>
         <li role="separator" class="divider"></li>
-        <li><a href="javascript:;" onclick="reShowPicture(null,'art')">风光</a></li>
-        <li><a href="javascript:;" onclick="reShowPicture(null,'street')">街拍</a></li>
-        <li><a href="javascript:;" onclick="reShowPicture(null,'travel')">人像</a></li>
-        <li><a href="javascript:;" onclick="reShowPicture(null,'fashion')">时尚</a></li>
+        
+    <li class="u-menu"><a href="javascript:;" onclick="reShowPicture('popular')">本周热门</a></li>
       </ul>
     </li>
   </ul>

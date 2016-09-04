@@ -1,5 +1,4 @@
 {{#extend "stylesheets"}}
-
     <link rel="stylesheet" type="text/css" href="/vendor/ilightbox/ilightbox.css">
     <link rel="stylesheet" type="text/css" href="/vendor/ilightbox/skin.css">
     <link rel="stylesheet" href="/css/photo-detail.css">
@@ -25,7 +24,14 @@
                 <div class="user-icon"><a href="/userspace/{{author.id}}"><img
                         src="{{author.avatar}}?imageView2/1/w/50/" alt="{{author.nickname}}"></a></div>
                 <div class="photo-base-info">
-                    <h1>{{photo.title}}</h1>
+                    <h1>{{photo.title}} 
+{{#if authorIsSelf}}
+
+                    <small><a href="/photo/{{photo.id}}/edit">编辑</a></small>
+                    <small><a id="delphoto" href="javascript:void(0)">删除</a></small>
+
+{{/if}}
+                    </h1>
                     <div class="photo-mark">
                         <label>浏览{{photo.browse_cnt}}</label>
                         <!--<label>喜欢{{photo.like_cnt}}</label>-->
@@ -50,9 +56,11 @@
                                 <label class="button button-rounded button-primary button-small btn-follow" id="follow"
                                        data-type="2">+ 关注</label>
                             {{/if}}
+<label class="button button-rounded button-caution button-small j-btn-reward">打赏</label>
+
 
                         {{/if}}
-                        <label class="button button-rounded button-caution button-small j-btn-reward">打赏</label>
+                        
                     </div>
                     {{#if rewardUsers}}
                         <div class="reward-list">
@@ -231,6 +239,26 @@
                 }
             });
         });
+
+        //delphoto
+
+        function delPhoto(){ 
+            swal({   title: "确定要删除吗？",   text: "删除后无法恢复",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "是的, 删除",   closeOnConfirm: false }, 
+                function(){   
+
+                    $.post('/api/v1/delPhoto',{id:PAGECONFIG.photoId},function(res){
+                        if(res.errorno===0){
+                             swal("删除成功", "", "success");
+                        }
+
+                    })
+
+
+                });
+
+        }
+
+        $('#delphoto').on('click',delPhoto)
 
     </script>
 {{/extend}}

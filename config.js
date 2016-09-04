@@ -22,11 +22,6 @@ var config = {
     ],
     site_logo: '/public/images/cnodejs_light.svg', // default is `name`
     site_icon: '/public/images/cnode_icon_32.png', // 默认没有 favicon, 这里填写网址
-    // 右上角的导航区
-    site_navs: [
-        // 格式 [ path, title, [target=''] ]
-        ['/about', '关于']
-    ],
     // cdn host，如 http://cnodejs.qiniudn.com
     site_static_host: '', // 静态文件存储域名
     // 社区的域名
@@ -125,7 +120,9 @@ var config = {
         {name: 'art', text: '风光'},
         {name: 'street', text: '街拍'},
         {name: 'travel', text: '人像'},
-        {name: 'fashion', text: '时尚'}
+        {name: 'fashion', text: '时尚'},
+         {name: 'private ', text: '私房'}
+
     ],
 
     //视频分类
