@@ -1,3 +1,7 @@
+{{#extend "title"}}
+{{photo.title}} 
+{{/extend}}
+
 {{#extend "stylesheets"}}
     <link rel="stylesheet" type="text/css" href="/vendor/ilightbox/ilightbox.css">
     <link rel="stylesheet" type="text/css" href="/vendor/ilightbox/skin.css">
@@ -17,20 +21,21 @@
 {{/extend}}
 
 
-<div class="container contentFirst">
+<div class="container container-fluid">
     <div class="row">
-        <div class="col-md-9 col-sm-12 col-center">
-            <div class="photo-header">
+        <div class="col-sm-12">
+                      <div class="photo-header">
+
                 <div class="user-icon"><a href="/userspace/{{author.id}}"><img
                         src="{{author.avatar}}?imageView2/1/w/50/" alt="{{author.nickname}}"></a></div>
                 <div class="photo-base-info">
                     <h1>{{photo.title}} 
-{{#if authorIsSelf}}
+                    {{#if authorIsSelf}}
 
                     <small><a href="/photo/{{photo.id}}/edit">编辑</a></small>
                     <small><a id="delphoto" href="javascript:void(0)">删除</a></small>
 
-{{/if}}
+                    {{/if}}
                     </h1>
                     <div class="photo-mark">
                         <label>浏览{{photo.browse_cnt}}</label>
@@ -41,27 +46,38 @@
                     <div class="photo-author">
                         <b style="vertical-align: -2px;">&copy;</b> <a
                             href="/userspace/{{author.id}}">{{author.nickname}}</a>
-                        {{#if authorIsNotSelf}}
-
-                            {{#if isFollow}}
-                                <label class="button button-rounded button-tiny button-small btn-follow" id="unfollow"
-                                       data-type="1">✔ 已关注</label>
-                                <label style="display: none;"
-                                       class="button button-rounded button-primary button-small btn-follow" id="follow"
-                                       data-type="2">+ 关注</label>
-                            {{else}}
-                                <label style="display: none;"
-                                       class="button button-rounded button-tiny button-small btn-follow" id="unfollow"
-                                       data-type="1">✔ 已关注</label>
-                                <label class="button button-rounded button-primary button-small btn-follow" id="follow"
-                                       data-type="2">+ 关注</label>
-                            {{/if}}
-<label class="button button-rounded button-caution button-small j-btn-reward">打赏</label>
-
-
-                        {{/if}}
+                        
                         
                     </div>
+
+   
+                </div>
+
+                   <!--关注按钮-->
+                    {{#if authorIsNotSelf}}
+                     <div class="pull-left action_btn">
+                            {{#if isFollow}}
+                                <label class="button  button-tiny button-small btn-follow" id="unfollow"
+                                       data-type="1">✔ 已关注</label>
+                                <label style="display: none;"
+                                       class="button  button-primary button-small btn-follow" id="follow"
+                                       data-type="2"><span class="glyphicon glyphicon-plus"></span> 关注</label>
+                            {{else}}
+                                <label style="display: none;"
+                                       class="button  button-tiny button-small btn-follow" id="unfollow"
+                                       data-type="1">✔ 已关注</label>
+                                <label class="button  button-primary button-small btn-follow" id="follow"
+                                       data-type="2"><span class="glyphicon glyphicon-plus"></span> 关注</label>
+                            {{/if}}
+                    <label class="button  button-caution button-small j-btn-reward"><span class="glyphicon glyphicon-gift"></span> 打赏</label>
+
+                    </div>
+                        {{/if}}
+                <!--关注按钮-->
+
+                
+
+
                     {{#if rewardUsers}}
                         <div class="reward-list">
                             <span>已打赏人员:</span>
@@ -70,8 +86,11 @@
                             {{/each}}
                         </div>
                     {{/if}}
-                </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12">
 
             <div class="photo-discrib">
                 {{discrib}}
@@ -84,29 +103,41 @@
                             <a class="j-img-link" href="http://img.fengimage.com/{{this}}" data-type="image">
                                 <img class="tobeview lazy"
                                      data-original="http://img.fengimage.com/{{this}}?imageView2/1/"
+                                     src='/img/loading.gif'
                                      alt="{{photo.title}} "/>
                             </a>
                             <div class="img-desc">
-                                <h2>图片{{add @index 1}}</h2>
-                                <a href="#comment" class="button button-rounded button-default button-small">评论</a>
+                                P{{add @index 1}}
+                                <a href="#comment" class="btn btnWhiteSmoke">评论</a>
                             </div>
                         </div>
                     {{/each}}
                 </div>
             </section>
-            <!-- 评论 -->
-            <div class="m-comment" id="comment">
-                <h2>用户评论 (<span id="comment-count"></span>条评论)
-                </h2>
-                <textarea id="commentContent"></textarea>
-                <div style="text-align: right">
-                    <button class="btn" id="submit-comment">提交评论</button>
-                </div>
-                <div class="m-comment-list">
+ 
+
+        </div>
+        <div class="col-lg-3  col-md-3  col-sm-12">
+                       <!-- 评论 -->
+<div class="m-comment" id="comment">
+            <div class="panel">
+  <div class="panel-heading">用户评论 <small>(<span id="comment-count"></span>条评论)</small></div>
+  <div class="panel-body">
+    <textarea id="commentContent" class="form-control" rows="2"  placeholder="您的评论是对作者最大的鼓励..."></textarea>
+                    <br>
+                    <button class="btn btn-success btn-sm" id="submit-comment">发表评论</button>
+    <div class="m-comment-list">
 
                 </div>
-                <div class="load-comment-more">加载更多</div>
-            </div>
+  </div>
+</div>
+
+                </div>
+<!--                 <div class="load-comment-more">加载更多</div>-->           
+ </div>
+            <!-- 评论 -->
+<br style="clear:both" />
+<br>
         </div>
     </div>
 </div>
@@ -115,7 +146,7 @@
 <script type="text/template" id="template1">
     <div class="g-layer-wrap">
         <div class="g-layer-box">
-            <span class="u-close">X</span>
+            <span class="u-close"><i class="glyphicon glyphicon-remove"></i></span>
             <h1>作品打赏</h1>
             <ul class="money-list">
                 <li class="active" data-money="2">¥ 2.00</li>
@@ -132,14 +163,14 @@
                 <h2>支付方式</h2>
                 <ul>
                     <li>
-                        <label>个人钱包&nbsp;
-                            <input name="pay-type" value="1" type="radio"></label></li>
+                        <label>
+                            <input name="pay-type" value="1" type="radio"></label>个人钱包&nbsp;</li>
                     <li>
-                        <label>微信&nbsp;
-                            <input name="pay-type" value="2" type="radio"></label></li>
+                        <label>
+                            <input name="pay-type" value="2" type="radio"></label>微信&nbsp;</li>
                     <li>
-                        <label>支付宝&nbsp;
-                            <input name="pay-type" value="3" type="radio"></label></li>
+                        <label>
+                            <input name="pay-type" value="3" type="radio"></label>支付宝&nbsp;</li>
                 </ul>
             </div>
             <div class="g-layer-footer">

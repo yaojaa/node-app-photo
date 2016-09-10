@@ -52,9 +52,7 @@ dd{
   padding:10px 0;
 }
 .footer{
-  position: absolute;
-  width: 100%;
-  bottom: 0;
+ 
   background-color: #dedede;
   padding-top: 20px;
   padding-bottom: 20px;
