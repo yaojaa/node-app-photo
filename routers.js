@@ -33,9 +33,10 @@ router.use(response);
 //添加本地变量
 router.use(local);
 
-router.get('/', function (req, res) {
-    res.render('home', {user: req.session.user})
-});
+// router.get('/', function (req, res) {
+//     // res.render('home', {user: req.session.user})
+
+// });
 
 router.get('/ranking', function (req, res) {
     res.render('ranking', {user: req.session.user})
@@ -98,9 +99,9 @@ router.get('/weibo/callback', weibo.callback);  // 微博登录回调
 qiniu.conf.ACCESS_KEY = config.qn_access.ACCESS_KEY;
 qiniu.conf.SECRET_KEY = config.qn_access.SECRET_KEY;
 
-var uptoken = new qiniu.rs.PutPolicy(config.qn_access.Bucket_Name);
 
 router.get('/uptoken', function (req, res) {
+    var uptoken = new qiniu.rs.PutPolicy(config.qn_access.Bucket_Name);
     var token = uptoken.token();
     res.json({
         uptoken: token

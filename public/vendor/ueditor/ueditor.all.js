@@ -8065,7 +8065,7 @@ UE.Editor.defaultOptions = function(editor){
 
                 /* 发出ajax请求 */
                 me._serverConfigLoaded = false;
-
+                console.log(configUrl)
                 configUrl && UE.ajax.request(configUrl,{
                     'method': 'GET',
                     'dataType': isJsonp ? 'jsonp':'',

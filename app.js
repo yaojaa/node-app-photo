@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 // var favicon = require('serve-favicon');
 // var logger = require('morgan');
-
+var fs = require('fs');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
@@ -15,9 +15,8 @@ require('./hbs')(app);
 
 app.set('views', __dirname + '/views');
 
-//app.use(function(req,res,next){
-//  if(!res.locals.partials) res.locals.partials = {};
-//});
+var indexHtml=fs.readFileSync(path.join(__dirname,'/dist/index.html'));
+app.use(express.static(path.join(__dirname, './dist')));
 
 
 // //开启cookie
@@ -72,9 +71,6 @@ app.locals.qn_access = config.qn_access
 // });
 
 
-//static中间件
-app.use(express.static(path.join(__dirname, 'public')));
-
 // app.use('/', routes);
 // app.use('/users', users);
 
@@ -82,6 +78,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 //路由
 var router = require('./routers.js');
 var apiRouterV1 = require('./api_router_v1');
+
+app.use(function (req,res,next) {
+    console.log(req.url.indexOf('/static')===-1 , req.url.indexOf('/api')===-1)
+  if(req.url.indexOf('/static')===-1 && req.url.indexOf('/api')===-1){
+    res.setHeader('content-type','html');
+    res.send(indexHtml);
+  }else{
+    next();
+  }
+
+})
 
 app.use('/api/v1', cors(), apiRouterV1);
 app.use('/', router);
@@ -129,8 +136,14 @@ app.use(function (err, req, res, next) {
 var server = app.listen(config.port, function () {
     var host = 'localhost';
     var port = server.address().port;
-
     console.log('Example app listening at http://%s:%s', host, port);
+    var uri = 'http://localhost:' + port
+
+      // when env is testing, don't need open it
+  if (process.env.NODE_ENV !== 'testing') {
+    var opn = require('opn')
+    opn(uri)
+  }
 });
 
 module.exports = app;

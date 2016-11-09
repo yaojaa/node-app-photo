@@ -68,7 +68,6 @@
         },
         close: function ($img) {
 
-            console.log('base.close run')
 
             $img.css({
                 top: ($img.parent().height() - $img.height()) / 2,
@@ -178,7 +177,7 @@
         getToken:!function(callback){
             var me=this;
             $.get('/uptoken',function(res){
-               Upload.getToken = res.uptoken;
+               Upload.getToken = res.uptoken
             })
         }(),
         render: function (sel, t) {
@@ -192,6 +191,17 @@
             url=url + (url.indexOf("?") == -1 ? "?" : "&") + "editorid="+me.editor.id;//初始form提交地址;
             $("form", $(sel, me.dialog)).attr("action", url);
             return me;
+        },
+        Qiniu_getList:function(){
+
+        	$.post('http://7xrf0p.com2.z0.glb.clouddn.com',{'bucket':'photo','Authorization':Upload.getToken},function(res){
+
+        		console.log(res)
+
+        	})
+
+
+
         },
 
          //ajax上传到七牛
@@ -373,10 +383,10 @@
     UM.registerWidget('image', {
         tpl: "<link rel=\"stylesheet\" type=\"text/css\" href=\"<%=image_url%>image.css\">" +
             "<div class=\"edui-image-wrapper\">" +
-            // "<ul class=\"edui-tab-nav\">" +
-            // "<li class=\"edui-tab-item edui-active\"><a data-context=\".edui-image-local\" class=\"edui-tab-text\"><%=lang_tab_local%></a></li>" +
-            // "<li  class=\"edui-tab-item\"><a data-context=\".edui-image-JimgSearch\" class=\"edui-tab-text\"><%=lang_tab_imgSearch%></a></li>" +
-            // "</ul>" +
+            "<ul class=\"edui-tab-nav\">" +
+            "<li class=\"edui-tab-item edui-active\"><a data-context=\".edui-image-local\" class=\"edui-tab-text\"><%=lang_tab_local%></a></li>" +
+            "<li  class=\"edui-tab-item\"><a data-context=\".edui-image-JimgSearch\" class=\"edui-tab-text\">在线管理</a></li>" +
+            "</ul>" +
             "<div class=\"edui-tab-content\">" +
             "<div class=\"edui-image-local edui-tab-pane edui-active\">" +
             "<div class=\"edui-image-content\"></div>" +
@@ -393,7 +403,6 @@
             "</div>" +
             "</div>",
         initContent: function (editor, $dialog) {
-            console.log('initContent ')
             var lang = editor.getLang('image')["static"],
                 opt = $.extend({}, lang, {
                     image_url: UMEDITOR_CONFIG.UMEDITOR_HOME_URL + 'dialogs/image/'
@@ -410,36 +419,27 @@
             currentDialog = $dialog.edui();
                 this.root().html(html);
 
-
-
-
         },
         initEvent: function (editor, $w) {
-
-                       console.log('initEvent')
 
             $tab = $.eduitab({selector: ".edui-image-wrapper"})
                 .edui().on("beforeshow", function (e) {
                     e.stopPropagation();
                 });
 
-         
             Upload.init(editor, $w);
+
+            setTimeout(function(){
+            	Upload.Qiniu_getList()
+            },4000)
 
         },
         buttons: {
             'ok': {
                 exec: function (editor, $w) {
                     var  sel = ".edui-image-content";
-                
-
                     var list = Base.getAllPic(sel, $w, editor);
-
-                    console.log(list);
-                      console.log($w);
-
                     editor.execCommand('insertimage', list);
-
                 }
             },
             'cancel': {}

@@ -1,0 +1,580 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"bas",
+				"Base"
+			],
+			[
+				"ne",
+				"next_page"
+			],
+			[
+				"room",
+				"RoomListVM"
+			],
+			[
+				"par",
+				"param_page"
+			],
+			[
+				"has",
+				"has_next_page"
+			],
+			[
+				"te",
+				"true"
+			],
+			[
+				"sho",
+				"showCount"
+			],
+			[
+				"get",
+				"getLocal"
+			],
+			[
+				"st",
+				"stringify"
+			],
+			[
+				"err",
+				"error"
+			],
+			[
+				"pa",
+				"param"
+			],
+			[
+				"to",
+				"totalRoom"
+			],
+			[
+				"pr",
+				"price"
+			],
+			[
+				"dri",
+				"driftY"
+			],
+			[
+				"total",
+				"totalCount"
+			],
+			[
+				"chang",
+				"changCount"
+			],
+			[
+				"roo",
+				"room_id"
+			],
+			[
+				"data",
+				"dataObj"
+			],
+			[
+				"roomi",
+				"room_id"
+			],
+			[
+				"add",
+				"addTo"
+			],
+			[
+				"place",
+				"place_id"
+			],
+			[
+				"Pr",
+				"price"
+			],
+			[
+				"numbox",
+				"min-numbox"
+			],
+			[
+				"num",
+				"number"
+			],
+			[
+				"pri",
+				"price"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"con",
+				"count"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"l",
+				"list"
+			],
+			[
+				"va",
+				"value"
+			],
+			[
+				"inp",
+				"input"
+			],
+			[
+				"para",
+				"param-value"
+			],
+			[
+				"date",
+				"dateInput"
+			],
+			[
+				"loca",
+				"LocationInfo"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"boo",
+				"bottom"
+			],
+			[
+				"_ci",
+				"_city_name"
+			],
+			[
+				"po",
+				"position"
+			],
+			[
+				"city",
+				"city_center_location"
+			],
+			[
+				"ci",
+				"city_id"
+			],
+			[
+				"placelis",
+				"PlaceListVM"
+			],
+			[
+				"lo",
+				"location"
+			],
+			[
+				"us",
+				"user_location"
+			],
+			[
+				"set",
+				"setItem"
+			],
+			[
+				"off",
+				"offset"
+			],
+			[
+				"tran",
+				"transition"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"col",
+				"color"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"inu",
+				"input-error"
+			],
+			[
+				"btn",
+				"btn_remove"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"ro",
+				"rownum"
+			],
+			[
+				"ta",
+				"table"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 354.0,
+		"last_filter": "pai",
+		"selected_items":
+		[
+			[
+				"pai",
+				"Package Control: Install Package"
+			],
+			[
+				"pic",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 557.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/snail/Documents/mygitLib/node-app-photo/public/vendor/qiniu.js",
+		"/Users/snail/Documents/mygitLib/node-app-photo/public/vendor/umeditor1_2_2-utf8-php/dialogs/image/image.js",
+		"/Users/snail/Documents/mygitLib/node-app-photo/public/vendor/umeditor1_2_2-utf8-php/umeditor.config.js",
+		"/Users/snail/Documents/mygitLib/node-app-photo/views/create-aticle.handlebars",
+		"/Users/snail/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/Wechat/1.2/653f3db6c6afc83dee7747cb0e4cc96a/Message/MessageTemp/21960c2542db34cba031e4dd27afb18d/OpenData/23.js",
+		"/Users/snail/Downloads/utf8-php/dialogs/image/image.html",
+		"/Users/snail/Documents/mygitLib/node-app-photo/views/create-aticle-bak.handlebars",
+		"/Users/snail/Documents/mobile/views/room/detail.php",
+		"/Users/snail/Documents/mobile/controllers/Room.php",
+		"/Users/snail/Documents/mobile/views/room/cartform.php",
+		"/Users/snail/Documents/mobile/views/room/cart.php",
+		"/Users/snail/Documents/mobile/webroot/eventown/js/roomlist.js",
+		"/Users/snail/Documents/mobile/views/room/search.php",
+		"/Users/snail/Documents/mobile/webroot/eventown/moudle/get_user_location_info.js",
+		"/Users/snail/Documents/mobile/webroot/eventown/js/room_cat.js",
+		"/Users/snail/Documents/mobile/webroot/eventown/js/room_detail.js",
+		"/Users/snail/Documents/mobile/webroot/eventown/js/room-details.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/detail.php/detail.php",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/cart.php/cart.php",
+		"/Users/snail/Library/Application Support/Sublime Text 3/Packages/User/sftp_servers/untitled",
+		"/Users/snail/Documents/mobile/sftp-config.json",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/room_detail.js/room_detail.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/simpleDateRangePicker.js/simpleDateRangePicker.js",
+		"/Users/snail/Downloads/room/room_list.html",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/site.css/site.css",
+		"/Users/snail/Documents/node-app-photo-by-vue/src/App.vue",
+		"/Users/snail/Downloads/ion.rangeSlider-2.1.4/html.html",
+		"/Users/snail/Documents/node-app-photo-by-vue/index.html",
+		"/Users/snail/Documents/node-app-photo-by-vue/package.json",
+		"/Users/snail/Documents/node-app-photo-by-vue/build/build.js",
+		"/Users/snail/Documents/node-app-photo-by-vue/build/webpack.prod.conf.js",
+		"/Users/snail/Documents/mygitLib/hexo/source/_posts/webpack.md",
+		"/Users/snail/Downloads/ion.rangeSlider-2.1.4/js/ion-rangeSlider/ion.rangeSlider.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/room_cat.js/room_cat.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/room.css/room.css",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/roomlist.js/roomlist.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/search.php1/search.php",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/ion.rangeSlider.js/ion.rangeSlider.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/get_user_location_info.js/get_user_location_info.js",
+		"/Users/snail/Documents/node-app-photo-by-vue/src/main.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/site.js/site.js",
+		"/Users/snail/Documents/node-app-photo-by-vue/src/components/swiper.vue",
+		"/Users/snail/Downloads/room_detail.js",
+		"/Users/snail/Downloads/时尚造型师关沐琳_files/viewDepthVisit.js",
+		"/Users/snail/Library/Application Support/Yummy FTP/Remote Edits/192.168.100.17 Edits/search.php/search.php",
+		"/Users/snail/Downloads/时尚造型师关沐琳.htm",
+		"/Users/snail/Downloads/时尚造型师关沐琳_files/all-80136e0d9d.min.js",
+		"/Users/snail/Downloads/时尚造型师关沐琳_files/jquery.min.js",
+		"/Users/snail/Documents/get_user_location_info.js",
+		"/Users/snail/Downloads/Stryzhevskyi-rangeSlider-e00b83b/dist/rangeSlider.js",
+		"/Users/snail/Documents/node-app-photo-by-vue/dist/index.html",
+		"/Users/snail/Documents/node-app-photo-by-vue/dist/static/js/manifest.5cf042c44af19438c484.js",
+		"/Users/snail/Downloads/ion.rangeSlider-2.1.4/js/ion-rangeSlider/html.html",
+		"/Users/snail/Documents/mygitLib/node-app-photo/public/css/photo-detail.css",
+		"/Users/snail/Downloads/Stryzhevskyi-rangeSlider-e00b83b/example/index.html",
+		"/Users/snail/Downloads/Stryzhevskyi-rangeSlider-e00b83b/example/test.html",
+		"/Users/snail/Downloads/Stryzhevskyi-rangeSlider-e00b83b/src/rangeSlider.js",
+		"/Users/snail/Documents/mygitLib/node-app-photo/views/photo-view.handlebars",
+		"/Users/snail/Documents/mygitLib/node-app-photo/public/css/style.css"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"globalConfig",
+			"bucket",
+			"getActionUrl",
+			"serverUrl",
+			"上传功能将不能正常使用",
+			"上传",
+			"onlineImage",
+			"console",
+			"submit",
+			"render",
+			"getAllPic",
+			"activate",
+			"getAllPic",
+			"edui-dialog-container",
+			"NetWork",
+			"toggleMask",
+			"param_page",
+			"renderPlaceList",
+			"user_location",
+			"location",
+			"alert",
+			"this",
+			"_location",
+			"checked",
+			"totalPrice",
+			"eab79f23fb8d0bc5fa151764fbab0070bdec9b05",
+			"getData",
+			"rollObj",
+			"toInteger",
+			"to",
+			"off",
+			"getBoundingClientRect",
+			"_$",
+			"animatTarget",
+			"ma p",
+			"this.roomList[pIndex].room_info[index].number",
+			"computedPice",
+			"date-input",
+			"setTips",
+			"page-in",
+			"fomatDate",
+			"111",
+			".nearby-hotel li h4",
+			"c",
+			"getSceneData",
+			"function u",
+			"SERVER_1",
+			"eqs/",
+			"/eqs/",
+			"/eqs/p",
+			"/eqs/page",
+			"/eqs/page/",
+			"时尚造型师关沐琳_files",
+			"weui_check translate",
+			"结束日期",
+			"开始日期",
+			"日期",
+			"search-remove",
+			"位置",
+			"','",
+			",",
+			"renderPlaceList",
+			"city_center_location",
+			"header-icon-group",
+			"user_location",
+			"inter",
+			"pointerMove",
+			"drag",
+			": '',",
+			"example_name",
+			"getPlaceData",
+			"paramChange",
+			"getCityPositionInfoById",
+			"area",
+			"fomatDate",
+			"formate",
+			"endDate",
+			"startDate",
+			"clickDate",
+			"clickApply",
+			"dateInput",
+			"new Date()",
+			"this",
+			"Room",
+			"show",
+			"close-date",
+			"PlaceListVM",
+			"starRange",
+			".width(false)",
+			"this.$cache.to",
+			"irs-to",
+			"calc",
+			"pointerMove",
+			"dragging",
+			"touches",
+			"outerWidth",
+			"outerWidt",
+			"outerWidth",
+			"<br>",
+			"#filter-body",
+			"，",
+			",",
+			"getWeekNumber",
+			"renderCalendar",
+			"checkminDate",
+			"renderCalendar",
+			"monthLength",
+			".item-list>li.active",
+			"/console*/",
+			"console",
+			"tmpCity_id",
+			"select-city",
+			"location",
+			"未知",
+			"(",
+			"renderPlaceList",
+			"VM",
+			"city_location",
+			"nearby",
+			"getCityPositionInfoById",
+			"city",
+			"city_location",
+			"renderCityList",
+			"cacheCities",
+			"switchCity",
+			"/api/place/get_city_list",
+			"get_city_list",
+			"isNearby"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 198.0
+	},
+	"pinned_build_system": "",
+	"project": "image.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": false,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 311.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
