@@ -1,11 +1,16 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
+// 使用semantic
+import '../public/semantic/semantic.min.css'
+import semantic from 'semantic'
 import LoginView from './components/Login.vue'
 import aboutUs from './components/about_us.vue'
 import eventPage from './components/eventsPage.vue'
 import homeView from './components/homeView.vue'
 import aticleView from './components/aticleView.vue'
+import regView from './components/regView.vue'
+import downAppView from './components/downAppView.vue'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 Vue.use(VueRouter)
@@ -23,7 +28,9 @@ const routes = [
   { path: '/Login', component: LoginView },
   { path: '/about_us', component: aboutUs },
   { path: '/event', component: eventPage },
+  { path: '/reg', component: regView },
   { path: '/', component: homeView },
+  { path: '/downApp', component: downAppView },
   {
     path: '/subject/:id',
     name: 'subject',
@@ -55,5 +62,5 @@ new Vue({
   el: '#app',
   router: router,
   template: '<App/>',
-  components: { App }
+  components: { App, semantic }
 })

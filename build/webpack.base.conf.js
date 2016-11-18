@@ -1,7 +1,8 @@
-var path = require('path')
+                                                                                                                                                                    var path = require('path')
 var config = require('../config/index.js')
 var utils = require('./utils')
 var projectRoot = path.resolve(__dirname, '../')
+var webpack = require('webpack')
 
 var env = process.env.NODE_ENV
 // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
@@ -26,7 +27,8 @@ module.exports = {
       'vue$': 'vue/dist/vue',
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'semantic': path.resolve(__dirname, '../public/semantic/semantic.min.js')
     }
   },
   resolveLoader: {
@@ -39,13 +41,13 @@ module.exports = {
         loader: 'eslint',
         include: projectRoot,
         exclude: /node_modules/
-      },
-      {
-        test: /\.js$/,
-        loader: 'eslint',
-        include: projectRoot,
-        exclude: /node_modules/
       }
+      // {
+      //   test: /\.js$/,
+      //   loader: 'eslint',
+      //   include: projectRoot,
+      //   exclude: /public/
+      // }
     ],
     loaders: [
       {

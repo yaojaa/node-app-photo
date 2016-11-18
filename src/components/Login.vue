@@ -1,46 +1,93 @@
 <template>
-<div class="ui container middle aligned center aligned grid two">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-      <br><br>
-        Log-in to your account
-      </div>
-    </h2>
-    <form class="ui large form">
-      <div class="ui stacked segment">
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <input type="text" name="email" placeholder="E-mail address">
-          </div>
+  <div class="login-form">
+    <h1>欢迎回来 ：）</h1>
+    <div class="g-form">
+      <div class="g-form-line">
+        <span class="g-form-label">用户名：</span>
+        <div class="g-form-input">
+          <input type="text" 
+          v-model="usernameModel" placeholder="请输入用户名">
         </div>
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            <input type="password" name="password" placeholder="Password">
-          </div>
-        </div>
-        <div class="ui fluid large teal submit button">Login</div>
+        <span class="g-form-error">{{ userErrors.errorText }}</span>
       </div>
-
-      <div class="ui error message"></div>
-
-    </form>
-
-    <div class="ui message">
-      New to us? <a href="#">Sign Up</a>
+      <div class="g-form-line">
+        <span class="g-form-label">密码：</span>
+        <div class="g-form-input">
+          <input type="password" 
+          v-model="passwordModel" placeholder="请输入密码">
+        </div>
+        <span class="g-form-error">{{ passwordErrors.errorText }}</span>
+      </div>
+      <div class="g-form-line">
+        <div class="g-form-btn">
+          <a class="button" @click="onLogin">登录</a>
+        </div>
+      </div>
+      <p>{{ errorText }}</p>
     </div>
   </div>
-</div>
 </template>
 
 <script>
 export default {
-  name: 'login',
   data () {
     return {
-      msg: 'Welcome to login '
+      usernameModel: '',
+      passwordModel: '',
+      errorText: ''
+    }
+  },
+  computed: {
+    userErrors () {
+      let errorText, status
+      if (!/@/g.test(this.usernameModel)) {
+        status = false
+        errorText = '不包含@'
+      } else {
+        status = true
+        errorText = ''
+      }
+      if (!this.userFlag) {
+        errorText = ''
+        this.userFlag = true
+      }
+      return {
+        status,
+        errorText
+      }
+    },
+    passwordErrors () {
+      let errorText, status
+      if (!/^\w{1,6}$/g.test(this.passwordModel)) {
+        status = false
+        errorText = '密码不是1-6位'
+      } else {
+        status = true
+        errorText = ''
+      }
+      if (!this.passwordFlag) {
+        errorText = ''
+        this.passwordFlag = true
+      }
+      return {
+        status,
+        errorText
+      }
+    }
+  },
+  methods: {
+    onLogin () {
+      if (!this.userErrors.status || !this.passwordErrors.status) {
+        this.errorText = '部分选项未通过'
+      } else {
+        this.errorText = ''
+        this.$http.get('api/login')
+        .then((res) => {
+          this.$emit('has-log', res.data)
+        }, (error) => {
+          console.log(error)
+        })
+      }
     }
   }
 }
@@ -48,23 +95,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.gongyong_logout {
-    width: 710px;
-    margin: 30px auto;
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid #dbe0eb;
-    border-top: 3px solid #19b915;
-    padding: 50px 70px;
-}
-.gongyong_logout .left {
-    width: 285px;
-    float: left;
-    border-right: 1px solid #dbe0eb;
-    padding-right: 70px;
-}
-.gongyong_logout .login_right {
-    float: left;
-    padding-left: 70px;
-}
 </style>

@@ -32,6 +32,8 @@ router.post('/getUserInfoById',ucenterController.getUserInfoById);
 //获取文章列表
 
 router.get('/getAticles', aticleController.getAticleList);
+router.get('/getAticleById', aticleController.getAticleById);
+
 
 router.get('/videolist', videoController.videolist);
 

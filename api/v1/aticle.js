@@ -107,7 +107,21 @@ var getAticleList = function (req, res,next) {
     })
 };
 
+/****/
+var getAticleById = function(req, res, next) {
+  var id = req.query.id;
+  AticleProxy.findAticleById(id, function(err,data) {
+    if (err) {
+      return next(err);
+    }
+    res.json({
+      errorno: 0,
+      msg: "获取成功",
+      data:data
+    });
+  })
 
+}
 
 
 
@@ -229,6 +243,7 @@ exports.delAticle = delAticle;
 exports.createAticle = createAticle;
 exports.getAticleList = getAticleList;
 exports.update = update;
+exports.getAticleById = getAticleById
 
 
 

@@ -56,7 +56,7 @@ router.use('/sys', sysRouter);
 
 
 router.get('/protocol', function (req, res) {
-    res.render('user_protocol');
+    res.render('user_protocol', {layout: null});
 });  // 用户注册协议
 
 router.get('/password_reset', function (req, res) {

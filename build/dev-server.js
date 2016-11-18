@@ -1,6 +1,8 @@
 require('./check-versions')()
 var config = require('../config/index.js')
 if (!process.env.NODE_ENV) process.env.NODE_ENV = config.dev.env
+console.log(config.dev.env)
+
 var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
@@ -26,7 +28,6 @@ var devMiddleware = require('webpack-dev-middleware')(compiler, {
   }
 })
 
-//加上 webpack-hot-middleware 使其具備熱替換的功能。
 var hotMiddleware = require('webpack-hot-middleware')(compiler)
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
@@ -36,16 +37,17 @@ compiler.plugin('compilation', function (compilation) {
   })
 })
 
-var app = require('../app.js')
+// var app = express()
 
+var app = require('../app.js')
 // proxy api requests
-Object.keys(proxyTable).forEach(function (context) {
-  var options = proxyTable[context]
-  if (typeof options === 'string') {
-    options = { target: options }
-  }
-  app.use(proxyMiddleware(context, options))
-})
+// Object.keys(proxyTable).forEach(function (context) {
+//   var options = proxyTable[context]
+//   if (typeof options === 'string') {
+//     options = { target: options }
+//   }
+//   app.use(proxyMiddleware(context, options))
+// })
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
@@ -59,6 +61,8 @@ app.use(hotMiddleware)
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+
+console.log('staticPath',staticPath)
 app.use(staticPath, express.static('./static'))
 
 // module.exports = app.listen(port, function (err) {
